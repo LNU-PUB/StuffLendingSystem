@@ -1,5 +1,11 @@
 package model;
 
+import model.lib.Email;
+import model.lib.Id;
+import model.lib.Name;
+import model.lib.Telephone;
+import model.lib.Time;
+
 /**
  * Responsible for performing operations on members.
  */
@@ -9,69 +15,6 @@ public class Member {
   private Telephone telephone;
   private Id id;
   private int creationDay;
-  private Time time;
-
-  /**
-   * The name class.
-   */
-  public static class Name {
-    private String name;
-
-    public Name(String name) {
-      this.name = name;
-    }
-
-    public String getName() {
-      return name;
-    }
-  }
-
-  /**
-   * The email class.
-   * The email needs to be unique for each member.
-   */
-  public static class Email {
-    private String email;
-
-    public Email(String email) {
-      this.email = email;
-    }
-
-    public String getEmail() {
-      return email;
-    }
-  }
-
-  /**
-   * The telephone class.
-   * The telephone number needs to be unique for each member.
-   */
-  public static class Telephone {
-    private String telephone;
-
-    public Telephone(String telephone) {
-      this.telephone = telephone;
-    }
-
-    public String getTelephone() {
-      return telephone;
-    }
-  }
-
-  /**
-   * The id class.
-   */
-  public static class Id {
-    private String id;
-
-    public Id(String id) {
-      this.id = id;
-    }
-
-    public String getId() {
-      return id;
-    }
-  } 
 
   /**
    * Constructor for the member class.
@@ -80,9 +23,9 @@ public class Member {
    * @param email - The email of the member.
    * @param telephone - The telephone number of the member.
    * @param id - The id of the member.
+   * @param time - The time of the member's creation.
    */
-  public Member(Name name, Email email, Telephone telephone, Id id) {
-    this.time = Time.getInstance();
+  public Member(Name name, Email email, Telephone telephone, Id id, Time time) {
     this.name = name;
     this.email = email;
     this.telephone = telephone;
@@ -107,7 +50,6 @@ public class Member {
   }
 
   @Override
-  // Simple way of displaying the member.
   public String toString() {
     return "Member{"
         + "name=" + name.getName()
@@ -117,7 +59,4 @@ public class Member {
         + ", creationDay=" + Integer.toString(creationDay) 
         + '}';
   }
-
-  // Verbose way of displaying the member.
-
 }

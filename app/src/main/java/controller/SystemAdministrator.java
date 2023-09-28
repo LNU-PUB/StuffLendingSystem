@@ -1,10 +1,12 @@
 package controller;
 
 import model.Member;
-import model.Member.Email;
-import model.Member.Name;
-import model.Member.Telephone;
+import model.lib.Email;
+import model.lib.Name;
+import model.lib.Telephone;
+import model.lib.Time;
 import model.MemberAdministration;
+import view.ConsoleUi;
 
 
 
@@ -15,9 +17,11 @@ import model.MemberAdministration;
  */
 public class SystemAdministrator {
   private MemberAdministration memberAdmin;
+  private ConsoleUi consoleUI;
 
   public SystemAdministrator() {
     memberAdmin = new MemberAdministration();
+    consoleUI = new ConsoleUi();
   }
 
   /**
@@ -26,9 +30,11 @@ public class SystemAdministrator {
    * @param name - The name of the member.
    * @param email - The email of the member.
    * @param telephone - The telephone of the member.
+   * @param time - The time of the member's creation.
    */
-  public void addMember(Name name, Email email, Telephone telephone) {
-    memberAdmin.addMember(name, email, telephone);
+  public void addMember(Name name, Email email, Telephone telephone, Time time) {
+    memberAdmin.addMember(name, email, telephone, time);
+
   }
   // public void addMember() {
   //   System.out.println("Enter name: ");
@@ -39,6 +45,12 @@ public class SystemAdministrator {
   //   Telephone telephone = new Telephone(System.console().readLine());
   //   persistence.addMember(name, email, telephone);
   // }
+
+  public void displayMembers() {
+    for (Member member : memberAdmin.listMembers()) {
+      consoleUI.displayData(member.toString());
+    }
+  }
 
   public void deleteMember(Member member) {
     memberAdmin.deleteMember(member);

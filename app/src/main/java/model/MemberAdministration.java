@@ -2,10 +2,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
-import model.Member.Email;
-import model.Member.Id;
-import model.Member.Name;
-import model.Member.Telephone;
+import model.lib.Email;
+import model.lib.Id;
+import model.lib.Name;
+import model.lib.Telephone;
+import model.lib.Time;
 
 /**
  * Responsible for performing operations on members.
@@ -27,8 +28,9 @@ public class MemberAdministration {
    * @param name - The name of the member.
    * @param email - The email of the member.
    * @param telephone - The telephone number of the member.
+   * @param time - The time of the member's creation.
    */
-  public void addMember(Name name, Email email, Telephone telephone) {
+  public void addMember(Name name, Email email, Telephone telephone, Time time) {
     if (checkEmail(email.getEmail())) {
       System.out.println("Email already in use.");
       return;
@@ -42,7 +44,7 @@ public class MemberAdministration {
       System.out.println("Id already in use.");
       return;
     }
-    Member member = new Member(name, email, telephone, id);
+    Member member = new Member(name, email, telephone, id, time);
     members.add(member);
   }
 
@@ -83,6 +85,7 @@ public class MemberAdministration {
    */
   public Iterable<Member> listMembers() {
     return members;
+    // For testing
     // System.out.println("Members:");
     // for (Member member : members) {
     // System.out.println(member.toString());
@@ -94,17 +97,12 @@ public class MemberAdministration {
     Random random = new Random();
     String tmp = "";
     Id id = null;
-    // int count = 0;
-    // do {
-    // the id should be 6 chars long, with random chars from the alphaNum string
+    
     for (int i = 0; i < 6; i++) {
       tmp += alphaNum.charAt(random.nextInt(alphaNum.length()));
     }
-    // tmp="123asd";
+
     id = new Id(tmp);
-    // count++;
-    // } while (checkId(id.getId()) && count < 10); // check if the id is already in
-    // use
     return id;
   }
 
