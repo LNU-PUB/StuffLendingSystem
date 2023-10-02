@@ -1,13 +1,11 @@
 package view;
 
-import java.lang.reflect.Member;
-
 /**
  * Responsible for displaying information to the user.
  */
 public class ConsoleUi {
   
-  public void ConsoleUi() { }
+  public ConsoleUi() { }
 
   /**
    * Displays data to the user.

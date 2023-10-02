@@ -1,13 +1,26 @@
 package model.lib;
 
+/**
+ * Represents an id.
+ */
 public class Id {
-    private String id;
+  private String id;
 
-    public Id(String id) {
-      this.id = id;
-    }
-
-    public String getId() {
-      return id;
-    }
+  /**
+   * Constructor.
+   *
+   * @param id - The id.
+   */
+  public Id(String id) {
+    this.id = id;
   }
+
+  /**
+   * Gets the id.
+   *
+   * @return - The id.
+   */
+  public String getId() {
+    return id;
+  }
+}

@@ -265,3 +265,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,macos,windows,linux,eclipse,visualstudiocode
+
+# Ignore Word & pdf files
+*.docx
+*.doc
+*.pdf
