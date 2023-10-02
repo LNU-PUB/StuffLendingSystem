@@ -2,6 +2,7 @@ package controller;
 
 import model.Member;
 import model.MemberAdministration;
+import model.lib.DataHandlingStrategy;
 import model.lib.Email;
 import model.lib.Name;
 import model.lib.Telephone;
@@ -23,8 +24,8 @@ public class ClubAdministration {
   /**
    * Constructor.
    */
-  public ClubAdministration() {
-    memberAdmin = new MemberAdministration();
+  public ClubAdministration(DataHandlingStrategy strategy) {
+    memberAdmin = new MemberAdministration(strategy);
     consoleUi = new ConsoleUi();
     this.time = new Time();
   }
@@ -40,15 +41,7 @@ public class ClubAdministration {
   }
 
   private void loadTestMembers() {
-    this.addMember(new Name("John Doe"), new Email("john@email.com"),
-        new Telephone("1234567890"), this.time);
-
-    time.incrementDay();
-    this.addMember(new Name("Jane Doe"), new Email("jane@email.com"),
-        new Telephone("1234567899"), this.time);
-    time.incrementDay();
-    this.addMember(new Name("Chris"), new Email("chris@email.com"),
-        new Telephone("1234567111"), this.time);
+    
   }
 
   /**

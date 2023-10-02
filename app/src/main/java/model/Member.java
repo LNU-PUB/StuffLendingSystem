@@ -33,6 +33,23 @@ public class Member {
     this.creationDay = time.getDay();
   }
 
+  /**
+   * Constructor for the member class.
+   *
+   * @param name - The name of the member.
+   * @param email - The email of the member.
+   * @param telephone - The telephone number of the member.
+   * @param id - The id of the member.
+   * @param time - The time of the member's creation.
+   */
+  public Member(Name name, Email email, Telephone telephone, Id id, int creationDay) {
+    this.name = name;
+    this.email = email;
+    this.telephone = telephone;
+    this.id = id;
+    this.creationDay = creationDay;
+  }
+
   public String getName() {
     return name.getName();
   }

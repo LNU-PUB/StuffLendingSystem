@@ -1,5 +1,7 @@
 package controller;
 
+import model.dataHandlers.HardCodeDataHandler;
+
 /**
  * Responsible for staring the application.
  */
@@ -12,7 +14,7 @@ public class App {
    */
   public static void main(String[] args) {
 
-    ClubAdministration clubAdministration = new ClubAdministration();
+    ClubAdministration clubAdministration = new ClubAdministration(new HardCodeDataHandler());
     clubAdministration.startClub();
   }
 }

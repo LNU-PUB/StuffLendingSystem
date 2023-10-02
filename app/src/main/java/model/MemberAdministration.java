@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import model.lib.DataHandlingStrategy;
 import model.lib.Email;
 import model.lib.Id;
 import model.lib.Name;
@@ -14,8 +15,9 @@ import model.lib.Time;
 public class MemberAdministration {
   private ArrayList<Member> members;
 
-  public MemberAdministration() {
-    members = new ArrayList<Member>();
+  public MemberAdministration(DataHandlingStrategy strategy) {
+    DataHandling handler = new DataHandling(strategy);
+    this.members = (ArrayList<Member>) handler.loadMembers();
   }
 
   public void deleteMember(Member member) {
