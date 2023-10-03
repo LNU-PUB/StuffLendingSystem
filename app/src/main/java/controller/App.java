@@ -1,6 +1,6 @@
 package controller;
 
-import model.dataHandlers.HardCodeDataHandler;
+import model.lib.HardCodeDataHandler;
 
 /**
  * Responsible for staring the application.

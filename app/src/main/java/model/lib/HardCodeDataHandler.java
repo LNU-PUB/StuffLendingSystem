@@ -1,15 +1,12 @@
-package model.dataHandlers;
+package model.lib;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Member;
-import model.lib.DataHandlingStrategy;
-import model.lib.Email;
-import model.lib.Id;
-import model.lib.Name;
-import model.lib.Telephone;
 
+/**
+ * Responsible for performing operations on members.
+ */
 public class HardCodeDataHandler implements DataHandlingStrategy {
   private List<Member> members;
 
@@ -27,7 +24,7 @@ public class HardCodeDataHandler implements DataHandlingStrategy {
     members.add(
         new Member(new Name("Chris"), new Email("chris@email.com"), new Telephone("1234567111"), new Id("asd123"), 2));
 
-    return members;
+    return new ArrayList<>(members);
   }
 
   @Override

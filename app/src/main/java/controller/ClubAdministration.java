@@ -78,4 +78,8 @@ public class ClubAdministration {
   public Iterable<Member> getMembers() {
     return memberAdmin.listMembers();
   }
+
+  public void incrementDay() {
+    time.incrementDay();
+  }
 }

@@ -4,7 +4,7 @@ package model.lib;
  * Represents an email.
  */
 public class Email {
-  private String email;
+  private final String email;
 
   /**
    * Constructor.

@@ -4,7 +4,7 @@ package model.lib;
  * Represents an id.
  */
 public class Id {
-  private String id;
+  private final String id;
 
   /**
    * Constructor.

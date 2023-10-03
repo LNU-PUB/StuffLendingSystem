@@ -3,6 +3,7 @@ package model;
 import model.lib.Email;
 import model.lib.Id;
 import model.lib.Name;
+import model.lib.Purse;
 import model.lib.Telephone;
 import model.lib.Time;
 
@@ -10,11 +11,12 @@ import model.lib.Time;
  * Responsible for performing operations on members.
  */
 public class Member {
-  private Name name;
-  private Email email;
-  private Telephone telephone;
-  private Id id;
-  private int creationDay;
+  private final Name name;
+  private final Email email;
+  private final Telephone telephone;
+  private final Id id;
+  private final int creationDay;
+  private final Purse purse;
 
   /**
    * Constructor for the member class.
@@ -31,6 +33,7 @@ public class Member {
     this.telephone = telephone;
     this.id = id;
     this.creationDay = time.getDay();
+    this.purse = new Purse();
   }
 
   /**
@@ -40,7 +43,7 @@ public class Member {
    * @param email - The email of the member.
    * @param telephone - The telephone number of the member.
    * @param id - The id of the member.
-   * @param time - The time of the member's creation.
+   * @param creationDay - The day of the member's creation.
    */
   public Member(Name name, Email email, Telephone telephone, Id id, int creationDay) {
     this.name = name;
@@ -48,6 +51,7 @@ public class Member {
     this.telephone = telephone;
     this.id = id;
     this.creationDay = creationDay;
+    this.purse = new Purse();
   }
 
   public String getName() {
@@ -64,6 +68,22 @@ public class Member {
 
   public String getId() {
     return id.getId();
+  }
+
+  public int getCreationDay() {
+    return creationDay;
+  }
+
+  public int getBalance() {
+    return purse.getBalance();
+  }
+
+  public void addCredits(int amount) {
+    purse.credit(amount);
+  }
+
+  public void subtractCredits(int amount) {
+    purse.debit(amount);
   }
 
   @Override

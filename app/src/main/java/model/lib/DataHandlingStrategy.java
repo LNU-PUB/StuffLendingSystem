@@ -1,9 +1,11 @@
 package model.lib;
 
-import model.Member;
 import java.util.List;
+import model.Member;
 
-
+/**
+ * Responsible for performing operations on members.
+ */ 
 public interface DataHandlingStrategy {
   
   public List<Member> loadMembers();

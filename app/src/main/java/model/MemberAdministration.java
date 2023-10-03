@@ -86,7 +86,7 @@ public class MemberAdministration {
    * @return - An iterable of all the members.
    */
   public Iterable<Member> listMembers() {
-    return members;
+    return new ArrayList<>(members);
     // For testing
     // System.out.println("Members:");
     // for (Member member : members) {
@@ -97,14 +97,14 @@ public class MemberAdministration {
   private Id generateNewMemberId() {
     String alphaNum = "1234567890abcdefghijklmnopqrstuvwxyz";
     Random random = new Random();
-    String tmp = "";
+    StringBuffer buf = new StringBuffer();
     Id id = null;
     
     for (int i = 0; i < 6; i++) {
-      tmp += alphaNum.charAt(random.nextInt(alphaNum.length()));
+      buf.append(alphaNum.charAt(random.nextInt(alphaNum.length())));
     }
 
-    id = new Id(tmp);
+    id = new Id(buf.toString());
     return id;
   }
 

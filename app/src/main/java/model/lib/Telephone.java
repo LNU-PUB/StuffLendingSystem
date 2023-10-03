@@ -4,7 +4,7 @@ package model.lib;
  * Represents a telephone.
  */
 public class Telephone {
-  private String telephone;
+  private final String telephone;
 
   /**
    * Constructor.

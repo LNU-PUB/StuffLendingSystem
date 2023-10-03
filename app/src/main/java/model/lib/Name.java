@@ -4,7 +4,7 @@ package model.lib;
  * Represents a name.
  */
 public class Name {
-  private String name;
+  private final String name;
 
   /**
    * Constructor.
