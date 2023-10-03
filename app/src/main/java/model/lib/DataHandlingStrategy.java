@@ -10,5 +10,8 @@ public interface DataHandlingStrategy {
   
   public List<Member> loadMembers();
 
-  public void persistMembersBeforeExit(List<Member> members);
+  public boolean persistMembers(List<Member> members);
+
+  // Return true when done
+  public boolean persistMembersBeforeExit(List<Member> members);
 }

@@ -19,6 +19,8 @@ public class ClubAdministration {
 
   /**
    * Constructor.
+   *
+   * @param strategy - The strategy to use for data handling.
    */
   public ClubAdministration(DataHandlingStrategy strategy) {
     memberAdmin = new MemberAdministration(strategy);
@@ -36,9 +38,7 @@ public class ClubAdministration {
     this.displayMembers();
   }
 
-  private void loadTestMembers() {
-
-  }
+  private void loadTestMembers() { }
 
   /**
    * Adds a member to the system.
@@ -75,5 +75,9 @@ public class ClubAdministration {
 
   public void incrementDay() {
     time.incrementDay();
+  }
+
+  public boolean exit() {
+    return this.memberAdmin.exit();
   }
 }

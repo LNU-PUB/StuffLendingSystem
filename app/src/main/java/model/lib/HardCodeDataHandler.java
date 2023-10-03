@@ -71,9 +71,13 @@ public class HardCodeDataHandler implements DataHandlingStrategy {
   }
 
   @Override
-  public void persistMembersBeforeExit(List<Member> members) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'persistMembersBeforeExit'");
+  public boolean persistMembers(List<Member> members) {
+    return true;
+  }
+
+  @Override
+  public boolean persistMembersBeforeExit(List<Member> members) {
+    return true;
   }
 
 }

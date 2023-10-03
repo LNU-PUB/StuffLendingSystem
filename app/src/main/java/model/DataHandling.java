@@ -6,7 +6,7 @@ import model.lib.DataHandlingStrategy;
 /**
  * Responsible for performing operations on members.
  */
-public class DataHandling {
+public class DataHandling implements DataHandlingStrategy {
   private DataHandlingStrategy strategy;
 
   /**
@@ -32,7 +32,12 @@ public class DataHandling {
    *
    * @param members - The members to persist.
    */
-  public void persistMembers(List<Member> members) {
-    strategy.persistMembersBeforeExit(members);
+  public boolean persistMembers(List<Member> members) {
+    return strategy.persistMembersBeforeExit(members);
+  }
+
+  @Override
+  public boolean persistMembersBeforeExit(List<Member> members) {
+    return strategy.persistMembersBeforeExit(members);
   }
 }

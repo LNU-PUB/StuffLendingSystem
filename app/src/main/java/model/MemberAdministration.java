@@ -13,11 +13,12 @@ import model.lib.Time;
  * Responsible for performing operations on members.
  */
 public class MemberAdministration {
+  DataHandling handler;
   private ArrayList<Member> members;
 
   public MemberAdministration(DataHandlingStrategy strategy) {
-    DataHandling handler = new DataHandling(strategy);
-    this.members = (ArrayList<Member>) handler.loadMembers();
+    this.handler = new DataHandling(strategy);
+    this.members = new ArrayList<>(handler.loadMembers());
   }
 
   public void deleteMember(Member member) {
@@ -106,6 +107,24 @@ public class MemberAdministration {
 
     id = new Id(buf.toString());
     return id;
+  }
+
+  /**
+   * Persists the members.
+   *
+   * @return - True if the members were persisted successfully.
+   */
+  public boolean persistMembers() {
+    return this.handler.persistMembers(members);
+  }
+
+  /**
+   * Persists the members before exiting.
+   *
+   * @return - True if the members were persisted successfully.
+   */
+  public boolean exit() {
+    return this.handler.persistMembersBeforeExit(members);
   }
 
   @Override
