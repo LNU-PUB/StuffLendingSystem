@@ -108,4 +108,13 @@ public class MemberAdministration {
     return id;
   }
 
+  @Override
+  public String toString() {
+    StringBuffer buf = new StringBuffer();
+    for (Member member : members) {
+      buf.append("\n***\n" + member.toString() + "\n***\n");
+    }
+    return buf.toString();
+  }
+
 }

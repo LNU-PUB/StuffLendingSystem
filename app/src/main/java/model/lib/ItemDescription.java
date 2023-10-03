@@ -1,5 +1,8 @@
 package model.lib;
 
+/**
+ * Represents an item description.
+ */
 public class ItemDescription {
   private final String itemDescription;
 
@@ -10,6 +13,13 @@ public class ItemDescription {
    */
   public ItemDescription(String itemDescription) {
     this.itemDescription = itemDescription;
+  }
+
+  /**
+   * Constructor.
+   */
+  public ItemDescription() {
+    this.itemDescription = "";
   }
 
   /**

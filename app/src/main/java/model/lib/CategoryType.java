@@ -1,5 +1,9 @@
 package model.lib;
 
+/**
+ * Represents a category type.
+ * Types are: Tool, Vehicle, Game, Toy, Sport, Other.
+ */
 public enum CategoryType {
   TOOL("Tool"),
   VEHICLE("Vehicle"),

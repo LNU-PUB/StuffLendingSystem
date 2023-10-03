@@ -7,10 +7,14 @@ public class Purse {
   private int balance;
 
   public Purse(int balance) {
+    if(Math.abs(balance) > 0){
     this.credit(balance);
+    } else {
+      this.debit(balance);
+    }
   }
 
-  public Purse (){
+  public Purse() {
     this.balance = 0;
   }
 

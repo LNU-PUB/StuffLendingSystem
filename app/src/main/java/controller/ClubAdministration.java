@@ -9,10 +9,6 @@ import model.lib.Telephone;
 import model.lib.Time;
 import view.ConsoleUi;
 
-
-
-
-
 /**
  * Responsible for performing operations on members.
  */
@@ -34,23 +30,23 @@ public class ClubAdministration {
    * Starts the club.
    */
   public void startClub() {
-    
+
     this.loadTestMembers();
 
     this.displayMembers();
   }
 
   private void loadTestMembers() {
-    
+
   }
 
   /**
    * Adds a member to the system.
    *
-   * @param name - The name of the member.
-   * @param email - The email of the member.
+   * @param name      - The name of the member.
+   * @param email     - The email of the member.
    * @param telephone - The telephone of the member.
-   * @param time - The time of the member's creation.
+   * @param time      - The time of the member's creation.
    */
   public void addMember(Name name, Email email, Telephone telephone, Time time) {
     memberAdmin.addMember(name, email, telephone, time);
@@ -61,9 +57,7 @@ public class ClubAdministration {
    * Displays all the members in the system.
    */
   public void displayMembers() {
-    for (Member member : memberAdmin.listMembers()) {
-      consoleUi.displayData(member.toString());
-    }
+    consoleUi.displayData(memberAdmin.toString());
   }
 
   public void deleteMember(Member member) {
