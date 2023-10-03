@@ -6,18 +6,25 @@ package model.lib;
 public class Purse {
   private int balance;
 
+  /**
+   * Constructor.
+   *
+   * @param balance - The balance of the purse.
+   */
   public Purse(int balance) {
-    if(Math.abs(balance) > 0){
-    this.credit(balance);
+    if (Math.abs(balance) > 0) {
+      this.credit(balance);
     } else {
       this.debit(balance);
     }
   }
 
+  /**
+   * Constructor.
+   */
   public Purse() {
     this.balance = 0;
   }
-
 
   /**
    * Credits the purse.
