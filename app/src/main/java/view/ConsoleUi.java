@@ -1,11 +1,17 @@
 package view;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
 /**
  * Responsible for displaying information to the user.
  */
 public class ConsoleUi {
-  
-  public ConsoleUi() { }
+  private final Scanner sc;
+
+  public ConsoleUi() {
+    this.sc = new Scanner(System.in, StandardCharsets.UTF_8.name());
+  }
 
   /**
    * Displays data to the user.
@@ -38,6 +44,18 @@ public class ConsoleUi {
   public String getUserInput(String prompt) {
     System.out.println(prompt);
     return System.console().readLine();
+  }
+
+  public void menu(String menuName, String[] menuEntries) {
+    System.out.println("\n*** " + menuName + " ***");
+    for (String menuEntry : menuEntries) {
+      System.out.println(menuEntry);
+    }
+  }
+
+  public String getString(String prompt) {
+    System.out.print(prompt);
+    return sc.next();
   }
 
 }

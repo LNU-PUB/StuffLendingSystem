@@ -1,14 +1,13 @@
-package model.lib;
+package model.menu;
 
-public enum MemberMenu {
+public enum MainMenu implements MenuOption {
   VIEWMEMBER("View Member Details"),
   ADDMEMBER("Add Member"),
-  LISTALLMEMBERS("List All Members"),
-  EXIT("Exit");
+  LISTALLMEMBERS("List All Members");
 
   private final String description;
 
-  MemberMenu(String description) {
+  MainMenu(String description) {
     this.description = description;
   }
 
