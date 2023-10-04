@@ -7,7 +7,9 @@ import model.lib.Email;
 import model.lib.Name;
 import model.lib.Telephone;
 import model.lib.Time;
+import model.menu.Command;
 import model.menu.MainMenu;
+import model.menu.MemberMenu;
 import model.menu.MenuOption;
 import view.ConsoleUi;
 
@@ -35,7 +37,6 @@ public class ClubAdministration {
    */
   public void startClub() {
     boolean exit = false;
-    
 
     this.loadTestMembers();
 
@@ -48,53 +49,45 @@ public class ClubAdministration {
   }
 
   private boolean mainMenu() {
-    MainMenu memberMenu;
+    MainMenuCommandMapper mainMenuCommandMapper = new MainMenuCommandMapper();
     boolean exit = false;
-    // new String[] {"1. Add member", "2. Delete member", "3. Display members", "4.
-    // Increment day", "5. Exit"});
 
     String[] menuEntries = createMenuEntriesFromEnum(MainMenu.values());
-    // String choice = consoleUi.getUserInput(menuEntries);
     consoleUi.menu("Main Menu", menuEntries);
     String choice = consoleUi.getString("\nEnter choice: ");
 
-    // for testing only
-    // System.out.println("selected choice: " + choice);
-    // if (choice.equals("q") || choice.equals("Q") || choice.equals("0")) {
-    // exit = true;
-    // } else {
-    // counter++;
-    // }
-    // System.out.println("counter: " + counter + "\nexit: " + exit);
-
-    switch (choice) {
-      case "1":
-        String name = consoleUi.getString("Enter name: ");
-        String email = consoleUi.getString("Enter email: ");
-        String telephone = consoleUi.getString("Enter telephone: ");
-        this.addMember(new Name(name), new Email(email), new Telephone(telephone),
-            time);
-        break;
-      case "2":
-        this.displayMembers();
-        // int id = consoleUi.getInt("Enter id: ");
-        // this.deleteMember(memberAdmin.getMember(id));
-        break;
-      case "3":
-        this.displayMembers();
-        break;
-      case "4":
-        this.incrementDay();
-        break;
-      case "Q":
-      case "q":
-      case "0":
+    if (checkNumericRange(choice, MainMenu.values().length)) {
+      int choiceInt = Integer.parseInt(choice) - 1;
+      mainMenuCommandMapper.getCommand(MainMenu.values()[choiceInt]).execute();
+    } else {
+      if (choice.equalsIgnoreCase("q") || choice.equals("0")) {
         exit = true;
-        break;
-      default:
+      } else {
         consoleUi.displayData("Invalid choice.");
+      }
     }
+
+    // consoleUi.displayData("Invalid choice.");
+    // return false;
     return exit;
+  }
+
+  private boolean checkNumericRange(String choice, int max) {
+    if (choice != null && !choice.isEmpty()) {
+      if (choice.matches("[1-9]\\d*")) {
+        int c = Integer.parseInt(choice);
+        return c < max + 1;
+      }
+    }
+    return false;
+  }
+
+  private void executeCommand(Command command) {
+    if (command != null) {
+      command.execute();
+    } else {
+      consoleUi.displayData("Invalid choice.");
+    }
   }
 
   private void loadTestMembers() {

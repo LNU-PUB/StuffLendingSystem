@@ -1,6 +1,9 @@
 package model.menu;
 
-public enum MainMenu implements MenuOption{
+/**
+ * Enum for the main menu.
+ */
+public enum MainMenu implements MenuOption {
   MEMBER_MENU("Member Menu"),
   ADVANCE_DAYS("Advance Days");
 

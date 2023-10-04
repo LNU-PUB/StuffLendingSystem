@@ -1,5 +1,8 @@
 package model.menu;
 
+/**
+ * Enum for the Member Menu.
+ */
 public enum MemberMenu implements MenuOption {
   ADDMEMBER("Add Member"),
   DELETEMEMEBER("Delete Member"),

@@ -46,6 +46,12 @@ public class ConsoleUi {
     return System.console().readLine();
   }
 
+  /**
+   * Displays a menu to the user.
+   *
+   * @param menuName    - The name of the menu.
+   * @param menuEntries - The entries of the menu.
+   */
   public void menu(String menuName, String[] menuEntries) {
     System.out.println("\n*** " + menuName + " ***");
     for (String menuEntry : menuEntries) {
@@ -53,6 +59,12 @@ public class ConsoleUi {
     }
   }
 
+  /**
+   * Prompts user and return a string.
+   *
+   * @param prompt - The prompt to display.
+   * @return - The user input.
+   */
   public String getString(String prompt) {
     System.out.print(prompt);
     return sc.next();

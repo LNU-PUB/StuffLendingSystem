@@ -2,12 +2,15 @@ package controller;
 
 import model.menu.Command;
 
+/**
+ * Class to handle the Member Menu.
+ * Part of the Command Pattern.
+ */
 public class MemberMenuCommand implements Command {
 
   @Override
   public void execute() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'execute'");
+    System.out.println("\n*** Member Menu Command ***");
   }
 
 }

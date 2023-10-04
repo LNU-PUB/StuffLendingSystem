@@ -2,12 +2,15 @@ package controller;
 
 import model.menu.Command;
 
-public class AdvanceDaysCommand implements Command{
+/**
+ * Class for advancing Days.
+ * Part of the Command Pattern.
+ */
+public class AdvanceDaysCommand implements Command {
 
   @Override
   public void execute() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'execute'");
+    System.out.println("\n*** Advance Days Command ***");
   }
 
 }

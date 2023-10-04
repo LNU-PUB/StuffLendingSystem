@@ -2,7 +2,6 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import model.menu.Command;
 import model.menu.MainMenu;
 
