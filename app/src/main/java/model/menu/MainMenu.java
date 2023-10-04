@@ -1,9 +1,8 @@
 package model.menu;
 
-public enum MainMenu implements MenuOption {
-  VIEWMEMBER("View Member Details"),
-  ADDMEMBER("Add Member"),
-  LISTALLMEMBERS("List All Members");
+public enum MainMenu implements MenuOption{
+  MEMBER_MENU("Member Menu"),
+  ADVANCE_DAYS("Advance Days");
 
   private final String description;
 
