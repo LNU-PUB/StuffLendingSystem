@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Stack;
 import model.Member;
 import model.MemberAdministration;
 import model.lib.DataHandlingStrategy;
@@ -20,6 +21,7 @@ public class ClubAdministration {
   private MemberAdministration memberAdmin;
   private ConsoleUi consoleUi;
   private Time time;
+  private Stack<Enum<?>[]> menuStack;
 
   /**
    * Constructor.
@@ -30,6 +32,8 @@ public class ClubAdministration {
     memberAdmin = new MemberAdministration(strategy);
     consoleUi = new ConsoleUi();
     this.time = new Time();
+    this.menuStack = new Stack<>();
+    this.menuStack.push(MainMenu.values());
   }
 
   /**
@@ -48,8 +52,35 @@ public class ClubAdministration {
     } while (!exit && counter < 5);
   }
 
+  /**
+   * Returns the current menu.
+   *
+   * @return - The current menu.
+   */
+  public Enum<?>[] currentMenu() {
+    return menuStack.isEmpty() ? null : menuStack.peek();
+  }
+
+  /**
+   * Displays the current menu.
+   *
+   * @param menu - The menu to display.
+   */
+  public void pushMenu(Enum<?>[] menu) {
+    menuStack.push(menu);
+  }
+
+  /**
+   * Pops the current menu from the stack.
+   */
+  public void popMenu() {
+    if (!menuStack.isEmpty()) {
+      menuStack.pop();
+    }
+  }
+
   private boolean mainMenu() {
-    MainMenuCommandMapper mainMenuCommandMapper = new MainMenuCommandMapper();
+    MainMenuCommandMapper mainMenuCommandMapper = new MainMenuCommandMapper(this.time, this);
     boolean exit = false;
 
     String[] menuEntries = createMenuEntriesFromEnum(MainMenu.values());
@@ -72,6 +103,9 @@ public class ClubAdministration {
     return exit;
   }
 
+  // Making sure that the choice is numeric, greater than 0 and less than max,
+  // so it safely can be converted to an integer that doesn't exceed the array
+  // length in each menu.
   private boolean checkNumericRange(String choice, int max) {
     if (choice != null && !choice.isEmpty()) {
       if (choice.matches("[1-9]\\d*")) {
@@ -82,13 +116,13 @@ public class ClubAdministration {
     return false;
   }
 
-  private void executeCommand(Command command) {
-    if (command != null) {
-      command.execute();
-    } else {
-      consoleUi.displayData("Invalid choice.");
-    }
-  }
+  // private void executeCommand(Command command) {
+  // if (command != null) {
+  // command.execute();
+  // } else {
+  // consoleUi.displayData("Invalid choice.");
+  // }
+  // }
 
   private void loadTestMembers() {
   }
