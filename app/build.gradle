@@ -27,7 +27,7 @@ spotbugsMain {
     
     reports {
         html {
-            enabled = false
+            enabled = true
             destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
             //stylesheet = 'fancy-hist.xsl'
         }
@@ -56,6 +56,7 @@ checkstyle {
     // https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-8.6/src/main/resources/google_checks.xml
     // the version should be as same as plugin version
     configFile = rootProject.file('config/checkstyle/google_checks.xml')    // you can of course change this to something else
+    configProperties = ['org.checkstyle.google.suppressionfilter.config': 'config/checkstyle/checkstyle-suppressions.xml']
     sourceSets = [] // remove from default build only explicit calls ig.e. gradlew checkStyleMain
 }
 

@@ -1,6 +1,9 @@
 package controller;
 
 import model.lib.HardCodeDataHandler;
+import model.lib.Time;
+import view.ConsoleUi;
+import view.model.MainMenu;
 
 /**
  * Responsible for staring the application.
@@ -13,33 +16,29 @@ public class App {
    * @param args command line arguments.
    */
   public static void main(String[] args) {
+    Time time = new Time();
+    ClubAdministration clubAdmin = new ClubAdministration(time, new HardCodeDataHandler());
+    MainMenuCommandMapper mainMapper = new MainMenuCommandMapper(time, clubAdmin);
+    MemberMenuCommandMapper memberMapper = new MemberMenuCommandMapper(time, clubAdmin);
+    MenuController menuController = new MenuController(mainMapper, memberMapper);
+    ConsoleUi consoleUi = new ConsoleUi(clubAdmin, menuController);
+    boolean exit = false;
 
-    ClubAdministration clubAdministration = new ClubAdministration(new HardCodeDataHandler());
-    clubAdministration.startClub();
+    clubAdmin.addToMenuStack(MainMenu.values());
 
-    // Add a shutdown hook
-    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      // clubAdministration.exit();
-
-      // Wait for the exit operation to complete
-      if (!waitForExitCompletion(clubAdministration)) {
-        System.out.println("Exit operation took too long to complete.");
-      } else {
-        System.out.println("Exit operation completed successfully.");
-      }
-    }));
-  }
-
-  private static boolean waitForExitCompletion(ClubAdministration clubAdministration) {
-
-    while (!clubAdministration.exit()) {
-      try {
-        Thread.sleep(500); // Adjust the polling interval as needed
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
+    while (!exit) {
+      consoleUi.displayMenu();
+      consoleUi.getUserInputAndExecute();
+      if (clubAdmin.getCurrentMenu() == null) {
+        exit = true;
       }
     }
-    // Return true if exit completed successfully
-    return true;
+
+    exit();
+  }
+
+  private static void exit() {
+    System.out.println("\nApplication is closing ...");
+    System.exit(0);
   }
 }

@@ -3,7 +3,8 @@ package controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import model.menu.Command;
+import view.model.Command;
+import view.model.MenuOption;
 
 /**
  * Class for mapping commands to menu options.
@@ -11,7 +12,7 @@ import model.menu.Command;
  *
  * @param <T> - The type of the menu option.
  */
-public class GenericMenuCommandMapper<T extends Enum<T>> {
+public class GenericMenuCommandMapper<T extends MenuOption> {
   private final Map<T, Command> commandMap = new HashMap<>();
 
   /**

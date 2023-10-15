@@ -1,73 +1,60 @@
 package view;
 
+import controller.ClubAdministration;
+import controller.MenuController;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import view.model.MenuOption;
 
 /**
  * Responsible for displaying information to the user.
  */
 public class ConsoleUi {
-  private final Scanner sc;
+  private final Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8.name());
+  private final ClubAdministration clubAdmin;
+  private final MenuController menuController;
 
-  public ConsoleUi() {
-    this.sc = new Scanner(System.in, StandardCharsets.UTF_8.name());
+  public ConsoleUi(ClubAdministration clubAdmin, MenuController menuController) {
+    this.clubAdmin = clubAdmin.clone();
+    this.menuController = menuController;
   }
 
   /**
-   * Displays data to the user.
-   *
-   * @param data - The data to be displayed.
+   * Displays the main menu.
    */
-  public void displayData(String data) {
-    System.out.println(data);
-  }
-
-  /**
-   * Displays multiple rows of information.
-   *
-   * @param prompts - The data to be displayed.
-   * @return - The user data entered.
-   */
-  public String getUserInput(String[] prompts) {
-    for (String prompt : prompts) {
-      System.out.println(prompt);
-    }
-    return System.console().readLine();
-  }
-
-  /**
-   * Displays a single row of information.
-   *
-   * @param prompt - The data to be displayed.
-   * @return - The user data entered.
-   */
-  public String getUserInput(String prompt) {
-    System.out.println(prompt);
-    return System.console().readLine();
-  }
-
-  /**
-   * Displays a menu to the user.
-   *
-   * @param menuName    - The name of the menu.
-   * @param menuEntries - The entries of the menu.
-   */
-  public void menu(String menuName, String[] menuEntries) {
-    System.out.println("\n*** " + menuName + " ***");
-    for (String menuEntry : menuEntries) {
-      System.out.println(menuEntry);
+  public void displayMenu() {
+    MenuOption[] currentMenu = clubAdmin.getCurrentMenu();
+    if (currentMenu != null) {
+      System.out.println("\n*** " + currentMenu[0].getMenuName() + " ***\n");
+      for (int i = 0; i < currentMenu.length; i++) {
+        System.out.println((i + 1) + ". " + currentMenu[i].getDescription());
+      }
+      if (currentMenu[0].getMenuName().contains("Main")) {
+        System.out.println("q. Quit");
+      } else {
+        System.out.println("0. Go back");
+      }
     }
   }
 
   /**
-   * Prompts user and return a string.
-   *
-   * @param prompt - The prompt to display.
-   * @return - The user input.
+   * Gets the user input and executes the command.
    */
-  public String getString(String prompt) {
-    System.out.print(prompt);
-    return sc.next();
+  public void getUserInputAndExecute() {
+    try {
+      System.out.print("\nEnter your choice: ");
+      String input = sc.next();
+      int choice = input.equalsIgnoreCase("q") ? 0 : Integer.parseInt(input);
+      MenuOption[] currentMenu = clubAdmin.getCurrentMenu();
+      if (choice >= 1 && choice <= currentMenu.length) {
+        menuController.executeCommand(currentMenu[choice - 1]);
+      } else if (choice == 0) {
+        clubAdmin.exitMenu();
+      } else {
+        throw new Exception();
+      }
+    } catch (Exception e) {
+      System.out.println("Invalid input!");
+    }
   }
-
 }

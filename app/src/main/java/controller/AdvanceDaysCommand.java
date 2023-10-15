@@ -1,7 +1,7 @@
 package controller;
 
 import model.lib.Time;
-import model.menu.Command;
+import view.model.Command;
 
 /**
  * Class for advancing Days.

@@ -1,22 +1,23 @@
 package controller;
 
-import model.menu.Command;
+import view.model.Command;
+import view.model.MenuOption;
 
 /**
  * Class for navigating to a sub menu.
  * Part of the Command Pattern.
  */
-public class SubMenuCommand implements Command {
+public class SubMenuCommand {
   private final ClubAdministration clubAdmin;
-  private final Enum<?>[] nextMenu;
+  private final MenuOption[] nextMenu;
 
-  public SubMenuCommand(ClubAdministration clubAdmin, Enum<?>[] nextMenu) {
-    this.clubAdmin = clubAdmin;
-    this.nextMenu = nextMenu;
+  public SubMenuCommand(ClubAdministration clubAdmin, MenuOption[] nextMenu) {
+    this.clubAdmin = clubAdmin.clone();
+    this.nextMenu = nextMenu.clone();
   }
 
-  @Override
-  public void execute() {
-    clubAdmin.pushMenu(nextMenu);
+  
+  public void executeCommand() {
+    clubAdmin.addToMenuStack(nextMenu);
   }
 }
