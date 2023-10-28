@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * ItemCategories enum represents the categories of items.
+ */
 public enum ItemCategories {
   TOOL("Tool"),
   VEHICLE("Vehicle"),

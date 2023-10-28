@@ -13,10 +13,10 @@ public class App {
    */
   public void run() {}
   
-  private void exit() {
-    System.out.println("\nApplication is closing ...");
-    System.exit(0);
-  }
+  // private void exit() {
+  //   System.out.println("\nApplication is closing ...");
+  //   System.exit(0);
+  // }
 
   /**
    * The main method.
