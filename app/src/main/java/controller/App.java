@@ -1,44 +1,30 @@
 package controller;
 
-import model.lib.HardCodeDataHandler;
-import model.lib.Time;
-import view.ConsoleUi;
-import view.model.MainMenu;
+// import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Responsible for staring the application.
+ * The application.
  */
 public class App {
 
+
   /**
-   * Application starting point.
-   *
-   * @param args command line arguments.
+   * Runs the application.
    */
-  public static void main(String[] args) {
-    Time time = new Time();
-    ClubAdministration clubAdmin = new ClubAdministration(time, new HardCodeDataHandler());
-    MainMenuCommandMapper mainMapper = new MainMenuCommandMapper(time, clubAdmin);
-    MemberMenuCommandMapper memberMapper = new MemberMenuCommandMapper(time, clubAdmin);
-    MenuController menuController = new MenuController(mainMapper, memberMapper);
-    ConsoleUi consoleUi = new ConsoleUi(clubAdmin, menuController);
-    boolean exit = false;
-
-    clubAdmin.addToMenuStack(MainMenu.values());
-
-    while (!exit) {
-      consoleUi.displayMenu();
-      consoleUi.getUserInputAndExecute();
-      if (clubAdmin.getCurrentMenu() == null) {
-        exit = true;
-      }
-    }
-
-    exit();
-  }
-
-  private static void exit() {
+  public void run() {}
+  
+  private void exit() {
     System.out.println("\nApplication is closing ...");
     System.exit(0);
+  }
+
+  /**
+   * The main method.
+   *
+   * @param args - The arguments.
+   */
+  public static void main(String[] args) {
+    App app = new App();
+    app.run();
   }
 }
