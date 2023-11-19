@@ -23,8 +23,15 @@ public class Item {
     this.category = category;
     this.name = name;
     this.description = description;
-    this.creationDay = creationDay;
-    this.dailyLendingCost = dailyLendingCost;
+    this.creationDay = checkPositiveInteger(creationDay);
+    this.dailyLendingCost = checkPositiveInteger(dailyLendingCost);
+  }
+
+  private int checkPositiveInteger(int numberToTest) {
+    if(numberToTest < 0) {
+      throw new IllegalArgumentException("Must be a positive integer");
+    }
+    return numberToTest;
   }
 
   public ItemCategories getCategory() {

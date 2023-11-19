@@ -1,48 +1,60 @@
 package model;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 public class ItemTest {
+
   @Test
-    public void item_ok() {
-      // try {
-      //   Item testItem = new Item(new Name("testName"), new ItemDescription("test description"), CategoryType.TOOL, 1, 8);
-        
-      //   if (testItem.getName() == "testName" && testItem.getDescription() == "test description" && 
-      //     testItem.getCategory() == CategoryType.TOOL && testItem.getCreationDay() == 1 && testItem.getRentCostDaily() == 8) {
-      //     assert(true);
-      //   } else {
-      //     assert(false);
-      //   }
-      // } catch (IllegalArgumentException e) {
-      //   System.out.println("\n*** Item ***\n" + e.getMessage());
-      //   assert(false);
-      // }
-    }
+  public void shouldReturnCorrectDataFromGetters() {
+    // Given
+    ItemCategories category = ItemCategories.GAME;
+    String name = "Test Name";
+    String description = "Test Description";
+    int creationDay = 1;
+    int dailyLendingCost = 2;
+    Item item = new Item(category, name, description, creationDay, dailyLendingCost);
 
-    @Test
-    public void itemCollection_ok() {
-        //  try {
-        //     ItemCollection testItemCollection = new ItemCollection();
-        //     Item testItem1 = new Item(new Name("testName"), new ItemDescription("test description"), CategoryType.TOOL, 1, 8);
-        //     Item testItem2 = new Item(new Name("testName2"), new ItemDescription("test description2"), CategoryType.TOOL, 2, 3);
-        //     ItemCollection testItemCollection1 = testItemCollection.addItem(testItem1);
-        //     if (testItemCollection == testItemCollection1) {
-        //         assert(false);
-        //     } else {
-        //         assert(true);
-        //     }
+    ItemCategories actualCategory = item.getCategory();
+    String actualName = item.getName();
+    String actualDescription = item.getDescription();
+    int actualCreationDay = item.getCreationDay();
+    int actualDailyLendingCost = item.getDailyLendingCost();
 
-        //     ItemCollection testItemCollection2 = testItemCollection1.addItem(testItem2);
-        //     if (testItemCollection1 == testItemCollection2) {
-        //         assert(false);
-        //     } else {
-        //         assert(true);
-        //     }
+    assertAll("item",
+        () -> assertEquals(actualCategory, category),
+        () -> assertEquals(actualName, name),
+        () -> assertEquals(actualDescription, description),
+        () -> assertEquals(actualCreationDay, creationDay),
+        () -> assertEquals(actualDailyLendingCost, dailyLendingCost));
+  }
 
-        // } catch (IllegalArgumentException e) {
-        //     System.out.println("\n*** ItemCollection ***\n" + e.getMessage());
-        // }
+  @Test
+  public void shouldThrowExceptionWhenCreationDayIsNegative() {
+    // Given
+    ItemCategories category = ItemCategories.GAME;
+    String name = "Test Name";
+    String description = "Test Description";
+    int creationDay = -1;
+    int dailyLendingCost = 2;
 
-    }
+    assertThrows(IllegalArgumentException.class,
+        () -> new Item(category, name, description, creationDay, dailyLendingCost));
+  }
+
+  @Test
+  public void shouldThrowExceptionWhenDailyLendingCostIsNegative() {
+    // Given
+    ItemCategories category = ItemCategories.GAME;
+    String name = "Test Name";
+    String description = "Test Description";
+    int creationDay = 1;
+    int dailyLendingCost = -2;
+
+    assertThrows(IllegalArgumentException.class,
+        () -> new Item(category, name, description, creationDay, dailyLendingCost));
+  }
 }
