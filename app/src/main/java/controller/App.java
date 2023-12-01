@@ -1,5 +1,8 @@
 package controller;
 
+import view.ConsoleUi;
+import view.View;
+
 // import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -8,10 +11,17 @@ package controller;
 public class App {
 
 
+  protected ConsoleUi createConsoleUi() {
+    return new ConsoleUi();
+  }
+
   /**
    * Runs the application.
    */
-  public void run() {}
+  public void run() {
+    View view = createConsoleUi();
+    view.displayGreeting();
+  }
   
   // private void exit() {
   //   System.out.println("\nApplication is closing ...");

@@ -11,6 +11,24 @@ plugins {
     id 'application'
     id 'checkstyle'
     id "com.github.spotbugs" version "6.0.0-beta.3"
+    id 'jacoco'
+}
+
+ext {
+  jacocoVersion = "0.8.9"
+}
+
+sourceSets {
+    main {
+        java {
+            exclude '**/OLD/**'
+        }
+    }
+    test {
+        java {
+            exclude '**/OLD/**'
+        }
+    }
 }
 
 spotbugsMain {
@@ -48,6 +66,18 @@ checkstyle {
     sourceSets = [] // remove from default build only explicit calls ig.e. gradlew checkStyleMain
 }
 
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+  reports {
+    xml.required = false
+    csv.required = false
+    html.outputLocation = layout.buildDirectory.dir('reports/jacoco')
+  }
+}
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -56,6 +86,8 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+    // Use Mockito for mocking.
+    testImplementation("org.mockito:mockito-core:5.7.0:")
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
