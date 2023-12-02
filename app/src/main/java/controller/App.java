@@ -1,6 +1,7 @@
 package controller;
 
-import view.ConsoleUi;
+import model.StuffLendingSystem;
+import view.MainView;
 import view.View;
 
 // import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -11,22 +12,26 @@ import view.View;
 public class App {
 
 
-  protected ConsoleUi createConsoleUi() {
-    return new ConsoleUi();
+  protected MainView createMainView() {
+    return new MainView();
   }
 
-  /**
-   * Runs the application.
-   */
-  public void run() {
-    View view = createConsoleUi();
-    view.displayGreeting();
+  protected StuffLendingSystem createStuffSystem() {
+    return new StuffLendingSystem();
+  }
+
+  protected void run() {
+    StuffLendingSystem stuffSystem = createStuffSystem();
+    View view = createMainView();
+    StuffControl ctrl = new StuffControl(stuffSystem, view);
+
+    while (ctrl.run()) {}
   }
   
-  // private void exit() {
-  //   System.out.println("\nApplication is closing ...");
-  //   System.exit(0);
-  // }
+  private void exit() {
+    System.out.println("\nApplication is closing ...");
+    System.exit(0);
+  }
 
   /**
    * The main method.
@@ -36,5 +41,6 @@ public class App {
   public static void main(String[] args) {
     App app = new App();
     app.run();
+    app.exit();
   }
 }
