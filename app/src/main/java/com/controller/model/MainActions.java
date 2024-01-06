@@ -1,14 +1,14 @@
-package controller.model;
+package com.controller.model;
 
 /**
  * Represents the main actions of the application.
  */
 public enum MainActions implements Actions {
-  MEMBER("Member", 'm'),
-  NEWCONTRACT("New Contract", 'n'),
-  ADVANCETIME("Advance Time", 'a'),
+  MEMBER("member", 'm'),
+  NEWCONTRACT("newContract", 'n'),
+  ADVANCETIME("time", 'a'),
   UNKNOWN("Unknown", 'u'),
-  QUIT("Quit Application", 'q');
+  QUIT("quit", 'q');
 
   private final String name;
   private final char selector;

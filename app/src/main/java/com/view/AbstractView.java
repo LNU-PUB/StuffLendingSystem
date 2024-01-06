@@ -1,4 +1,4 @@
-package view;
+package com.view;
 
 /**
  * Input interface.

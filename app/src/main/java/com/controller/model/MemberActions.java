@@ -1,4 +1,4 @@
-package controller.model;
+package com.controller.model;
 
 /**
  * Represents the actions that can be performed on a member.

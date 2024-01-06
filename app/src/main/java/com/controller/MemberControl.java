@@ -1,17 +1,17 @@
-package controller;
+package com.controller;
 
-import controller.model.Control;
-import controller.model.MemberActions;
-import model.StuffLendingSystem;
+import com.controller.model.Control;
+import com.controller.model.MemberActions;
+import com.model.StuffLendingSystem;
 
 /**
  * The Member controller.
  */
 public class MemberControl implements Control {
   private StuffLendingSystem stuffSystem;
-  private view.MemberView view;
+  private com.view.MemberView view;
 
-  public MemberControl(StuffLendingSystem stuffSystem, view.MemberView view) {
+  public MemberControl(StuffLendingSystem stuffSystem, com.view.MemberView view) {
     this.stuffSystem = stuffSystem;
     this.view = view;
   }

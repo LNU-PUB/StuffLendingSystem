@@ -1,4 +1,4 @@
-package controller.model;
+package com.controller.model;
 
 /**
  * The Controllers interface.

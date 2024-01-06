@@ -1,11 +1,11 @@
-package view;
+package com.view;
 
-import controller.model.MemberActions;
+import com.controller.model.MemberActions;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class MemberView extends AbstractView{
+public class MemberView extends AbstractView {
 
   public MemberView() {
     super();
@@ -26,7 +26,7 @@ public class MemberView extends AbstractView{
    * Collecting User input.
    */
   @Override
-  public controller.model.Actions getInput() {
+  public com.controller.model.Actions getInput() {
 
     System.out.print("Enter: ");
     try {

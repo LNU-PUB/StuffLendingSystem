@@ -1,10 +1,10 @@
-package controller;
+package com.controller;
 
-import controller.model.Control;
-import controller.model.MainActions;
-import model.StuffLendingSystem;
-import view.MemberView;
-import view.View;
+import com.controller.model.Control;
+import com.controller.model.MainActions;
+import com.model.StuffLendingSystem;
+import com.view.MemberView;
+import com.view.View;
 
 /**
  * The controller.

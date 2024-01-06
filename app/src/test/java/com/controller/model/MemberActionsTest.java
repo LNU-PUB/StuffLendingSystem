@@ -1,8 +1,10 @@
-package controller.model;
+package com.controller.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
+import com.controller.model.MemberActions;
 
 public class MemberActionsTest {
   

@@ -1,4 +1,4 @@
-package view;
+package com.view;
 
 /**
  * Responsible for displaying information to the user.
@@ -6,5 +6,5 @@ package view;
 public interface View {
   public void displayMenu();
 
-  public controller.model.Actions getInput();
+  public com.controller.model.Actions getInput();
 }

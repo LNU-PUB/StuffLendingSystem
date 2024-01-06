@@ -1,4 +1,7 @@
-# A2
+# A2 - Stuff lending System
+
+## Note:
+The default language is English and if you want to run the Swedish language version use the command line: ```./gradlew run -q --console=plain --args="SWE"```
 
 Project for Assignment 2
 
@@ -38,7 +41,7 @@ Add your own code to the packages respectively and feel free to add automatic te
 Adhere to the git versioning instructions according to the assignment.
 
 ## System test
-Adhere to the instructions according to the assigment.
+Adhere to the instructions according to the assignment.
 
 ## Handing In
-Adhere to the instructions according to the assigment.
+Adhere to the instructions according to the assignment.

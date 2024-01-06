@@ -95,7 +95,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'controller.App'
+    mainClass = 'com.controller.App'
 }
 
 run {
