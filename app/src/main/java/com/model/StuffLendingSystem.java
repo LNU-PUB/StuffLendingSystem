@@ -1,5 +1,8 @@
 package com.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The stuff lending system.
  */
@@ -24,9 +27,11 @@ public class StuffLendingSystem {
   }
 
   private Time time;
+  private List<Member> members;
 
   public StuffLendingSystem() {
     this.time = new Time();
+    this.members = new ArrayList<>();
   }
 
   public int getTime() {
@@ -35,5 +40,12 @@ public class StuffLendingSystem {
 
   public void advanceTime() {
     this.time.advanceTime();
+  }
+
+  public List<Member> getMemberList() {
+    return new ArrayList<>(members);
+  }
+
+  public void updateMemberList(Member member) {
   }
 }

@@ -4,11 +4,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.controller.model.Language;
 import com.controller.model.MainActions;
+import com.model.Member;
 import com.model.StuffLendingSystem;
 import com.view.MainView;
-import com.view.View;
+import com.view.model.View;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,7 +82,7 @@ class AppTest {
     // Verify that the required methods are called
     verify(app).createStuffSystem();
     verify(app).createMainView(Language.ENG, "MainView");
-    verify(view, atLeastOnce()).displayMenu();
+    verify(view, atLeastOnce()).displayMenu(new ArrayList<>());
     verify(view, atLeastOnce()).getInput();
   }
 }

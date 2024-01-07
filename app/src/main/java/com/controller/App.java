@@ -3,7 +3,7 @@ package com.controller;
 import com.controller.model.Language;
 import com.model.StuffLendingSystem;
 import com.view.MainView;
-import com.view.View;
+import com.view.model.View;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 

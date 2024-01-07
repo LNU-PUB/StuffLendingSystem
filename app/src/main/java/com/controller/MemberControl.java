@@ -2,14 +2,19 @@ package com.controller;
 
 import com.controller.model.Control;
 import com.controller.model.MemberActions;
+import com.model.Member;
 import com.model.StuffLendingSystem;
+import com.view.MemberView;
+import java.util.List;
 
 /**
  * The Member controller.
  */
 public class MemberControl implements Control {
   private StuffLendingSystem stuffSystem;
-  private com.view.MemberView view;
+  private MemberView view;
+  private List<Member> members;
+  private Member member;
 
   public MemberControl(StuffLendingSystem stuffSystem, com.view.MemberView view) {
     this.stuffSystem = stuffSystem;
@@ -22,7 +27,7 @@ public class MemberControl implements Control {
    * @return true if the application should continue, false if the application should exit.
    */
   public boolean run() {
-    view.displayMenu();
+    view.displayMenu(members);
     MemberActions action = (MemberActions) view.getInput();
 
     if (action == MemberActions.VIEWMEMBER) {
@@ -52,17 +57,24 @@ public class MemberControl implements Control {
 
   private void deleteMember() {
     System.out.println("Delete Member");
+    updateMemberList();
   }
 
   private void editMember() {
     System.out.println("Edit Member");
+    updateMemberList();
   }
 
   private void addMember() {
     System.out.println("Add Member");
+    updateMemberList();
   }
 
   private void viewMember() {
     System.out.println("View Member");
+  }
+
+  private void updateMemberList() {
+    stuffSystem.updateMemberList(member);
   }
 }

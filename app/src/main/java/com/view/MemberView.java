@@ -2,6 +2,9 @@ package com.view;
 
 import com.controller.model.Language;
 import com.controller.model.MemberActions;
+import com.model.Member;
+import com.view.model.AbstractView;
+import java.util.List;
 import java.util.Locale;
 import java.util.Locale.Builder;
 import java.util.ResourceBundle;
@@ -30,19 +33,9 @@ public class MemberView extends AbstractView {
     }
   }
 
-  // @Override
-  // public void displayMenu() {
-  //   displayGreeting();
-  //   System.out.println("- Member Menu -\n");
-  //   for (MemberActions actions : MemberActions.values()) {
-  //     if (actions != MemberActions.UNKNOWN) {
-  //       System.out.println(actions.getSelector() + " - " + actions.getName());
-  //     }
-  //   }
-  // }
 
   @Override
-  public void displayMenu() {
+  public void displayMenu(List<Member> memberList) {
     displayGreeting();
     
     System.out.println("- " + texts.getString("title") + " -\n");

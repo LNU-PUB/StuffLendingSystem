@@ -1,16 +1,17 @@
 package com.controller.model;
 
 /**
- * The type of list to show.
+ * Represents the actions that can be performed on a member.
  */
-public enum MembersListType {
-  LIST("Simple List Members", 'l'),
-  DETAILED("Detailed List Members", 'd');
+public enum ListMembersActions implements Actions {
+  ADDMEMBER("addMember", 'a'),
+  UNKNOWN("unknown", '0'),
+  EXIT("exit", 'x');
 
   private final String name;
   private final char selector;
 
-  MembersListType(String name, char selector) {
+  ListMembersActions(String name, char selector) {
     this.name = name;
     this.selector = selector;
   }

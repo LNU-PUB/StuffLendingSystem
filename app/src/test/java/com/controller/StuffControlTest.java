@@ -5,7 +5,8 @@ import static org.mockito.Mockito.when;
 
 import com.controller.model.MainActions;
 import com.model.StuffLendingSystem;
-import com.view.View;
+import com.view.model.View;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

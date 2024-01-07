@@ -1,10 +1,11 @@
 package com.view;
 
+import com.controller.model.Actions;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
-import java.util.Locale;
-import java.util.Locale.Builder;
-import java.util.ResourceBundle;
+import com.model.Member;
+import com.view.model.AbstractView;
+import java.util.List;
 
 /**
  * Responsible for displaying information to the user.
@@ -22,7 +23,7 @@ public class MainView extends AbstractView {
   }
 
   @Override
-  public void displayMenu() {
+  public void displayMenu(List<Member> memberList) {
     displayGreeting();
 
     System.out.println("- " + texts.getString("title") + " -\n");
@@ -37,7 +38,7 @@ public class MainView extends AbstractView {
    * Collecting User input.
    */
   @Override
-  public com.controller.model.Actions getInput() {
+  public Actions getInput() {
 
     System.out.print(texts.getString("enter") + ": ");
     try {

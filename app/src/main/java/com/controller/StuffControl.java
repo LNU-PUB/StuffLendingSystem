@@ -4,9 +4,11 @@ import com.controller.model.Control;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
 import com.controller.model.MembersListType;
+import com.model.Member;
 import com.model.StuffLendingSystem;
-import com.view.MemberView;
-import com.view.View;
+import com.view.ListMembersView;
+import com.view.model.View;
+import java.util.List;
 
 /**
  * The controller.
@@ -15,8 +17,9 @@ public class StuffControl implements Control {
 
   private StuffLendingSystem stuffSystem;
   private View view;
-  private MemberControl memberControl;
-  Language language;
+  private ListMemberControl listMemberControl;
+  private Language language;
+  private List<Member> memberList;
 
   /**
    * Creates a new instance of the controller.
@@ -29,6 +32,7 @@ public class StuffControl implements Control {
     this.stuffSystem = stuffSystem;
     this.view = view;
     this.language = language;
+    memberList = stuffSystem.getMemberList();
   }
 
   /**
@@ -38,7 +42,7 @@ public class StuffControl implements Control {
    *         should exit.
    */
   public boolean run() {
-    view.displayMenu();
+    view.displayMenu(memberList);
     MainActions action = (MainActions) view.getInput();
 
     if (action == MainActions.LISTMEMBERS) {
@@ -57,9 +61,9 @@ public class StuffControl implements Control {
   }
 
   private void listMembers(MembersListType type) {
-    MemberView view = new MemberView(language, "MemberView");
-    memberControl = new MemberControl(this.stuffSystem, view);
-    while (memberControl.run()) {
+    ListMembersView view = new ListMembersView(language, "MemberView", type);
+    listMemberControl = new ListMemberControl(this.stuffSystem, view);
+    while (listMemberControl.run()) {
     }
   }
 }

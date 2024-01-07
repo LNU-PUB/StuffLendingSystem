@@ -1,4 +1,4 @@
-package com.view;
+package com.view.model;
 
 import com.controller.model.Language;
 import java.util.Locale;
