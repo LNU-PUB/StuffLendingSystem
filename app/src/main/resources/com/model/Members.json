@@ -1,0 +1,49 @@
+{
+  "members": [
+    {
+      "id":"123abc",
+      "name": "John",
+      "email": "john@test.com",
+      "mobile": "0123121212",
+      "items": [
+        {
+          "name": "Item 1",
+          "category": "Tool",
+          "description": "This is a tool",
+          "costPerDay": 10.00,
+          "creationDay": 1
+        }
+      ]
+    },
+    {
+      "id":"456def",
+      "name": "Jane",
+      "email": "jane@test.com",
+      "mobile": "0123121213",
+      "items": [
+        {
+          "name": "Item 2",
+          "category": "Tool",
+          "description": "This is a tool",
+          "costPerDay": 10.00,
+          "creationDay": 1
+        }
+      ]
+    },
+    {
+      "id":"789ghi",
+      "name": "Bob",
+      "email": "bob@test.com",
+      "mobile": "0123121214",
+      "items": [
+        {
+          "name": "Item 3",
+          "category": "Tool",
+          "description": "This is a tool",
+          "costPerDay": 10.00,
+          "creationDay": 1
+        }
+      ]
+    }
+  ]
+}
