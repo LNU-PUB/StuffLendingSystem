@@ -1,23 +1,54 @@
 package com.view;
 
+import com.controller.model.Language;
 import com.controller.model.MemberActions;
+import java.util.Locale;
+import java.util.Locale.Builder;
+import java.util.ResourceBundle;
 
 /**
  * Responsible for displaying information to the user.
  */
 public class MemberView extends AbstractView {
+  private ResourceBundle texts;
+  private Locale locale;
 
-  public MemberView() {
-    super();
+  /**
+   * Creates a new instance of the view.
+   *
+   * @param language   - The language.
+   * @param bundleName - The bundle name.
+   */
+  public MemberView(Language language, String bundleName) {
+    super(language, bundleName);
+
+    try {
+      this.locale = new Builder().setLanguage(language.getLanguage()).setRegion(language.getCountry()).build();
+      this.texts = ResourceBundle.getBundle("com.view.MemberView", locale);
+    } catch (Exception e) {
+      System.out.println("Error: " + e.getMessage());
+    }
   }
+
+  // @Override
+  // public void displayMenu() {
+  //   displayGreeting();
+  //   System.out.println("- Member Menu -\n");
+  //   for (MemberActions actions : MemberActions.values()) {
+  //     if (actions != MemberActions.UNKNOWN) {
+  //       System.out.println(actions.getSelector() + " - " + actions.getName());
+  //     }
+  //   }
+  // }
 
   @Override
   public void displayMenu() {
     displayGreeting();
-    System.out.println("- Member Menu -\n");
+    
+    System.out.println("- " + texts.getString("title") + " -\n");
     for (MemberActions actions : MemberActions.values()) {
       if (actions != MemberActions.UNKNOWN) {
-        System.out.println(actions.getSelector() + " - " + actions.getName());
+        System.out.println(actions.getSelector() + " - " + texts.getString(actions.getName()));
       }
     }
   }

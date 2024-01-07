@@ -4,14 +4,14 @@ package com.controller.model;
  * Represents the actions that can be performed on a member.
  */
 public enum MemberActions implements Actions {
-  VIEWMEMBER("View Member", 'v'),
-  ADDMEMBER("Add Member", 'a'),
-  EDITMEMBER("Edit Member", 'e'),
-  DELETEMEMBER("Delete Member", 'd'),
-  SIMPLELISTMEMBERS("Members Simple List", 's'),
-  DETAILEDLISTMEMBERS("Members Detailed List", 'l'),
-  UNKNOWN("Unknown", 'u'),
-  EXIT("Exit Members", 'x');
+  VIEWMEMBER("viewMember", 'v'),
+  ADDMEMBER("addMember", 'a'),
+  EDITMEMBER("editMember", 'e'),
+  DELETEMEMBER("deleteMember", 'd'),
+  SIMPLELISTMEMBERS("membersSimpleList", 's'),
+  DETAILEDLISTMEMBERS("membersDetailedList", 'l'),
+  UNKNOWN("unknown", 'u'),
+  EXIT("exitMembers", 'x');
 
   private final String name;
   private final char selector;

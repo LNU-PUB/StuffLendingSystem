@@ -1,12 +1,11 @@
 package com.controller;
 
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-
 import com.controller.model.Language;
 import com.model.StuffLendingSystem;
 import com.view.MainView;
 import com.view.View;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 // import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -15,15 +14,20 @@ import com.view.View;
  */
 public class App {
 
-  protected MainView createMainView(Language language) {
-    return new MainView(language);
+  protected View createMainView(Language language, String bundleName) {
+    return new MainView(language, bundleName);
   }
 
   protected StuffLendingSystem createStuffSystem() {
     return new StuffLendingSystem();
   }
 
-  private Language setLanguage(String[] args) {
+  // Additional method in App class to allow mocking of StuffControl creation
+  protected StuffControl createStuffControl(StuffLendingSystem system, View view, Language language) {
+    return new StuffControl(system, view, language);
+  }
+
+  Language setLanguage(String[] args) {
     Language lang = Language.ENG;
     if (args.length > 0) {
       try {
@@ -38,8 +42,8 @@ public class App {
 
   protected void run(Language language) {
     StuffLendingSystem stuffSystem = createStuffSystem();
-    View view = createMainView(language);
-    StuffControl ctrl = new StuffControl(stuffSystem, view);
+    View view = createMainView(language, "MainView");
+    StuffControl ctrl = new StuffControl(stuffSystem, view, language);
 
     while (ctrl.run()) {
     }
@@ -62,7 +66,8 @@ public class App {
       System.setOut(utf8Out);
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
-      // return; // return will terminate the application. Now it will continue but without UTF-8 support.
+      // return; // return will terminate the application. Now it will continue but
+      // without UTF-8 support.
     }
     App app = new App();
     Language lang = app.setLanguage(args);

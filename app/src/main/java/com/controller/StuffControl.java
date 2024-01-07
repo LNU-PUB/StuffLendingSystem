@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.controller.model.Control;
+import com.controller.model.Language;
 import com.controller.model.MainActions;
 import com.model.StuffLendingSystem;
 import com.view.MemberView;
@@ -14,10 +15,19 @@ public class StuffControl implements Control {
   private StuffLendingSystem stuffSystem;
   private View view;
   private MemberControl memberControl;
+  Language language;
 
-  public StuffControl(StuffLendingSystem stuffSystem, View view) {
+  /**
+   * Creates a new instance of the controller.
+   *
+   * @param stuffSystem - The stuff system.
+   * @param view       - The view.
+   * @param language  - The language.
+   */
+  public StuffControl(StuffLendingSystem stuffSystem, View view, Language language) {
     this.stuffSystem = stuffSystem;
     this.view = view;
+    this.language = language;
   }
 
   /**
@@ -42,7 +52,7 @@ public class StuffControl implements Control {
   }
 
   private void advanceTime() {
-    System.out.println("Advance Time");
+    this.stuffSystem.advanceTime();
   }
 
   private void newContract() {
@@ -50,7 +60,7 @@ public class StuffControl implements Control {
   }
 
   private void member() {
-    MemberView view = new MemberView();
+    MemberView view = new MemberView(language, "MemberView");
     memberControl = new MemberControl(this.stuffSystem, view);
     while (memberControl.run()) {
     }

@@ -120,8 +120,8 @@ test {
     dependsOn spotbugsMain
 
     // also some verbose output so we get some info in the console when we run tests
-    testLogging {
-        outputs.upToDateWhen {false}
-        showStandardStreams = true
-    }
+    // testLogging {
+    //     outputs.upToDateWhen {false}
+    //     showStandardStreams = true
+    // }
 }

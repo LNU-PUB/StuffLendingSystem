@@ -11,23 +11,15 @@ import java.util.ResourceBundle;
  */
 public class MainView extends AbstractView {
   // private Language language;
-  private ResourceBundle texts;
-  private Locale locale;
+ 
 
   /**
    * Constructor.
    *
    * @param language - The language to use.
    */
-  public MainView(Language language) {
-    super();
-    // this.language = language;
-    try {
-      this.locale = new Builder().setLanguage(language.getLanguage()).setRegion(language.getCountry()).build();
-      this.texts = ResourceBundle.getBundle("com.view.MainView", locale);
-    } catch (Exception e) {
-      System.out.println("Error: " + e.getMessage());
-    }
+  public MainView(Language language, String bundleName) {
+    super(language, bundleName);
   }
 
   @Override
