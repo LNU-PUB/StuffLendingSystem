@@ -38,14 +38,14 @@ class AppTest {
 
     // Mock the methods to return your mocked objects
     doReturn(stuffLendingSystem).when(app).createStuffSystem();
-    doReturn(view).when(app).createMainView(any(Language.class), null);
+    doReturn(view).when(app).createMainView(any(Language.class), anyString());
     doReturn(stuffControl).when(app).createStuffControl(any(), any(), any());
   }
 
   @Test
   void testSetLanguageValid() {
-    Language lang = app.setLanguage(new String[] { "ENG" });
-    assertEquals(Language.ENG, lang);
+    Language lang = app.setLanguage(new String[] { "SWE" });
+    assertEquals(Language.SWE, lang);
   }
 
   @Test
