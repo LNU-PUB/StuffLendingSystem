@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
  */
 public class MainView extends AbstractView {
   // private Language language;
- 
 
   /**
    * Constructor.
@@ -25,7 +24,7 @@ public class MainView extends AbstractView {
   @Override
   public void displayMenu() {
     displayGreeting();
-    
+
     System.out.println("- " + texts.getString("title") + " -\n");
     for (MainActions actions : MainActions.values()) {
       if (actions != MainActions.UNKNOWN) {
@@ -49,12 +48,20 @@ public class MainView extends AbstractView {
 
       switch (c) {
         case 'm':
-          return MainActions.MEMBER;
+          return MainActions.LISTMEMBERS;
         case 'n':
-          return MainActions.NEWCONTRACT;
+          return MainActions.LISTMEMBERSDETAIL;
         case 'a':
           return MainActions.ADVANCETIME;
+        case 'x':
+          return MainActions.QUIT;
+        case 'X':
+          return MainActions.QUIT;
         case 'q':
+          return MainActions.QUIT;
+        case 'Q':
+          return MainActions.QUIT;
+        case '0':
           return MainActions.QUIT;
         default:
           return MainActions.UNKNOWN;

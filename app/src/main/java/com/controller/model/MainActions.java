@@ -4,11 +4,11 @@ package com.controller.model;
  * Represents the main actions of the application.
  */
 public enum MainActions implements Actions {
-  MEMBER("member", 'm'),
-  NEWCONTRACT("newContract", 'n'),
+  LISTMEMBERS("listMembers", 'l'),
+  LISTMEMBERSDETAIL("listMembersDetail", 'd'),
   ADVANCETIME("time", 'a'),
   UNKNOWN("Unknown", 'u'),
-  QUIT("quit", 'q');
+  QUIT("quit", 'x');
 
   private final String name;
   private final char selector;

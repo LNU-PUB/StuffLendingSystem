@@ -3,6 +3,7 @@ package com.controller;
 import com.controller.model.Control;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
+import com.controller.model.MembersListType;
 import com.model.StuffLendingSystem;
 import com.view.MemberView;
 import com.view.View;
@@ -40,10 +41,10 @@ public class StuffControl implements Control {
     view.displayMenu();
     MainActions action = (MainActions) view.getInput();
 
-    if (action == MainActions.MEMBER) {
-      member();
-    } else if (action == MainActions.NEWCONTRACT) {
-      newContract();
+    if (action == MainActions.LISTMEMBERS) {
+      listMembers(MembersListType.LIST);
+    } else if (action == MainActions.LISTMEMBERSDETAIL) {
+      listMembers(MembersListType.DETAILED);
     } else if (action == MainActions.ADVANCETIME) {
       advanceTime();
     }
@@ -55,11 +56,7 @@ public class StuffControl implements Control {
     this.stuffSystem.advanceTime();
   }
 
-  private void newContract() {
-    System.out.println("New Contract");
-  }
-
-  private void member() {
+  private void listMembers(MembersListType type) {
     MemberView view = new MemberView(language, "MemberView");
     memberControl = new MemberControl(this.stuffSystem, view);
     while (memberControl.run()) {
