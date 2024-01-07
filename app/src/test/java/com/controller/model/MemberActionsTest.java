@@ -8,11 +8,11 @@ public class MemberActionsTest {
   
   @Test
   public void testGetName() {
-    assertEquals("View Member", MemberActions.VIEWMEMBER.getName());
-    assertEquals("Add Member", MemberActions.ADDMEMBER.getName());
-    assertEquals("Edit Member", MemberActions.EDITMEMBER.getName());
-    assertEquals("Delete Member", MemberActions.DELETEMEMBER.getName());
-    assertEquals("Members Simple List", MemberActions.SIMPLELISTMEMBERS.getName());
-    assertEquals("Members Detailed List", MemberActions.DETAILEDLISTMEMBERS.getName());
+    assertEquals("viewMember", MemberActions.VIEWMEMBER.getName());
+    assertEquals("addMember", MemberActions.ADDMEMBER.getName());
+    assertEquals("editMember", MemberActions.EDITMEMBER.getName());
+    assertEquals("deleteMember", MemberActions.DELETEMEMBER.getName());
+    assertEquals("membersSimpleList", MemberActions.SIMPLELISTMEMBERS.getName());
+    assertEquals("membersDetailedList", MemberActions.DETAILEDLISTMEMBERS.getName());
   }
 }
