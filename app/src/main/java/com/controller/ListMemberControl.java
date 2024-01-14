@@ -2,6 +2,7 @@ package com.controller;
 
 import com.controller.model.Control;
 import com.controller.model.ListMembersActions;
+import com.controller.model.MemberSelectionListener;
 import com.model.Member;
 import com.model.StuffLendingSystem;
 import com.view.model.View;
@@ -10,10 +11,11 @@ import java.util.List;
 /**
  * The control for listing members.
  */
-public class ListMemberControl implements Control {
+public class ListMemberControl implements Control, MemberSelectionListener {
   private StuffLendingSystem stuffSystem;
   private View view;
   List<Member> memberList;
+  Member selectedMember;
 
   /**
    * Creates a new instance of the control.
@@ -45,6 +47,11 @@ public class ListMemberControl implements Control {
   }
 
   private void addMember() {
+  }
+
+  @Override
+  public void onMemberSelected(Member selectedMember) {
+    this.selectedMember = selectedMember;
   }
 
 }

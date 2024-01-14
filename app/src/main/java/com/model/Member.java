@@ -8,44 +8,53 @@ import java.util.List;
  */
 public class Member {
   private String id;
-    private String name;
-    private String email;
-    private String mobile;
-    private List<Item> items;
+  private String name;
+  private String email;
+  private String mobile;
+  private List<Item> items;
 
-    public Member(String id, String name, String email, String mobile, List<Item> items) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.mobile = mobile;
-        this.items = items;
-    }
+  /**
+   * Constructor.
+   *
+   * @param id - unique id
+   * @param name - name
+   * @param email - email
+   * @param mobile - mobile
+   * @param items - items
+   */
+  public Member(String id, String name, String email, String mobile, List<Item> items) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.mobile = mobile;
+    this.items = new ArrayList<>(items);
+  }
 
-    public String getId() {
-      return id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setId(String id) {
-      this.id = id;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getName() {
-      return this.name;
-    }
+  public String getName() {
+    return this.name;
+  }
 
-    public void setName(String name) {
-      this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getEmail() {
-      return this.email;
-    }
+  public String getEmail() {
+    return this.email;
+  }
 
-    public String getMobile() {
-      return this.mobile;
-    }
+  public String getMobile() {
+    return this.mobile;
+  }
 
-    public List<Item> getItems() {
-      return new ArrayList<>(this.items);
-    }
+  public List<Item> getItems() {
+    return (List<Item>) new ArrayList<>(this.items);
+  }
 }

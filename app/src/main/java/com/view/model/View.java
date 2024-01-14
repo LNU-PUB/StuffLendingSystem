@@ -1,5 +1,6 @@
 package com.view.model;
 
+import com.controller.model.Actions;
 import com.model.Member;
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
 public interface View {
   public void displayMenu(List<Member> memberList);
 
-  public com.controller.model.Actions getInput();
+  public Actions getInput();
 }

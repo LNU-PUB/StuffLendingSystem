@@ -5,12 +5,14 @@ import com.controller.model.Language;
 import com.controller.model.MainActions;
 import com.model.Member;
 import com.view.model.AbstractView;
+import com.view.model.View;
+
 import java.util.List;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class MainView extends AbstractView {
+public class MainView extends AbstractView implements View {
   // private Language language;
 
   /**
@@ -47,25 +49,32 @@ public class MainView extends AbstractView {
         c = System.in.read();
       }
 
-      switch (c) {
-        case 'm':
-          return MainActions.LISTMEMBERS;
-        case 'n':
-          return MainActions.LISTMEMBERSDETAIL;
-        case 'a':
-          return MainActions.ADVANCETIME;
-        case 'x':
-          return MainActions.QUIT;
-        case 'X':
-          return MainActions.QUIT;
-        case 'q':
-          return MainActions.QUIT;
-        case 'Q':
-          return MainActions.QUIT;
-        case '0':
-          return MainActions.QUIT;
-        default:
-          return MainActions.UNKNOWN;
+      if (c == MainActions.LISTMEMBERS.getSelector()) {
+        return MainActions.LISTMEMBERS;
+      } else if (c == MainActions.LISTMEMBERSDETAIL.getSelector()) {
+        return MainActions.LISTMEMBERSDETAIL;
+      } else if (c == MainActions.ADVANCETIME.getSelector()) {
+        return MainActions.ADVANCETIME;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else if (c == MainActions.QUIT.getSelector()) {
+        return MainActions.QUIT;
+      } else {
+        return MainActions.UNKNOWN;
       }
     } catch (java.io.IOException e) {
       System.out.println("" + e);

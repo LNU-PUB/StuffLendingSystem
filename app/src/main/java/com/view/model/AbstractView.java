@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 /**
  * Input interface.
  */
-public abstract class AbstractView implements View {
+public abstract class AbstractView {
   protected ResourceBundle texts;
   private Locale locale;
 
@@ -31,10 +31,17 @@ public abstract class AbstractView implements View {
    * Displays a greeting to the user.
    */
   public void displayGreeting() {
-    for (int i = 0; i < 50; i++) {
-      System.out.println("");
-    }
+    cleanScreen();
     System.out.println("*** Stuff lending System ***\n");
   }
 
+  public void cleanScreen() {
+    for (int i = 0; i < 50; i++) {
+      System.out.println("");
+    }
+  }
+
+  protected boolean isNumericInteger(String str) {
+    return str.matches("\\d+");
+  }
 }

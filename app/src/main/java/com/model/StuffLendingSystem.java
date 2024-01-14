@@ -27,11 +27,13 @@ public class StuffLendingSystem {
   }
 
   private Time time;
+  private DataHandlerMember dataHandler;
   private List<Member> members;
 
   public StuffLendingSystem() {
     this.time = new Time();
-    this.members = new ArrayList<>();
+    this.dataHandler = new DataHardCodedMember();
+    this.members = dataHandler.getMembers();
   }
 
   public int getTime() {
@@ -43,7 +45,7 @@ public class StuffLendingSystem {
   }
 
   public List<Member> getMemberList() {
-    return new ArrayList<>(members);
+    return (List<Member>) new ArrayList<>(members);
   }
 
   public void updateMemberList(Member member) {
