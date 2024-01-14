@@ -5,6 +5,7 @@ package com.controller.model;
  */
 public enum ListMembersActions implements Actions {
   ADDMEMBER("addMember", 'a'),
+  SELECTEDMEMBER("selectedMember", 's'),
   UNKNOWN("unknown", '0'),
   EXIT("exit", 'x');
 

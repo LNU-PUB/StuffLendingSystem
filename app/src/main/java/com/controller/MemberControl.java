@@ -4,7 +4,8 @@ import com.controller.model.Control;
 import com.controller.model.MemberActions;
 import com.model.Member;
 import com.model.StuffLendingSystem;
-import com.view.MemberView;
+import com.view.model.View;
+
 import java.util.List;
 
 /**
@@ -12,11 +13,11 @@ import java.util.List;
  */
 public class MemberControl implements Control {
   private StuffLendingSystem stuffSystem;
-  private MemberView view;
+  private View view;
   private List<Member> members;
   private Member member;
 
-  public MemberControl(StuffLendingSystem stuffSystem, com.view.MemberView view) {
+  public MemberControl(StuffLendingSystem stuffSystem, View view) {
     this.stuffSystem = stuffSystem;
     this.view = view;
   }

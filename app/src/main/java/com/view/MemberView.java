@@ -4,6 +4,8 @@ import com.controller.model.Language;
 import com.controller.model.MemberActions;
 import com.model.Member;
 import com.view.model.AbstractView;
+import com.view.model.View;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Locale.Builder;
@@ -12,7 +14,7 @@ import java.util.ResourceBundle;
 /**
  * Responsible for displaying information to the user.
  */
-public class MemberView extends AbstractView {
+public class MemberView extends AbstractView implements View {
   private ResourceBundle texts;
   private Locale locale;
 

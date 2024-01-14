@@ -2,18 +2,18 @@ package com.controller;
 
 import com.controller.model.Control;
 import com.controller.model.ListMembersActions;
-import com.controller.model.MemberSelectionListener;
+import com.controller.model.ListMembersResponse;
 import com.model.Member;
 import com.model.StuffLendingSystem;
-import com.view.model.View;
+import com.view.ListMembersView;
 import java.util.List;
 
 /**
  * The control for listing members.
  */
-public class ListMemberControl implements Control, MemberSelectionListener {
+public class ListMemberControl implements Control{
   private StuffLendingSystem stuffSystem;
-  private View view;
+  private ListMembersView view;
   List<Member> memberList;
   Member selectedMember;
 
@@ -21,11 +21,11 @@ public class ListMemberControl implements Control, MemberSelectionListener {
    * Creates a new instance of the control.
    *
    * @param stuffSystem - the stuff lending system
-   * @param view        - the view
+   * @param view2        - the view
    */
-  public ListMemberControl(StuffLendingSystem stuffSystem, View view) {
+  public ListMemberControl(StuffLendingSystem stuffSystem, ListMembersView view2) {
     this.stuffSystem = stuffSystem;
-    this.view = view;
+    this.view = view2;
     createMemberList();
   }
 
@@ -35,9 +35,10 @@ public class ListMemberControl implements Control, MemberSelectionListener {
 
   @Override
   public boolean run() {
-    view.displayMenu(memberList);
+    view.displayMenu(stuffSystem);
 
-    ListMembersActions action = (ListMembersActions) view.getInput();
+    ListMembersResponse response = view.getInput();
+    ListMembersActions action = response.getAction();
 
     if (action == ListMembersActions.ADDMEMBER) {
       addMember();
@@ -48,10 +49,4 @@ public class ListMemberControl implements Control, MemberSelectionListener {
 
   private void addMember() {
   }
-
-  @Override
-  public void onMemberSelected(Member selectedMember) {
-    this.selectedMember = selectedMember;
-  }
-
 }

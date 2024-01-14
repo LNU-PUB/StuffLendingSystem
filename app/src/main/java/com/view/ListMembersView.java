@@ -3,20 +3,25 @@ package com.view;
 import com.controller.model.Actions;
 import com.controller.model.Language;
 import com.controller.model.ListMembersActions;
+import com.controller.model.ListMembersResponse;
 import com.controller.model.MemberSelectionListener;
 import com.controller.model.MembersListType;
 import com.model.Member;
+import com.model.StuffLendingSystem;
 import com.view.model.AbstractView;
+import com.view.model.ListView;
+
 import java.util.List;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class ListMembersView extends AbstractView {
+public class ListMembersView extends AbstractView implements ListView<ListMembersResponse> {
   // private Language language;
   // private String bundleName;
   private MembersListType type;
   private MemberSelectionListener listener;
+  List<Member> memberList;
 
   public ListMembersView(Language language, String bundleName, MembersListType type) {
     super(language, bundleName);
@@ -25,7 +30,8 @@ public class ListMembersView extends AbstractView {
   }
 
   @Override
-  public void displayMenu(List<Member> memberList) {
+  public void displayMenu(StuffLendingSystem stuffSystem) {
+    this.memberList = stuffSystem.getMemberList();
     switch (type) {
       case LIST:
         displaySimpleMenu(memberList);
@@ -42,7 +48,7 @@ public class ListMembersView extends AbstractView {
    * Collecting User input.
    */
   @Override
-  public Actions getInput() {
+  public ListMembersResponse getInput() {
 
     System.out.print(texts.getString("enter") + ": ");
     StringBuilder inputBuilder = new StringBuilder();
@@ -57,27 +63,27 @@ public class ListMembersView extends AbstractView {
 
       if (isNumericInteger(input)) {
         int index = Integer.parseInt(input);
-        if (index >= 0 && index < listener.getMemberList().size()) {
-          listener.onMemberSelected(listener.getMemberList().get(index));
+        if (index >= 0 && index < memberList.size()) {
+          listener.onMemberSelected(memberList.get(index));
         }
-        return ListMembersActions.SELECTMEMBER;
+        return new ListMembersResponse(ListMembersActions.SELECTEDMEMBER, index);
       } else {
         switch (input) {
           case "a":
-            return ListMembersActions.ADDMEMBER;
+            return new ListMembersResponse(ListMembersActions.ADDMEMBER, -1);
           case "x":
           case "X":
           case "q":
           case "Q":
-            return ListMembersActions.EXIT;
+            return new ListMembersResponse(ListMembersActions.EXIT, -1);
           default:
-            return ListMembersActions.UNKNOWN;
+            return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
         }
       }
     } catch (
     java.io.IOException e) {
       System.out.println("" + e);
-      return ListMembersActions.UNKNOWN;
+      return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
     }
   }
 
@@ -97,9 +103,8 @@ public class ListMembersView extends AbstractView {
     System.out.println("x - " + texts.getString("exit"));
   }
 
-  private void displayDetailedMenu(List<Member> memberList) {
-    // TODO Auto-generated method stub
+  private void displayDetailedMenu(List<Member> memberList){
+    //TODO: Implement this method
     throw new UnsupportedOperationException("Unimplemented method 'displayDetailedMenu'");
   }
-
 }
