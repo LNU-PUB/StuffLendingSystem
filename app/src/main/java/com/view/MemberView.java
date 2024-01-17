@@ -5,7 +5,6 @@ import com.controller.model.MemberActions;
 import com.model.Member;
 import com.view.model.AbstractView;
 import com.view.model.View;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Locale.Builder;

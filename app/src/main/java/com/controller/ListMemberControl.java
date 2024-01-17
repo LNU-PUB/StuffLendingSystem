@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * The control for listing members.
  */
-public class ListMemberControl implements Control{
+public class ListMemberControl implements Control {
   private StuffLendingSystem stuffSystem;
   private ListMembersView view;
   List<Member> memberList;
@@ -21,11 +21,11 @@ public class ListMemberControl implements Control{
    * Creates a new instance of the control.
    *
    * @param stuffSystem - the stuff lending system
-   * @param view2        - the view
+   * @param view       - the view
    */
-  public ListMemberControl(StuffLendingSystem stuffSystem, ListMembersView view2) {
+  public ListMemberControl(StuffLendingSystem stuffSystem, ListMembersView view) {
     this.stuffSystem = stuffSystem;
-    this.view = view2;
+    this.view = view;
     createMemberList();
   }
 
@@ -39,10 +39,13 @@ public class ListMemberControl implements Control{
 
     ListMembersResponse response = view.getInput();
     ListMembersActions action = response.getAction();
+    int index = response.getIndex();
 
-    if (action == ListMembersActions.ADDMEMBER) {
+    if (action == ListMembersActions.SELECTEDMEMBER) {
+      selectedMember = memberList.get(index);
+    } else if (action == ListMembersActions.ADDMEMBER) {
       addMember();
-    } 
+    }
 
     return action != ListMembersActions.EXIT;
   }

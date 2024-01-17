@@ -5,7 +5,6 @@ import com.controller.model.MemberActions;
 import com.model.Member;
 import com.model.StuffLendingSystem;
 import com.view.model.View;
-
 import java.util.List;
 
 /**
@@ -25,7 +24,8 @@ public class MemberControl implements Control {
   /**
    * Runs the application.
    *
-   * @return true if the application should continue, false if the application should exit.
+   * @return true if the application should continue, false if the application
+   *         should exit.
    */
   public boolean run() {
     view.displayMenu(members);

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The data handler for hard coded members.
+ */
 public class DataHardCodedMember implements DataHandlerMember {
 
   @Override

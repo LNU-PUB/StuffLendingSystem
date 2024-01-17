@@ -4,13 +4,11 @@ import com.controller.model.Actions;
 import com.controller.model.Language;
 import com.controller.model.ListMembersActions;
 import com.controller.model.ListMembersResponse;
-import com.controller.model.MemberSelectionListener;
 import com.controller.model.MembersListType;
 import com.model.Member;
 import com.model.StuffLendingSystem;
 import com.view.model.AbstractView;
 import com.view.model.ListView;
-
 import java.util.List;
 
 /**
@@ -20,9 +18,15 @@ public class ListMembersView extends AbstractView implements ListView<ListMember
   // private Language language;
   // private String bundleName;
   private MembersListType type;
-  private MemberSelectionListener listener;
   List<Member> memberList;
 
+  /**
+   * Creates a new instance of the view.
+   *
+   * @param language   - the language
+   * @param bundleName - the bundle name
+   * @param type       - the type of list
+   */
   public ListMembersView(Language language, String bundleName, MembersListType type) {
     super(language, bundleName);
     this.type = type;
@@ -63,9 +67,6 @@ public class ListMembersView extends AbstractView implements ListView<ListMember
 
       if (isNumericInteger(input)) {
         int index = Integer.parseInt(input);
-        if (index >= 0 && index < memberList.size()) {
-          listener.onMemberSelected(memberList.get(index));
-        }
         return new ListMembersResponse(ListMembersActions.SELECTEDMEMBER, index);
       } else {
         switch (input) {
@@ -80,16 +81,11 @@ public class ListMembersView extends AbstractView implements ListView<ListMember
             return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
         }
       }
-    } catch (
-    java.io.IOException e) {
+    } catch (java.io.IOException e) {
       System.out.println("" + e);
       return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
     }
   }
-
-  public void setMemberSelectionListener(MemberSelectionListener listener) {
-    this.listener = listener;
-}
 
   private void displaySimpleMenu(List<Member> memberList) {
     cleanScreen();
@@ -103,8 +99,8 @@ public class ListMembersView extends AbstractView implements ListView<ListMember
     System.out.println("x - " + texts.getString("exit"));
   }
 
-  private void displayDetailedMenu(List<Member> memberList){
-    //TODO: Implement this method
+  private void displayDetailedMenu(List<Member> memberList) {
+    // TODO: Implement this method
     throw new UnsupportedOperationException("Unimplemented method 'displayDetailedMenu'");
   }
 }

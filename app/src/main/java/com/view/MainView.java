@@ -6,7 +6,6 @@ import com.controller.model.MainActions;
 import com.model.Member;
 import com.view.model.AbstractView;
 import com.view.model.View;
-
 import java.util.List;
 
 /**
