@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface View {
   public void displayMenu();
+  public void displayPrompt();
 }

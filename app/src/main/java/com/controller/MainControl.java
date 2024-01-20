@@ -8,19 +8,21 @@ import com.controller.model.MainActions;
 import com.controller.model.MembersListType;
 import com.model.Member;
 import com.model.StuffLendingSystem;
-import com.view.ListMembersView;
+// import com.view.ListMembersView;
+import com.view.MainView;
 import com.view.model.View;
+import com.view.model.ViewArguments;
 import java.util.List;
 
 /**
  * The controller.
  */
-public class StuffControl implements Control {
+public class MainControl implements Control {
 
   private StuffLendingSystem stuffSystem;
-  private View view;
+  private MainView view;
   private InputService inputService;
-  private ListMemberControl listMemberControl;
+  // private ListMemberControl listMemberControl;
   private Language language;
   private List<Member> memberList;
 
@@ -28,12 +30,12 @@ public class StuffControl implements Control {
    * Creates a new instance of the controller.
    *
    * @param stuffSystem - The stuff system.
-   * @param view       - The view.
-   * @param language  - The language.
+   * @param view        - The view.
+   * @param language    - The language.
    */
-  public StuffControl(ControllerArguments args) {
+  public MainControl(ControllerArguments args) {
     this.stuffSystem = args.getStuffLendingSystem();
-    this.view = args.getView();
+    this.view = (MainView) args.getView();
     this.language = args.getLanguage();
     this.inputService = args.getInputService();
     memberList = stuffSystem.getMemberList();
@@ -47,7 +49,8 @@ public class StuffControl implements Control {
    */
   public boolean run() {
     view.displayMenu();
-    MainActions action = (MainActions) view.getInput();
+    view.displayPrompt();
+    MainActions action = getInput();
 
     if (action == MainActions.LISTMEMBERS) {
       listMembers(MembersListType.LIST);
@@ -60,14 +63,33 @@ public class StuffControl implements Control {
     return action != MainActions.QUIT;
   }
 
+  private MainActions getInput() {
+    String userInput = inputService.readLine().trim();
+
+    if (userInput.length() == 1) {
+      char inputChar = userInput.charAt(0);
+      for (MainActions action : MainActions.values()) {
+        if (action.getSelector() == inputChar) {
+          return action;
+        }
+      }
+    }
+
+    view.displayError("Invalid selection");
+    return MainActions.UNKNOWN;
+  }
+
   private void advanceTime() {
     this.stuffSystem.advanceTime();
   }
 
   private void listMembers(MembersListType type) {
-    ListMembersView view = new ListMembersView(language, "MemberView", type);
-    listMemberControl = new ListMemberControl(this.stuffSystem, view);
-    while (listMemberControl.run()) {
-    }
+    System.out.println("List members");
+    // ViewArguments viewArgs = new ViewArguments(this.stuffSystem,
+    // this.inputService, "MemberView", this.language);
+    // ListMembersView view = new ListMembersView(viewArgs, type);
+    // listMemberControl = new ListMemberControl(this.stuffSystem, view);
+    // while (listMemberControl.run()) {
+    // }
   }
 }

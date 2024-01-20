@@ -32,7 +32,7 @@ public abstract class AbstractView {
    */
   public void displayGreeting() {
     cleanScreen();
-    System.out.println("*** Stuff lending System ***\n");
+    System.out.println("*** Stuff Lending System ***\n");
   }
 
   /**
@@ -48,22 +48,22 @@ public abstract class AbstractView {
     System.out.println("\n*** " + texts.getString("error") + ": " + error + "\n");
   }
 
-  protected boolean isNumericInteger(String str) {
-    return str.matches("\\d+");
-  }
+  // protected boolean isNumericInteger(String str) {
+  //   return str.matches("\\d+");
+  // }
 
-  protected String getInput(String text) {
-    System.out.print(text + ": ");
-    StringBuilder inputBuilder = new StringBuilder();
-    try {
-      int c = System.in.read();
-      while (c != '\n' && c != -1) {
-        inputBuilder.append((char) c);
-        c = System.in.read();
-      }
-    } catch (Exception e) {
-      System.out.println("Error: " + e.getMessage());
-    }
-    return inputBuilder.toString();
-  }
+  // protected String getInput(String text) {
+  //   System.out.print(text + ": ");
+  //   StringBuilder inputBuilder = new StringBuilder();
+  //   try {
+  //     int c = System.in.read();
+  //     while (c != '\n' && c != -1) {
+  //       inputBuilder.append((char) c);
+  //       c = System.in.read();
+  //     }
+  //   } catch (Exception e) {
+  //     System.out.println("Error: " + e.getMessage());
+  //   }
+  //   return inputBuilder.toString();
+  // }
 }

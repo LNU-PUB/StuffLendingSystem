@@ -1,28 +1,30 @@
 package com.view;
 
 import com.controller.model.Actions;
+import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
 import com.model.Member;
 import com.view.model.AbstractView;
 import com.view.model.View;
+import com.view.model.ViewArguments;
+
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Responsible for displaying information to the user.
  */
 public class MainView extends AbstractView implements View {
-  private Scanner scanner;
-
+  private final InputService scanner;
+  
   /**
-   * Constructor.
+   * Creates a new instance of the view.
    *
-   * @param language - The language to use.
+   * @param viewArgs - the view arguments
    */
-  public MainView(Language language, String bundleName) {
-    super(language, bundleName);
-    this.scanner = new Scanner(System.in);
+  public MainView(ViewArguments viewArgs) {
+    super(viewArgs.getLanguage(), viewArgs.getBundleName());
+    this.scanner = viewArgs.getInputService();
   }
 
   @Override
@@ -37,71 +39,26 @@ public class MainView extends AbstractView implements View {
     }
   }
 
-  /**
-   * Collecting User input.
-   */
   // @Override
   // public Actions getInput() {
+  //   displayPrompt();
+  //   String input = scanner.readLine().trim();
 
-  // System.out.print(texts.getString("enter") + ": ");
-  // try {
-  // int c = System.in.read();
-  // while (c == '\r' || c == '\n') {
-  // c = System.in.read();
-  // }
+  //   if (input.length() == 1) {
+  //     char inputChar = input.charAt(0);
+  //     for (MainActions action : MainActions.values()) {
+  //       if (action.getSelector() == inputChar) {
+  //         return action;
+  //       }
+  //     }
+  //   }
 
-  // if (c == MainActions.LISTMEMBERS.getSelector()) {
-  // return MainActions.LISTMEMBERS;
-  // } else if (c == MainActions.LISTMEMBERSDETAIL.getSelector()) {
-  // return MainActions.LISTMEMBERSDETAIL;
-  // } else if (c == MainActions.ADVANCETIME.getSelector()) {
-  // return MainActions.ADVANCETIME;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else if (c == MainActions.QUIT.getSelector()) {
-  // return MainActions.QUIT;
-  // } else {
-  // return MainActions.UNKNOWN;
-  // }
-  // } catch (java.io.IOException e) {
-  // System.out.println("" + e);
-  // return MainActions.UNKNOWN;
-  // }
+  //   displayError("Invalid selection");
+  //   return MainActions.UNKNOWN;
   // }
 
   @Override
-  public Actions getInput() {
-    displayPrompt();
-    String input = scanner.nextLine().trim();
-
-    if (input.length() == 1) {
-      char inputChar = input.charAt(0);
-      for (MainActions action : MainActions.values()) {
-        if (action.getSelector() == inputChar) {
-          return action;
-        }
-      }
-    }
-
-    displayError("Invalid selection");
-    return MainActions.UNKNOWN;
-  }
-
-  private void displayPrompt() {
+  public void displayPrompt() {
     System.out.print(texts.getString("enter") + ": ");
   }
 

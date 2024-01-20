@@ -6,6 +6,7 @@ import com.controller.model.Language;
 import com.model.StuffLendingSystem;
 import com.view.MainView;
 import com.view.model.View;
+import com.view.model.ViewArguments;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.ModuleLayer.Controller;
@@ -16,18 +17,24 @@ import java.lang.ModuleLayer.Controller;
  * The application.
  */
 public class App {
+  private InputService inputService;
+  private final StuffLendingSystem stuffSystem;
 
-  protected View createMainView(Language language, String bundleName) {
-    return new MainView(language, bundleName);
+  /**
+   * Creates a new instance of the application.
+   */
+  public App() {
+    this.stuffSystem = createStuffSystem();
+    this.inputService = createInputService();
+  }
+
+  protected View createMainView(StuffLendingSystem stuffSystem, InputService inputService, Language language, String bundleName) {
+    ViewArguments viewArgs = new ViewArguments(stuffSystem, inputService, bundleName, language);
+    return new MainView(viewArgs);
   }
 
   protected StuffLendingSystem createStuffSystem() {
     return new StuffLendingSystem();
-  }
-
-  // Additional method in App class to allow mocking of StuffControl creation
-  protected StuffControl createStuffControl(StuffLendingSystem system, View view, Language language) {
-    return new StuffControl(system, view, language);
   }
 
   protected InputService createInputService() {
@@ -48,8 +55,9 @@ public class App {
   }
 
   protected void run(Language language) {
-    ControllerArguments controllerArgs = new ControllerArguments(createInputService(), createStuffSystem(), language, createMainView(language, "MainView"));
-    StuffControl ctrl = new StuffControl(controllerArgs);
+    View view = createMainView(stuffSystem, inputService, language, "MainView");
+    ControllerArguments controllerArgs = new ControllerArguments(stuffSystem, inputService, language, createMainView(stuffSystem, inputService, language,  "MainView"));
+    MainControl ctrl = new MainControl(controllerArgs);
 
     while (ctrl.run()) {
     }

@@ -20,7 +20,7 @@ public class ControllerArguments {
    * @param language           - The language.
    * @param view               - The view.
    */
-  public ControllerArguments(InputService inputService, StuffLendingSystem stuffLendingSystem, Language language,
+  public ControllerArguments(StuffLendingSystem stuffLendingSystem, InputService inputService, Language language,
       View view) {
     this.inputService = inputService;
     this.stuffLendingSystem = stuffLendingSystem;
