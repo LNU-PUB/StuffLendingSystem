@@ -28,6 +28,19 @@ public class Item {
     this.creationDay = creationDay;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param item - The item to copy.
+   */
+  public Item(Item item) {
+    this.name = item.getName();
+    this.category = item.getCategory();
+    this.description = item.getDescription();
+    this.costPerDay = item.getCostPerDay();
+    this.creationDay = item.getCreationDay();
+  }
+
   public String getName() {
     return this.name;
   }

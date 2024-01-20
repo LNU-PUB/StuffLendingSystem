@@ -36,7 +36,7 @@ public class MemberView extends AbstractView implements View {
 
 
   @Override
-  public void displayMenu(List<Member> memberList) {
+  public void displayMenu() {
     displayGreeting();
     
     System.out.println("- " + texts.getString("title") + " -\n");

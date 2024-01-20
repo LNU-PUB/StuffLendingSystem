@@ -44,7 +44,26 @@ public abstract class AbstractView {
     }
   }
 
+  public void displayError(String error) {
+    System.out.println("\n*** " + texts.getString("error") + ": " + error + "\n");
+  }
+
   protected boolean isNumericInteger(String str) {
     return str.matches("\\d+");
+  }
+
+  protected String getInput(String text) {
+    System.out.print(text + ": ");
+    StringBuilder inputBuilder = new StringBuilder();
+    try {
+      int c = System.in.read();
+      while (c != '\n' && c != -1) {
+        inputBuilder.append((char) c);
+        c = System.in.read();
+      }
+    } catch (Exception e) {
+      System.out.println("Error: " + e.getMessage());
+    }
+    return inputBuilder.toString();
   }
 }

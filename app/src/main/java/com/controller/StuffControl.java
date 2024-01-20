@@ -42,7 +42,7 @@ public class StuffControl implements Control {
    *         should exit.
    */
   public boolean run() {
-    view.displayMenu(memberList);
+    view.displayMenu();
     MainActions action = (MainActions) view.getInput();
 
     if (action == MainActions.LISTMEMBERS) {

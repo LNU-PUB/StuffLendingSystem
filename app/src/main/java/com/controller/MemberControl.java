@@ -11,9 +11,9 @@ import java.util.List;
  * The Member controller.
  */
 public class MemberControl implements Control {
-  private StuffLendingSystem stuffSystem;
+  private final StuffLendingSystem stuffSystem;
   private View view;
-  private List<Member> members;
+  // private List<Member> members;
   private Member member;
 
   public MemberControl(StuffLendingSystem stuffSystem, View view) {
@@ -28,7 +28,7 @@ public class MemberControl implements Control {
    *         should exit.
    */
   public boolean run() {
-    view.displayMenu(members);
+    view.displayMenu();
     MemberActions action = (MemberActions) view.getInput();
 
     if (action == MemberActions.VIEWMEMBER) {
@@ -58,24 +58,24 @@ public class MemberControl implements Control {
 
   private void deleteMember() {
     System.out.println("Delete Member");
-    updateMemberList();
+    updateMember();
   }
 
   private void editMember() {
     System.out.println("Edit Member");
-    updateMemberList();
+    updateMember();
   }
 
   private void addMember() {
     System.out.println("Add Member");
-    updateMemberList();
+    updateMember();
   }
 
   private void viewMember() {
     System.out.println("View Member");
   }
 
-  private void updateMemberList() {
-    stuffSystem.updateMemberList(member);
+  private void updateMember() {
+    stuffSystem.updateMember(member);
   }
 }

@@ -30,6 +30,22 @@ public class Member {
     this.items = new ArrayList<>(items);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param member - The member to copy.
+   */
+  public Member(Member member) {
+    this.id = member.getId();
+    this.name = member.getName();
+    this.email = member.getEmail();
+    this.mobile = member.getMobile();
+    this.items = new ArrayList<>();
+    for (Item item : member.getItems()) {
+      this.items.add(new Item(item));
+    }
+  }
+
   public String getId() {
     return id;
   }
