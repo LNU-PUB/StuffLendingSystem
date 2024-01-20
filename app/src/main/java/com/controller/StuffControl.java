@@ -1,6 +1,8 @@
 package com.controller;
 
 import com.controller.model.Control;
+import com.controller.model.ControllerArguments;
+import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
 import com.controller.model.MembersListType;
@@ -17,6 +19,7 @@ public class StuffControl implements Control {
 
   private StuffLendingSystem stuffSystem;
   private View view;
+  private InputService inputService;
   private ListMemberControl listMemberControl;
   private Language language;
   private List<Member> memberList;
@@ -28,10 +31,11 @@ public class StuffControl implements Control {
    * @param view       - The view.
    * @param language  - The language.
    */
-  public StuffControl(StuffLendingSystem stuffSystem, View view, Language language) {
-    this.stuffSystem = stuffSystem;
-    this.view = view;
-    this.language = language;
+  public StuffControl(ControllerArguments args) {
+    this.stuffSystem = args.getStuffLendingSystem();
+    this.view = args.getView();
+    this.language = args.getLanguage();
+    this.inputService = args.getInputService();
     memberList = stuffSystem.getMemberList();
   }
 

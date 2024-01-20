@@ -1,11 +1,14 @@
 package com.controller;
 
+import com.controller.model.ControllerArguments;
+import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.StuffLendingSystem;
 import com.view.MainView;
 import com.view.model.View;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.ModuleLayer.Controller;
 
 // import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -27,6 +30,10 @@ public class App {
     return new StuffControl(system, view, language);
   }
 
+  protected InputService createInputService() {
+    return new InputService();
+  }
+
   Language setLanguage(String[] args) {
     Language lang = Language.ENG;
     if (args.length > 0) {
@@ -41,9 +48,8 @@ public class App {
   }
 
   protected void run(Language language) {
-    StuffLendingSystem stuffSystem = createStuffSystem();
-    View view = createMainView(language, "MainView");
-    StuffControl ctrl = new StuffControl(stuffSystem, view, language);
+    ControllerArguments controllerArgs = new ControllerArguments(createInputService(), createStuffSystem(), language, createMainView(language, "MainView"));
+    StuffControl ctrl = new StuffControl(controllerArgs);
 
     while (ctrl.run()) {
     }
