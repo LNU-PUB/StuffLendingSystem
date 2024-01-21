@@ -10,7 +10,7 @@ import com.view.model.ViewArguments;
 public class ViewFactory implements MenuViewFactory {
 
   @Override
-  public View createMainMenuView(ViewArguments args) {
+  public MainView createMainMenuView(ViewArguments args) {
     return new MainView(args);
   }
 

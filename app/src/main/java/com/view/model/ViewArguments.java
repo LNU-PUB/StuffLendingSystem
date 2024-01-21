@@ -1,6 +1,5 @@
 package com.view.model;
 
-import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.StuffLendingSystem;
 
@@ -8,7 +7,6 @@ import com.model.StuffLendingSystem;
  * Class holding common arguments for views.
  */
 public class ViewArguments {
-  private final InputService inputService;
   private final String bundleName;
   private final Language language;
   private final StuffLendingSystem stuffSystem;
@@ -16,25 +14,13 @@ public class ViewArguments {
   /**
    * Creates a new instance of the view arguments.
    *
-   * @param inputService - The input service.
    * @param bundleName   - The bundle name.
    * @param language     - The language.
    */
-  public ViewArguments(StuffLendingSystem stuffSystem,
-      InputService inputService, String bundleName, Language language) {
-    this.inputService = inputService;
+  public ViewArguments(StuffLendingSystem stuffSystem, String bundleName, Language language) {
     this.bundleName = bundleName;
     this.language = language;
     this.stuffSystem = stuffSystem;
-  }
-
-  /**
-   * Gets the input service.
-   *
-   * @return - The input service.
-   */
-  public InputService getInputService() {
-    return inputService;
   }
 
   /**

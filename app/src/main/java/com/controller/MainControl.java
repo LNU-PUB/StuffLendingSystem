@@ -10,6 +10,7 @@ import com.model.Member;
 import com.model.StuffLendingSystem;
 // import com.view.ListMembersView;
 import com.view.MainView;
+import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 public class MainControl implements Control {
 
+  private static final String BUNDLE_NAME = "MainView";
   private StuffLendingSystem stuffSystem;
   private MainView view;
   private InputService inputService;
@@ -33,10 +35,17 @@ public class MainControl implements Control {
    */
   public MainControl(ControllerArguments args) {
     this.stuffSystem = args.getStuffLendingSystem();
-    this.view = (MainView) args.getView();
     this.language = args.getLanguage();
     this.inputService = args.getInputService();
-    memberList = stuffSystem.getMemberList();
+    this.memberList = stuffSystem.getMemberList();
+    this.view = createView(args);
+  }
+
+  private MainView createView(ControllerArguments args) {
+    ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), BUNDLE_NAME,
+        args.getLanguage());
+    ViewFactory factory = new ViewFactory();
+    return (MainView) factory.createMainMenuView(viewArgs);
   }
 
   /**
@@ -51,9 +60,9 @@ public class MainControl implements Control {
     MainActions action = getInput();
 
     if (action == MainActions.LISTMEMBERS) {
-      listMembers(MembersListType.LIST);
+      listMembers(false);
     } else if (action == MainActions.LISTMEMBERSDETAIL) {
-      listMembers(MembersListType.DETAILED);
+      listMembers(true);
     } else if (action == MainActions.ADVANCETIME) {
       advanceTime();
     }
@@ -82,7 +91,7 @@ public class MainControl implements Control {
     this.stuffSystem.advanceTime();
   }
 
-  private void listMembers(MembersListType type) {
+  private void listMembers(boolean detailedList) {
     System.out.println("List members");
     // ViewArguments viewArgs = new ViewArguments(this.stuffSystem,
     // this.inputService, "MemberView", this.language);

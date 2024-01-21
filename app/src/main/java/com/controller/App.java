@@ -4,12 +4,8 @@ import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.StuffLendingSystem;
-import com.view.MainView;
-import com.view.model.View;
-import com.view.model.ViewArguments;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.ModuleLayer.Controller;
 
 // import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -26,12 +22,6 @@ public class App {
   public App() {
     this.stuffSystem = createStuffSystem();
     this.inputService = createInputService();
-  }
-
-  protected View createMainView(StuffLendingSystem stuffSystem,
-      InputService inputService, Language language, String bundleName) {
-    ViewArguments viewArgs = new ViewArguments(stuffSystem, inputService, bundleName, language);
-    return new MainView(viewArgs);
   }
 
   protected StuffLendingSystem createStuffSystem() {
@@ -58,7 +48,7 @@ public class App {
   protected void run(Language language) {
     // View view = createMainView(stuffSystem, inputService, language, "MainView");
     ControllerArguments controllerArgs = new ControllerArguments(stuffSystem, inputService,
-        language, createMainView(stuffSystem, inputService, language, "MainView"));
+        language);
     MainControl ctrl = new MainControl(controllerArgs);
 
     while (ctrl.run()) {

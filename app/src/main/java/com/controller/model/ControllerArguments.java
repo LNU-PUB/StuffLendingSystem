@@ -1,7 +1,6 @@
 package com.controller.model;
 
 import com.model.StuffLendingSystem;
-import com.view.model.View;
 
 /**
  * Class holding common arguments for controllers.
@@ -10,7 +9,6 @@ public class ControllerArguments {
   private final InputService inputService;
   private final StuffLendingSystem stuffLendingSystem;
   private final Language language;
-  private final View view;
 
   /**
    * Creates a new instance of the controller arguments.
@@ -18,14 +16,11 @@ public class ControllerArguments {
    * @param inputService       - The input service.
    * @param stuffLendingSystem - The stuff lending system.
    * @param language           - The language.
-   * @param view               - The view.
    */
-  public ControllerArguments(StuffLendingSystem stuffLendingSystem, InputService inputService, Language language,
-      View view) {
+  public ControllerArguments(StuffLendingSystem stuffLendingSystem, InputService inputService, Language language) {
     this.inputService = inputService;
     this.stuffLendingSystem = stuffLendingSystem;
     this.language = language;
-    this.view = view;
   }
 
   /**
@@ -53,14 +48,5 @@ public class ControllerArguments {
    */
   public Language getLanguage() {
     return language;
-  }
-
-  /**
-   * Gets the view.
-   *
-   * @return - The view.
-   */
-  public View getView() {
-    return view;
   }
 }

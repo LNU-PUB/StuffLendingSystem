@@ -16,7 +16,6 @@ public class MainView extends AbstractView implements View {
    */
   public MainView(ViewArguments viewArgs) {
     super(viewArgs.getLanguage(), viewArgs.getBundleName());
-    viewArgs.getInputService();
   }
 
   @Override
