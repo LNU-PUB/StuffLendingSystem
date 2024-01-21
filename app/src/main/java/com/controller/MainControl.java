@@ -40,6 +40,7 @@ public class MainControl implements Control {
     this.view = createView(args);
   }
 
+  // Target for refactoring into AbstractControl class.
   private View createView(ControllerArguments args) {
     ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), BUNDLE_NAME,
         args.getLanguage());
@@ -59,9 +60,9 @@ public class MainControl implements Control {
     MainActions action = getInput();
 
     if (action == MainActions.LISTMEMBERS) {
-      listMembers(false);
+      listMembersControl(false);
     } else if (action == MainActions.LISTMEMBERSDETAIL) {
-      listMembers(true);
+      listMembersControl(true);
     } else if (action == MainActions.ADVANCETIME) {
       advanceTime();
     }
@@ -90,7 +91,7 @@ public class MainControl implements Control {
     this.stuffSystem.advanceTime();
   }
 
-  private void listMembers(boolean detailedList) {
+  private void listMembersControl(boolean detailedList) {
     ListMemberControl listMemberControl = new ListMemberControl(this.args, detailedList);
     while (listMemberControl.run()) {
     }

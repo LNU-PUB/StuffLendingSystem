@@ -16,11 +16,13 @@ import java.util.List;
  * The control for listing members.
  */
 public class ListMemberControl implements Control {
+  private static final String BUNDLE_NAME = "ListMembersView";
   private StuffLendingSystem stuffSystem;
   private View view;
   List<Member> memberList;
   Member selectedMember;
   private final InputService inputService;
+  private final ControllerArguments args;
 
   /**
    * Creates a new instance of the control.
@@ -29,15 +31,17 @@ public class ListMemberControl implements Control {
    * @param detailedList - true if the list should be detailed, false if not.
    */
   public ListMemberControl(ControllerArguments args, boolean detailedList) {
+    this.args = args;
     this.stuffSystem = args.getStuffLendingSystem();
     this.inputService = args.getInputService();
     createMemberList();
     this.view = createView(args, detailedList);
   }
 
+  // Target for refactoring into AbstractControl class.
   private View createView(ControllerArguments args, boolean detailedList) {
     ViewFactory factory = new ViewFactory();
-    ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), "ListMembersView",
+    ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), BUNDLE_NAME,
         args.getLanguage());
     return factory.createListMembersView(viewArgs, detailedList);
   }
@@ -56,7 +60,7 @@ public class ListMemberControl implements Control {
     int index = response.getIndex();
 
     if (action == ListMembersActions.SELECTEDMEMBER) {
-      selectedMember = memberList.get(index);
+      memberControl(index);
     } else if (action == ListMembersActions.ADDMEMBER) {
       addMember();
     }
@@ -87,5 +91,11 @@ public class ListMemberControl implements Control {
 
   private void addMember() {
 
+  }
+
+  private void memberControl(int memberIndex) {
+    MemberControl memberControl = new MemberControl(this.args, memberIndex);
+    while (memberControl.run()) {
+    }
   }
 }

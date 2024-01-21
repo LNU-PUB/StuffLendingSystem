@@ -2,7 +2,6 @@ package com.view;
 
 import com.controller.model.MainActions;
 import com.view.model.AbstractView;
-import com.view.model.View;
 import com.view.model.ViewArguments;
 
 /**

@@ -10,5 +10,5 @@ public interface MenuViewFactory {
 
   public View createListMembersView(ViewArguments args, boolean detailedList);
 
-  public View createMemberView(ViewArguments args);
+  public View createMemberView(ViewArguments args, int memberIndex);
 }

@@ -20,9 +20,8 @@ public class ViewFactory implements MenuViewFactory {
   }
 
   @Override
-  public View createMemberView(ViewArguments args) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'createMemberView'");
+  public View createMemberView(ViewArguments args, int memberIndex) {
+    return new MemberView(args, memberIndex);
   }
   
 }
