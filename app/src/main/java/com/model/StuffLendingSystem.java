@@ -137,9 +137,14 @@ public class StuffLendingSystem {
   /**
    * Updates the member list.
    *
-   * @param member - The member to update.
+   * @param newList - The member to update.
    */
-  public void updateMemberList(List<Member> member) {
+  public void updateMemberList(List<Member> newList) {
+    ArrayList<Member> newMemberList = new ArrayList<Member>();
+
+    for (Member member : newList) {
+      newMemberList.add(new Member(member));
+    }
     this.members = new ArrayList<Member>(members);
   }
 

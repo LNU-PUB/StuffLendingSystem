@@ -28,7 +28,8 @@ public class App {
     this.inputService = createInputService();
   }
 
-  protected View createMainView(StuffLendingSystem stuffSystem, InputService inputService, Language language, String bundleName) {
+  protected View createMainView(StuffLendingSystem stuffSystem,
+      InputService inputService, Language language, String bundleName) {
     ViewArguments viewArgs = new ViewArguments(stuffSystem, inputService, bundleName, language);
     return new MainView(viewArgs);
   }
@@ -55,8 +56,9 @@ public class App {
   }
 
   protected void run(Language language) {
-    View view = createMainView(stuffSystem, inputService, language, "MainView");
-    ControllerArguments controllerArgs = new ControllerArguments(stuffSystem, inputService, language, createMainView(stuffSystem, inputService, language,  "MainView"));
+    // View view = createMainView(stuffSystem, inputService, language, "MainView");
+    ControllerArguments controllerArgs = new ControllerArguments(stuffSystem, inputService,
+        language, createMainView(stuffSystem, inputService, language, "MainView"));
     MainControl ctrl = new MainControl(controllerArgs);
 
     while (ctrl.run()) {

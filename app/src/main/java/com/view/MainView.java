@@ -1,22 +1,14 @@
 package com.view;
 
-import com.controller.model.Actions;
-import com.controller.model.InputService;
-import com.controller.model.Language;
 import com.controller.model.MainActions;
-import com.model.Member;
 import com.view.model.AbstractView;
 import com.view.model.View;
 import com.view.model.ViewArguments;
-
-import java.util.List;
 
 /**
  * Responsible for displaying information to the user.
  */
 public class MainView extends AbstractView implements View {
-  private final InputService scanner;
-  
   /**
    * Creates a new instance of the view.
    *
@@ -24,7 +16,7 @@ public class MainView extends AbstractView implements View {
    */
   public MainView(ViewArguments viewArgs) {
     super(viewArgs.getLanguage(), viewArgs.getBundleName());
-    this.scanner = viewArgs.getInputService();
+    viewArgs.getInputService();
   }
 
   @Override

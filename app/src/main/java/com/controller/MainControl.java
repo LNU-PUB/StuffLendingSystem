@@ -29,9 +29,7 @@ public class MainControl implements Control {
   /**
    * Creates a new instance of the controller.
    *
-   * @param stuffSystem - The stuff system.
-   * @param view        - The view.
-   * @param language    - The language.
+   * @param args - the controller arguments.
    */
   public MainControl(ControllerArguments args) {
     this.stuffSystem = args.getStuffLendingSystem();
@@ -64,9 +62,10 @@ public class MainControl implements Control {
   }
 
   private MainActions getInput() {
-    String userInput = inputService.readLine().trim();
+    String userInput = inputService.readLine();
 
-    if (userInput.length() == 1) {
+    if (userInput != null && userInput.length() == 1) {
+      userInput = userInput.trim();
       char inputChar = userInput.charAt(0);
       for (MainActions action : MainActions.values()) {
         if (action.getSelector() == inputChar) {

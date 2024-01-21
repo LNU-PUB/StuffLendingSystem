@@ -20,7 +20,8 @@ public class ViewArguments {
    * @param bundleName   - The bundle name.
    * @param language     - The language.
    */
-  public ViewArguments(StuffLendingSystem stuffSystem, InputService inputService, String bundleName, Language language) {
+  public ViewArguments(StuffLendingSystem stuffSystem,
+      InputService inputService, String bundleName, Language language) {
     this.inputService = inputService;
     this.bundleName = bundleName;
     this.language = language;
