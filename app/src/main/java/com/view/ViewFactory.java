@@ -10,14 +10,13 @@ import com.view.model.ViewArguments;
 public class ViewFactory implements MenuViewFactory {
 
   @Override
-  public MainView createMainMenuView(ViewArguments args) {
+  public View createMainMenuView(ViewArguments args) {
     return new MainView(args);
   }
 
   @Override
-  public View createListMembersView(ViewArguments args, boolean detailedList) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'createListMembersView'");
+  public ListMembersView createListMembersView(ViewArguments args, boolean detailedList) {
+    return new ListMembersView(args, detailedList);
   }
 
   @Override

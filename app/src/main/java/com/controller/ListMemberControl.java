@@ -1,56 +1,91 @@
-// package com.controller;
+package com.controller;
 
-// import com.controller.model.Control;
-// import com.controller.model.ListMembersActions;
-// import com.controller.model.ListMembersResponse;
-// import com.model.Member;
-// import com.model.StuffLendingSystem;
-// import com.view.ListMembersView;
-// import java.util.List;
+import com.controller.model.Control;
+import com.controller.model.ControllerArguments;
+import com.controller.model.InputService;
+import com.controller.model.ListMembersActions;
+import com.controller.model.ListMembersResponse;
+import com.model.Member;
+import com.model.StuffLendingSystem;
+import com.view.ViewFactory;
+import com.view.model.View;
+import com.view.model.ViewArguments;
+import java.util.List;
 
-// /**
-//  * The control for listing members.
-//  */
-// public class ListMemberControl implements Control {
-//   private StuffLendingSystem stuffSystem;
-//   private ListMembersView view;
-//   List<Member> memberList;
-//   Member selectedMember;
+/**
+ * The control for listing members.
+ */
+public class ListMemberControl implements Control {
+  private StuffLendingSystem stuffSystem;
+  private View view;
+  List<Member> memberList;
+  Member selectedMember;
+  private final InputService inputService;
 
-//   /**
-//    * Creates a new instance of the control.
-//    *
-//    * @param stuffSystem - the stuff lending system
-//    * @param view       - the view
-//    */
-//   public ListMemberControl(StuffLendingSystem stuffSystem, ListMembersView view) {
-//     this.stuffSystem = stuffSystem;
-//     this.view = view;
-//     createMemberList();
-//   }
+  /**
+   * Creates a new instance of the control.
+   *
+   * @param args - the controller arguments.
+   * @param detailedList - true if the list should be detailed, false if not.
+   */
+  public ListMemberControl(ControllerArguments args, boolean detailedList) {
+    this.stuffSystem = args.getStuffLendingSystem();
+    this.inputService = args.getInputService();
+    createMemberList();
+    this.view = createView(args, detailedList);
+  }
 
-//   private void createMemberList() {
-//     memberList = stuffSystem.getMemberList();
-//   }
+  private View createView(ControllerArguments args, boolean detailedList) {
+    ViewFactory factory = new ViewFactory();
+    ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), "ListMembersView",
+        args.getLanguage());
+    return factory.createListMembersView(viewArgs, detailedList);
+  }
 
-//   @Override
-//   public boolean run() {
-//     view.displayMenu(stuffSystem);
+  private void createMemberList() {
+    memberList = stuffSystem.getMemberList();
+  }
 
-//     ListMembersResponse response = view.getInput();
-//     ListMembersActions action = response.getAction();
-//     int index = response.getIndex();
+  @Override
+  public boolean run() {
+    view.displayMenu();
+    view.displayPrompt();
 
-//     if (action == ListMembersActions.SELECTEDMEMBER) {
-//       selectedMember = memberList.get(index);
-//     } else if (action == ListMembersActions.ADDMEMBER) {
-//       addMember();
-//     }
+    ListMembersResponse response = getInput();
+    ListMembersActions action = response.getAction();
+    int index = response.getIndex();
 
-//     return action != ListMembersActions.EXIT;
-//   }
+    if (action == ListMembersActions.SELECTEDMEMBER) {
+      selectedMember = memberList.get(index);
+    } else if (action == ListMembersActions.ADDMEMBER) {
+      addMember();
+    }
 
-//   private void addMember() {
-    
-//   }
-// }
+    return action != ListMembersActions.EXIT;
+  }
+
+  private ListMembersResponse getInput() {
+    String userInput = inputService.readLine();
+
+    if (isNumericInteger(userInput)) {
+      int index = Integer.parseInt(userInput);
+      return new ListMembersResponse(ListMembersActions.SELECTEDMEMBER, index);
+    } else {
+      switch (userInput) {
+        case "a":
+          return new ListMembersResponse(ListMembersActions.ADDMEMBER, -1);
+        case "x":
+        case "X":
+        case "q":
+        case "Q":
+          return new ListMembersResponse(ListMembersActions.EXIT, -1);
+        default:
+          return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
+      }
+    }
+  }
+
+  private void addMember() {
+
+  }
+}

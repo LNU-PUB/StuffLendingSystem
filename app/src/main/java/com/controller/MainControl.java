@@ -5,11 +5,8 @@ import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
-import com.controller.model.MembersListType;
 import com.model.Member;
 import com.model.StuffLendingSystem;
-// import com.view.ListMembersView;
-import com.view.MainView;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -22,11 +19,12 @@ public class MainControl implements Control {
 
   private static final String BUNDLE_NAME = "MainView";
   private StuffLendingSystem stuffSystem;
-  private MainView view;
+  private View view;
   private InputService inputService;
   // private ListMemberControl listMemberControl;
   private Language language;
   private List<Member> memberList;
+  private final ControllerArguments args;
 
   /**
    * Creates a new instance of the controller.
@@ -34,6 +32,7 @@ public class MainControl implements Control {
    * @param args - the controller arguments.
    */
   public MainControl(ControllerArguments args) {
+    this.args = args;
     this.stuffSystem = args.getStuffLendingSystem();
     this.language = args.getLanguage();
     this.inputService = args.getInputService();
@@ -41,11 +40,11 @@ public class MainControl implements Control {
     this.view = createView(args);
   }
 
-  private MainView createView(ControllerArguments args) {
+  private View createView(ControllerArguments args) {
     ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), BUNDLE_NAME,
         args.getLanguage());
     ViewFactory factory = new ViewFactory();
-    return (MainView) factory.createMainMenuView(viewArgs);
+    return factory.createMainMenuView(viewArgs);
   }
 
   /**
@@ -92,12 +91,8 @@ public class MainControl implements Control {
   }
 
   private void listMembers(boolean detailedList) {
-    System.out.println("List members");
-    // ViewArguments viewArgs = new ViewArguments(this.stuffSystem,
-    // this.inputService, "MemberView", this.language);
-    // ListMembersView view = new ListMembersView(viewArgs, type);
-    // listMemberControl = new ListMemberControl(this.stuffSystem, view);
-    // while (listMemberControl.run()) {
-    // }
+    ListMemberControl listMemberControl = new ListMemberControl(this.args, detailedList);
+    while (listMemberControl.run()) {
+    }
   }
 }

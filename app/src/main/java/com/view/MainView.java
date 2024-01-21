@@ -8,7 +8,7 @@ import com.view.model.ViewArguments;
 /**
  * Responsible for displaying information to the user.
  */
-public class MainView extends AbstractView implements View {
+public class MainView extends AbstractView {
   /**
    * Creates a new instance of the view.
    *
@@ -47,10 +47,4 @@ public class MainView extends AbstractView implements View {
   //   displayError("Invalid selection");
   //   return MainActions.UNKNOWN;
   // }
-
-  @Override
-  public void displayPrompt() {
-    System.out.print(texts.getString("enter") + ": ");
-  }
-
 }

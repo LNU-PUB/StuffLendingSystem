@@ -7,4 +7,6 @@ public interface View {
   public void displayMenu();
   
   public void displayPrompt();
+
+  public void displayError(String message);
 }

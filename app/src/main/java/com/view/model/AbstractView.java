@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 /**
  * Input interface.
  */
-public abstract class AbstractView {
+public abstract class AbstractView implements View {
   protected ResourceBundle texts;
   private Locale locale;
 
@@ -46,6 +46,11 @@ public abstract class AbstractView {
 
   public void displayError(String error) {
     System.out.println("\n*** " + texts.getString("error") + ": " + error + "\n");
+  }
+
+  @Override
+  public void displayPrompt() {
+    System.out.print(texts.getString("enter") + ": ");
   }
 
   // protected boolean isNumericInteger(String str) {
