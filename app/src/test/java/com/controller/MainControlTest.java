@@ -4,7 +4,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.controller.model.MainActions;
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
 import com.view.model.View;
 
 import org.junit.jupiter.api.BeforeEach;

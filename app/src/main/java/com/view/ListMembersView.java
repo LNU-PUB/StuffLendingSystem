@@ -1,7 +1,7 @@
 package com.view;
 
 import com.model.Member;
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
 import com.view.model.AbstractView;
 import com.view.model.ViewArguments;
 import java.util.List;
@@ -17,7 +17,7 @@ public class ListMembersView extends AbstractView {
   // private String bundleName;
   private final boolean detailedList;
   private List<Member> memberList;
-  private final StuffLendingSystem stuffSystem;
+  private final MemberRepository stuffSystem;
 
   /**
    * Creates a new instance of the view.

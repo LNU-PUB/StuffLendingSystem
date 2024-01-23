@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StuffLendingSystemTest {
 
-    private StuffLendingSystem sut;
+    private MemberRepository sut;
 
     @BeforeEach
     void setUp() {
-        sut = new StuffLendingSystem();
+        sut = new MemberRepository();
     }
 
     @Test

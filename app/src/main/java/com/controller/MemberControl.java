@@ -3,7 +3,7 @@ package com.controller;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.MemberActions;
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -13,7 +13,7 @@ import com.view.model.ViewArguments;
  */
 public class MemberControl implements Control {
   private static final String BUNDLE_NAME = "MemberView";
-  private final StuffLendingSystem stuffSystem;
+  private final MemberRepository memberRepo;
   private final int memberIndex;
   private final View view;
   private final ControllerArguments args;
@@ -26,7 +26,7 @@ public class MemberControl implements Control {
    * @param memberIndex - the index of the member to operate on.
    */
   public MemberControl(ControllerArguments args, int memberIndex) {
-    this.stuffSystem = args.getStuffLendingSystem();
+    this.memberRepo = args.getMemberRepo();
     this.memberIndex = memberIndex;
     this.args = args;
     this.view = createView(args);
@@ -35,7 +35,7 @@ public class MemberControl implements Control {
   // Target for refactoring into AbstractControl class.
   private View createView(ControllerArguments args) {
     ViewFactory factory = new ViewFactory();
-    ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), BUNDLE_NAME,
+    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
         args.getLanguage());
     return factory.createMemberView(viewArgs, memberIndex);
   }
@@ -127,6 +127,6 @@ public class MemberControl implements Control {
   }
 
   private void updateMember() {
-    // stuffSystem.updateMember(member);
+    // memberRepo.updateMember(member);
   }
 }

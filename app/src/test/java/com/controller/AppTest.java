@@ -10,7 +10,7 @@ import java.util.List;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
 import com.model.Member;
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
 import com.view.MainView;
 import com.view.model.View;
 
@@ -24,7 +24,7 @@ class AppTest {
   private App app;
 
   @Mock
-  private StuffLendingSystem stuffLendingSystem;
+  private MemberRepository stuffLendingSystem;
   @Mock
   private MainView view;
   @Mock
@@ -67,9 +67,9 @@ class AppTest {
 
   @Test
   void testCreateStuffSystem() {
-    StuffLendingSystem system = app.createStuffSystem();
+    MemberRepository system = app.createStuffSystem();
     assertNotNull(system);
-    assertTrue(system instanceof StuffLendingSystem);
+    assertTrue(system instanceof MemberRepository);
   }
 
   // @Test

@@ -1,12 +1,13 @@
 package com.controller;
 
+import com.controller.model.AdvanceTimeCommand;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.MainActions;
 import com.model.Member;
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -18,10 +19,10 @@ import java.util.List;
 public class MainControl implements Control {
 
   private static final String BUNDLE_NAME = "MainView";
-  private StuffLendingSystem stuffSystem;
+  private MemberRepository memberRepo;
   private View view;
   private InputService inputService;
-  // private ListMemberControl listMemberControl;
+  private AdvanceTimeCommand advTimeCommand;
   private Language language;
   private List<Member> memberList;
   private final ControllerArguments args;
@@ -33,16 +34,17 @@ public class MainControl implements Control {
    */
   public MainControl(ControllerArguments args) {
     this.args = args;
-    this.stuffSystem = args.getStuffLendingSystem();
+    this.memberRepo = args.getMemberRepo();
     this.language = args.getLanguage();
     this.inputService = args.getInputService();
-    this.memberList = stuffSystem.getMemberList();
+    this.advTimeCommand = new AdvanceTimeCommand(args.getTimeService());
+    this.memberList = memberRepo.getMembers();
     this.view = createView(args);
   }
 
   // Target for refactoring into AbstractControl class.
   private View createView(ControllerArguments args) {
-    ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), BUNDLE_NAME,
+    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
         args.getLanguage());
     ViewFactory factory = new ViewFactory();
     return factory.createMainMenuView(viewArgs);
@@ -88,7 +90,7 @@ public class MainControl implements Control {
   }
 
   private void advanceTime() {
-    this.stuffSystem.advanceTime();
+    advTimeCommand.execute();
   }
 
   private void listMembersControl(boolean detailedList) {

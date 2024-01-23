@@ -6,7 +6,7 @@ import com.controller.model.InputService;
 import com.controller.model.ListMembersActions;
 import com.controller.model.ListMembersResponse;
 import com.model.Member;
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ListMemberControl implements Control {
   private static final String BUNDLE_NAME = "ListMembersView";
-  private StuffLendingSystem stuffSystem;
+  private MemberRepository memberRepo;
   private View view;
   List<Member> memberList;
   Member selectedMember;
@@ -32,7 +32,7 @@ public class ListMemberControl implements Control {
    */
   public ListMemberControl(ControllerArguments args, boolean detailedList) {
     this.args = args;
-    this.stuffSystem = args.getStuffLendingSystem();
+    this.memberRepo = args.getMemberRepo();
     this.inputService = args.getInputService();
     createMemberList();
     this.view = createView(args, detailedList);
@@ -41,13 +41,13 @@ public class ListMemberControl implements Control {
   // Target for refactoring into AbstractControl class.
   private View createView(ControllerArguments args, boolean detailedList) {
     ViewFactory factory = new ViewFactory();
-    ViewArguments viewArgs = new ViewArguments(args.getStuffLendingSystem(), BUNDLE_NAME,
+    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
         args.getLanguage());
     return factory.createListMembersView(viewArgs, detailedList);
   }
 
   private void createMemberList() {
-    memberList = stuffSystem.getMemberList();
+    memberList = memberRepo.getMembers();
   }
 
   @Override

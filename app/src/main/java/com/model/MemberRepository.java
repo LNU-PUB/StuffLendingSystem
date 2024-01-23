@@ -2,34 +2,15 @@ package com.model;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * The stuff lending system.
  */
-public class StuffLendingSystem {
-  /**
-   * The time.
-   */
-  protected class Time {
-    private int time;
-
-    private Time() {
-      this.time = 0;
-    }
-
-    private void advanceTime() {
-      this.time++;
-    }
-
-    public int getTime() {
-      return this.time;
-    }
-  }
-
+public class MemberRepository {
   private Time time;
   private DataHandlerMember dataHandler;
   private List<Member> members;
@@ -38,27 +19,10 @@ public class StuffLendingSystem {
   /**
    * Creates a new instance of the stuff lending system.
    */
-  public StuffLendingSystem() {
-    this.time = new Time();
+  public MemberRepository() {
     this.dataHandler = new DataHardCodedMember();
     this.members = dataHandler.getMembers();
     this.random = new SecureRandom();
-  }
-
-  /**
-   * Gets the time.
-   *
-   * @return - The time.
-   */
-  public int getTime() {
-    return this.time.getTime();
-  }
-
-  /**
-   * Advances the time.
-   */
-  public void advanceTime() {
-    this.time.advanceTime();
   }
 
   /**
@@ -66,13 +30,8 @@ public class StuffLendingSystem {
    *
    * @return - The member list.
    */
-  public List<Member> getMemberList() {
-    ArrayList<Member> newMemberList = new ArrayList<Member>();
-
-    for (Member member : members) {
-      newMemberList.add(new Member(member));
-    }
-    return (List<Member>) newMemberList;
+  public List<Member> getMembers() {
+    return Collections.unmodifiableList(new ArrayList<>(members));
   }
 
   /**

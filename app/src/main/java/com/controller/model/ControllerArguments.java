@@ -1,25 +1,28 @@
 package com.controller.model;
 
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
+import com.model.TimeService;
 
 /**
  * Class holding common arguments for controllers.
  */
 public class ControllerArguments {
   private final InputService inputService;
-  private final StuffLendingSystem stuffLendingSystem;
+  private final TimeService timeService;
+  private final MemberRepository memberRepo;
   private final Language language;
 
   /**
    * Creates a new instance of the controller arguments.
    *
    * @param inputService       - The input service.
-   * @param stuffLendingSystem - The stuff lending system.
+   * @param memberRepo - The stuff lending system.
    * @param language           - The language.
    */
-  public ControllerArguments(StuffLendingSystem stuffLendingSystem, InputService inputService, Language language) {
+  public ControllerArguments(MemberRepository memberRepo, TimeService timeService, InputService inputService, Language language) {
     this.inputService = inputService;
-    this.stuffLendingSystem = stuffLendingSystem;
+    this.timeService = timeService;
+    this.memberRepo = memberRepo;
     this.language = language;
   }
 
@@ -33,12 +36,21 @@ public class ControllerArguments {
   }
 
   /**
+   * Gets the time service.
+   *
+   * @return - The time service.
+   */
+  public TimeService getTimeService() {
+    return timeService;
+  }
+
+  /**
    * Gets the stuff lending system.
    *
    * @return - The stuff lending system.
    */
-  public StuffLendingSystem getStuffLendingSystem() {
-    return stuffLendingSystem;
+  public MemberRepository getMemberRepo() {
+    return memberRepo;
   }
 
   /**

@@ -3,7 +3,9 @@ package com.controller;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.Language;
-import com.model.StuffLendingSystem;
+import com.model.MemberRepository;
+import com.model.TimeService;
+
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
@@ -14,22 +16,28 @@ import java.io.UnsupportedEncodingException;
  */
 public class App {
   private InputService inputService;
-  private final StuffLendingSystem stuffSystem;
+  private final MemberRepository memberRepo;
+  private final TimeService timeService;
 
   /**
    * Creates a new instance of the application.
    */
   public App() {
-    this.stuffSystem = createStuffSystem();
+    this.memberRepo = createMemberRepo();
     this.inputService = createInputService();
+    this.timeService = createTimeService();
   }
 
-  protected StuffLendingSystem createStuffSystem() {
-    return new StuffLendingSystem();
+  protected MemberRepository createMemberRepo() {
+    return new MemberRepository();
   }
 
   protected InputService createInputService() {
     return new InputService();
+  }
+
+  protected TimeService createTimeService() {
+    return new TimeService();
   }
 
   Language setLanguage(String[] args) {
@@ -46,8 +54,8 @@ public class App {
   }
 
   protected void run(Language language) {
-    // View view = createMainView(stuffSystem, inputService, language, "MainView");
-    ControllerArguments controllerArgs = new ControllerArguments(stuffSystem, inputService,
+    // View view = createMainView(memberRepo, inputService, language, "MainView");
+    ControllerArguments controllerArgs = new ControllerArguments(memberRepo, timeService, inputService,
         language);
     MainControl ctrl = new MainControl(controllerArgs);
 
