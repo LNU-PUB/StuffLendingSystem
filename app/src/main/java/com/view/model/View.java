@@ -8,5 +8,7 @@ public interface View {
   
   public void displayPrompt();
 
+  public void displayPrompt(String prompt);
+
   public void displayError(String message);
 }

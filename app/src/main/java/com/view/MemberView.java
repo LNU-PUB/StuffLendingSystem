@@ -25,6 +25,7 @@ public class MemberView extends AbstractView {
 
   @Override
   public void displayMenu() {
+    // TODO: Dsiplay the Member and available methods.
     displayGreeting();
     
     System.out.println("- " + texts.getString("title") + " -\n");

@@ -11,7 +11,7 @@ public enum MemberActions implements Actions {
   SIMPLELISTMEMBERS("membersSimpleList", 's'),
   DETAILEDLISTMEMBERS("membersDetailedList", 'l'),
   UNKNOWN("unknown", 'u'),
-  EXIT("exitMembers", 'x');
+  EXIT("exit", 'x');
 
   private final String name;
   private final char selector;
