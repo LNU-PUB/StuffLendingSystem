@@ -9,7 +9,7 @@ import com.model.MemberRepository;
 public class ViewArguments {
   private final String bundleName;
   private final Language language;
-  private final MemberRepository stuffSystem;
+  private final MemberRepository memberRepo;
 
   /**
    * Creates a new instance of the view arguments.
@@ -17,10 +17,10 @@ public class ViewArguments {
    * @param bundleName   - The bundle name.
    * @param language     - The language.
    */
-  public ViewArguments(MemberRepository stuffSystem, String bundleName, Language language) {
+  public ViewArguments(MemberRepository memberRepo, String bundleName, Language language) {
     this.bundleName = bundleName;
     this.language = language;
-    this.stuffSystem = stuffSystem;
+    this.memberRepo = memberRepo;
   }
 
   /**
@@ -46,8 +46,8 @@ public class ViewArguments {
    *
    * @return - The stuff system.
    */
-  public MemberRepository getStuffSystem() {
-    return stuffSystem;
+  public MemberRepository getMemberRepo() {
+    return memberRepo;
   }
 
 }

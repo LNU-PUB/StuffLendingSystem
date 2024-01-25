@@ -17,7 +17,7 @@ public class ListMembersView extends AbstractView {
   // private String bundleName;
   private final boolean detailedList;
   private List<Member> memberList;
-  private final MemberRepository stuffSystem;
+  private final MemberRepository memberRepo;
 
   /**
    * Creates a new instance of the view.
@@ -27,13 +27,13 @@ public class ListMembersView extends AbstractView {
    */
   public ListMembersView(ViewArguments viewArgs, boolean detailedList) {
     super(viewArgs.getLanguage(), viewArgs.getBundleName());
-    this.stuffSystem = viewArgs.getStuffSystem();
+    this.memberRepo = viewArgs.getMemberRepo();
     this.detailedList = detailedList;
   }
 
   @Override
   public void displayMenu() {
-    this.memberList = stuffSystem.getMemberList();
+    this.memberList = memberRepo.getMembers();
     if (detailedList) {
       displayDetailedMenu(memberList);
     } else {
