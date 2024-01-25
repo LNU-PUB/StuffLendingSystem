@@ -1,22 +1,21 @@
-package com.controller.model;
+package com.controller.model.Actions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the main actions of the application.
+ * Represents the actions that can be performed on a member.
  */
-public enum MainActions implements Actions {
-  LISTMEMBERS("listMembers", 'l'),
-  LISTMEMBERSDETAIL("listMembersDetail", 'd'),
-  ADVANCETIME("time", 'a'),
-  UNKNOWN("Unknown", 'u'),
-  QUIT("quit", 'x');
+public enum ListMembersActions implements Actions {
+  ADDMEMBER("addMember", 'a'),
+  SELECTEDMEMBER("selectedMember", 's'),
+  UNKNOWN("unknown", '0'),
+  EXIT("exit", 'x');
 
   private final String name;
   private final char selector;
 
-  MainActions(String name, char selector) {
+  ListMembersActions(String name, char selector) {
     this.name = name;
     this.selector = selector;
   }
@@ -32,7 +31,7 @@ public enum MainActions implements Actions {
   @Override
   public List<Character> getValidSelectors() {
     List<Character> selectors = new ArrayList<>();
-    for (MainActions action : MainActions.values()) {
+    for (ListMembersActions action : ListMembersActions.values()) {
       selectors.add(action.getSelector());
     }
     return selectors;

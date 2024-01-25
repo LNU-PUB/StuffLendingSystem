@@ -1,13 +1,13 @@
 package com.controller;
 
-import com.controller.model.AdvanceTimeCommand;
-import com.controller.model.Command;
-import com.controller.model.CommandExecutor;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.Language;
-import com.controller.model.MainActions;
+import com.controller.model.Actions.MainActions;
+import com.controller.model.Commands.AdvanceTimeCommand;
+import com.controller.model.Commands.Command;
+import com.controller.model.Commands.CommandExecutor;
 import com.model.Member;
 import com.model.MemberRepository;
 import com.view.ViewFactory;

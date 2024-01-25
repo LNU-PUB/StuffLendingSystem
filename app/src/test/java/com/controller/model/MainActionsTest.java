@@ -1,6 +1,9 @@
 package com.controller.model;
 
 import org.junit.jupiter.api.Test;
+
+import com.controller.model.Actions.MainActions;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainActionsTest {

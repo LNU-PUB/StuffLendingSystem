@@ -1,6 +1,8 @@
-package com.model;
+package com.model.db;
 
 import java.util.List;
+
+import com.model.Member;
 
 /**
  * Handles data access and storage for Member objects.

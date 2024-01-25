@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.model.db.DataHandlerMember;
+import com.model.db.DataHardCodedMember;
+import com.model.lib.BasicMemberData;
+
 /**
  * The stuff lending system.
  */
@@ -139,7 +143,11 @@ public class MemberRepository {
    * @param mobile - The mobile of the member.
    * @return - True if the member is added, false otherwise.
    */
-  public boolean addNewMember(String name, String email, String mobile) {
+  public boolean addNewMember(BasicMemberData data) {
+    String name = data.getName();
+    String email = data.getEmail();
+    String mobile = data.getMobile();
+
     if (name == null || email == null || mobile == null) {
       return false;
     }

@@ -1,5 +1,6 @@
-package com.controller.model;
+package com.controller.model.Commands;
 
+import com.controller.model.ControllerArguments;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;

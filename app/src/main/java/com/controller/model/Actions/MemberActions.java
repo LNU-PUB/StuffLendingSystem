@@ -1,4 +1,4 @@
-package com.controller.model;
+package com.controller.model.Actions;
 
 import java.util.ArrayList;
 import java.util.List;

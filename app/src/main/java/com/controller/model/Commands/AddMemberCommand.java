@@ -1,5 +1,9 @@
-package com.controller.model;
+package com.controller.model.Commands;
 
+import com.controller.model.ControllerArguments;
+import com.controller.model.InputService;
+import com.fasterxml.jackson.databind.JsonSerializable.Base;
+import com.model.lib.BasicMemberData;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -36,7 +40,9 @@ public class AddMemberCommand extends AbstractCommand {
     String email = getEmail(view);
     String mobile = getMobile(view);
 
-    return args.getMemberRepo().addNewMember(name, email, mobile);
+    BasicMemberData memberData = new BasicMemberData(name, email, mobile);
+
+    return args.getMemberRepo().addNewMember(memberData);
   }
 
   private String getName(View view) {

@@ -1,6 +1,8 @@
-package com.model;
+package com.model.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.model.Member;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

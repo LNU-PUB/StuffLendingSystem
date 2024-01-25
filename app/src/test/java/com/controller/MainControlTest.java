@@ -3,7 +3,7 @@ package com.controller;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.controller.model.MainActions;
+import com.controller.model.Actions.MainActions;
 import com.model.MemberRepository;
 import com.view.model.View;
 

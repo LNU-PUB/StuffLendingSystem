@@ -1,4 +1,4 @@
-package com.controller.model;
+package com.controller.model.Commands;
 
 public abstract class AbstractCommand implements Command{
   

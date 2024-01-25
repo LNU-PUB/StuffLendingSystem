@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.controller.model.Language;
-import com.controller.model.MainActions;
+import com.controller.model.Actions.MainActions;
 import com.model.Member;
 import com.model.MemberRepository;
 import com.view.MainView;

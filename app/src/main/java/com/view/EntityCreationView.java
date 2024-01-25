@@ -1,7 +1,7 @@
 package com.view;
 
-import com.controller.model.Actions;
 import com.controller.model.Language;
+import com.controller.model.Actions.Actions;
 import com.view.model.AbstractView;
 import com.view.model.AddDataView;
 import com.view.model.View;

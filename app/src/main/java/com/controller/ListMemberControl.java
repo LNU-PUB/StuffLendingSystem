@@ -1,13 +1,13 @@
 package com.controller;
 
-import com.controller.model.AddMemberCommand;
-import com.controller.model.Command;
-import com.controller.model.CommandExecutor;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
-import com.controller.model.ListMembersActions;
 import com.controller.model.ListMembersResponse;
+import com.controller.model.Actions.ListMembersActions;
+import com.controller.model.Commands.AddMemberCommand;
+import com.controller.model.Commands.Command;
+import com.controller.model.Commands.CommandExecutor;
 import com.model.Member;
 import com.model.MemberRepository;
 import com.view.ViewFactory;

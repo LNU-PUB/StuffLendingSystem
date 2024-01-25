@@ -1,8 +1,12 @@
-package com.model;
+package com.model.db;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.model.Contract;
+import com.model.Item;
+import com.model.Member;
 
 /**
  * The data handler for hard coded members.

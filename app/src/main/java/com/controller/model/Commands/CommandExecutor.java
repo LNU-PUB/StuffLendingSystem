@@ -1,4 +1,4 @@
-package com.controller.model;
+package com.controller.model.Commands;
 
 /**
  * The command executer that executes commands.
