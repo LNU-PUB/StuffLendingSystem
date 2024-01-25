@@ -1,6 +1,8 @@
 package com.view;
 
 import com.controller.model.MemberActions;
+import com.model.Member;
+import com.model.MemberRepository;
 import com.view.model.AbstractView;
 import com.view.model.ViewArguments;
 import java.util.ResourceBundle;
@@ -10,6 +12,7 @@ import java.util.ResourceBundle;
  */
 public class MemberView extends AbstractView {
   private final int memberIndex;
+  private final ViewArguments args;
 
   /**
    * Creates a new instance of the view.
@@ -19,6 +22,7 @@ public class MemberView extends AbstractView {
    */
   public MemberView(ViewArguments args, int memberIndex) {
     super(args.getLanguage(), args.getBundleName());
+    this.args = args;
     this.memberIndex = memberIndex;
   }
 
@@ -27,8 +31,9 @@ public class MemberView extends AbstractView {
   public void displayMenu() {
     // TODO: Dsiplay the Member and available methods.
     displayGreeting();
-    
     System.out.println("- " + texts.getString("title") + " -\n");
+    displayMemberDetails();
+    
     for (MemberActions actions : MemberActions.values()) {
       if (actions != MemberActions.UNKNOWN) {
         System.out.println(actions.getSelector() + " - " + texts.getString(actions.getName()));
@@ -36,59 +41,18 @@ public class MemberView extends AbstractView {
     }
   }
 
-  /*
 
-  Problem in the controller.model.MemberActions enum:
-  Fix and fix how the class is viewed.
-   * - Members Menu -
+  private void displayMemberDetails() {
+    MemberRepository memberRepo = args.getMemberRepo();
+    Member member = memberRepo.getMembers().get(memberIndex);
 
-v - View Member
-a - Add Member
-e - Edit Member
-d - Delete Member
-s - Members Simple List
-l - Members Detailed List
-Exception in thread "main" java.util.MissingResourceException: Can't find resource for bundle java.util.PropertyResourceBundle, key exitMembers
-        at java.base/java.util.ResourceBundle.getObject(ResourceBundle.java:570)
-        at java.base/java.util.ResourceBundle.getString(ResourceBundle.java:527)
-        at com.view.MemberView.displayMenu(MemberView.java:33)
-   */
-
-  // /**
-  //  * Collecting User input.
-  //  */
-  // @Override
-  // public com.controller.model.Actions getInput() {
-
-  //   System.out.print("Enter: ");
-  //   try {
-  //     int c = System.in.read();
-  //     while (c == '\r' || c == '\n') {
-  //       c = System.in.read();
-  //     }
-
-  //     switch (c) {
-  //       case 'm':
-  //         return MemberActions.VIEWMEMBER;
-  //       case 'a':
-  //         return MemberActions.ADDMEMBER;
-  //       case 'e':
-  //         return MemberActions.EDITMEMBER;
-  //       case 'd':
-  //         return MemberActions.DELETEMEMBER;
-  //       case 's':
-  //         return MemberActions.SIMPLELISTMEMBERS;
-  //       case 'l':
-  //         return MemberActions.DETAILEDLISTMEMBERS;
-  //       case 'x':
-  //         return MemberActions.EXIT;
-  //       default:
-  //         return MemberActions.UNKNOWN;
-  //     }
-  //   } catch (java.io.IOException e) {
-  //     System.out.println("" + e);
-  //     return MemberActions.UNKNOWN;
-  //   }
-  // }
-
+    System.out.println(texts.getString("name") + ": " + member.getName());
+    System.out.println(texts.getString("id") + ": " + member.getId());
+    System.out.println(texts.getString("email") + ": " + member.getEmail());
+    System.out.println(texts.getString("mobile") + ": " + member.getMobile());
+    System.out.println(texts.getString("itemsNo") + ": " + member.getNumberOfItems());
+    System.out.println(texts.getString("credits") + ": " + member.getCredits());
+    System.out.println(texts.getString("memberSince") + ": " + member.getMemberCreationDay());
+    System.out.println("\n---\n");
+  }
 }

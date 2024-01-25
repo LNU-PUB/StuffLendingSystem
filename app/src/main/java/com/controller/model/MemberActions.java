@@ -7,12 +7,11 @@ import java.util.List;
  * Represents the actions that can be performed on a member.
  */
 public enum MemberActions implements Actions {
-  VIEWMEMBER("viewMember", 'v'),
-  ADDMEMBER("addMember", 'a'),
   EDITMEMBER("editMember", 'e'),
   DELETEMEMBER("deleteMember", 'd'),
-  SIMPLELISTMEMBERS("membersSimpleList", 's'),
-  DETAILEDLISTMEMBERS("membersDetailedList", 'l'),
+  ADDCREDITS("addCredits", 'c'),
+  NEWCONTRACT("newContract", 'n'),
+  LISTITEMS("listItems", 'l'),
   UNKNOWN("unknown", 'u'),
   EXIT("exit", 'x');
 

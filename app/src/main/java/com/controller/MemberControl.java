@@ -50,19 +50,17 @@ public class MemberControl implements Control {
     view.displayMenu();
     MemberActions action = getInput();
 
-    if (action == MemberActions.VIEWMEMBER) {
-      view.displayMenu();
-    } else if (action == MemberActions.ADDMEMBER) {
-      addMember();
-    } else if (action == MemberActions.EDITMEMBER) {
-      editMember();
+    if (action == MemberActions.ADDCREDITS) {
+      addCredits();
     } else if (action == MemberActions.DELETEMEMBER) {
       deleteMember();
-    } else if (action == MemberActions.SIMPLELISTMEMBERS) {
-      simpleListMembers();
-    } else if (action == MemberActions.DETAILEDLISTMEMBERS) {
-      detailedListMembers();
-    }
+    } else if (action == MemberActions.EDITMEMBER) {
+      editMember();
+    } else if (action == MemberActions.LISTITEMS) {
+      listItems();
+    } else if (action == MemberActions.NEWCONTRACT) {
+      newContract();
+    } 
 
     return action != MemberActions.EXIT;
   }
@@ -76,18 +74,16 @@ public class MemberControl implements Control {
       }
 
       switch (c) {
-        case 'm':
-          return MemberActions.VIEWMEMBER;
-        case 'a':
-          return MemberActions.ADDMEMBER;
         case 'e':
           return MemberActions.EDITMEMBER;
         case 'd':
           return MemberActions.DELETEMEMBER;
-        case 's':
-          return MemberActions.SIMPLELISTMEMBERS;
+        case 'c':
+          return MemberActions.ADDCREDITS;
         case 'l':
-          return MemberActions.DETAILEDLISTMEMBERS;
+          return MemberActions.LISTITEMS;
+        case 'n':
+          return MemberActions.NEWCONTRACT;
         case 'x':
           return MemberActions.EXIT;
         default:
@@ -99,12 +95,19 @@ public class MemberControl implements Control {
     }
   }
 
-  private void detailedListMembers() {
-    System.out.println("Detailed List Members");
+  private void newContract() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'newContract'");
   }
 
-  private void simpleListMembers() {
-    System.out.println("Simple List Members");
+  private void listItems() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'listItems'");
+  }
+
+  private void addCredits() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'addCredits'");
   }
 
   private void deleteMember() {
