@@ -17,5 +17,6 @@ public class AdvanceTimeCommand implements Command {
   @Override
   public void execute() {
     timeService.advanceDay();
+    System.out.println("New day: " + timeService.getTime());
   }
 }

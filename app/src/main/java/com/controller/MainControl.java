@@ -87,7 +87,7 @@ public class MainControl implements Control {
         }
       }
     }
-    
+
     view.displayError("Invalid selection");
     return MainActions.UNKNOWN;
   }
