@@ -33,6 +33,8 @@ public class ListMembersView extends AbstractView {
 
   @Override
   public void displayMenu() {
+    cleanScreen();
+    displayGreeting();
     this.memberList = memberRepo.getMembers();
     if (detailedList) {
       displayDetailedMenu(memberList);
@@ -82,7 +84,6 @@ public class ListMembersView extends AbstractView {
 
   private void displaySimpleMenu(List<Member> memberList) {
     // TODO: Make sure it displays all the data required in the SRS.
-    cleanScreen();
     System.out.println("- " + texts.getString("title") + " -\n");
     for (int i = 0; i < memberList.size(); i++) {
       Member member = memberList.get(i);

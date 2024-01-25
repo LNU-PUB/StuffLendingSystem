@@ -58,7 +58,6 @@ public class MainControl implements Control {
    */
   public boolean run() {
     view.displayMenu();
-    view.displayPrompt();
     MainActions action = getInput();
 
     if (action == MainActions.LISTMEMBERS) {
@@ -73,18 +72,22 @@ public class MainControl implements Control {
   }
 
   private MainActions getInput() {
+    view.displayPrompt();
     String userInput = inputService.readLine();
 
     if (userInput != null && userInput.length() == 1) {
       userInput = userInput.trim();
       char inputChar = userInput.charAt(0);
-      for (MainActions action : MainActions.values()) {
-        if (action.getSelector() == inputChar) {
-          return action;
+      List<Character> validSelectors = MainActions.UNKNOWN.getValidSelectors();
+      if (validSelectors.contains(inputChar)) {
+        for (MainActions action : MainActions.values()) {
+          if (action.getSelector() == inputChar) {
+            return action;
+          }
         }
       }
     }
-
+    
     view.displayError("Invalid selection");
     return MainActions.UNKNOWN;
   }

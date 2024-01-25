@@ -1,5 +1,8 @@
 package com.controller.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents the main actions of the application.
  */
@@ -24,5 +27,14 @@ public enum MainActions implements Actions {
 
   public char getSelector() {
     return selector;
+  }
+
+  @Override
+  public List<Character> getValidSelectors() {
+    List<Character> selectors = new ArrayList<>();
+    for (MainActions action : MainActions.values()) {
+      selectors.add(action.getSelector());
+    }
+    return selectors;
   }
 }

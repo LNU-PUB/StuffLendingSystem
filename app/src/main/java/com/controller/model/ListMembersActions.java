@@ -1,5 +1,8 @@
 package com.controller.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents the actions that can be performed on a member.
  */
@@ -23,5 +26,14 @@ public enum ListMembersActions implements Actions {
 
   public char getSelector() {
     return selector;
+  }
+
+  @Override
+  public List<Character> getValidSelectors() {
+    List<Character> selectors = new ArrayList<>();
+    for (ListMembersActions action : ListMembersActions.values()) {
+      selectors.add(action.getSelector());
+    }
+    return selectors;
   }
 }
