@@ -1,8 +1,14 @@
 package com.model;
 
+/**
+ * The time service.
+ */
 public class TimeService {
   private Time currentTime;
 
+  /**
+   * Creates a new instance of the time service.
+   */
   public TimeService() {
     this.currentTime = new Time();
   }
@@ -11,7 +17,10 @@ public class TimeService {
     return currentTime.getCurrentDay();
   }
 
-  public void advanceDay(){
+  /**
+   * Advances the day.
+   */
+  public void advanceDay() {
     this.currentTime = currentTime.advanceDay();
   }
 }

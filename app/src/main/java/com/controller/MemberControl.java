@@ -2,7 +2,7 @@ package com.controller;
 
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
-import com.controller.model.Actions.MemberActions;
+import com.controller.model.actions.MemberActions;
 import com.model.MemberRepository;
 import com.view.ViewFactory;
 import com.view.model.View;

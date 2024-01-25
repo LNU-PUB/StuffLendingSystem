@@ -1,12 +1,10 @@
 package com.model.db;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The data handler for hard coded members.
@@ -35,9 +33,6 @@ public class DataHardCodedMember implements DataHandlerMember {
     // Creating member Jane Doe
     Member janeDoe = new Member("456def", "Jane Doe", "jane@doe.sss", "87654321", janeItems, 1, 201);
 
-    // Creating member Alex Smith with no items
-    Member alexSmith = new Member("789ghi", "Alex Smith", "alex@smith.sss", "11223344", new ArrayList<>(), 0, 50);
-
     // Creating contracts
     Contract contract = new Contract(johnDoe, hammer, janeDoe, 1, 2);
 
@@ -45,6 +40,9 @@ public class DataHardCodedMember implements DataHandlerMember {
     hammer.setCurrentContract(contract);
     johnDoe.addContract(contract);
     janeDoe.addContract(contract);
+
+    // Creating member Alex Smith with no items
+    Member alexSmith = new Member("789ghi", "Alex Smith", "alex@smith.sss", "11223344", new ArrayList<>(), 0, 50);
 
     // Adding members to the list
     List<Member> members = new ArrayList<>();

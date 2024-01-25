@@ -1,6 +1,6 @@
 package com.view;
 
-import com.controller.model.Actions.MemberActions;
+import com.controller.model.actions.MemberActions;
 import com.model.Member;
 import com.model.MemberRepository;
 import com.view.model.AbstractView;

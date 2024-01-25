@@ -1,7 +1,10 @@
-package com.controller.model.Commands;
+package com.controller.model.commands;
 
 import com.model.TimeService;
 
+/**
+ * A command for advancing the time.
+ */
 public class AdvanceTimeCommand implements Command {
   private final TimeService timeService;
 

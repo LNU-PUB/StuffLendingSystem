@@ -1,10 +1,6 @@
 package com.model.db;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Member;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +31,4 @@ public class DataJsonHandler implements DataHandlerMember {
     // TODO: Write implementation if needed.
     return true;
   }
-
 }

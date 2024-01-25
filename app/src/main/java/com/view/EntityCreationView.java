@@ -1,10 +1,7 @@
 package com.view;
 
-import com.controller.model.Language;
-import com.controller.model.Actions.Actions;
 import com.view.model.AbstractView;
 import com.view.model.AddDataView;
-import com.view.model.View;
 import com.view.model.ViewArguments;
 
 /**
@@ -16,8 +13,7 @@ public class EntityCreationView extends AbstractView implements AddDataView {
   /**
    * Constructor.
    *
-   * @param language   - The language to use.
-   * @param bundleName - The bundle name to use.
+   * @param args - The arguments.
    */
   public EntityCreationView(ViewArguments args) {
     super(args.getLanguage(), args.getBundleName());

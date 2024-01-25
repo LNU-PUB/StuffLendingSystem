@@ -15,11 +15,12 @@ public class ControllerArguments {
   /**
    * Creates a new instance of the controller arguments.
    *
-   * @param inputService       - The input service.
-   * @param memberRepo - The stuff lending system.
-   * @param language           - The language.
+   * @param inputService - The input service.
+   * @param memberRepo   - The stuff lending system.
+   * @param language     - The language.
    */
-  public ControllerArguments(MemberRepository memberRepo, TimeService timeService, InputService inputService, Language language) {
+  public ControllerArguments(MemberRepository memberRepo, TimeService timeService,
+      InputService inputService, Language language) {
     this.inputService = inputService;
     this.timeService = timeService;
     this.memberRepo = memberRepo;

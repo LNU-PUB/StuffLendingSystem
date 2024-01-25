@@ -1,10 +1,8 @@
-package com.controller.model;
-
-import org.junit.jupiter.api.Test;
-
-import com.controller.model.Actions.MainActions;
+package com.controller.model.actions;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 class MainActionsTest {
 

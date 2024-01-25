@@ -1,8 +1,5 @@
 package com.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Item class.
  * Represents an item that can be rented.
@@ -18,10 +15,10 @@ public class Item {
   /**
    * Constructor.
    *
-   * @param name - name
-   * @param category - category
+   * @param name        - name
+   * @param category    - category
    * @param description - description
-   * @param costPerDay - rental cost per day
+   * @param costPerDay  - rental cost per day
    * @param creationDay - creation day
    */
   public Item(String name, String category, String description, double costPerDay, int creationDay) {
@@ -48,6 +45,7 @@ public class Item {
   public void setCurrentContract(Contract contract) {
     this.currentContract = contract;
   }
+
   public String getName() {
     return this.name;
   }
@@ -68,6 +66,11 @@ public class Item {
     return this.creationDay;
   }
 
+  /**
+   * Gets the current contract.
+   *
+   * @return - The current contract.
+   */
   public Contract getCurrentContract() {
     // Only for development remove the following content when done.
     // *** START ***
@@ -81,8 +84,10 @@ public class Item {
     // List<Item> list2 = new ArrayList<>();
     // list2.add(item3);
     // list2.add(item4);
-    // Member owner = new Member("123abc", "John Doe", "jon@doe.sss", "12345678", list1);
-    // Member borrower = new Member("456def", "Jane Doe", "jane@doe.sss", "87654321", list2);
+    // Member owner = new Member("123abc", "John Doe", "jon@doe.sss", "12345678",
+    // list1);
+    // Member borrower = new Member("456def", "Jane Doe", "jane@doe.sss",
+    // "87654321", list2);
     // // Item item = new Item("Hammer", "Tools", "A hammer", 1.0, 1);
     // int startDay = 1;
     // int endDay = 2;

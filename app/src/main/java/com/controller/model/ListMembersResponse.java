@@ -1,6 +1,6 @@
 package com.controller.model;
 
-import com.controller.model.Actions.ListMembersActions;
+import com.controller.model.actions.ListMembersActions;
 
 /**
  * Represents the response object from getInput() selection in ListMemberView.

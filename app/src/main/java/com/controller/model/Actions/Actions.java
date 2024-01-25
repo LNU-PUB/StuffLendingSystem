@@ -1,4 +1,4 @@
-package com.controller.model.Actions;
+package com.controller.model.actions;
 
 import java.util.List;
 

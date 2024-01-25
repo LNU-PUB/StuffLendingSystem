@@ -1,4 +1,4 @@
-package com.controller.model.Commands;
+package com.controller.model.commands;
 
 /**
  * The command interface.

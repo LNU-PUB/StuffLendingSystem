@@ -1,15 +1,14 @@
 package com.model;
 
+import com.model.db.DataHandlerMember;
+import com.model.db.DataHardCodedMember;
+import com.model.lib.BasicMemberData;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.model.db.DataHandlerMember;
-import com.model.db.DataHardCodedMember;
-import com.model.lib.BasicMemberData;
 
 /**
  * The stuff lending system.
@@ -19,7 +18,7 @@ public class MemberRepository {
   private DataHandlerMember dataHandler;
   private List<Member> members;
   private final SecureRandom random;
-  private final static int MIN_NAME_LENGTH = 2;
+  private static final int MIN_NAME_LENGTH = 2;
 
   /**
    * Creates a new instance of the stuff lending system.
@@ -86,7 +85,7 @@ public class MemberRepository {
    * @return - True if the mobile is valid, false otherwise.
    */
   public boolean validateMobile(String mobile) {
-    if (mobile == null) {
+    if (mobile == null || mobile.equals("")) {
       return false;
     }
 
@@ -138,9 +137,7 @@ public class MemberRepository {
   /**
    * Adds a new member.
    *
-   * @param name   - The name of the member.
-   * @param email  - The email of the member.
-   * @param mobile - The mobile of the member.
+   * @param data - The member data.
    * @return - True if the member is added, false otherwise.
    */
   public boolean addNewMember(BasicMemberData data) {
