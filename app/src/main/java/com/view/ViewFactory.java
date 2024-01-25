@@ -23,5 +23,14 @@ public class ViewFactory implements MenuViewFactory {
   public View createMemberView(ViewArguments args, int memberIndex) {
     return new MemberView(args, memberIndex);
   }
-  
+
+  @Override
+  public View createSimplePromptView(ViewArguments args) {
+    return new SimplePromptView(args);
+  }
+
+  @Override
+  public View createEntityCreationView(ViewArguments args) {
+    return new EntityCreationView(args);
+  }
 }

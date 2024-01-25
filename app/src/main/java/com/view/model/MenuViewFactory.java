@@ -11,4 +11,8 @@ public interface MenuViewFactory {
   public View createListMembersView(ViewArguments args, boolean detailedList);
 
   public View createMemberView(ViewArguments args, int memberIndex);
+
+  public View createSimplePromptView(ViewArguments args);
+
+  public View createEntityCreationView(ViewArguments args);
 }

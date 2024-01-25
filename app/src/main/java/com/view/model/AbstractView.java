@@ -58,6 +58,11 @@ public abstract class AbstractView implements View {
     System.out.print(prompt);
   }
 
+  @Override
+  public void displayResourcePrompt(String prompt) {
+    System.out.print(texts.getString(prompt));
+  }
+
   // protected boolean isNumericInteger(String str) {
   //   return str.matches("\\d+");
   // }

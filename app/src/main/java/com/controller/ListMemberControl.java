@@ -1,5 +1,8 @@
 package com.controller;
 
+import com.controller.model.AddMemberCommand;
+import com.controller.model.Command;
+import com.controller.model.CommandExecutor;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
@@ -23,6 +26,9 @@ public class ListMemberControl implements Control {
   Member selectedMember;
   private final InputService inputService;
   private final ControllerArguments args;
+  private final boolean detailedList;
+  private final Command addMemberCommand;
+  private final CommandExecutor commandExecutor;
 
   /**
    * Creates a new instance of the control.
@@ -34,6 +40,9 @@ public class ListMemberControl implements Control {
     this.args = args;
     this.memberRepo = args.getMemberRepo();
     this.inputService = args.getInputService();
+    this.detailedList = detailedList;
+    this.addMemberCommand = new AddMemberCommand(args);
+    this.commandExecutor = new CommandExecutor();
     createMemberList();
     this.view = createView(args, detailedList);
   }
@@ -53,9 +62,8 @@ public class ListMemberControl implements Control {
   @Override
   public boolean run() {
     view.displayMenu();
-    view.displayPrompt();
 
-    ListMembersResponse response = getInput();
+    ListMembersResponse response = detailedList ? getStaticInput() : getInput();
     ListMembersActions action = response.getAction();
     int index = response.getIndex();
 
@@ -69,6 +77,7 @@ public class ListMemberControl implements Control {
   }
 
   private ListMembersResponse getInput() {
+    view.displayPrompt();
     String userInput = inputService.readLine();
 
     if (isNumericInteger(userInput)) {
@@ -89,8 +98,19 @@ public class ListMemberControl implements Control {
     }
   }
 
-  private void addMember() {
+  private ListMembersResponse getStaticInput() {
+    view.displayPrompt("Exit menu press enter: ");
 
+    if (inputService.readLine() != null) {
+      return new ListMembersResponse(ListMembersActions.EXIT, -1);
+    } else {
+      return new ListMembersResponse(ListMembersActions.EXIT, -1);
+    }
+  }
+
+  private void addMember() {
+    Command addMember = new AddMemberCommand(args);
+    commandExecutor.executeCommand(addMember);
   }
 
   private void memberControl(int memberIndex) {

@@ -1,6 +1,8 @@
 package com.controller;
 
 import com.controller.model.AdvanceTimeCommand;
+import com.controller.model.Command;
+import com.controller.model.CommandExecutor;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
@@ -22,7 +24,7 @@ public class MainControl implements Control {
   private MemberRepository memberRepo;
   private View view;
   private InputService inputService;
-  private AdvanceTimeCommand advTimeCommand;
+  private CommandExecutor commandExecutor;
   private Language language;
   private List<Member> memberList;
   private final ControllerArguments args;
@@ -37,7 +39,7 @@ public class MainControl implements Control {
     this.memberRepo = args.getMemberRepo();
     this.language = args.getLanguage();
     this.inputService = args.getInputService();
-    this.advTimeCommand = new AdvanceTimeCommand(args.getTimeService());
+    this.commandExecutor = new CommandExecutor();
     this.memberList = memberRepo.getMembers();
     this.view = createView(args);
   }
@@ -93,7 +95,8 @@ public class MainControl implements Control {
   }
 
   private void advanceTime() {
-    advTimeCommand.execute();
+    Command advTimeCommand = new AdvanceTimeCommand(args.getTimeService());
+    commandExecutor.executeCommand(advTimeCommand);
   }
 
   private void listMembersControl(boolean detailedList) {

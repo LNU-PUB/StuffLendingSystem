@@ -23,13 +23,13 @@ public class App {
    * Creates a new instance of the application.
    */
   public App() {
-    this.memberRepo = createMemberRepo();
-    this.inputService = createInputService();
     this.timeService = createTimeService();
+    this.inputService = createInputService();
+    this.memberRepo = createMemberRepo(this.timeService);
   }
 
-  protected MemberRepository createMemberRepo() {
-    return new MemberRepository();
+  protected MemberRepository createMemberRepo(TimeService timeService) {
+    return new MemberRepository(timeService);
   }
 
   protected InputService createInputService() {

@@ -11,19 +11,44 @@ public class DataHardCodedMember implements DataHandlerMember {
 
   @Override
   public List<Member> getMembers() {
-    // Create items
-    Item item1 = new Item("Item 1", "Tool", "This is a tool", 10.00, 1);
-    Item item2 = new Item("Item 2", "Tool", "This is a tool", 10.00, 1);
-    Item item3 = new Item("Item 3", "Tool", "This is a tool", 10.00, 1);
+    // Creating items for John Doe
+    Item hammer = new Item("Hammer", "Tools", "A hammer", 1.0, 1);
+    Item screwdriver = new Item("Screwdriver", "Tools", "A screwdriver", 1.0, 1);
+    List<Item> johnItems = new ArrayList<>();
+    johnItems.add(hammer);
+    johnItems.add(screwdriver);
 
-    // Create members with items
-    Member member1 = new Member("123abc", "John", "john@test.com", "0123121212", new ArrayList<>(Arrays.asList(item1)));
-    Member member2 = new Member("456def", "Jane", "jane@test.com", "0123121213", new ArrayList<>(Arrays.asList(item2)));
-    Member member3 = new Member("789ghi", "Bob", "bob@test.com", "0123121214", new ArrayList<>(Arrays.asList(item3)));
+    // Creating member John Doe
+    Member johnDoe = new Member("123abc", "John Doe", "jon@doe.sss", "12345678", johnItems, 0, 100);
 
-    // Add members to list
-    return new ArrayList<>(Arrays.asList(member1, member2, member3));
+    // Creating items for Jane Doe
+    Item drill = new Item("Drill", "Tools", "A drill", 1.0, 1);
+    Item saw = new Item("Saw", "Tools", "A saw", 1.0, 1);
+    List<Item> janeItems = new ArrayList<>();
+    janeItems.add(drill);
+    janeItems.add(saw);
 
+    // Creating member Jane Doe
+    Member janeDoe = new Member("456def", "Jane Doe", "jane@doe.sss", "87654321", janeItems, 1, 201);
+
+    // Creating member Alex Smith with no items
+    Member alexSmith = new Member("789ghi", "Alex Smith", "alex@smith.sss", "11223344", new ArrayList<>(), 0, 50);
+
+    // Creating contracts
+    Contract contract = new Contract(johnDoe, hammer, janeDoe, 1, 2);
+
+    // Assigning the contract to the item and the members
+    hammer.setCurrentContract(contract);
+    johnDoe.addContract(contract);
+    janeDoe.addContract(contract);
+
+    // Adding members to the list
+    List<Member> members = new ArrayList<>();
+    members.add(johnDoe);
+    members.add(janeDoe);
+    members.add(alexSmith);
+
+    return members;
   }
 
   @Override

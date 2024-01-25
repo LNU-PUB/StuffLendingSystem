@@ -7,9 +7,9 @@
       "mobile": "0123121212",
       "items": [
         {
-          "name": "Item 1",
+          "name": "John Item 1",
           "category": "Tool",
-          "description": "This is a tool",
+          "description": "This is a John tool",
           "costPerDay": 10.00,
           "creationDay": 1
         }
@@ -22,9 +22,9 @@
       "mobile": "0123121213",
       "items": [
         {
-          "name": "Item 2",
+          "name": "Jane Item 1",
           "category": "Tool",
-          "description": "This is a tool",
+          "description": "This is a Jane tool",
           "costPerDay": 10.00,
           "creationDay": 1
         }
@@ -37,9 +37,9 @@
       "mobile": "0123121214",
       "items": [
         {
-          "name": "Item 3",
+          "name": "Bob Item 1",
           "category": "Tool",
-          "description": "This is a tool",
+          "description": "This is a Bob tool",
           "costPerDay": 10.00,
           "creationDay": 1
         }

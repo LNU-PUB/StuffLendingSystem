@@ -1,0 +1,70 @@
+{
+  "members": [
+    {
+      "id": "123abc",
+      "name": "John Doe",
+      "email": "jon@doe.sss",
+      "mobile": "12345678",
+      "items": [
+        {
+          "name": "Hammer",
+          "category": "Tools",
+          "description": "A hammer",
+          "costPerDay": 1.0,
+          "creationDay": 1
+        },
+        {
+          "name": "Screwdriver",
+          "category": "Tools",
+          "description": "A screwdriver",
+          "costPerDay": 1.0,
+          "creationDay": 1
+        }
+      ]
+    },
+    {
+      "id": "456def",
+      "name": "Jane Doe",
+      "email": "jane@doe.sss",
+      "mobile": "87654321",
+      "items": [
+        {
+          "name": "Drill",
+          "category": "Tools",
+          "description": "A drill",
+          "costPerDay": 1.0,
+          "creationDay": 1
+        },
+        {
+          "name": "Saw",
+          "category": "Tools",
+          "description": "A saw",
+          "costPerDay": 1.0,
+          "creationDay": 1
+        }
+      ]
+    },
+    {
+      "id": "789ghi",
+      "name": "Alex Smith",
+      "email": "alex@smith.sss",
+      "mobile": "11223344",
+      "items": []
+    }
+  ],
+  "contracts": [
+    {
+      "owner": "123abc",
+      "borrower": "456def",
+      "item": {
+        "name": "Hammer",
+        "category": "Tools",
+        "description": "A hammer",
+        "costPerDay": 1.0,
+        "creationDay": 1
+      },
+      "startDay": 1,
+      "endDay": 2
+    }
+  ]
+}

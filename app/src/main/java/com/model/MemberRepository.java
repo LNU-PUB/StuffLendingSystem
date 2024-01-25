@@ -11,18 +11,20 @@ import java.util.regex.Pattern;
  * The stuff lending system.
  */
 public class MemberRepository {
-  private Time time;
+  private TimeService timeService;
   private DataHandlerMember dataHandler;
   private List<Member> members;
   private final SecureRandom random;
+  private final static int MIN_NAME_LENGTH = 2;
 
   /**
    * Creates a new instance of the stuff lending system.
    */
-  public MemberRepository() {
+  public MemberRepository(TimeService timeService) {
     this.dataHandler = new DataHardCodedMember();
     this.members = dataHandler.getMembers();
     this.random = new SecureRandom();
+    this.timeService = timeService;
   }
 
   /**
@@ -32,6 +34,10 @@ public class MemberRepository {
    */
   public List<Member> getMembers() {
     return Collections.unmodifiableList(new ArrayList<>(members));
+  }
+
+  public TimeService getTimeService() {
+    return timeService;
   }
 
   /**
@@ -94,6 +100,24 @@ public class MemberRepository {
   }
 
   /**
+   * Validates the name.
+   *
+   * @param name - The name to validate.
+   * @return - True if the name is valid, false otherwise.
+   */
+  public boolean validateName(String name) {
+    if (name == null || name.equals("") || name.length() < MIN_NAME_LENGTH) {
+      return false;
+    }
+
+    String nameRegex = "^[a-zA-Z ,.\\-\\'\\p{L}]+$";
+    Pattern namePattern = Pattern.compile(nameRegex);
+    Matcher matcher = namePattern.matcher(name);
+
+    return matcher.matches();
+  }
+
+  /**
    * Updates the member list.
    *
    * @param newList - The member to update.
@@ -135,7 +159,7 @@ public class MemberRepository {
     String id = generateMemberId();
     List<Item> newItems = new ArrayList<>();
 
-    Member newMember = new Member(id, name, email, mobile, newItems);
+    Member newMember = new Member(id, name, email, mobile, newItems, timeService.getDay(), 0);
     members.add(newMember);
     updateMemberList(members);
 

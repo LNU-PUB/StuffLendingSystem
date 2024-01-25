@@ -11,39 +11,55 @@ public class Member {
   private String name;
   private String email;
   private String mobile;
+  private int credits;
+  private final int memberCreationDay;
   private List<Item> items;
+  private List<Contract> contracts;
 
   /**
    * Constructor.
    *
-   * @param id - unique id
-   * @param name - name
-   * @param email - email
+   * @param id     - unique id
+   * @param name   - name
+   * @param email  - email
    * @param mobile - mobile
-   * @param items - items
+   * @param items  - items
    */
-  public Member(String id, String name, String email, String mobile, List<Item> items) {
+  public Member(String id, String name, String email, String mobile, List<Item> items, int creationDay, int credits) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.mobile = mobile;
     this.items = new ArrayList<>(items);
+    this.contracts = new ArrayList<>();
+    this.memberCreationDay = creationDay;
+    this.credits = credits;
   }
 
   /**
    * Constructor.
    *
-   * @param member - The member to copy.
+   * @param member - The member to create a deep copy of.
    */
   public Member(Member member) {
     this.id = member.getId();
     this.name = member.getName();
     this.email = member.getEmail();
     this.mobile = member.getMobile();
+    this.credits = member.getCredits();
+    this.memberCreationDay = member.getMemberCreationDay();
     this.items = new ArrayList<>();
     for (Item item : member.getItems()) {
       this.items.add(new Item(item));
     }
+  }
+
+  public void addContract(Contract contract) {
+    this.contracts.add(contract);
+  }
+
+  public List<Contract> getContracts() {
+    return this.contracts;
   }
 
   public String getId() {
@@ -52,6 +68,10 @@ public class Member {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public int getMemberCreationDay() {
+    return memberCreationDay;
   }
 
   public String getName() {
@@ -72,5 +92,21 @@ public class Member {
 
   public List<Item> getItems() {
     return (List<Item>) new ArrayList<>(this.items);
+  }
+
+  public void addCredits(int credits) {
+    this.credits += credits;
+  }
+
+  public void deductCredits(int credits) {
+    this.credits -= credits;
+  }
+
+  public int getCredits() {
+    return this.credits;
+  }
+
+  public int getNumberOfItems() {
+    return items.size();
   }
 }

@@ -7,7 +7,7 @@ public class TimeService {
     this.currentTime = new Time();
   }
 
-  public int getTime() {
+  public int getDay() {
     return currentTime.getCurrentDay();
   }
 
