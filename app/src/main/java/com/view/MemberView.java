@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
  * Responsible for displaying information to the user.
  */
 public class MemberView extends AbstractView {
-  private final int memberIndex;
+  private final Member member;
   private final ViewArguments args;
 
   /**
@@ -20,10 +20,10 @@ public class MemberView extends AbstractView {
    * @param args - the view arguments.
    * @param memberIndex - the index of the member to display.
    */
-  public MemberView(ViewArguments args, int memberIndex) {
+  public MemberView(ViewArguments args, Member member) {
     super(args.getLanguage(), args.getBundleName());
     this.args = args;
-    this.memberIndex = memberIndex;
+    this.member = member;
   }
 
 
@@ -43,9 +43,6 @@ public class MemberView extends AbstractView {
 
 
   private void displayMemberDetails() {
-    MemberRepository memberRepo = args.getMemberRepo();
-    Member member = memberRepo.getMembers().get(memberIndex);
-
     System.out.println(texts.getString("name") + ": " + member.getName());
     System.out.println(texts.getString("id") + ": " + member.getId());
     System.out.println(texts.getString("email") + ": " + member.getEmail());

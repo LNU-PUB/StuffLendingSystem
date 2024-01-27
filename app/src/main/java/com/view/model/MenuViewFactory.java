@@ -1,6 +1,6 @@
 package com.view.model;
 
-import com.view.MainView;
+import com.model.Member;
 
 /**
  * Interface for the view factory.
@@ -10,7 +10,7 @@ public interface MenuViewFactory {
 
   public View createListMembersView(ViewArguments args, boolean detailedList);
 
-  public View createMemberView(ViewArguments args, int memberIndex);
+  public View createMemberView(ViewArguments args, Member member);
 
   public View createSimplePromptView(ViewArguments args);
 

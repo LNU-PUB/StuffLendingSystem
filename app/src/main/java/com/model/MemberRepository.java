@@ -213,4 +213,9 @@ public class MemberRepository {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'updateMember'");
   }
+
+  public boolean editMember(BasicMemberData editedMemberData, Member member) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'editMember'");
+  }
 }

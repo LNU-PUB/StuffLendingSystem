@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.controller.model.AbstractMemberControl;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
@@ -8,7 +9,6 @@ import com.controller.model.actions.ListMembersActions;
 import com.controller.model.commands.AddMemberCommand;
 import com.controller.model.commands.Command;
 import com.model.Member;
-import com.model.MemberRepository;
 import com.model.lib.BasicMemberData;
 import com.view.ViewFactory;
 import com.view.model.View;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * The control for listing members.
  */
-public class ListMemberControl implements Control {
+public class ListMemberControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "ListMembersView";
   private View view;
   List<Member> memberList;
@@ -32,10 +32,11 @@ public class ListMemberControl implements Control {
   /**
    * Creates a new instance of the control.
    *
-   * @param args - the controller arguments.
+   * @param args         - the controller arguments.
    * @param detailedList - true if the list should be detailed, false if not.
    */
   public ListMemberControl(ControllerArguments args, boolean detailedList) {
+    super(args);
     this.args = args;
     args.getMemberRepo();
     this.inputService = args.getInputService();
@@ -50,15 +51,20 @@ public class ListMemberControl implements Control {
   @Override
   public boolean run() {
     view.displayMenu();
+    ListMembersActions action = ListMembersActions.UNKNOWN;
 
-    ListMembersResponse response = detailedList ? getStaticInput() : getInput();
-    ListMembersActions action = response.getAction();
-    int index = response.getIndex();
+    try {
+      ListMembersResponse response = detailedList ? getStaticInput() : getInput();
+      action = response.getAction();
 
-    if (action == ListMembersActions.SELECTEDMEMBER) {
-      memberControl(index);
-    } else if (action == ListMembersActions.ADDMEMBER) {
-      addMember();
+      if (action == ListMembersActions.SELECTEDMEMBER) {
+        Member member = args.getMemberRepo().getMembers().get(response.getIndex());
+        memberControl(member);
+      } else if (action == ListMembersActions.ADDMEMBER) {
+        addMember();
+      }
+    } catch (Exception e) {
+      view.displayError(e.getMessage());
     }
 
     return action != ListMembersActions.EXIT;
@@ -96,14 +102,14 @@ public class ListMemberControl implements Control {
     }
   }
 
-  private void memberControl(int memberIndex) {
-    MemberControl memberControl = new MemberControl(this.args, memberIndex);
+  private void memberControl(Member member) {
+    MemberControl memberControl = new MemberControl(this.args, member);
     while (memberControl.run()) {
     }
   }
 
   private void addMember() {
-    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), "AddMemberView",
+    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), "BasicMemberData",
         args.getLanguage());
     ViewFactory factory = new ViewFactory();
     View dataView = factory.createEntityCreationView(viewArgs);
@@ -113,58 +119,59 @@ public class ListMemberControl implements Control {
     addMember.execute();
   }
 
-  private BasicMemberData getAllMemberData(View dataView) {
-    // data: name, email, mobile, item list, credits.
-    String name = getName(dataView);
-    String email = getEmail(dataView);
-    String mobile = getMobile(dataView);
+  // private BasicMemberData getAllMemberData(View dataView) {
+  // // data: name, email, mobile, item list, credits.
+  // String name = getName(dataView);
+  // String email = getEmail(dataView);
+  // String mobile = getMobile(dataView);
 
-    // BasicMemberData memberData = new BasicMemberData(name, email, mobile);
+  // // BasicMemberData memberData = new BasicMemberData(name, email, mobile);
 
-    // return args.getMemberRepo().addNewMember(memberData);
+  // // return args.getMemberRepo().addNewMember(memberData);
 
-    return new BasicMemberData(name, email, mobile);
-  }
+  // return new BasicMemberData(name, email, mobile);
+  // }
 
-  private String getName(View dataView) {
-    while (true) {
-      InputService inputService = args.getInputService();
-      dataView.displayResourcePrompt("name");
-      String name = inputService.readLine();
+  // private String getName(View dataView) {
+  // while (true) {
+  // InputService inputService = args.getInputService();
+  // dataView.displayResourcePrompt("name");
+  // String name = inputService.readLine();
 
-      if (args.getMemberRepo().validateName(name)) {
-        return name;
-      }
+  // if (args.getMemberRepo().validateName(name)) {
+  // return name;
+  // }
 
-      dataView.displayError("Invalid Name. Name has to be at least 2 characters long.");
-    }
-  }
+  // dataView.displayError("Invalid Name. Name has to be at least 2 characters
+  // long.");
+  // }
+  // }
 
-  private String getEmail(View dataView) {
-    while (true) {
-      InputService inputService = args.getInputService();
-      dataView.displayResourcePrompt("email");
-      String email = inputService.readLine();
+  // private String getEmail(View dataView) {
+  // while (true) {
+  // InputService inputService = args.getInputService();
+  // dataView.displayResourcePrompt("email");
+  // String email = inputService.readLine();
 
-      if (args.getMemberRepo().validateEmail(email)) {
-        return email;
-      }
+  // if (args.getMemberRepo().validateEmail(email)) {
+  // return email;
+  // }
 
-      dataView.displayError("Invalid Email. Email has to be unique and valid.");
-    }
-  }
+  // dataView.displayError("Invalid Email. Email has to be unique and valid.");
+  // }
+  // }
 
-  private String getMobile(View dataView) {
-    while (true) {
-      InputService inputService = args.getInputService();
-      dataView.displayResourcePrompt("mobile");
-      String mobile = inputService.readLine();
+  // private String getMobile(View dataView) {
+  // while (true) {
+  // InputService inputService = args.getInputService();
+  // dataView.displayResourcePrompt("mobile");
+  // String mobile = inputService.readLine();
 
-      if (args.getMemberRepo().validateMobile(mobile)) {
-        return mobile;
-      }
+  // if (args.getMemberRepo().validateMobile(mobile)) {
+  // return mobile;
+  // }
 
-      dataView.displayError("Invalid Mobile. Mobile has to be unique and valid.");
-    }
-  }
+  // dataView.displayError("Invalid Mobile. Mobile has to be unique and valid.");
+  // }
+  // }
 }

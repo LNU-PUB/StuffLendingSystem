@@ -18,7 +18,7 @@ public abstract class AbstractView implements View {
    * @param language - the language
    * @param bundleName - the bundle name
    */
-  public AbstractView(Language language, String bundleName) {
+  protected AbstractView(Language language, String bundleName) {
     try {
       this.locale = new Builder().setLanguage(language.getLanguage()).setRegion(language.getCountry()).build();
       this.texts = ResourceBundle.getBundle("com.view." + bundleName, locale);

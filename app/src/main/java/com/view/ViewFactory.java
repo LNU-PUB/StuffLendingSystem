@@ -1,5 +1,6 @@
 package com.view;
 
+import com.model.Member;
 import com.view.model.MenuViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -20,8 +21,8 @@ public class ViewFactory implements MenuViewFactory {
   }
 
   @Override
-  public View createMemberView(ViewArguments args, int memberIndex) {
-    return new MemberView(args, memberIndex);
+  public View createMemberView(ViewArguments args, Member member) {
+    return new MemberView(args, member);
   }
 
   @Override

@@ -3,6 +3,7 @@ package com.controller;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.actions.MemberActions;
+import com.model.Member;
 import com.model.MemberRepository;
 import com.view.ViewFactory;
 import com.view.model.View;
@@ -14,7 +15,7 @@ import com.view.model.ViewArguments;
 public class MemberControl implements Control {
   private static final String BUNDLE_NAME = "MemberView";
   private final MemberRepository memberRepo;
-  private final int memberIndex;
+  private final Member member;
   private final View view;
   private final ControllerArguments args;
   // private List<Member> members;
@@ -22,12 +23,12 @@ public class MemberControl implements Control {
   /**
    * Creates a new instance of the control.
    *
-   * @param args - the controller arguments.
+   * @param args        - the controller arguments.
    * @param memberIndex - the index of the member to operate on.
    */
-  public MemberControl(ControllerArguments args, int memberIndex) {
+  public MemberControl(ControllerArguments args, Member member) {
     this.memberRepo = args.getMemberRepo();
-    this.memberIndex = memberIndex;
+    this.member = member;
     this.args = args;
     this.view = createView(args);
   }
@@ -37,7 +38,7 @@ public class MemberControl implements Control {
     ViewFactory factory = new ViewFactory();
     ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
         args.getLanguage());
-    return factory.createMemberView(viewArgs, memberIndex);
+    return factory.createMemberView(viewArgs, member);
   }
 
   /**
@@ -60,7 +61,7 @@ public class MemberControl implements Control {
       listItems();
     } else if (action == MemberActions.NEWCONTRACT) {
       newContract();
-    } 
+    }
 
     return action != MemberActions.EXIT;
   }
@@ -115,9 +116,11 @@ public class MemberControl implements Control {
     updateMember();
   }
 
-  private void editMember() {
-    System.out.println("Edit Member");
-    updateMember();
+  private boolean editMember() {
+    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), "BasicMemberData",
+        args.getLanguage());
+
+    return true; // for development purposes only.
   }
 
   private void addMember() {
