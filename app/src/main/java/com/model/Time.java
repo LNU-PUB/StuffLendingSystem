@@ -14,11 +14,11 @@ public class Time {
     this.currentDay = currentDay;
   }
 
-  public Time advanceDay() {
+  protected Time advanceDay() {
     return new Time(this.currentDay + 1);
   }
 
-  public int getCurrentDay() {
+  protected int getCurrentDay() {
     return this.currentDay;
   }
 }
