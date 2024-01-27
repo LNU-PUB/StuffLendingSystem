@@ -9,6 +9,7 @@ import com.model.lib.BasicMemberData;
 public class AddMemberCommand extends AbstractCommand {
   private final ControllerArguments args;
   private final BasicMemberData memberData;
+
   /**
    * Creates a new instance of the command.
    *

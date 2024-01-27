@@ -24,7 +24,7 @@ public class MemberControl implements Control {
    * Creates a new instance of the control.
    *
    * @param args        - the controller arguments.
-   * @param memberIndex - the index of the member to operate on.
+   * @param member - the member to operate on.
    */
   public MemberControl(ControllerArguments args, Member member) {
     this.memberRepo = args.getMemberRepo();

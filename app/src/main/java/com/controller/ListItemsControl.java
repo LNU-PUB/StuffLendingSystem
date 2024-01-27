@@ -2,6 +2,9 @@ package com.controller;
 
 import com.controller.model.Control;
 
+/**
+ * The ListItems controller.
+ */
 public class ListItemsControl implements Control {
 
   @Override

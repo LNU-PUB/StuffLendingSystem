@@ -3,6 +3,9 @@ package com.controller.model;
 import com.model.lib.BasicMemberData;
 import com.view.model.View;
 
+/**
+ * Abstract class for Member Controls.
+ */
 public abstract class AbstractMemberControl implements Control {
   ControllerArguments args;
 

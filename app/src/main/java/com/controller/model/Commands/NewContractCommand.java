@@ -1,5 +1,8 @@
 package com.controller.model.commands;
 
+/**
+ * The NewContract command.
+ */
 public class NewContractCommand implements Command {
 
   @Override

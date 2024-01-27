@@ -18,12 +18,12 @@ public class MemberView extends AbstractView {
    * Creates a new instance of the view.
    *
    * @param args - the view arguments.
-   * @param memberIndex - the index of the member to display.
+   * @param member - the member to display.
    */
   public MemberView(ViewArguments args, Member member) {
     super(args.getLanguage(), args.getBundleName());
     this.args = args;
-    this.member = member;
+    this.member = new Member(member);
   }
 
 
