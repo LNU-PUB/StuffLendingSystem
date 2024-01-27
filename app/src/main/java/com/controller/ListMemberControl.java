@@ -7,9 +7,9 @@ import com.controller.model.ListMembersResponse;
 import com.controller.model.actions.ListMembersActions;
 import com.controller.model.commands.AddMemberCommand;
 import com.controller.model.commands.Command;
-import com.controller.model.commands.CommandExecutor;
 import com.model.Member;
 import com.model.MemberRepository;
+import com.model.lib.BasicMemberData;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -20,15 +20,14 @@ import java.util.List;
  */
 public class ListMemberControl implements Control {
   private static final String BUNDLE_NAME = "ListMembersView";
-  private MemberRepository memberRepo;
   private View view;
   List<Member> memberList;
   Member selectedMember;
   private final InputService inputService;
   private final ControllerArguments args;
   private final boolean detailedList;
-  private final Command addMemberCommand;
-  private final CommandExecutor commandExecutor;
+  ViewFactory viewFactory;
+  // private final CommandExecutor commandExecutor;
 
   /**
    * Creates a new instance of the control.
@@ -38,25 +37,14 @@ public class ListMemberControl implements Control {
    */
   public ListMemberControl(ControllerArguments args, boolean detailedList) {
     this.args = args;
-    this.memberRepo = args.getMemberRepo();
+    args.getMemberRepo();
     this.inputService = args.getInputService();
     this.detailedList = detailedList;
-    this.addMemberCommand = new AddMemberCommand(args);
-    this.commandExecutor = new CommandExecutor();
-    createMemberList();
-    this.view = createView(args, detailedList);
-  }
-
-  // Target for refactoring into AbstractControl class.
-  private View createView(ControllerArguments args, boolean detailedList) {
-    ViewFactory factory = new ViewFactory();
+    this.viewFactory = new ViewFactory();
     ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
         args.getLanguage());
-    return factory.createListMembersView(viewArgs, detailedList);
-  }
+    this.view = viewFactory.createListMembersView(viewArgs, detailedList);
 
-  private void createMemberList() {
-    memberList = memberRepo.getMembers();
   }
 
   @Override
@@ -108,14 +96,75 @@ public class ListMemberControl implements Control {
     }
   }
 
-  private void addMember() {
-    Command addMember = new AddMemberCommand(args);
-    commandExecutor.executeCommand(addMember);
-  }
-
   private void memberControl(int memberIndex) {
     MemberControl memberControl = new MemberControl(this.args, memberIndex);
     while (memberControl.run()) {
+    }
+  }
+
+  private void addMember() {
+    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), "AddMemberView",
+        args.getLanguage());
+    ViewFactory factory = new ViewFactory();
+    View dataView = factory.createEntityCreationView(viewArgs);
+
+    BasicMemberData memberData = getAllMemberData(dataView);
+    Command addMember = new AddMemberCommand(args, memberData);
+    addMember.execute();
+  }
+
+  private BasicMemberData getAllMemberData(View dataView) {
+    // data: name, email, mobile, item list, credits.
+    String name = getName(dataView);
+    String email = getEmail(dataView);
+    String mobile = getMobile(dataView);
+
+    // BasicMemberData memberData = new BasicMemberData(name, email, mobile);
+
+    // return args.getMemberRepo().addNewMember(memberData);
+
+    return new BasicMemberData(name, email, mobile);
+  }
+
+  private String getName(View dataView) {
+    while (true) {
+      InputService inputService = args.getInputService();
+      dataView.displayResourcePrompt("name");
+      String name = inputService.readLine();
+
+      if (args.getMemberRepo().validateName(name)) {
+        return name;
+      }
+
+      dataView.displayError("Invalid Name. Name has to be at least 2 characters long.");
+    }
+  }
+
+  private String getEmail(View dataView) {
+    while (true) {
+      InputService inputService = args.getInputService();
+      dataView.displayResourcePrompt("email");
+      String email = inputService.readLine();
+
+      if (args.getMemberRepo().validateEmail(email)) {
+        return email;
+      }
+
+      dataView.displayError("Invalid Email. Email has to be unique and valid.");
+    }
+  }
+
+  private String getMobile(View dataView) {
+    while (true) {
+      InputService inputService = args.getInputService();
+      dataView.displayResourcePrompt("mobile");
+      String mobile = inputService.readLine();
+
+      if (args.getMemberRepo().validateMobile(mobile)) {
+        return mobile;
+      }
+
+      dataView.displayError("Invalid Mobile. Mobile has to be unique and valid.");
     }
   }
 }
