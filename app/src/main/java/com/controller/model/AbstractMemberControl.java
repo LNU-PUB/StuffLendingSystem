@@ -57,7 +57,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (args.getMemberRepo().validateName(name)) {
+        if (args.getMemberServices().validateName(name)) {
           return name;
         }
       } else {
@@ -65,7 +65,7 @@ public abstract class AbstractMemberControl implements Control {
           if (name.equals(member.getName())) {
             return member.getName();
           } else {
-            if (args.getMemberRepo().validateName(name)) {
+            if (args.getMemberServices().validateName(name)) {
               return name;
             }
           }
@@ -99,7 +99,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (args.getMemberRepo().validateEmail(email)) {
+        if (args.getMemberServices().validateEmail(email)) {
           return email;
         }
       } else {
@@ -107,7 +107,7 @@ public abstract class AbstractMemberControl implements Control {
           if (email.equals(member.getEmail())) {
             return member.getEmail();
           } else {
-            if (args.getMemberRepo().validateEmail(email)) {
+            if (args.getMemberServices().validateEmail(email)) {
               return email;
             }
           }
@@ -141,7 +141,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (args.getMemberRepo().validateMobile(mobile)) {
+        if (args.getMemberServices().validateMobile(mobile)) {
           return mobile;
         }
       } else {
@@ -149,7 +149,7 @@ public abstract class AbstractMemberControl implements Control {
           if (mobile.equals(member.getMobile())) {
             return member.getMobile();
           } else {
-            if (args.getMemberRepo().validateMobile(mobile)) {
+            if (args.getMemberServices().validateMobile(mobile)) {
               return mobile;
             }
           }

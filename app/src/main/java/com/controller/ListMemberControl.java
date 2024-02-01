@@ -37,11 +37,10 @@ public class ListMemberControl extends AbstractMemberControl {
   public ListMemberControl(ControllerArguments args, boolean detailedList) {
     super(args);
     this.args = args;
-    args.getMemberRepo();
     this.inputService = args.getInputService();
     this.detailedList = detailedList;
     this.viewFactory = new ViewFactory();
-    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
+    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
         args.getLanguage());
     this.view = viewFactory.createListMembersView(viewArgs, detailedList);
 
@@ -57,7 +56,7 @@ public class ListMemberControl extends AbstractMemberControl {
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
-        Member member = args.getMemberRepo().getMembers().get(response.getIndex());
+        Member member = args.getMemberServices().getAllMembers().get(response.getIndex());
         memberControl(member);
       } else if (action == ListMembersActions.ADDMEMBER) {
         addMember();
@@ -108,7 +107,7 @@ public class ListMemberControl extends AbstractMemberControl {
   }
 
   private void addMember() {
-    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), "BasicMemberData",
+    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), "BasicMemberData",
         args.getLanguage());
     ViewFactory factory = new ViewFactory();
     View dataView = factory.createEntityCreationView(viewArgs);

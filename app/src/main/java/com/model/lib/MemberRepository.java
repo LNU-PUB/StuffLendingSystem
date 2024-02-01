@@ -1,8 +1,10 @@
-package com.model;
+package com.model.lib;
 
+import com.model.Item;
+import com.model.Member;
+import com.model.TimeService;
 import com.model.db.DataHandlerMember;
 import com.model.db.DataHardCodedMember;
-import com.model.lib.BasicMemberData;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -140,25 +142,25 @@ public class MemberRepository {
    * @param data - The member data.
    * @return - True if the member is added, false otherwise.
    */
-  public boolean addNewMember(BasicMemberData data) {
+  public Member addNewMember(BasicMemberData data) {
     String name = data.getName();
     String email = data.getEmail();
     String mobile = data.getMobile();
 
     if (name == null || email == null || mobile == null) {
-      return false;
+      return null;
     }
 
     if (name.equals("") || email.equals("") || mobile.equals("")) {
-      return false;
+      return null;
     }
 
     if (!validateEmail(email)) {
-      return false;
+      return null;
     }
 
     if (!validateMobile(mobile)) {
-      return false;
+      return null;
     }
 
     String id = generateMemberId();
@@ -170,7 +172,7 @@ public class MemberRepository {
 
     // signal new member added event
 
-    return true;
+    return newMember;
   }
 
   private String generateMemberId() {
@@ -209,11 +211,21 @@ public class MemberRepository {
     return true;
   }
 
-  public void updateMember(Member member) {
+  public Member updateMember(BasicMemberData newMember, Member member) {
     throw new UnsupportedOperationException("Unimplemented method 'updateMember'");
   }
 
   public boolean editMember(BasicMemberData editedMemberData, Member member) {
     throw new UnsupportedOperationException("Unimplemented method 'editMember'");
+  }
+
+  public Member getMemberById(String id) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getMemberById'");
+  }
+
+  public boolean deleteMember(Member member) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteMember'");
   }
 }

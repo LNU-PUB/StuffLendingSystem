@@ -3,8 +3,10 @@ package com.controller;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.Language;
-import com.model.MemberRepository;
 import com.model.TimeService;
+import com.model.lib.MemberRepository;
+import com.model.lib.MemberService;
+import com.model.lib.MemberServices;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
@@ -15,28 +17,26 @@ import java.io.UnsupportedEncodingException;
  */
 public class App {
   private InputService inputService;
-  private final MemberRepository memberRepo;
+  private final MemberServices memberServ;
   private final TimeService timeService;
+  private final MemberRepository memberRepo;
 
   /**
    * Creates a new instance of the application.
    */
   public App() {
-    this.timeService = createTimeService();
-    this.inputService = createInputService();
+    this.timeService = new TimeService();
+    this.inputService = new InputService();
     this.memberRepo = createMemberRepo(this.timeService);
+    this.memberServ = createMemberService(this.memberRepo);
   }
 
-  protected MemberRepository createMemberRepo(TimeService timeService) {
+  private MemberRepository createMemberRepo(TimeService timeService) {
     return new MemberRepository(timeService);
   }
 
-  protected InputService createInputService() {
-    return new InputService();
-  }
-
-  protected TimeService createTimeService() {
-    return new TimeService();
+  private MemberServices createMemberService(MemberRepository memberRepo) {
+    return new MemberService(memberRepo);
   }
 
   Language setLanguage(String[] args) {
@@ -54,7 +54,7 @@ public class App {
 
   protected void run(Language language) {
     // View view = createMainView(memberRepo, inputService, language, "MainView");
-    ControllerArguments controllerArgs = new ControllerArguments(memberRepo, timeService, inputService,
+    ControllerArguments controllerArgs = new ControllerArguments(memberServ, timeService, inputService,
         language);
     MainControl ctrl = new MainControl(controllerArgs);
 

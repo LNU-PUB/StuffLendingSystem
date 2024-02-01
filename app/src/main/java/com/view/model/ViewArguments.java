@@ -1,7 +1,7 @@
 package com.view.model;
 
 import com.controller.model.Language;
-import com.model.MemberRepository;
+import com.model.lib.MemberServices;
 
 /**
  * Class holding common arguments for views.
@@ -9,18 +9,18 @@ import com.model.MemberRepository;
 public class ViewArguments {
   private final String bundleName;
   private final Language language;
-  private final MemberRepository memberRepo;
+  private final MemberServices memberServ;
 
   /**
    * Creates a new instance of the view arguments.
    *
-   * @param bundleName   - The bundle name.
-   * @param language     - The language.
+   * @param bundleName - The bundle name.
+   * @param language   - The language.
    */
-  public ViewArguments(MemberRepository memberRepo, String bundleName, Language language) {
+  public ViewArguments(MemberServices memberServices, String bundleName, Language language) {
     this.bundleName = bundleName;
     this.language = language;
-    this.memberRepo = memberRepo;
+    this.memberServ = memberServices;
   }
 
   /**
@@ -46,8 +46,8 @@ public class ViewArguments {
    *
    * @return - The stuff system.
    */
-  public MemberRepository getMemberRepo() {
-    return memberRepo;
+  public MemberServices getMemberServices() {
+    return memberServ;
   }
 
 }

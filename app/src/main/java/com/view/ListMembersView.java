@@ -3,7 +3,7 @@ package com.view;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
-import com.model.MemberRepository;
+import com.model.lib.MemberRepository;
 import com.view.model.AbstractView;
 import com.view.model.ViewArguments;
 import java.util.List;
