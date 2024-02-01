@@ -2,17 +2,14 @@ package com.view;
 
 import com.controller.model.actions.MemberActions;
 import com.model.Member;
-import com.model.MemberRepository;
 import com.view.model.AbstractView;
 import com.view.model.ViewArguments;
-import java.util.ResourceBundle;
 
 /**
  * Responsible for displaying information to the user.
  */
 public class MemberView extends AbstractView {
   private final Member member;
-  private final ViewArguments args;
 
   /**
    * Creates a new instance of the view.
@@ -22,14 +19,12 @@ public class MemberView extends AbstractView {
    */
   public MemberView(ViewArguments args, Member member) {
     super(args.getLanguage(), args.getBundleName());
-    this.args = args;
     this.member = new Member(member);
   }
 
 
   @Override
   public void displayMenu() {
-    // TODO: Dsiplay the Member and available methods.
     displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
     displayMemberDetails();

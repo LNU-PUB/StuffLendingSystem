@@ -8,7 +8,7 @@ import com.view.model.ViewArguments;
  * View for adding Members.
  */
 public class EntityCreationView extends AbstractView implements AddDataView {
-  private final ViewArguments args;
+  // private final ViewArguments args;
 
   /**
    * Constructor.
@@ -17,7 +17,7 @@ public class EntityCreationView extends AbstractView implements AddDataView {
    */
   public EntityCreationView(ViewArguments args) {
     super(args.getLanguage(), args.getBundleName());
-    this.args = args;
+    // this.args = args;
   }
 
   @Override

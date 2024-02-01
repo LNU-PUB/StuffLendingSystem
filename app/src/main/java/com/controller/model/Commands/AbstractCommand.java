@@ -16,8 +16,7 @@ public abstract class AbstractCommand implements Command {
       return false;
     }
     try {
-      int d = Integer.parseInt(strNum);
-      d = d + 1;
+      Integer.parseInt(strNum);
     } catch (NumberFormatException nfe) {
       return false;
     }

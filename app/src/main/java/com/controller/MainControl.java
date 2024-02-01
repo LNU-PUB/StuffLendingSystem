@@ -3,13 +3,10 @@ package com.controller;
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
-import com.controller.model.Language;
 import com.controller.model.actions.MainActions;
 import com.controller.model.commands.AdvanceTimeCommand;
 import com.controller.model.commands.Command;
 import com.controller.model.commands.CommandExecutor;
-import com.model.Member;
-import com.model.MemberRepository;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -21,12 +18,12 @@ import java.util.List;
 public class MainControl implements Control {
 
   private static final String BUNDLE_NAME = "MainView";
-  private MemberRepository memberRepo;
+  // private MemberRepository memberRepo;
   private View view;
   private InputService inputService;
   private CommandExecutor commandExecutor;
-  private Language language;
-  private List<Member> memberList;
+  // private Language language;
+  // private List<Member> memberList;
   private final ControllerArguments args;
 
   /**
@@ -36,11 +33,11 @@ public class MainControl implements Control {
    */
   public MainControl(ControllerArguments args) {
     this.args = args;
-    this.memberRepo = args.getMemberRepo();
-    this.language = args.getLanguage();
+    // this.memberRepo = args.getMemberRepo();
+    // this.language = args.getLanguage();
     this.inputService = args.getInputService();
     this.commandExecutor = new CommandExecutor();
-    this.memberList = memberRepo.getMembers();
+    // this.memberList = memberRepo.getMembers();
     this.view = createView(args);
   }
 

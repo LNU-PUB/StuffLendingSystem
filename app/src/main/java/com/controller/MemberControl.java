@@ -1,10 +1,12 @@
 package com.controller;
 
-import com.controller.model.Control;
+import com.controller.model.AbstractMemberControl;
 import com.controller.model.ControllerArguments;
 import com.controller.model.actions.MemberActions;
+import com.controller.model.commands.Command;
+import com.controller.model.commands.EditMemberCommand;
 import com.model.Member;
-import com.model.MemberRepository;
+import com.model.lib.BasicMemberData;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
@@ -12,9 +14,9 @@ import com.view.model.ViewArguments;
 /**
  * The Member controller.
  */
-public class MemberControl implements Control {
+public class MemberControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "MemberView";
-  private final MemberRepository memberRepo;
+  // private final MemberRepository memberRepo;
   private final Member member;
   private final View view;
   private final ControllerArguments args;
@@ -23,11 +25,12 @@ public class MemberControl implements Control {
   /**
    * Creates a new instance of the control.
    *
-   * @param args        - the controller arguments.
+   * @param args   - the controller arguments.
    * @param member - the member to operate on.
    */
   public MemberControl(ControllerArguments args, Member member) {
-    this.memberRepo = args.getMemberRepo();
+    super(args, member);
+    // this.memberRepo = args.getMemberRepo();
     this.member = member;
     this.args = args;
     this.view = createView(args);
@@ -60,79 +63,71 @@ public class MemberControl implements Control {
     } else if (action == MemberActions.LISTITEMS) {
       listItems();
     } else if (action == MemberActions.NEWCONTRACT) {
-      newContract();
+      createNewContract();
     }
 
     return action != MemberActions.EXIT;
   }
 
   private MemberActions getInput() {
-    System.out.print("Enter: ");
-    try {
-      int c = System.in.read();
-      while (c == '\r' || c == '\n') {
-        c = System.in.read();
-      }
+    view.displayResourcePrompt("enter");
 
-      switch (c) {
-        case 'e':
-          return MemberActions.EDITMEMBER;
-        case 'd':
-          return MemberActions.DELETEMEMBER;
-        case 'c':
-          return MemberActions.ADDCREDITS;
-        case 'l':
-          return MemberActions.LISTITEMS;
-        case 'n':
-          return MemberActions.NEWCONTRACT;
-        case 'x':
-          return MemberActions.EXIT;
-        default:
-          return MemberActions.UNKNOWN;
-      }
-    } catch (java.io.IOException e) {
-      System.out.println("" + e);
+    String input = args.getInputService().readLine();
+    if (input == null || input.isEmpty()) {
+      return MemberActions.UNKNOWN;
+    } else {
+      input = input.trim();
+    }
+    char inputChar = input.length() == 1 ? input.charAt(0) : ' ';
+
+    if (inputChar == ' ') {
       return MemberActions.UNKNOWN;
     }
+    if (inputChar == MemberActions.EXIT.getSelector()) {
+      return MemberActions.EXIT;
+    }
+    if (inputChar == MemberActions.ADDCREDITS.getSelector()) {
+      return MemberActions.ADDCREDITS;
+    }
+    if (inputChar == MemberActions.DELETEMEMBER.getSelector()) {
+      return MemberActions.DELETEMEMBER;
+    }
+    if (inputChar == MemberActions.EDITMEMBER.getSelector()) {
+      return MemberActions.EDITMEMBER;
+    }
+    if (inputChar == MemberActions.LISTITEMS.getSelector()) {
+      return MemberActions.LISTITEMS;
+    }
+    if (inputChar == MemberActions.NEWCONTRACT.getSelector()) {
+      return MemberActions.NEWCONTRACT;
+    }
+
+    return MemberActions.UNKNOWN;
   }
 
-  private void newContract() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'newContract'");
+  private void createNewContract() {
+    throw new UnsupportedOperationException("Unimplemented method 'createNewContractContract'");
   }
 
   private void listItems() {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'listItems'");
   }
 
   private void addCredits() {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'addCredits'");
   }
 
   private void deleteMember() {
-    System.out.println("Delete Member");
-    updateMember();
+    throw new UnsupportedOperationException("Unimplemented method 'deleteMember'");
   }
 
-  private boolean editMember() {
+  private void editMember() {
     ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), "BasicMemberData",
         args.getLanguage());
+    View dataView = new ViewFactory().createSimplePromptView(viewArgs);
 
-    return true; // for development purposes only.
-  }
-
-  private void addMember() {
-    System.out.println("Add Member");
-    updateMember();
-  }
-
-  private void viewMember() {
-    System.out.println("View Member");
-  }
-
-  private void updateMember() {
-    // memberRepo.updateMember(member);
+    BasicMemberData memberData = getAllMemberData(dataView);
+    Command editMember = new EditMemberCommand(args, memberData, member);
+    editMember.execute();
   }
 }

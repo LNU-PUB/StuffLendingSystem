@@ -8,8 +8,6 @@ import com.view.model.AbstractView;
 import com.view.model.ViewArguments;
 import java.util.List;
 
-// TODO: Finalize the menu content and implementations of choices adn update the class model.
-
 /**
  * Responsible for displaying information to the user.
  */

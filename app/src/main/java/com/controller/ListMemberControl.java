@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.controller.model.AbstractMemberControl;
-import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.ListMembersResponse;

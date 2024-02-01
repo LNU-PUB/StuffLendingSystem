@@ -28,6 +28,19 @@ public class Contract {
   }
 
   /**
+   * Creates a new instance of the contract.
+   *
+   * @param contract - the contract to create a deep copy of.
+   */
+  public Contract(Contract contract) {
+    this.owner = contract.getOwner();
+    this.item = contract.getItem();
+    this.borrower = contract.getBorrower();
+    this.startDay = contract.getStartDay();
+    this.endDay = contract.getEndDay();
+  }
+
+  /**
    * Gets the borrower.
    *
    * @return - the borrower.

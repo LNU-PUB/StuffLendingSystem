@@ -5,12 +5,12 @@ package com.model;
  * Represents an item that can be rented.
  */
 public class Item {
-  private String name;
-  private String category;
-  private String description;
-  private double costPerDay;
-  private int creationDay;
-  private Contract currentContract;
+  private final String name;
+  private final String category;
+  private final String description;
+  private final double costPerDay;
+  private final int creationDay;
+  private final Contract currentContract;
 
   /**
    * Constructor.
@@ -21,12 +21,14 @@ public class Item {
    * @param costPerDay  - rental cost per day
    * @param creationDay - creation day
    */
-  public Item(String name, String category, String description, double costPerDay, int creationDay) {
+  public Item(String name, String category, String description,
+      double costPerDay, int creationDay, Contract currentContract) {
     this.name = name;
     this.category = category;
     this.description = description;
     this.costPerDay = costPerDay;
     this.creationDay = creationDay;
+    this.currentContract = currentContract;
   }
 
   /**
@@ -40,10 +42,7 @@ public class Item {
     this.description = item.getDescription();
     this.costPerDay = item.getCostPerDay();
     this.creationDay = item.getCreationDay();
-  }
-
-  public void setCurrentContract(Contract contract) {
-    this.currentContract = contract;
+    this.currentContract = item.getCurrentContract();
   }
 
   public String getName() {
@@ -72,29 +71,6 @@ public class Item {
    * @return - The current contract.
    */
   public Contract getCurrentContract() {
-    // Only for development remove the following content when done.
-    // *** START ***
-    // Item item1 = new Item("Hammer", "Tools", "A hammer", 1.0, 1);
-    // Item item2 = new Item("Screwdriver", "Tools", "A screwdriver", 1.0, 1);
-    // Item item3 = new Item("Drill", "Tools", "A drill", 1.0, 1);
-    // Item item4 = new Item("Saw", "Tools", "A saw", 1.0, 1);
-    // List<Item> list1 = new ArrayList<>();
-    // list1.add(item1);
-    // list1.add(item2);
-    // List<Item> list2 = new ArrayList<>();
-    // list2.add(item3);
-    // list2.add(item4);
-    // Member owner = new Member("123abc", "John Doe", "jon@doe.sss", "12345678",
-    // list1);
-    // Member borrower = new Member("456def", "Jane Doe", "jane@doe.sss",
-    // "87654321", list2);
-    // // Item item = new Item("Hammer", "Tools", "A hammer", 1.0, 1);
-    // int startDay = 1;
-    // int endDay = 2;
-    // return new Contract(owner, item1, borrower, startDay, endDay);
-
-    // *** END ***
-    // TODO: Implement this method.
     return this.currentContract;
   }
 }

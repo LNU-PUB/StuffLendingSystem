@@ -59,6 +59,11 @@ public abstract class AbstractView implements View {
   }
 
   @Override
+  public void displayPromptWithDefaultValue(String key, String prompt) {
+    System.out.print(texts.getString(key) + " (" + prompt + "): ");
+  }
+
+  @Override
   public void displayResourcePrompt(String prompt) {
     System.out.print(texts.getString(prompt));
   }

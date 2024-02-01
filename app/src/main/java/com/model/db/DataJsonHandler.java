@@ -16,7 +16,6 @@ public class DataJsonHandler implements DataHandlerMember {
    */
   @Override
   public List<Member> getMembers() {
-    // TODO: Write implementation if needed.
     return (List<Member>) new ArrayList<Member>();
   }
 
@@ -28,7 +27,6 @@ public class DataJsonHandler implements DataHandlerMember {
    */
   @Override
   public boolean storeMembers(List<Member> members) {
-    // TODO: Write implementation if needed.
     return true;
   }
 }

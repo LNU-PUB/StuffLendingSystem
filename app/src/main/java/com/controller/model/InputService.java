@@ -1,5 +1,6 @@
 package com.controller.model;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -21,6 +22,13 @@ public class InputService {
    * @return The line of input.
    */
   public String readLine() {
-    return scanner.nextLine();
+    try {
+      return scanner.nextLine();
+    } catch (NoSuchElementException | IllegalStateException e) {
+      return "";
+    } catch (Exception e) {
+      System.out.println("Error: " + e.getMessage());
+      return "";
+    }
   }
 }
