@@ -3,6 +3,7 @@ package com.model.lib;
 import com.model.Contract;
 import java.util.List;
 
+// We should provide methods to retrieve contracts based on on Member, Category, Status, and Item.
 /**
  * Contract Service interface.
  */

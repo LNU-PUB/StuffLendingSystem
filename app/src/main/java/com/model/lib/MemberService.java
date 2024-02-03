@@ -1,8 +1,12 @@
 package com.model.lib;
 
 import com.model.Member;
+import com.model.MemberServices;
 import java.util.List;
 
+/**
+ * Member Service.
+ */
 public class MemberService implements MemberServices {
   private final MemberRepository memberRepo;
 

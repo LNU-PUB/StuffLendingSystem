@@ -43,7 +43,7 @@ public class MainControl implements Control {
 
   // Target for refactoring into AbstractControl class.
   private View createView(ControllerArguments args) {
-    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
+    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
         args.getLanguage());
     ViewFactory factory = new ViewFactory();
     return factory.createMainMenuView(viewArgs);

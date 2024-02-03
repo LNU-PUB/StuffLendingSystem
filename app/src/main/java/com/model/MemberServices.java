@@ -1,6 +1,6 @@
-package com.model.lib;
+package com.model;
 
-import com.model.Member;
+import com.model.lib.BasicMemberData;
 import java.util.List;
 
 /**
@@ -40,7 +40,7 @@ public interface MemberServices {
   public Member updateMember(BasicMemberData newMember, Member oldMember);
 
   /**
-   * Delete an item <Member>.
+   * Delete a Member.
    *
    * @param member - member to delete.
    * @return - true if deleted, false otherwise.

@@ -17,8 +17,8 @@ import com.view.model.ViewArguments;
 public class MemberControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "MemberView";
   // private final MemberRepository memberRepo;
-  private final Member member;
-  private final View view;
+  private Member member;
+  // private final View view;
   private final ControllerArguments args;
   // private List<Member> members;
 
@@ -33,13 +33,13 @@ public class MemberControl extends AbstractMemberControl {
     // this.memberRepo = args.getMemberRepo();
     this.member = member;
     this.args = args;
-    this.view = createView(args);
+    // this.view = createView(args);
   }
 
   // Target for refactoring into AbstractControl class.
   private View createView(ControllerArguments args) {
     ViewFactory factory = new ViewFactory();
-    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
+    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
         args.getLanguage());
     return factory.createMemberView(viewArgs, member);
   }
@@ -51,6 +51,7 @@ public class MemberControl extends AbstractMemberControl {
    *         should exit.
    */
   public boolean run() {
+    View view = createView(args);
     view.displayMenu();
     MemberActions action = getInput();
 
@@ -70,6 +71,7 @@ public class MemberControl extends AbstractMemberControl {
   }
 
   private MemberActions getInput() {
+    View view = createView(args);
     view.displayResourcePrompt("enter");
 
     String input = args.getInputService().readLine();
@@ -122,12 +124,16 @@ public class MemberControl extends AbstractMemberControl {
   }
 
   private void editMember() {
-    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), "BasicMemberData",
+    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), "BasicMemberData",
         args.getLanguage());
     View dataView = new ViewFactory().createSimplePromptView(viewArgs);
 
     BasicMemberData memberData = getAllMemberData(dataView);
     Command editMember = new EditMemberCommand(args, memberData, member);
-    editMember.execute();
+    if (editMember.execute()) {
+      Member newMember = new Member(member.getId(), memberData.getName(), memberData.getEmail(),
+          memberData.getMobile(), member.getMemberCreationDay());
+      this.member = newMember;
+    }
   }
 }

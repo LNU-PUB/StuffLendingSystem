@@ -1,9 +1,7 @@
 package com.view;
 
-import com.model.Contract;
-import com.model.Item;
 import com.model.Member;
-import com.model.lib.MemberRepository;
+import com.model.MemberServices;
 import com.view.model.AbstractView;
 import com.view.model.ViewArguments;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
 public class ListMembersView extends AbstractView {
   private final boolean detailedList;
   private List<Member> memberList;
-  private final MemberRepository memberRepo;
+  private final MemberServices memberServ;
 
   /**
    * Creates a new instance of the view.
@@ -24,7 +22,7 @@ public class ListMembersView extends AbstractView {
    */
   public ListMembersView(ViewArguments viewArgs, boolean detailedList) {
     super(viewArgs.getLanguage(), viewArgs.getBundleName());
-    this.memberRepo = viewArgs.getMemberRepo();
+    this.memberServ = viewArgs.getMemberServices();
     this.detailedList = detailedList;
   }
 
@@ -32,7 +30,7 @@ public class ListMembersView extends AbstractView {
   public void displayMenu() {
     cleanScreen();
     displayGreeting();
-    this.memberList = memberRepo.getMembers();
+    this.memberList = memberServ.getAllMembers();
     if (detailedList) {
       displayDetailedMenu(memberList);
     } else {
@@ -44,8 +42,10 @@ public class ListMembersView extends AbstractView {
     System.out.println("- " + texts.getString("title") + " -\n");
     for (int i = 0; i < memberList.size(); i++) {
       Member member = memberList.get(i);
-      String outputString = String.format("%d - %s, (email: %s, credits: %d, Items: %d)", i,
-          member.getName(), member.getEmail(), member.getCredits(), member.getNumberOfItems());
+      // String outputString = String.format("%d - %s, (email: %s, credits: %d, Items: %d)", i,
+      //     member.getName(), member.getEmail(), member.getCredits(), member.getNumberOfItems());
+      String outputString = String.format("%d - %s, (email: %s)", i,
+          member.getName(), member.getEmail());
 
       System.out.println(outputString);
     }
@@ -55,17 +55,19 @@ public class ListMembersView extends AbstractView {
   }
 
   private void displayDetailedMenu(List<Member> memberList) {
+    // MemberServices memberServ = new MemberService();
+    List<Member> members = memberServ.getAllMembers();
     System.out.println("- " + texts.getString("detailTitle") + " -\n");
-    for (Member member : memberList) {
+    for (Member member : members) {
       System.out.println("Name: " + member.getName() + ", Email: " + member.getEmail());
-      for (Item item : member.getItems()) {
-        System.out.println("  Item: " + item.getName() + ", Description: " + item.getDescription());
-        Contract contract = item.getCurrentContract();
-        if (contract != null) {
-          System.out.println("    Lent to: " + contract.getBorrower().getName()
-              + ", Period: Day " + contract.getStartDay() + " to Day " + contract.getEndDay());
-        }
-      }
+      // for (Item item : member.getItems()) {
+      //   System.out.println("  Item: " + item.getName() + ", Description: " + item.getDescription());
+      //   Contract contract = item.getCurrentContract();
+      //   if (contract != null) {
+      //     System.out.println("    Lent to: " + contract.getBorrower().getName()
+      //         + ", Period: Day " + contract.getStartDay() + " to Day " + contract.getEndDay());
+      //   }
+      // }
       System.out.println("---");
     }
   }

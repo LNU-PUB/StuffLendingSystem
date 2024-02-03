@@ -3,6 +3,9 @@ package com.model.lib;
 import com.model.Item;
 import java.util.List;
 
+
+// We should provide methods to retrieve items based on on Member, Category, Status, and Contract.
+// 
 /**
  * Item Service interface.
  */
@@ -39,7 +42,7 @@ public interface ItemServices {
   public Item updateItem(Item item);
 
   /**
-   * Delete an item <Item>.
+   * Delete an Item.
    *
    * @param item - item to delete.
    * @return - true if deleted, false otherwise.

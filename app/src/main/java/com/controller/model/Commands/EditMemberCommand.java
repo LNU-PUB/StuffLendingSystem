@@ -25,7 +25,9 @@ public class EditMemberCommand implements Command {
 
   @Override
   public boolean execute() {
-    return args.getMemberRepo().editMember(editedMemberData, member);
+    Member newMember = args.getMemberServices().updateMember(editedMemberData, member);
+
+    return newMember.getId() == member.getId();
   }
 
 }

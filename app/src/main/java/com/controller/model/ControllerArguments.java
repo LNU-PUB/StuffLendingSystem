@@ -1,7 +1,7 @@
 package com.controller.model;
 
+import com.model.MemberServices;
 import com.model.TimeService;
-import com.model.lib.MemberServices;
 
 /**
  * Class holding common arguments for controllers.

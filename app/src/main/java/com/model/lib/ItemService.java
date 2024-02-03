@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Item Service.
  */
-public class ItemService implements ItemServices{
+public class ItemService implements ItemServices {
   private final ItemRepository itemRepo;
 
   /**
@@ -42,5 +42,5 @@ public class ItemService implements ItemServices{
   public boolean delete(Item item) {
     return itemRepo.deleteItem(item);
   }
-  
+
 }

@@ -23,7 +23,7 @@ public class AddItemCommand extends AbstractCommand {
 
   @Override
   public boolean execute() {
-    ViewArguments viewArgs = new ViewArguments(args.getMemberRepo(), BUNDLE_NAME,
+    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
         args.getLanguage());
     ViewFactory factory = new ViewFactory();
     View view = factory.createEntityCreationView(viewArgs);

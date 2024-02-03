@@ -3,10 +3,10 @@ package com.controller;
 import com.controller.model.ControllerArguments;
 import com.controller.model.InputService;
 import com.controller.model.Language;
+import com.model.MemberServices;
 import com.model.TimeService;
 import com.model.lib.MemberRepository;
 import com.model.lib.MemberService;
-import com.model.lib.MemberServices;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
@@ -19,7 +19,7 @@ public class App {
   private InputService inputService;
   private final MemberServices memberServ;
   private final TimeService timeService;
-  private final MemberRepository memberRepo;
+  // private final MemberRepository memberRepo;
 
   /**
    * Creates a new instance of the application.
@@ -27,15 +27,16 @@ public class App {
   public App() {
     this.timeService = new TimeService();
     this.inputService = new InputService();
-    this.memberRepo = createMemberRepo(this.timeService);
-    this.memberServ = createMemberService(this.memberRepo);
+    // this.memberRepo = createMemberRepo(this.timeService);
+    this.memberServ = createMemberService();
   }
 
   private MemberRepository createMemberRepo(TimeService timeService) {
     return new MemberRepository(timeService);
   }
 
-  private MemberServices createMemberService(MemberRepository memberRepo) {
+  private MemberServices createMemberService() {
+    MemberRepository memberRepo = createMemberRepo(this.timeService);
     return new MemberService(memberRepo);
   }
 

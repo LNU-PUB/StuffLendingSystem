@@ -1,6 +1,5 @@
 package com.model.lib;
 
-import com.model.Item;
 import com.model.Member;
 import com.model.TimeService;
 import com.model.db.DataHandlerMember;
@@ -133,14 +132,14 @@ public class MemberRepository {
     for (Member member : newList) {
       newMemberList.add(new Member(member));
     }
-    this.members = new ArrayList<Member>(members);
+    this.members = newMemberList;
   }
 
   /**
    * Adds a new member.
    *
    * @param data - The member data.
-   * @return - True if the member is added, false otherwise.
+   * @return - The new member if successful or null if not.
    */
   public Member addNewMember(BasicMemberData data) {
     String name = data.getName();
@@ -164,15 +163,14 @@ public class MemberRepository {
     }
 
     String id = generateMemberId();
-    List<Item> newItems = new ArrayList<>();
 
-    Member newMember = new Member(id, name, email, mobile, newItems, timeService.getDay(), 0);
-    members.add(newMember);
-    updateMemberList(members);
+    Member newMember = new Member(id, name, email, mobile, timeService.getDay());
+    boolean success = members.add(newMember);
+    if (success) {
+      updateMemberList(members);
+    }
 
-    // signal new member added event
-
-    return newMember;
+    return success ? newMember : null;
   }
 
   private String generateMemberId() {
@@ -212,11 +210,43 @@ public class MemberRepository {
   }
 
   public Member updateMember(BasicMemberData newMember, Member member) {
-    throw new UnsupportedOperationException("Unimplemented method 'updateMember'");
+    String id = member.getId();
+    String name = newMember.getName();
+    String email = newMember.getEmail();
+    String mobile = newMember.getMobile();
+    int creationDay = member.getMemberCreationDay();
+
+    if (!name.equals(member.getName())) {
+      if (!validateName(name)) {
+        return null;
+      }
+    }
+
+    if (!email.equals(member.getEmail())) {
+      if (!validateEmail(email)) {
+        return null;
+      }
+    }
+
+    if (!mobile.equals(member.getMobile())) {
+      if (!validateMobile(mobile)) {
+        return null;
+      }
+    }
+
+    Member updatedMember = new Member(id, name, email, mobile, creationDay);
+
+    replaceMemberInList(member, updatedMember);
+    return updatedMember;
   }
 
-  public boolean editMember(BasicMemberData editedMemberData, Member member) {
-    throw new UnsupportedOperationException("Unimplemented method 'editMember'");
+  private void replaceMemberInList(Member oldMember, Member newMember) {
+    for (int i = 0; i < members.size(); i++) {
+      if (members.get(i).getId().equals(oldMember.getId())) {
+        members.set(i, newMember);
+        return;
+      }
+    }
   }
 
   public Member getMemberById(String id) {

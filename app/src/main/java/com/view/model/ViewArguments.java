@@ -1,7 +1,7 @@
 package com.view.model;
 
 import com.controller.model.Language;
-import com.model.lib.MemberServices;
+import com.model.MemberServices;
 
 /**
  * Class holding common arguments for views.

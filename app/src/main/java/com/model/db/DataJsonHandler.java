@@ -1,5 +1,7 @@
 package com.model.db;
 
+import com.model.Contract;
+import com.model.Item;
 import com.model.Member;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +30,29 @@ public class DataJsonHandler implements DataHandlerMember {
   @Override
   public boolean storeMembers(List<Member> members) {
     return true;
+  }
+
+  @Override
+  public List<Item> getItems() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getItems'");
+  }
+
+  @Override
+  public List<Contract> getContracts() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getContracts'");
+  }
+
+  @Override
+  public boolean storeItems(List<Item> items) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'storeItems'");
+  }
+
+  @Override
+  public boolean storeContracts(List<Contract> contracts) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'storeContracts'");
   }
 }
