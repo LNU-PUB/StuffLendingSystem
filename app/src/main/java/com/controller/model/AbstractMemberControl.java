@@ -164,4 +164,10 @@ public abstract class AbstractMemberControl implements Control {
 
     throw new RuntimeException("Failed to get mobile.");
   }
+
+  protected void refreshMemberData() {
+    if (this.member != null) {
+      this.member = args.getMemberServices().getMemberById(this.member.getId());
+    }
+  }
 }

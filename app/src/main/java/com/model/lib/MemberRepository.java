@@ -250,8 +250,13 @@ public class MemberRepository {
   }
 
   public Member getMemberById(String id) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getMemberById'");
+    for (Member member : members) {
+      if (member.getId().equals(id)) {
+        return new Member(member);
+      }
+    }
+
+    return null;
   }
 
   public boolean deleteMember(Member member) {

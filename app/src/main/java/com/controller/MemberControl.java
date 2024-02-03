@@ -16,11 +16,8 @@ import com.view.model.ViewArguments;
  */
 public class MemberControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "MemberView";
-  // private final MemberRepository memberRepo;
   private Member member;
-  // private final View view;
   private final ControllerArguments args;
-  // private List<Member> members;
 
   /**
    * Creates a new instance of the control.
@@ -72,7 +69,7 @@ public class MemberControl extends AbstractMemberControl {
 
   private MemberActions getInput() {
     View view = createView(args);
-    view.displayResourcePrompt("enter");
+    view.displayPrompt();
 
     String input = args.getInputService().readLine();
     if (input == null || input.isEmpty()) {
@@ -135,5 +132,7 @@ public class MemberControl extends AbstractMemberControl {
           memberData.getMobile(), member.getMemberCreationDay());
       this.member = newMember;
     }
+
+    refreshMemberData();
   }
 }
