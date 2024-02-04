@@ -5,6 +5,7 @@ import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.MemberServices;
 import com.model.TimeService;
+import com.model.lib.MemberRepositories;
 import com.model.lib.MemberRepository;
 import com.model.lib.MemberService;
 import java.io.PrintStream;
@@ -31,12 +32,12 @@ public class App {
     this.memberServ = createMemberService();
   }
 
-  private MemberRepository createMemberRepo(TimeService timeService) {
+  private MemberRepositories createMemberRepo(TimeService timeService) {
     return new MemberRepository(timeService);
   }
 
   private MemberServices createMemberService() {
-    MemberRepository memberRepo = createMemberRepo(this.timeService);
+    MemberRepositories memberRepo = createMemberRepo(this.timeService);
     return new MemberService(memberRepo);
   }
 

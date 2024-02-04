@@ -7,6 +7,7 @@ import com.model.db.DataHardCodedMember;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,9 +15,9 @@ import java.util.regex.Pattern;
 /**
  * The stuff lending system.
  */
-public class MemberRepository {
-  private TimeService timeService;
-  private DataHandlerMember dataHandler;
+public class MemberRepository implements MemberRepositories {
+  private final TimeService timeService;
+  private final DataHandlerMember dataHandler;
   private List<Member> members;
   private final SecureRandom random;
   private static final int MIN_NAME_LENGTH = 2;
@@ -26,9 +27,22 @@ public class MemberRepository {
    */
   public MemberRepository(TimeService timeService) {
     this.dataHandler = new DataHardCodedMember();
-    this.members = dataHandler.getMembers();
+    this.members = new ArrayList<Member>(dataHandler.getMembers());
     this.random = new SecureRandom();
     this.timeService = timeService;
+  }
+
+  /**
+   * Deep copy constructor. Creates a new instance of the stuff lending system.
+   *
+   * @param timeService - The time service.
+   * @param members     - The members.
+   */
+  public MemberRepository(TimeService timeService, List<Member> members) {
+    this.members = new ArrayList<Member>(members);
+    this.random = new SecureRandom();
+    this.timeService = timeService;
+    this.dataHandler = null;
   }
 
   /**
@@ -36,8 +50,9 @@ public class MemberRepository {
    *
    * @return - The member list.
    */
+
   public List<Member> getMembers() {
-    return Collections.unmodifiableList(new ArrayList<>(members));
+    return Collections.unmodifiableList(new LinkedList<>(members));
   }
 
   public TimeService getTimeService() {
@@ -50,6 +65,7 @@ public class MemberRepository {
    * @param email - The email to validate.
    * @return - True if the email is valid, false otherwise.
    */
+
   public boolean validateEmail(String email) {
     if (email == null) {
       return false;
@@ -61,6 +77,107 @@ public class MemberRepository {
     return false;
   }
 
+  /**
+   * Validates the mobile.
+   *
+   * @param mobile - The mobile to validate.
+   * @return - True if the mobile is valid, false otherwise.
+   */
+
+  public boolean validateMobile(String mobile) {
+    if (mobile == null || mobile.equals("")) {
+      return false;
+    }
+
+    return isUniqueMobile(mobile);
+  }
+
+  /**
+   * Validates the name.
+   *
+   * @param name - The name to validate.
+   * @return - True if the name is valid, false otherwise.
+   */
+
+  public boolean validateName(String name) {
+    if (name == null || name.equals("") || name.length() < MIN_NAME_LENGTH) {
+      return false;
+    }
+
+    String nameRegex = "^[a-zA-Z ,.\\-\\'\\p{L}]+$";
+    Pattern namePattern = Pattern.compile(nameRegex);
+    Matcher matcher = namePattern.matcher(name);
+
+    return matcher.matches();
+  }
+
+  /**
+   * Updates a member.
+   *
+   * @param newMember - The new member data.
+   * @param member    - The member to update.
+   * @return - The updated member if successful or null if not.
+   */
+
+  public Member updateMember(BasicMemberData newMember, Member member) {
+    final String id = member.getId();
+    final String name = newMember.getName();
+    final String email = newMember.getEmail();
+    final String mobile = newMember.getMobile();
+    final int creationDay = member.getMemberCreationDay();
+
+    if (!name.equals(member.getName())) {
+      if (!validateName(name)) {
+        return null;
+      }
+    }
+
+    if (!email.equals(member.getEmail())) {
+      if (!validateEmail(email)) {
+        return null;
+      }
+    }
+
+    if (!mobile.equals(member.getMobile())) {
+      if (!validateMobile(mobile)) {
+        return null;
+      }
+    }
+
+    Member updatedMember = new Member(id, name, email, mobile, creationDay);
+
+    replaceMemberInList(member, updatedMember);
+    return updatedMember;
+  }
+
+  /**
+   * Adds a new member.
+   *
+   * @param data - The member data.
+   * @return - The new member if successful or null if not.
+   */
+
+  public Member addNewMember(BasicMemberData data) {
+    if (data == null || !isValidInputData(data)) {
+      return null;
+    }
+
+    String id = generateMemberId();
+
+    Member newMember = new Member(id, data.getName(), data.getEmail(), data.getMobile(), timeService.getDay());
+
+    synchronized (this) {
+      if (!validateEmail(data.getEmail()) || !validateMobile(data.getMobile()) || !validateName(data.getName())) {
+        return null;
+      }
+      members.add(newMember);
+      // updateMemberList(members);
+    }
+
+    return newMember;
+  }
+
+  // Helper functions
   private boolean isValidEmail(String email) {
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     Pattern emailPattern = Pattern.compile(emailRegex);
@@ -79,20 +196,6 @@ public class MemberRepository {
     return true;
   }
 
-  /**
-   * Validates the mobile.
-   *
-   * @param mobile - The mobile to validate.
-   * @return - True if the mobile is valid, false otherwise.
-   */
-  public boolean validateMobile(String mobile) {
-    if (mobile == null || mobile.equals("")) {
-      return false;
-    }
-
-    return isUniqueMobile(mobile);
-  }
-
   private boolean isUniqueMobile(String mobile) {
     for (Member member : members) {
       if (member.getMobile().equals(mobile)) {
@@ -104,73 +207,23 @@ public class MemberRepository {
   }
 
   /**
-   * Validates the name.
-   *
-   * @param name - The name to validate.
-   * @return - True if the name is valid, false otherwise.
-   */
-  public boolean validateName(String name) {
-    if (name == null || name.equals("") || name.length() < MIN_NAME_LENGTH) {
-      return false;
-    }
-
-    String nameRegex = "^[a-zA-Z ,.\\-\\'\\p{L}]+$";
-    Pattern namePattern = Pattern.compile(nameRegex);
-    Matcher matcher = namePattern.matcher(name);
-
-    return matcher.matches();
-  }
-
-  /**
    * Updates the member list.
    *
    * @param newList - The member to update.
    */
-  public void updateMemberList(List<Member> newList) {
-    ArrayList<Member> newMemberList = new ArrayList<Member>();
+  // private synchronized void updateMemberList(List<Member> newList) {
+  // LinkedList<Member> newMemberList = new LinkedList<Member>();
 
-    for (Member member : newList) {
-      newMemberList.add(new Member(member));
-    }
-    this.members = newMemberList;
-  }
+  // for (Member member : newList) {
+  // newMemberList.add(new Member(member));
+  // }
+  // this.members = newMemberList;
+  // }
 
-  /**
-   * Adds a new member.
-   *
-   * @param data - The member data.
-   * @return - The new member if successful or null if not.
-   */
-  public Member addNewMember(BasicMemberData data) {
-    String name = data.getName();
-    String email = data.getEmail();
-    String mobile = data.getMobile();
-
-    if (name == null || email == null || mobile == null) {
-      return null;
-    }
-
-    if (name.equals("") || email.equals("") || mobile.equals("")) {
-      return null;
-    }
-
-    if (!validateEmail(email)) {
-      return null;
-    }
-
-    if (!validateMobile(mobile)) {
-      return null;
-    }
-
-    String id = generateMemberId();
-
-    Member newMember = new Member(id, name, email, mobile, timeService.getDay());
-    boolean success = members.add(newMember);
-    if (success) {
-      updateMemberList(members);
-    }
-
-    return success ? newMember : null;
+  private boolean isValidInputData(BasicMemberData data) {
+    return data.getName() != null && !data.getName().trim().isEmpty()
+        && data.getEmail() != null && !data.getEmail().trim().isEmpty() && validateEmail(data.getEmail())
+        && data.getMobile() != null && !data.getMobile().trim().isEmpty() && validateMobile(data.getMobile());
   }
 
   private String generateMemberId() {
@@ -209,37 +262,6 @@ public class MemberRepository {
     return true;
   }
 
-  public Member updateMember(BasicMemberData newMember, Member member) {
-    String id = member.getId();
-    String name = newMember.getName();
-    String email = newMember.getEmail();
-    String mobile = newMember.getMobile();
-    int creationDay = member.getMemberCreationDay();
-
-    if (!name.equals(member.getName())) {
-      if (!validateName(name)) {
-        return null;
-      }
-    }
-
-    if (!email.equals(member.getEmail())) {
-      if (!validateEmail(email)) {
-        return null;
-      }
-    }
-
-    if (!mobile.equals(member.getMobile())) {
-      if (!validateMobile(mobile)) {
-        return null;
-      }
-    }
-
-    Member updatedMember = new Member(id, name, email, mobile, creationDay);
-
-    replaceMemberInList(member, updatedMember);
-    return updatedMember;
-  }
-
   private void replaceMemberInList(Member oldMember, Member newMember) {
     for (int i = 0; i < members.size(); i++) {
       if (members.get(i).getId().equals(oldMember.getId())) {
@@ -248,6 +270,13 @@ public class MemberRepository {
       }
     }
   }
+
+  /**
+   * Gets a member by id.
+   *
+   * @param id - The id of the member to get.
+   * @return - The member if found, null otherwise.
+   */
 
   public Member getMemberById(String id) {
     for (Member member : members) {
@@ -259,8 +288,14 @@ public class MemberRepository {
     return null;
   }
 
+  /**
+   * Deletes a member.
+   *
+   * @param member - The member to delete.
+   * @return - True if the member was deleted, false otherwise.
+   */
+
   public boolean deleteMember(Member member) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteMember'");
+    return true; // for development only.
   }
 }

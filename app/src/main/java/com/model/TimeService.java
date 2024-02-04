@@ -4,7 +4,7 @@ package com.model;
  * The time service.
  */
 public class TimeService {
-  private Time currentTime;
+  private volatile Time currentTime;
 
   /**
    * Creates a new instance of the time service.

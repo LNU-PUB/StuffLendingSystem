@@ -45,7 +45,7 @@ public interface MemberServices {
    * @param member - member to delete.
    * @return - true if deleted, false otherwise.
    */
-  public boolean delete(Member member);
+  public boolean deleteMember(Member member);
 
   /**
    * Validate name.

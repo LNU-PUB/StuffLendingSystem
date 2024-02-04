@@ -12,7 +12,6 @@ import com.model.lib.BasicMemberData;
 import com.view.ViewFactory;
 import com.view.model.View;
 import com.view.model.ViewArguments;
-import java.util.List;
 
 /**
  * The control for listing members.
@@ -20,8 +19,8 @@ import java.util.List;
 public class ListMemberControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "ListMembersView";
   private View view;
-  List<Member> memberList;
-  Member selectedMember;
+  // private LinkedList<Member> memberList;
+  // private Member selectedMember;
   private final InputService inputService;
   private final ControllerArguments args;
   private final boolean detailedList;
@@ -43,7 +42,6 @@ public class ListMemberControl extends AbstractMemberControl {
     ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
         args.getLanguage());
     this.view = viewFactory.createListMembersView(viewArgs, detailedList);
-
   }
 
   @Override

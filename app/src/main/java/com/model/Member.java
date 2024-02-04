@@ -1,11 +1,5 @@
 package com.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Represents a member.
  */
@@ -19,11 +13,11 @@ public class Member {
   /**
    * Constructor.
    *
-   * @param id     - unique id
-   * @param name   - name
-   * @param email  - email
-   * @param mobile - mobile
-   * @param items  - items
+   * @param id - unique id.
+   * @param name - name of the member.
+   * @param email - email of the member.
+   * @param mobile - mobile number of the member.
+   * @param creationDay - day the member was created.
    */
   public Member(String id, String name, String email, String mobile, int creationDay) {
     this.id = id;

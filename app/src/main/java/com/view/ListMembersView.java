@@ -40,6 +40,7 @@ public class ListMembersView extends AbstractView {
 
   private void displaySimpleMenu(List<Member> memberList) {
     System.out.println("- " + texts.getString("title") + " -\n");
+    System.out.println("Members: " + memberList.size());
     for (int i = 0; i < memberList.size(); i++) {
       Member member = memberList.get(i);
       // String outputString = String.format("%d - %s, (email: %s, credits: %d, Items: %d)", i,
@@ -56,7 +57,7 @@ public class ListMembersView extends AbstractView {
 
   private void displayDetailedMenu(List<Member> memberList) {
     // MemberServices memberServ = new MemberService();
-    List<Member> members = memberServ.getAllMembers();
+    Iterable<Member> members = memberServ.getAllMembers();
     System.out.println("- " + texts.getString("detailTitle") + " -\n");
     for (Member member : members) {
       System.out.println("Name: " + member.getName() + ", Email: " + member.getEmail());
