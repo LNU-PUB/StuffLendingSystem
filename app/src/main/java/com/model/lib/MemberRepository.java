@@ -50,7 +50,7 @@ public class MemberRepository implements MemberRepositories {
    *
    * @return - The member list.
    */
-
+  @Override
   public List<Member> getMembers() {
     return Collections.unmodifiableList(new LinkedList<>(members));
   }
@@ -65,7 +65,7 @@ public class MemberRepository implements MemberRepositories {
    * @param email - The email to validate.
    * @return - True if the email is valid, false otherwise.
    */
-
+  @Override
   public boolean validateEmail(String email) {
     if (email == null) {
       return false;
@@ -83,7 +83,7 @@ public class MemberRepository implements MemberRepositories {
    * @param mobile - The mobile to validate.
    * @return - True if the mobile is valid, false otherwise.
    */
-
+  @Override
   public boolean validateMobile(String mobile) {
     if (mobile == null || mobile.equals("")) {
       return false;
@@ -98,7 +98,7 @@ public class MemberRepository implements MemberRepositories {
    * @param name - The name to validate.
    * @return - True if the name is valid, false otherwise.
    */
-
+  @Override
   public boolean validateName(String name) {
     if (name == null || name.equals("") || name.length() < MIN_NAME_LENGTH) {
       return false;
@@ -118,7 +118,7 @@ public class MemberRepository implements MemberRepositories {
    * @param member    - The member to update.
    * @return - The updated member if successful or null if not.
    */
-
+  @Override
   public Member updateMember(BasicMemberData newMember, Member member) {
     final String id = member.getId();
     final String name = newMember.getName();
@@ -156,7 +156,7 @@ public class MemberRepository implements MemberRepositories {
    * @param data - The member data.
    * @return - The new member if successful or null if not.
    */
-
+  @Override
   public Member addNewMember(BasicMemberData data) {
     if (data == null || !isValidInputData(data)) {
       return null;
@@ -177,7 +177,43 @@ public class MemberRepository implements MemberRepositories {
     return newMember;
   }
 
-  // Helper functions
+  /**
+   * Gets a member by id.
+   *
+   * @param id - The id of the member to get.
+   * @return - The member if found, null otherwise.
+   */
+  @Override
+  public Member getMemberById(String id) {
+    for (Member member : members) {
+      if (member.getId().equals(id)) {
+        return new Member(member);
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Deletes a member.
+   *
+   * @param member - The member to delete.
+   * @return - True if the member was deleted, false otherwise.
+   */
+  @Override
+  public boolean deleteMember(Member member) {
+    for (Member m : members) {
+      if (m == member || m.getId().equals(member.getId())) {
+        members.remove(m);
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // *** Helper functions START ***
+
   private boolean isValidEmail(String email) {
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     Pattern emailPattern = Pattern.compile(emailRegex);
@@ -205,20 +241,6 @@ public class MemberRepository implements MemberRepositories {
 
     return true;
   }
-
-  /**
-   * Updates the member list.
-   *
-   * @param newList - The member to update.
-   */
-  // private synchronized void updateMemberList(List<Member> newList) {
-  // LinkedList<Member> newMemberList = new LinkedList<Member>();
-
-  // for (Member member : newList) {
-  // newMemberList.add(new Member(member));
-  // }
-  // this.members = newMemberList;
-  // }
 
   private boolean isValidInputData(BasicMemberData data) {
     return data.getName() != null && !data.getName().trim().isEmpty()
@@ -269,33 +291,5 @@ public class MemberRepository implements MemberRepositories {
         return;
       }
     }
-  }
-
-  /**
-   * Gets a member by id.
-   *
-   * @param id - The id of the member to get.
-   * @return - The member if found, null otherwise.
-   */
-
-  public Member getMemberById(String id) {
-    for (Member member : members) {
-      if (member.getId().equals(id)) {
-        return new Member(member);
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Deletes a member.
-   *
-   * @param member - The member to delete.
-   * @return - True if the member was deleted, false otherwise.
-   */
-
-  public boolean deleteMember(Member member) {
-    return true; // for development only.
   }
 }

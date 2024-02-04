@@ -1,20 +1,23 @@
 package com.model.lib;
 
+import com.model.Contract;
 import com.model.Item;
+import com.model.Member;
+
 import java.util.List;
 
 /**
  * Item Service.
  */
 public class ItemService implements ItemServices {
-  private final ItemRepository itemRepo;
+  private final ItemRepositories itemRepo;
 
   /**
    * Constructor.
    *
    * @param itemRepo - item repository
    */
-  public ItemService(ItemRepository itemRepo) {
+  public ItemService(ItemRepositories itemRepo) {
     this.itemRepo = itemRepo;
   }
 
@@ -41,6 +44,30 @@ public class ItemService implements ItemServices {
   @Override
   public boolean delete(Item item) {
     return itemRepo.deleteItem(item);
+  }
+
+  @Override
+  public List<Item> getItemsByMember(Member member) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getItemsByMember'");
+  }
+
+  @Override
+  public List<Item> getItemsByCategory(ItemCategory category) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getItemsByCategory'");
+  }
+
+  @Override
+  public Item getItemByContract(Contract contract) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getItemByContract'");
+  }
+
+  @Override
+  public List<Item> getItemsByStatus(ItemStatus status) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getItemsByStatus'");
   }
 
 }

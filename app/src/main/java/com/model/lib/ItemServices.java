@@ -1,6 +1,8 @@
 package com.model.lib;
 
+import com.model.Contract;
 import com.model.Item;
+import com.model.Member;
 import java.util.List;
 
 
@@ -48,4 +50,36 @@ public interface ItemServices {
    * @return - true if deleted, false otherwise.
    */
   public boolean delete(Item item);
+
+  /**
+   * Get a list of all of a member's items.
+   *
+   * @param member - member to get items for.
+   * @return - list of items for member.
+   */
+  public List<Item> getItemsByMember(Member member);
+
+  /**
+   * Get a list of all items in a category.
+   *
+   * @param category - category to get items for.
+   * @return - list of items in category.
+   */
+  public List<Item> getItemsByCategory(ItemCategory category);
+
+  /**
+   * Get the Item that is rented in this contract.
+   *
+   * @param contract - contract to get the item for.
+   * @return - list of items in contract.
+   */
+  public Item getItemByContract(Contract contract);
+
+  /**
+   * Get a list of all items with a given status.
+   *
+   * @param status - status to get items for.
+   * @return - list of items with status.
+   */
+  public List<Item> getItemsByStatus(ItemStatus status);
 }

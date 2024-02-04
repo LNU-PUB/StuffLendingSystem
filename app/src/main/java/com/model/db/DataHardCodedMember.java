@@ -16,10 +16,10 @@ public class DataHardCodedMember implements DataHandlerMember {
   Member janeDoe = new Member("456def", "Jane Doe", "jane@doe.sss", "87654321", 1);
   Member alexSmith = new Member("789ghi", "Alex Smith", "alex@smith.sss", "11223344", 0);
 
-  Item hammer = new Item(johnDoe, "Hammer", "Tools", "A hammer", 1.0, 1, null);
-  Item screwdriver = new Item(johnDoe, "Screwdriver", "Tools", "A screwdriver", 1.0, 1, null);
-  Item drill = new Item(janeDoe, "Drill", "Tools", "A drill", 1.0, 1, null);
-  Item saw = new Item(johnDoe, "Saw", "Tools", "A saw", 1.0, 1, null);
+  Item hammer = new Item("abc123", johnDoe, "Hammer", "Tools", "A hammer", 1.0, 1, null);
+  Item screwdriver = new Item("aaa741", johnDoe, "Screwdriver", "Tools", "A screwdriver", 1.0, 1, null);
+  Item drill = new Item("def456", janeDoe, "Drill", "Tools", "A drill", 1.0, 1, null);
+  Item saw = new Item("ghi789", johnDoe, "Saw", "Tools", "A saw", 1.0, 1, null);
 
   @Override
   public List<Member> getMembers() {

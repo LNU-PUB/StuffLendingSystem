@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Item Repository.
  */
-public class ItemRepository {
+public class ItemRepository implements ItemRepositories{
   private final List<Item> items;
 
   /**
@@ -17,7 +17,7 @@ public class ItemRepository {
    * @param items - list of items
    */
   public ItemRepository(List<Item> items) {
-    this.items = items;
+    this.items = items == null ? new ArrayList<>() : new ArrayList<>(items);
   }
 
   public List<Item> getItems() {

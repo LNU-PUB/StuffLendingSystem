@@ -4,6 +4,7 @@ import com.controller.model.AbstractMemberControl;
 import com.controller.model.ControllerArguments;
 import com.controller.model.actions.MemberActions;
 import com.controller.model.commands.Command;
+import com.controller.model.commands.DeleteMemberCommand;
 import com.controller.model.commands.EditMemberCommand;
 import com.model.Member;
 import com.model.lib.BasicMemberData;
@@ -117,7 +118,13 @@ public class MemberControl extends AbstractMemberControl {
   }
 
   private void deleteMember() {
-    throw new UnsupportedOperationException("Unimplemented method 'deleteMember'");
+    Command deleteMember = new DeleteMemberCommand(args , member);
+
+    if (deleteMember.execute()) {
+      this.member = null;
+    }
+
+    refreshMemberData();
   }
 
   private void editMember() {

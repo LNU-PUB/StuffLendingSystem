@@ -5,6 +5,7 @@ package com.model;
  * Represents an item that can be rented.
  */
 public class Item {
+  private final String id;
   private final Member owner;
   private final String name;
   private final String category;
@@ -24,8 +25,9 @@ public class Item {
    * @param creationDay - The day the item was created.
    * @param currentContract - The current contract of the item or null if there is none.
    */
-  public Item(Member owner, String name, String category, String description,
+  public Item(String id, Member owner, String name, String category, String description,
       double costPerDay, int creationDay, Contract currentContract) {
+    this.id = id;
     this.owner = owner;
     this.name = name;
     this.category = category;
@@ -41,6 +43,7 @@ public class Item {
    * @param item - The item to copy.
    */
   public Item(Item item) {
+    this.id = item.getId();
     this.owner = item.getOwner();
     this.name = item.getName();
     this.category = item.getCategory();
@@ -48,6 +51,10 @@ public class Item {
     this.costPerDay = item.getCostPerDay();
     this.creationDay = item.getCreationDay();
     this.currentContract = item.getCurrentContract();
+  }
+
+  public String getId() {
+    return this.id;
   }
 
   public Member getOwner() {
