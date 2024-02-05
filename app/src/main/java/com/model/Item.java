@@ -19,13 +19,14 @@ public final class Item {
   /**
    * Constructor.
    *
-   * @param owner - The owner of the item.
-   * @param name  - The name of the item.
-   * @param category - The category of the item.
-   * @param description - The description of the item.
-   * @param costPerDay - The cost per day of the item.
-   * @param creationDay - The day the item was created.
-   * @param currentContract - The current contract of the item or null if there is none.
+   * @param owner           - The owner of the item.
+   * @param name            - The name of the item.
+   * @param category        - The category of the item.
+   * @param description     - The description of the item.
+   * @param costPerDay      - The cost per day of the item.
+   * @param creationDay     - The day the item was created.
+   * @param currentContract - The current contract of the item or null if there is
+   *                        none.
    */
   public Item(String id, Member owner, String name, ItemCategory category, String description,
       double costPerDay, int creationDay, Contract currentContract) {
@@ -60,7 +61,8 @@ public final class Item {
   }
 
   public Member getOwner() {
-    return new Member(owner.getId(), owner.getName(), owner.getEmail(), owner.getMobile(), owner.getMemberCreationDay());
+    return new Member(owner.getId(), owner.getName(), owner.getEmail(),
+        owner.getMobile(), owner.getMemberCreationDay());
   }
 
   public String getName() {
