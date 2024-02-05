@@ -5,20 +5,17 @@ import com.model.TimeService;
 import com.model.db.DataHandlerMember;
 import com.model.db.DataHardCodedMember;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * The stuff lending system.
  */
-public class MemberRepository implements MemberRepositories {
+public final class MemberRepository implements MemberRepositories {
   private final TimeService timeService;
   private final DataHandlerMember dataHandler;
-  private List<Member> members;
+  private final LinkedList<Member> members;
   private final SecureRandom random;
   private static final int MIN_NAME_LENGTH = 2;
 
@@ -27,21 +24,20 @@ public class MemberRepository implements MemberRepositories {
    */
   public MemberRepository(TimeService timeService) {
     this.dataHandler = new DataHardCodedMember();
-    this.members = new ArrayList<Member>(dataHandler.getMembers());
+    this.members = new LinkedList<Member>(dataHandler.getMembers());
     this.random = new SecureRandom();
-    this.timeService = timeService;
+    this.timeService = new TimeService(timeService.getDay());
   }
 
   /**
    * Deep copy constructor. Creates a new instance of the stuff lending system.
    *
-   * @param timeService - The time service.
-   * @param members     - The members.
+   * @param memberRepo - The member repository to copy.
    */
-  public MemberRepository(TimeService timeService, List<Member> members) {
-    this.members = new ArrayList<Member>(members);
+  protected MemberRepository(int day, Iterable<Member> members) {
+    this.members = createMemberList(members);
     this.random = new SecureRandom();
-    this.timeService = timeService;
+    this.timeService = new TimeService(day);
     this.dataHandler = null;
   }
 
@@ -51,12 +47,109 @@ public class MemberRepository implements MemberRepositories {
    * @return - The member list.
    */
   @Override
-  public List<Member> getMembers() {
-    return Collections.unmodifiableList(new LinkedList<>(members));
+  public Iterable<Member> getMembers() {
+    return new LinkedList<Member>(members);
   }
 
-  public TimeService getTimeService() {
-    return timeService;
+  /**
+   * Gets a member by id.
+   *
+   * @param id - The id of the member to get.
+   * @return - The member if found, null otherwise.
+   */
+  @Override
+  public Member getMemberById(String id) {
+    for (Member member : members) {
+      if (member.getId().equals(id)) {
+        return new Member(member.getId(), member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay());
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Adds a new member.
+   *
+   * @param data - The member data.
+   * @return - The new member if successful or null if not.
+   */
+  @Override
+  public Member addNewMember(BasicMemberData data) {
+    if (data == null || !isValidInputData(data)) {
+      return null;
+    }
+
+    String id = generateMemberId();
+
+    Member newMember = new Member(id, data.getName(), data.getEmail(), data.getMobile(), timeService.getDay());
+
+    synchronized (this) {
+      if (!validateEmail(data.getEmail()) || !validateMobile(data.getMobile()) || !validateName(data.getName())) {
+        return null;
+      }
+      members.add(newMember);
+      // updateMemberList(members);
+    }
+
+    return new Member(newMember.getId(), newMember.getName(), newMember.getEmail(), newMember.getMobile(), newMember.getMemberCreationDay());
+  }
+
+  /**
+   * Updates a member.
+   *
+   * @param newMember - The new member data.
+   * @param member    - The member to update.
+   * @return - The updated member if successful or null if not.
+   */
+  @Override
+  public Member updateMember(BasicMemberData newMember, Member member) {
+    final String id = member.getId();
+    final String name = newMember.getName();
+    final String email = newMember.getEmail();
+    final String mobile = newMember.getMobile();
+    final int creationDay = member.getMemberCreationDay();
+
+    if (!name.equals(member.getName())) {
+      if (!validateName(name)) {
+        return null;
+      }
+    }
+
+    if (!email.equals(member.getEmail())) {
+      if (!validateEmail(email)) {
+        return null;
+      }
+    }
+
+    if (!mobile.equals(member.getMobile())) {
+      if (!validateMobile(mobile)) {
+        return null;
+      }
+    }
+
+    Member updatedMember = new Member(id, name, email, mobile, creationDay);
+
+    replaceMemberInList(member, updatedMember);
+    return new Member(updatedMember.getId(), updatedMember.getName(), updatedMember.getEmail(), updatedMember.getMobile(), updatedMember.getMemberCreationDay());
+  }
+
+  /**
+   * Deletes a member.
+   *
+   * @param member - The member to delete.
+   * @return - True if the member was deleted, false otherwise.
+   */
+  @Override
+  public boolean deleteMember(Member member) {
+    for (Member m : members) {
+      if (m == member || m.getId().equals(member.getId())) {
+        members.remove(m);
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -112,107 +205,33 @@ public class MemberRepository implements MemberRepositories {
   }
 
   /**
-   * Updates a member.
+   * Gets the current day.
    *
-   * @param newMember - The new member data.
-   * @param member    - The member to update.
-   * @return - The updated member if successful or null if not.
+   * @return - The current day.
    */
   @Override
-  public Member updateMember(BasicMemberData newMember, Member member) {
-    final String id = member.getId();
-    final String name = newMember.getName();
-    final String email = newMember.getEmail();
-    final String mobile = newMember.getMobile();
-    final int creationDay = member.getMemberCreationDay();
-
-    if (!name.equals(member.getName())) {
-      if (!validateName(name)) {
-        return null;
-      }
-    }
-
-    if (!email.equals(member.getEmail())) {
-      if (!validateEmail(email)) {
-        return null;
-      }
-    }
-
-    if (!mobile.equals(member.getMobile())) {
-      if (!validateMobile(mobile)) {
-        return null;
-      }
-    }
-
-    Member updatedMember = new Member(id, name, email, mobile, creationDay);
-
-    replaceMemberInList(member, updatedMember);
-    return updatedMember;
+  public int getDay() {
+    return this.timeService.getDay();
   }
 
   /**
-   * Adds a new member.
-   *
-   * @param data - The member data.
-   * @return - The new member if successful or null if not.
+   * Advances the day.
    */
   @Override
-  public Member addNewMember(BasicMemberData data) {
-    if (data == null || !isValidInputData(data)) {
-      return null;
-    }
-
-    String id = generateMemberId();
-
-    Member newMember = new Member(id, data.getName(), data.getEmail(), data.getMobile(), timeService.getDay());
-
-    synchronized (this) {
-      if (!validateEmail(data.getEmail()) || !validateMobile(data.getMobile()) || !validateName(data.getName())) {
-        return null;
-      }
-      members.add(newMember);
-      // updateMemberList(members);
-    }
-
-    return newMember;
-  }
-
-  /**
-   * Gets a member by id.
-   *
-   * @param id - The id of the member to get.
-   * @return - The member if found, null otherwise.
-   */
-  @Override
-  public Member getMemberById(String id) {
-    for (Member member : members) {
-      if (member.getId().equals(id)) {
-        return new Member(member);
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Deletes a member.
-   *
-   * @param member - The member to delete.
-   * @return - True if the member was deleted, false otherwise.
-   */
-  @Override
-  public boolean deleteMember(Member member) {
-    for (Member m : members) {
-      if (m == member || m.getId().equals(member.getId())) {
-        members.remove(m);
-        return true;
-      }
-    }
-
-    return false;
+  public void advanceDay() {
+    this.timeService.advanceDay();
   }
 
   // *** Helper functions START ***
+
+  private LinkedList<Member> createMemberList(Iterable<Member> inList) {
+    LinkedList<Member> outList = new LinkedList<Member>();
+    for (Member member : inList) {
+      outList.add(new Member(member.getId(), member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay()));
+    }
+
+    return outList;
+  }
 
   private boolean isValidEmail(String email) {
     String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";

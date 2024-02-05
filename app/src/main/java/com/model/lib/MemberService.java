@@ -2,20 +2,19 @@ package com.model.lib;
 
 import com.model.Member;
 import com.model.MemberServices;
-import java.util.List;
 
 /**
  * Member Service.
  */
-public class MemberService implements MemberServices {
-  private MemberRepositories memberRepo;
+public final class MemberService implements MemberServices {
+  private final MemberRepositories memberRepo;
 
   public MemberService(MemberRepositories memberRepo) {
-    this.memberRepo = new MemberRepository(memberRepo.getTimeService(), memberRepo.getMembers());
+    this.memberRepo = new MemberRepository(memberRepo.getDay(), memberRepo.getMembers());
   }
 
   @Override
-  public List<Member> getAllMembers() {
+  public Iterable<Member> getAllMembers() {
     return memberRepo.getMembers();
   }
 
@@ -33,7 +32,6 @@ public class MemberService implements MemberServices {
     if (member == null) {
       return null;
     }
-
     return memberRepo.addNewMember(member);
   }
 
@@ -66,4 +64,13 @@ public class MemberService implements MemberServices {
     return memberRepo.validateMobile(mobile);
   }
 
+  @Override
+  public int getDay() {
+    return memberRepo.getDay();
+  }
+
+  @Override
+  public void advanceDay() {
+    memberRepo.advanceDay();
+  }
 }

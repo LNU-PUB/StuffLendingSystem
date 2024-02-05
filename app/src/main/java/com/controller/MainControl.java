@@ -2,6 +2,7 @@ package com.controller;
 
 import com.controller.model.Control;
 import com.controller.model.ControllerArguments;
+import com.controller.model.ControllerArgumentsProvider;
 import com.controller.model.InputService;
 import com.controller.model.actions.MainActions;
 import com.controller.model.commands.AdvanceTimeCommand;
@@ -24,14 +25,14 @@ public class MainControl implements Control {
   private CommandExecutor commandExecutor;
   // private Language language;
   // private List<Member> memberList;
-  private final ControllerArguments args;
+  private final ControllerArgumentsProvider args;
 
   /**
    * Creates a new instance of the controller.
    *
    * @param args - the controller arguments.
    */
-  public MainControl(ControllerArguments args) {
+  public MainControl(ControllerArgumentsProvider args) {
     this.args = args;
     // this.memberRepo = args.getMemberRepo();
     // this.language = args.getLanguage();
@@ -42,7 +43,7 @@ public class MainControl implements Control {
   }
 
   // Target for refactoring into AbstractControl class.
-  private View createView(ControllerArguments args) {
+  private View createView(ControllerArgumentsProvider args) {
     ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
         args.getLanguage());
     ViewFactory factory = new ViewFactory();
@@ -92,7 +93,7 @@ public class MainControl implements Control {
   }
 
   private void advanceTime() {
-    Command advTimeCommand = new AdvanceTimeCommand(args.getTimeService());
+    Command advTimeCommand = new AdvanceTimeCommand(args.getMemberServices());
     commandExecutor.executeCommand(advTimeCommand);
   }
 

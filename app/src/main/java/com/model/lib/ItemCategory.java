@@ -1,5 +1,8 @@
 package com.model.lib;
 
+/**
+ * The item category enum.
+ */
 public enum ItemCategory {
   TOOL("tool"),
   VEHICLE("vehicle"),

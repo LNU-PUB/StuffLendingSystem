@@ -3,7 +3,7 @@ package com.model;
 /**
  * Represents a member.
  */
-public class Member {
+public final class Member {
   private final String id;
   private final String name;
   private final String email;
@@ -25,19 +25,6 @@ public class Member {
     this.email = email;
     this.mobile = mobile;
     this.memberCreationDay = creationDay;
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param member - The member to create a deep copy of.
-   */
-  public Member(Member member) {
-    this.id = member.getId();
-    this.name = member.getName();
-    this.email = member.getEmail();
-    this.mobile = member.getMobile();
-    this.memberCreationDay = member.getMemberCreationDay();
   }
 
   public String getId() {

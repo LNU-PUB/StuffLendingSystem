@@ -1,7 +1,7 @@
 package com.model;
 
 import com.model.lib.BasicMemberData;
-import java.util.List;
+import com.model.lib.MemberRepository;
 
 /**
  * Member Service interface.
@@ -12,7 +12,7 @@ public interface MemberServices {
    *
    * @return - list of all Members.
    */
-  public List<Member> getAllMembers();
+  public Iterable<Member> getAllMembers();
 
   /**
    * Get an Member by id.
@@ -70,4 +70,16 @@ public interface MemberServices {
    * @return - true if valid, false otherwise
    */
   public boolean validateMobile(String mobile);
+
+  /**
+   * Get the current day.
+   *
+   * @return - current day
+   */
+  public int getDay();
+
+  /**
+   * Advance the day.
+   */
+  public void advanceDay();
 }

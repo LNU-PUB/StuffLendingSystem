@@ -1,6 +1,7 @@
 package com.controller.model.commands;
 
 import com.controller.model.ControllerArguments;
+import com.controller.model.ControllerArgumentsProvider;
 import com.model.Member;
 import com.model.lib.BasicMemberData;
 
@@ -8,7 +9,7 @@ import com.model.lib.BasicMemberData;
  * The command for adding a member.
  */
 public class AddMemberCommand extends AbstractCommand {
-  private final ControllerArguments args;
+  private final ControllerArgumentsProvider args;
   private final BasicMemberData memberData;
 
   /**
@@ -16,7 +17,7 @@ public class AddMemberCommand extends AbstractCommand {
    *
    * @param args - the arguments for the command.
    */
-  public AddMemberCommand(ControllerArguments args, BasicMemberData memberData) {
+  public AddMemberCommand(ControllerArgumentsProvider args, BasicMemberData memberData) {
     this.args = args;
     this.memberData = memberData;
   }

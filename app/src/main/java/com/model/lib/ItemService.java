@@ -3,7 +3,6 @@ package com.model.lib;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
-
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public class ItemService implements ItemServices {
   }
 
   @Override
-  public List<Item> getAllItems() {
+  public Iterable<Item> getAllItems() {
     return itemRepo.getItems();
   }
 

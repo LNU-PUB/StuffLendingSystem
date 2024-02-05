@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.controller.model.ControllerArguments;
+import com.controller.model.ControllerArgumentsProvider;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.MemberServices;
@@ -56,7 +57,7 @@ public class App {
 
   protected void run(Language language) {
     // View view = createMainView(memberRepo, inputService, language, "MainView");
-    ControllerArguments controllerArgs = new ControllerArguments(memberServ, timeService, inputService,
+    ControllerArgumentsProvider controllerArgs = new ControllerArguments(memberServ, inputService,
         language);
     MainControl ctrl = new MainControl(controllerArgs);
 

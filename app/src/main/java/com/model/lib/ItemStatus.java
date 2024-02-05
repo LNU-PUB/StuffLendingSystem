@@ -1,5 +1,8 @@
 package com.model.lib;
 
+/**
+ * Item Status enum.
+ */
 public enum ItemStatus {
   AVAILABLE("available"),
   BORROWED("borrowed"),

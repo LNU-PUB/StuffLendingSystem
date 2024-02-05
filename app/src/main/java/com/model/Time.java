@@ -10,7 +10,7 @@ public class Time {
     this.currentDay = 0;
   }
 
-  private Time(int currentDay) {
+  protected Time(int currentDay) {
     this.currentDay = currentDay;
   }
 

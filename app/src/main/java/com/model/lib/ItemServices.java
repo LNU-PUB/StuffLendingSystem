@@ -17,7 +17,7 @@ public interface ItemServices {
    *
    * @return - list of all Items.
    */
-  public List<Item> getAllItems();
+  public Iterable<Item> getAllItems();
 
   /**
    * Get an Item by id.

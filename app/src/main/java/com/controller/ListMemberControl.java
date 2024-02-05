@@ -2,6 +2,7 @@ package com.controller;
 
 import com.controller.model.AbstractMemberControl;
 import com.controller.model.ControllerArguments;
+import com.controller.model.ControllerArgumentsProvider;
 import com.controller.model.InputService;
 import com.controller.model.ListMembersResponse;
 import com.controller.model.actions.ListMembersActions;
@@ -22,7 +23,7 @@ public class ListMemberControl extends AbstractMemberControl {
   // private LinkedList<Member> memberList;
   // private Member selectedMember;
   private final InputService inputService;
-  private final ControllerArguments args;
+  private final ControllerArgumentsProvider args;
   private final boolean detailedList;
   ViewFactory viewFactory;
   // private final CommandExecutor commandExecutor;
@@ -33,7 +34,7 @@ public class ListMemberControl extends AbstractMemberControl {
    * @param args         - the controller arguments.
    * @param detailedList - true if the list should be detailed, false if not.
    */
-  public ListMemberControl(ControllerArguments args, boolean detailedList) {
+  public ListMemberControl(ControllerArgumentsProvider args, boolean detailedList) {
     super(args);
     this.args = args;
     this.inputService = args.getInputService();
@@ -54,7 +55,7 @@ public class ListMemberControl extends AbstractMemberControl {
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
-        Member member = args.getMemberServices().getAllMembers().get(response.getIndex());
+        Member member = getMemberByIndex(args.getMemberServices().getAllMembers(), response.getIndex());
         memberControl(member);
       } else if (action == ListMembersActions.ADDMEMBER) {
         addMember();
@@ -64,6 +65,20 @@ public class ListMemberControl extends AbstractMemberControl {
     }
 
     return action != ListMembersActions.EXIT;
+  }
+
+  private Member getMemberByIndex(Iterable<Member> memberList, int index) {
+    int currentIndex = 0;
+
+    for (Member member : memberList) {
+      if (currentIndex == index) {
+        return member;
+      }
+
+      currentIndex++;
+    }
+    view.displayError("Invalid index: " + index);
+    return null;
   }
 
   private ListMembersResponse getInput() {
@@ -99,6 +114,10 @@ public class ListMemberControl extends AbstractMemberControl {
   }
 
   private void memberControl(Member member) {
+    if (member == null) {
+      return;
+    }
+
     MemberControl memberControl = new MemberControl(this.args, member);
     while (memberControl.run()) {
     }

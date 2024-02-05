@@ -8,15 +8,15 @@ import com.view.model.View;
  * Abstract class for Member Controls.
  */
 public abstract class AbstractMemberControl implements Control {
-  ControllerArguments args;
+  ControllerArgumentsProvider args;
   Member member;
 
-  protected AbstractMemberControl(ControllerArguments args) {
+  protected AbstractMemberControl(ControllerArgumentsProvider args) {
     this.args = args;
     this.member = null;
   }
 
-  protected AbstractMemberControl(ControllerArguments args, Member member) {
+  protected AbstractMemberControl(ControllerArgumentsProvider args, Member member) {
     this.args = args;
     this.member = member;
   }

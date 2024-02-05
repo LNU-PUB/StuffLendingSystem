@@ -1,15 +1,14 @@
 package com.model.lib;
 
 import com.model.Item;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Item Repository.
  */
-public class ItemRepository implements ItemRepositories{
-  private final List<Item> items;
+public class ItemRepository implements ItemRepositories {
+  private final LinkedList<Item> items;
 
   /**
    * Constructor.
@@ -17,11 +16,11 @@ public class ItemRepository implements ItemRepositories{
    * @param items - list of items
    */
   public ItemRepository(List<Item> items) {
-    this.items = items == null ? new ArrayList<>() : new ArrayList<>(items);
+    this.items = items == null ? new LinkedList<>() : new LinkedList<Item>(items);
   }
 
-  public List<Item> getItems() {
-    return Collections.unmodifiableList(new ArrayList(items));
+  public Iterable<Item> getItems() {
+    return new LinkedList<Item>(items);
   }
 
   public Item getItemById(String id) {
@@ -43,5 +42,5 @@ public class ItemRepository implements ItemRepositories{
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'deleteItem'");
   }
-  
+
 }

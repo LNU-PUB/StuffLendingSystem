@@ -1,13 +1,14 @@
 package com.controller.model.commands;
 
 import com.controller.model.ControllerArguments;
+import com.controller.model.ControllerArgumentsProvider;
 import com.model.Member;
 
 /**
  * The DeleteMember command.
  */
 public class DeleteMemberCommand implements Command {
-  private final ControllerArguments args;
+  private final ControllerArgumentsProvider args;
   private final Member member;
 
   /**
@@ -15,7 +16,7 @@ public class DeleteMemberCommand implements Command {
    *
    * @param member - the member to delete.
    */
-  public DeleteMemberCommand(ControllerArguments args, Member member) {
+  public DeleteMemberCommand(ControllerArgumentsProvider args, Member member) {
     this.args = args;
     this.member = member;
   }

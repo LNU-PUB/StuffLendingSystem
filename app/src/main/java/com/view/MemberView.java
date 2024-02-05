@@ -19,7 +19,7 @@ public class MemberView extends AbstractView {
    */
   public MemberView(ViewArguments args, Member member) {
     super(args.getLanguage(), args.getBundleName());
-    this.member = new Member(member);
+    this.member = new Member(member.getId(), member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay());
   }
 
 
