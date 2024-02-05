@@ -1,9 +1,9 @@
 package com.view;
 
+import com.controller.model.Language;
 import com.model.Member;
 import com.model.MemberServices;
 import com.view.model.AbstractView;
-import com.view.model.ViewArguments;
 import java.util.Collection;
 
 /**
@@ -11,34 +11,32 @@ import java.util.Collection;
  */
 public class ListMembersView extends AbstractView {
   private final boolean detailedList;
-  // private LinkedList<Member> memberList;
-  private final MemberServices memberServ;
 
   /**
    * Creates a new instance of the view.
    *
-   * @param viewArgs     - the view arguments
+   * @param language     - the language to use.
+   * @param bundleName   - the bundle name to use.
    * @param detailedList - true if the list should be detailed, false if not.
    */
-  public ListMembersView(ViewArguments viewArgs, boolean detailedList) {
-    super(viewArgs.getLanguage(), viewArgs.getBundleName());
-    this.memberServ = viewArgs.getMemberServices();
+  public ListMembersView(Language language, String bundleName, boolean detailedList) {
+    super(language, bundleName);
     this.detailedList = detailedList;
   }
 
   @Override
-  public void displayMenu() {
+  public void displayMenu(MemberServices memberServ) {
     cleanScreen();
     displayGreeting();
     // this.memberList = memberServ.getAllMembers();
     if (detailedList) {
-      displayDetailedMenu();
+      displayDetailedMenu(memberServ);
     } else {
-      displaySimpleMenu();
+      displaySimpleMenu(memberServ);
     }
   }
 
-  private void displaySimpleMenu() {
+  private void displaySimpleMenu(MemberServices memberServ) {
     System.out.println("- " + texts.getString("title") + " -\n");
     System.out.println("Members: " + getSizeOfTheMembersList(memberServ.getAllMembers()));
     int index = 0;
@@ -59,7 +57,7 @@ public class ListMembersView extends AbstractView {
     System.out.println("x - " + texts.getString("exit"));
   }
 
-  private void displayDetailedMenu() {
+  private void displayDetailedMenu(MemberServices memberServ) {
     System.out.println("- " + texts.getString("detailTitle") + " -\n");
     for (Member member : memberServ.getAllMembers()) {
 

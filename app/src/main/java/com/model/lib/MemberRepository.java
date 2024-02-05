@@ -61,7 +61,8 @@ public final class MemberRepository implements MemberRepositories {
   public Member getMemberById(String id) {
     for (Member member : members) {
       if (member.getId().equals(id)) {
-        return new Member(member.getId(), member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay());
+        return new Member(member.getId(), member.getName(), member.getEmail(),
+            member.getMobile(), member.getMemberCreationDay());
       }
     }
 
@@ -92,7 +93,8 @@ public final class MemberRepository implements MemberRepositories {
       // updateMemberList(members);
     }
 
-    return new Member(newMember.getId(), newMember.getName(), newMember.getEmail(), newMember.getMobile(), newMember.getMemberCreationDay());
+    return new Member(newMember.getId(), newMember.getName(), newMember.getEmail(),
+        newMember.getMobile(), newMember.getMemberCreationDay());
   }
 
   /**
@@ -131,7 +133,8 @@ public final class MemberRepository implements MemberRepositories {
     Member updatedMember = new Member(id, name, email, mobile, creationDay);
 
     replaceMemberInList(member, updatedMember);
-    return new Member(updatedMember.getId(), updatedMember.getName(), updatedMember.getEmail(), updatedMember.getMobile(), updatedMember.getMemberCreationDay());
+    return new Member(updatedMember.getId(), updatedMember.getName(), updatedMember.getEmail(),
+        updatedMember.getMobile(), updatedMember.getMemberCreationDay());
   }
 
   /**
@@ -227,7 +230,8 @@ public final class MemberRepository implements MemberRepositories {
   private LinkedList<Member> createMemberList(Iterable<Member> inList) {
     LinkedList<Member> outList = new LinkedList<Member>();
     for (Member member : inList) {
-      outList.add(new Member(member.getId(), member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay()));
+      outList.add(new Member(member.getId(), member.getName(), member.getEmail(),
+          member.getMobile(), member.getMemberCreationDay()));
     }
 
     return outList;

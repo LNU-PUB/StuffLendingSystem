@@ -1,6 +1,7 @@
 package com.controller.model;
 
 import com.model.Member;
+import com.model.MemberServices;
 import com.model.lib.BasicMemberData;
 import com.view.model.View;
 
@@ -8,25 +9,25 @@ import com.view.model.View;
  * Abstract class for Member Controls.
  */
 public abstract class AbstractMemberControl implements Control {
-  ControllerArgumentsProvider args;
-  Member member;
+  private Member member;
+  private InputService inputService;
 
-  protected AbstractMemberControl(ControllerArgumentsProvider args) {
-    this.args = args;
+  protected AbstractMemberControl(InputService inputService) {
+    this.inputService = inputService;
     this.member = null;
   }
 
-  protected AbstractMemberControl(ControllerArgumentsProvider args, Member member) {
-    this.args = args;
+  protected AbstractMemberControl(InputService inputService, Member member) {
+    this.inputService = inputService;
     this.member = member;
   }
 
-  protected BasicMemberData getAllMemberData(View dataView) {
+  protected BasicMemberData getAllMemberData(View dataView, MemberServices memberServ) {
     // data: name, email, mobile, item list, credits.
     try {
-      String name = getName(dataView);
-      String email = getEmail(dataView);
-      String mobile = getMobile(dataView);
+      String name = getName(dataView, memberServ);
+      String email = getEmail(dataView, memberServ);
+      String mobile = getMobile(dataView, memberServ);
 
       // BasicMemberData memberData = new BasicMemberData(name, email, mobile);
 
@@ -39,11 +40,10 @@ public abstract class AbstractMemberControl implements Control {
     }
   }
 
-  private String getName(View dataView) {
+  private String getName(View dataView, MemberServices memberServ) {
     int counter = 0;
 
     while (counter < 3) {
-      InputService inputService = args.getInputService();
       if (member == null) {
         dataView.displayResourcePrompt("name");
       } else {
@@ -57,7 +57,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (args.getMemberServices().validateName(name)) {
+        if (memberServ.validateName(name)) {
           return name;
         }
       } else {
@@ -65,7 +65,7 @@ public abstract class AbstractMemberControl implements Control {
           if (name.equals(member.getName())) {
             return member.getName();
           } else {
-            if (args.getMemberServices().validateName(name)) {
+            if (memberServ.validateName(name)) {
               return name;
             }
           }
@@ -81,11 +81,10 @@ public abstract class AbstractMemberControl implements Control {
     throw new RuntimeException("Failed to get name.");
   }
 
-  private String getEmail(View dataView) {
+  private String getEmail(View dataView, MemberServices memberServ) {
     int counter = 0;
 
     while (counter < 3) {
-      InputService inputService = args.getInputService();
       if (member == null) {
         dataView.displayResourcePrompt("email");
       } else {
@@ -99,7 +98,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (args.getMemberServices().validateEmail(email)) {
+        if (memberServ.validateEmail(email)) {
           return email;
         }
       } else {
@@ -107,7 +106,7 @@ public abstract class AbstractMemberControl implements Control {
           if (email.equals(member.getEmail())) {
             return member.getEmail();
           } else {
-            if (args.getMemberServices().validateEmail(email)) {
+            if (memberServ.validateEmail(email)) {
               return email;
             }
           }
@@ -123,11 +122,10 @@ public abstract class AbstractMemberControl implements Control {
     throw new RuntimeException("Failed to get email.");
   }
 
-  private String getMobile(View dataView) {
+  private String getMobile(View dataView, MemberServices memberServ) {
     int counter = 0;
 
     while (counter < 3) {
-      InputService inputService = args.getInputService();
       if (member == null) {
         dataView.displayResourcePrompt("mobile");
       } else {
@@ -141,7 +139,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (args.getMemberServices().validateMobile(mobile)) {
+        if (memberServ.validateMobile(mobile)) {
           return mobile;
         }
       } else {
@@ -149,7 +147,7 @@ public abstract class AbstractMemberControl implements Control {
           if (mobile.equals(member.getMobile())) {
             return member.getMobile();
           } else {
-            if (args.getMemberServices().validateMobile(mobile)) {
+            if (memberServ.validateMobile(mobile)) {
               return mobile;
             }
           }
@@ -165,9 +163,9 @@ public abstract class AbstractMemberControl implements Control {
     throw new RuntimeException("Failed to get mobile.");
   }
 
-  protected void refreshMemberData() {
+  protected void refreshMemberData(MemberServices memberServ) {
     if (this.member != null) {
-      this.member = args.getMemberServices().getMemberById(this.member.getId());
+      this.member = memberServ.getMemberById(this.member.getId());
     }
   }
 }

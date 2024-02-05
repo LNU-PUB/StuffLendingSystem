@@ -1,9 +1,9 @@
 package com.view;
 
+import com.controller.model.Language;
 import com.model.Member;
 import com.view.model.MenuViewFactory;
 import com.view.model.View;
-import com.view.model.ViewArguments;
 
 /**
  * Responsible for creating views.
@@ -11,27 +11,27 @@ import com.view.model.ViewArguments;
 public class ViewFactory implements MenuViewFactory {
 
   @Override
-  public View createMainMenuView(ViewArguments args) {
-    return new MainView(args);
+  public View createMainMenuView(Language language, String bundleName) {
+    return new MainView(language, bundleName);
   }
 
   @Override
-  public ListMembersView createListMembersView(ViewArguments args, boolean detailedList) {
-    return new ListMembersView(args, detailedList);
+  public ListMembersView createListMembersView(Language language, String bundleName, boolean detailedList) {
+    return new ListMembersView(language, bundleName, detailedList);
   }
 
   @Override
-  public View createMemberView(ViewArguments args, Member member) {
-    return new MemberView(args, member);
+  public View createMemberView(Language language, String bundleName, Member member) {
+    return new MemberView(language, bundleName, member);
   }
 
   @Override
-  public View createSimplePromptView(ViewArguments args) {
-    return new SimplePromptView(args);
+  public View createSimplePromptView(Language language, String bundleName) {
+    return new SimplePromptView(language, bundleName);
   }
 
   @Override
-  public View createEntityCreationView(ViewArguments args) {
-    return new EntityCreationView(args);
+  public View createEntityCreationView(Language language, String bundleName) {
+    return new EntityCreationView(language, bundleName);
   }
 }

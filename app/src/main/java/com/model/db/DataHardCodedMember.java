@@ -3,6 +3,8 @@ package com.model.db;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
+import com.model.lib.ItemCategory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +18,10 @@ public class DataHardCodedMember implements DataHandlerMember {
   Member janeDoe = new Member("456def", "Jane Doe", "jane@doe.sss", "87654321", 1);
   Member alexSmith = new Member("789ghi", "Alex Smith", "alex@smith.sss", "11223344", 0);
 
-  Item hammer = new Item("abc123", johnDoe, "Hammer", "Tools", "A hammer", 1.0, 1, null);
-  Item screwdriver = new Item("aaa741", johnDoe, "Screwdriver", "Tools", "A screwdriver", 1.0, 1, null);
-  Item drill = new Item("def456", janeDoe, "Drill", "Tools", "A drill", 1.0, 1, null);
-  Item saw = new Item("ghi789", johnDoe, "Saw", "Tools", "A saw", 1.0, 1, null);
+  Item hammer = new Item("abc123", johnDoe, "Hammer", ItemCategory.TOOL, "A hammer", 1.0, 1, null);
+  Item screwdriver = new Item("aaa741", johnDoe, "Screwdriver", ItemCategory.TOOL, "A screwdriver", 1.0, 1, null);
+  Item drill = new Item("def456", janeDoe, "Drill", ItemCategory.TOOL, "A drill", 1.0, 1, null);
+  Item saw = new Item("ghi789", johnDoe, "Saw", ItemCategory.TOOL, "A saw", 1.0, 1, null);
 
   @Override
   public List<Member> getMembers() {

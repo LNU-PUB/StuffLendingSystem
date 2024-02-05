@@ -1,53 +1,48 @@
 package com.controller;
 
 import com.controller.model.AbstractMemberControl;
-import com.controller.model.ControllerArguments;
-import com.controller.model.ControllerArgumentsProvider;
 import com.controller.model.InputService;
+import com.controller.model.Language;
 import com.controller.model.ListMembersResponse;
 import com.controller.model.actions.ListMembersActions;
 import com.controller.model.commands.AddMemberCommand;
 import com.controller.model.commands.Command;
 import com.model.Member;
+import com.model.MemberServices;
 import com.model.lib.BasicMemberData;
 import com.view.ViewFactory;
 import com.view.model.View;
-import com.view.model.ViewArguments;
 
 /**
  * The control for listing members.
  */
 public class ListMemberControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "ListMembersView";
+  private final Language language;
   private View view;
-  // private LinkedList<Member> memberList;
-  // private Member selectedMember;
   private final InputService inputService;
-  private final ControllerArgumentsProvider args;
   private final boolean detailedList;
   ViewFactory viewFactory;
-  // private final CommandExecutor commandExecutor;
 
   /**
    * Creates a new instance of the control.
    *
-   * @param args         - the controller arguments.
+   * @param language     - the language to use.
+   * @param inputService - the input service to use.
    * @param detailedList - true if the list should be detailed, false if not.
    */
-  public ListMemberControl(ControllerArgumentsProvider args, boolean detailedList) {
-    super(args);
-    this.args = args;
-    this.inputService = args.getInputService();
+  public ListMemberControl(Language language, InputService inputService, boolean detailedList) {
+    super(inputService);
+    this.language = language;
+    this.inputService = inputService;
     this.detailedList = detailedList;
     this.viewFactory = new ViewFactory();
-    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
-        args.getLanguage());
-    this.view = viewFactory.createListMembersView(viewArgs, detailedList);
+    this.view = viewFactory.createListMembersView(language, BUNDLE_NAME, detailedList);
   }
 
   @Override
-  public boolean run() {
-    view.displayMenu();
+  public boolean run(MemberServices memberServ) {
+    view.displayMenu(memberServ);
     ListMembersActions action = ListMembersActions.UNKNOWN;
 
     try {
@@ -55,10 +50,10 @@ public class ListMemberControl extends AbstractMemberControl {
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
-        Member member = getMemberByIndex(args.getMemberServices().getAllMembers(), response.getIndex());
-        memberControl(member);
+        Member member = getMemberByIndex(memberServ.getAllMembers(), response.getIndex());
+        memberControl(memberServ, member);
       } else if (action == ListMembersActions.ADDMEMBER) {
-        addMember();
+        addMember(memberServ);
       }
     } catch (Exception e) {
       view.displayError(e.getMessage());
@@ -113,24 +108,23 @@ public class ListMemberControl extends AbstractMemberControl {
     }
   }
 
-  private void memberControl(Member member) {
+  private void memberControl(MemberServices memberServ, Member member) {
     if (member == null) {
       return;
     }
 
-    MemberControl memberControl = new MemberControl(this.args, member);
-    while (memberControl.run()) {
+    MemberControl memberControl = new MemberControl(language, inputService, member);
+    while (memberControl.run(memberServ)) {
     }
   }
 
-  private void addMember() {
-    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), "BasicMemberData",
-        args.getLanguage());
+  private void addMember(MemberServices memberServ) {
+    
     ViewFactory factory = new ViewFactory();
-    View dataView = factory.createEntityCreationView(viewArgs);
+    View dataView = factory.createEntityCreationView(language, "BasicMemberData");
 
-    BasicMemberData memberData = getAllMemberData(dataView);
-    Command addMember = new AddMemberCommand(args, memberData);
-    addMember.execute();
+    BasicMemberData memberData = getAllMemberData(dataView, memberServ);
+    Command addMember = new AddMemberCommand(memberData);
+    addMember.execute(memberServ);
   }
 }

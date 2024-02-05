@@ -1,14 +1,12 @@
 package com.controller.model.commands;
 
-import com.controller.model.ControllerArguments;
-import com.controller.model.ControllerArgumentsProvider;
 import com.model.Member;
+import com.model.MemberServices;
 
 /**
  * The DeleteMember command.
  */
 public class DeleteMemberCommand implements Command {
-  private final ControllerArgumentsProvider args;
   private final Member member;
 
   /**
@@ -16,14 +14,13 @@ public class DeleteMemberCommand implements Command {
    *
    * @param member - the member to delete.
    */
-  public DeleteMemberCommand(ControllerArgumentsProvider args, Member member) {
-    this.args = args;
+  public DeleteMemberCommand(Member member) {
     this.member = member;
   }
 
   @Override
-  public boolean execute() {
-    return args.getMemberServices().deleteMember(member);
+  public boolean execute(MemberServices memberServ) {
+    return memberServ.deleteMember(member);
   }
   
 }

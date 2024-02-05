@@ -1,8 +1,9 @@
 package com.view;
 
+import com.controller.model.Language;
+import com.model.MemberServices;
 import com.view.model.AbstractView;
 import com.view.model.AddDataView;
-import com.view.model.ViewArguments;
 
 /**
  * View for adding Members.
@@ -13,15 +14,16 @@ public class EntityCreationView extends AbstractView implements AddDataView {
   /**
    * Constructor.
    *
-   * @param args - The arguments.
+   * @param language   - the language to use.
+   * @param bundleName - the bundle name to use.
    */
-  public EntityCreationView(ViewArguments args) {
-    super(args.getLanguage(), args.getBundleName());
+  public EntityCreationView(Language language, String bundleName) {
+    super(language, bundleName);
     // this.args = args;
   }
 
   @Override
-  public void displayMenu() {
+  public void displayMenu(MemberServices memberServ) {
     displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
   }

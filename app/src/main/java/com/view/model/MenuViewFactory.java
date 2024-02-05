@@ -1,18 +1,19 @@
 package com.view.model;
 
+import com.controller.model.Language;
 import com.model.Member;
 
 /**
  * Interface for the view factory.
  */
 public interface MenuViewFactory {
-  public View createMainMenuView(ViewArguments args);
+  public View createMainMenuView(Language language, String bundleName);
 
-  public View createListMembersView(ViewArguments args, boolean detailedList);
+  public View createListMembersView(Language language, String bundleName, boolean detailedList);
 
-  public View createMemberView(ViewArguments args, Member member);
+  public View createMemberView(Language language, String bundleName, Member member);
 
-  public View createSimplePromptView(ViewArguments args);
+  public View createSimplePromptView(Language language, String bundleName);
 
-  public View createEntityCreationView(ViewArguments args);
+  public View createEntityCreationView(Language language, String bundleName);
 }

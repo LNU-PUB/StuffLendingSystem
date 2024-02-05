@@ -1,22 +1,23 @@
 package com.view;
 
+import com.controller.model.Language;
+import com.model.MemberServices;
 import com.view.model.AbstractView;
-import com.view.model.ViewArguments;
 
 /**
  * Responsible for displaying information to the user.
  */
 public class SimplePromptView extends AbstractView {
 
-  public SimplePromptView(ViewArguments args) {
-    super(args.getLanguage(), args.getBundleName());
+  public SimplePromptView(Language language, String bundleName) {
+    super(language, bundleName);
   }
 
   /**
    * displayMenu is not supported in this view.
    */
   @Override
-  public void displayMenu() {
+  public void displayMenu(MemberServices memberServ) {
     throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
   }
   

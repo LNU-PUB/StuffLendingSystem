@@ -1,46 +1,45 @@
 package com.controller;
 
 import com.controller.model.AbstractMemberControl;
-import com.controller.model.ControllerArguments;
-import com.controller.model.ControllerArgumentsProvider;
+import com.controller.model.InputService;
+import com.controller.model.Language;
 import com.controller.model.actions.MemberActions;
 import com.controller.model.commands.Command;
 import com.controller.model.commands.DeleteMemberCommand;
 import com.controller.model.commands.EditMemberCommand;
 import com.model.Member;
+import com.model.MemberServices;
 import com.model.lib.BasicMemberData;
 import com.view.ViewFactory;
 import com.view.model.View;
-import com.view.model.ViewArguments;
 
 /**
  * The Member controller.
  */
 public class MemberControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "MemberView";
+  private final InputService inputService;
+  private final Language language;
   private Member member;
-  private final ControllerArgumentsProvider args;
 
   /**
    * Creates a new instance of the control.
    *
-   * @param args   - the controller arguments.
+   * @param language     - the language to use.
+   * @param inputService - the input service to use.
    * @param member - the member to operate on.
    */
-  public MemberControl(ControllerArgumentsProvider args, Member member) {
-    super(args, member);
-    // this.memberRepo = args.getMemberRepo();
+  public MemberControl(Language language, InputService inputService, Member member) {
+    super(inputService, member);
+    this.inputService = inputService;
+    this.language = language;
     this.member = member;
-    this.args = args;
-    // this.view = createView(args);
   }
 
   // Target for refactoring into AbstractControl class.
-  private View createView(ControllerArgumentsProvider args) {
+  private View createView(MemberServices memberServ) {
     ViewFactory factory = new ViewFactory();
-    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), BUNDLE_NAME,
-        args.getLanguage());
-    return factory.createMemberView(viewArgs, member);
+    return factory.createMemberView(language, BUNDLE_NAME, member);
   }
 
   /**
@@ -49,17 +48,17 @@ public class MemberControl extends AbstractMemberControl {
    * @return true if the application should continue, false if the application
    *         should exit.
    */
-  public boolean run() {
-    View view = createView(args);
-    view.displayMenu();
-    MemberActions action = getInput();
+  public boolean run(MemberServices memberServ) {
+    View view = createView(memberServ);
+    view.displayMenu(memberServ);
+    MemberActions action = getInput(memberServ);
 
     if (action == MemberActions.ADDCREDITS) {
       addCredits();
     } else if (action == MemberActions.DELETEMEMBER) {
-      deleteMember();
+      deleteMember(memberServ);
     } else if (action == MemberActions.EDITMEMBER) {
-      editMember();
+      editMember(memberServ);
     } else if (action == MemberActions.LISTITEMS) {
       listItems();
     } else if (action == MemberActions.NEWCONTRACT) {
@@ -69,11 +68,11 @@ public class MemberControl extends AbstractMemberControl {
     return action != MemberActions.EXIT;
   }
 
-  private MemberActions getInput() {
-    View view = createView(args);
+  private MemberActions getInput(MemberServices memberServ) {
+    View view = createView(memberServ);
     view.displayPrompt();
 
-    String input = args.getInputService().readLine();
+    String input = inputService.readLine();
     if (input == null || input.isEmpty()) {
       return MemberActions.UNKNOWN;
     } else {
@@ -118,29 +117,27 @@ public class MemberControl extends AbstractMemberControl {
     throw new UnsupportedOperationException("Unimplemented method 'addCredits'");
   }
 
-  private void deleteMember() {
-    Command deleteMember = new DeleteMemberCommand(args, member);
+  private void deleteMember(MemberServices memberServ) {
+    Command deleteMember = new DeleteMemberCommand(member);
 
-    if (deleteMember.execute()) {
+    if (deleteMember.execute(memberServ)) {
       this.member = null;
     }
 
-    refreshMemberData();
+    refreshMemberData(memberServ);
   }
 
-  private void editMember() {
-    ViewArguments viewArgs = new ViewArguments(args.getMemberServices(), "BasicMemberData",
-        args.getLanguage());
-    View dataView = new ViewFactory().createSimplePromptView(viewArgs);
+  private void editMember(MemberServices memberServ) {
+    View dataView = new ViewFactory().createSimplePromptView(language, "BasicMemberData");
 
-    BasicMemberData memberData = getAllMemberData(dataView);
-    Command editMember = new EditMemberCommand(args, memberData, member);
-    if (editMember.execute()) {
+    BasicMemberData memberData = getAllMemberData(dataView, memberServ);
+    Command editMember = new EditMemberCommand(memberData, member);
+    if (editMember.execute(memberServ)) {
       Member newMember = new Member(member.getId(), memberData.getName(), memberData.getEmail(),
           memberData.getMobile(), member.getMemberCreationDay());
       this.member = newMember;
     }
 
-    refreshMemberData();
+    refreshMemberData(memberServ);
   }
 }

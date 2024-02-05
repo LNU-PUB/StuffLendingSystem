@@ -1,7 +1,5 @@
 package com.controller;
 
-import com.controller.model.ControllerArguments;
-import com.controller.model.ControllerArgumentsProvider;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.MemberServices;
@@ -18,27 +16,21 @@ import java.io.UnsupportedEncodingException;
  * The application.
  */
 public class App {
-  private InputService inputService;
   private final MemberServices memberServ;
-  private final TimeService timeService;
+  private final InputService inputService;
   // private final MemberRepository memberRepo;
 
   /**
    * Creates a new instance of the application.
    */
   public App() {
-    this.timeService = new TimeService();
-    this.inputService = new InputService();
-    // this.memberRepo = createMemberRepo(this.timeService);
     this.memberServ = createMemberService();
-  }
-
-  private MemberRepositories createMemberRepo(TimeService timeService) {
-    return new MemberRepository(timeService);
+    this.inputService = new InputService();
   }
 
   private MemberServices createMemberService() {
-    MemberRepositories memberRepo = createMemberRepo(this.timeService);
+    TimeService timeService = new TimeService();
+    MemberRepositories memberRepo = new MemberRepository(timeService);
     return new MemberService(memberRepo);
   }
 
@@ -56,12 +48,9 @@ public class App {
   }
 
   protected void run(Language language) {
-    // View view = createMainView(memberRepo, inputService, language, "MainView");
-    ControllerArgumentsProvider controllerArgs = new ControllerArguments(memberServ, inputService,
-        language);
-    MainControl ctrl = new MainControl(controllerArgs);
+    MainControl ctrl = new MainControl(language, inputService);
 
-    while (ctrl.run()) {
+    while (ctrl.run(this.memberServ)) {
     }
   }
 

@@ -1,10 +1,12 @@
 package com.view.model;
 
+import com.model.MemberServices;
+
 /**
  * Responsible for displaying information to the user.
  */
 public interface View {
-  public void displayMenu();
+  public void displayMenu(MemberServices memberServ);
   
   public void displayPrompt();
 

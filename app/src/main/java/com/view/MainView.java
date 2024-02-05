@@ -1,8 +1,9 @@
 package com.view;
 
+import com.controller.model.Language;
 import com.controller.model.actions.MainActions;
+import com.model.MemberServices;
 import com.view.model.AbstractView;
-import com.view.model.ViewArguments;
 
 /**
  * Responsible for displaying information to the user.
@@ -11,14 +12,14 @@ public class MainView extends AbstractView {
   /**
    * Creates a new instance of the view.
    *
-   * @param viewArgs - the view arguments
+   * @param language - the view arguments
    */
-  public MainView(ViewArguments viewArgs) {
-    super(viewArgs.getLanguage(), viewArgs.getBundleName());
+  public MainView(Language language, String bundleName) {
+    super(language, bundleName);
   }
 
   @Override
-  public void displayMenu() {
+  public void displayMenu(MemberServices memberServ) {
     displayGreeting();
 
     System.out.println("- " + texts.getString("title") + " -\n");

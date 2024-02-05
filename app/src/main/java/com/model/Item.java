@@ -1,14 +1,16 @@
 package com.model;
 
+import com.model.lib.ItemCategory;
+
 /**
  * Item class.
  * Represents an item that can be rented.
  */
-public class Item {
+public final class Item {
   private final String id;
   private final Member owner;
   private final String name;
-  private final String category;
+  private final ItemCategory category;
   private final String description;
   private final double costPerDay;
   private final int creationDay;
@@ -25,7 +27,7 @@ public class Item {
    * @param creationDay - The day the item was created.
    * @param currentContract - The current contract of the item or null if there is none.
    */
-  public Item(String id, Member owner, String name, String category, String description,
+  public Item(String id, Member owner, String name, ItemCategory category, String description,
       double costPerDay, int creationDay, Contract currentContract) {
     this.id = id;
     this.owner = owner;
@@ -58,14 +60,14 @@ public class Item {
   }
 
   public Member getOwner() {
-    return this.owner;
+    return new Member(owner.getId(), owner.getName(), owner.getEmail(), owner.getMobile(), owner.getMemberCreationDay());
   }
 
   public String getName() {
     return this.name;
   }
 
-  public String getCategory() {
+  public ItemCategory getCategory() {
     return this.category;
   }
 
@@ -87,6 +89,6 @@ public class Item {
    * @return - The current contract.
    */
   public Contract getCurrentContract() {
-    return this.currentContract;
+    return new Contract(currentContract);
   }
 }
