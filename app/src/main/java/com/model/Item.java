@@ -1,12 +1,13 @@
 package com.model;
 
+import com.model.lib.Identifiable;
 import com.model.lib.ItemCategory;
 
 /**
  * Item class.
  * Represents an item that can be rented.
  */
-public final class Item {
+public final class Item implements Identifiable {
   private final String id;
   private final Member owner;
   private final String name;

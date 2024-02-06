@@ -1,9 +1,11 @@
 package com.model;
 
+import com.model.lib.Identifiable;
+
 /**
  * Represents a member.
  */
-public final class Member {
+public final class Member implements Identifiable {
   private final String id;
   private final String name;
   private final String email;
@@ -27,6 +29,7 @@ public final class Member {
     this.memberCreationDay = creationDay;
   }
 
+  @Override
   public String getId() {
     return id;
   }

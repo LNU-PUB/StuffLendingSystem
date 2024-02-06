@@ -16,8 +16,9 @@ public final class MemberRepository implements MemberRepositories {
   private final TimeService timeService;
   private final DataHandlerMember dataHandler;
   private final LinkedList<Member> members;
-  private final SecureRandom random;
+  // private final SecureRandom random;
   private static final int MIN_NAME_LENGTH = 2;
+  private final IdGenerator<Member> idGenerator;
 
   /**
    * Creates a new instance of the stuff lending system.
@@ -25,8 +26,9 @@ public final class MemberRepository implements MemberRepositories {
   public MemberRepository(TimeService timeService) {
     this.dataHandler = new DataHardCodedMember();
     this.members = new LinkedList<Member>(dataHandler.getMembers());
-    this.random = new SecureRandom();
+    // this.random = new SecureRandom();
     this.timeService = new TimeService(timeService.getDay());
+    this.idGenerator = new IdGenerator<Member>();
   }
 
   /**
@@ -36,9 +38,10 @@ public final class MemberRepository implements MemberRepositories {
    */
   protected MemberRepository(int day, Iterable<Member> members) {
     this.members = createMemberList(members);
-    this.random = new SecureRandom();
+    // this.random = new SecureRandom();
     this.timeService = new TimeService(day);
     this.dataHandler = null;
+    this.idGenerator = new IdGenerator<Member>();
   }
 
   /**
@@ -81,7 +84,8 @@ public final class MemberRepository implements MemberRepositories {
       return null;
     }
 
-    String id = generateMemberId();
+    // String id = generateMemberId();
+    String id = idGenerator.generateId(members);
 
     Member newMember = new Member(id, data.getName(), data.getEmail(), data.getMobile(), timeService.getDay());
 
@@ -271,41 +275,41 @@ public final class MemberRepository implements MemberRepositories {
         && data.getMobile() != null && !data.getMobile().trim().isEmpty() && validateMobile(data.getMobile());
   }
 
-  private String generateMemberId() {
-    while (true) {
-      String id = generateRandomId();
-      if (isUniqueMemberId(id)) {
-        return id;
-      }
-    }
-  }
+  // private String generateMemberId() {
+  //   while (true) {
+  //     String id = generateRandomId();
+  //     if (isUniqueMemberId(id)) {
+  //       return id;
+  //     }
+  //   }
+  // }
 
-  private String generateRandomId() {
-    // 6 alpha-numeric characters
-    String alphaNumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    StringBuilder result = new StringBuilder(6);
+  // private String generateRandomId() {
+  //   // 6 alpha-numeric characters
+  //   String alphaNumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  //   StringBuilder result = new StringBuilder(6);
 
-    for (int i = 0; i < 6; i++) {
-      int index = this.random.nextInt(alphaNumericCharacters.length());
-      result.append(alphaNumericCharacters.charAt(index));
-    }
+  //   for (int i = 0; i < 6; i++) {
+  //     int index = this.random.nextInt(alphaNumericCharacters.length());
+  //     result.append(alphaNumericCharacters.charAt(index));
+  //   }
 
-    return result.toString();
-  }
+  //   return result.toString();
+  // }
 
-  private boolean isUniqueMemberId(String id) {
-    if (id == null || id.length() != 6) {
-      return false;
-    }
+  // private boolean isUniqueMemberId(String id) {
+  //   if (id == null || id.length() != 6) {
+  //     return false;
+  //   }
 
-    for (Member member : members) {
-      if (member.getId().equals(id)) {
-        return false;
-      }
-    }
+  //   for (Member member : members) {
+  //     if (member.getId().equals(id)) {
+  //       return false;
+  //     }
+  //   }
 
-    return true;
-  }
+  //   return true;
+  // }
 
   private void replaceMemberInList(Member oldMember, Member newMember) {
     for (int i = 0; i < members.size(); i++) {

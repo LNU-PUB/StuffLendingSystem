@@ -1,14 +1,17 @@
 package com.model;
 
+import com.model.lib.Identifiable;
+
 /**
  * A contract between a member and the stuff lending system.
  */
-public class Contract {
+public class Contract implements Identifiable {
   private final Member owner;
   private final Member borrower;
   private final Item item;
   private final int startDay;
   private final int endDay;
+  private final String id;
 
   /**
    * Creates a new instance of the contract.
@@ -19,12 +22,13 @@ public class Contract {
    * @param startDay - the start day of the contract.
    * @param endDay   - the end day of the contract.
    */
-  public Contract(Member owner, Item item, Member borrower, int startDay, int endDay) {
+  public Contract(String id, Member owner, Item item, Member borrower, int startDay, int endDay) {
     this.owner = owner;
     this.item = item;
     this.borrower = borrower;
     this.startDay = startDay;
     this.endDay = endDay;
+    this.id = id;
   }
 
   /**
@@ -38,6 +42,12 @@ public class Contract {
     this.borrower = contract.getBorrower();
     this.startDay = contract.getStartDay();
     this.endDay = contract.getEndDay();
+    this.id = contract.getId();
+  }
+
+  @Override
+  public String getId() {
+    return id;
   }
 
   /**
