@@ -51,9 +51,9 @@ public class DataHardCodedMember implements DataHandlerMember {
   public List<Contract> getContracts() {
     // Contract (assuming start and end day are integers representing some time
     // unit)
-    Contract contract = new Contract(johnDoe, hammer, janeDoe, 1, 4);
-    Contract contract2 = new Contract(janeDoe, drill, johnDoe, 2, 5);
-    Contract contract3 = new Contract(janeDoe, saw, alexSmith, 3, 6);
+    Contract contract = new Contract("aaa111", johnDoe, hammer, janeDoe, 1, 4);
+    Contract contract2 = new Contract("aaa222", janeDoe, drill, johnDoe, 2, 5);
+    Contract contract3 = new Contract("aaa333", janeDoe, saw, alexSmith, 3, 6);
 
     // List of contracts
     List<Contract> contracts = new ArrayList<>();

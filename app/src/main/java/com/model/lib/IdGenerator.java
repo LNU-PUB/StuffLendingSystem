@@ -2,13 +2,27 @@ package com.model.lib;
 
 import java.security.SecureRandom;
 
+/**
+ * Generates unique ids for objects.
+ *
+ * @param <T> - The type of object to generate ids for.
+ */
 public class IdGenerator<T extends Identifiable> {
   private final SecureRandom random;
 
+  /**
+   * Creates a new instance of the id generator.
+   */
   public IdGenerator() {
     this.random = new SecureRandom();
   }
 
+  /**
+   * Generates a unique id for an object.
+   *
+   * @param list - The list of objects to check uniqueness against.
+   * @return - A unique id.
+   */
   public String generateId(Iterable<T> list) {
     while (true) {
       String id = generateRandomId();
