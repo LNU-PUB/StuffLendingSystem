@@ -16,4 +16,6 @@ public interface MenuViewFactory {
   public View createSimplePromptView(Language language, String bundleName);
 
   public View createEntityCreationView(Language language, String bundleName);
+
+  public View createListItemsView(Language language, String bundleName, boolean detailedList);
 }

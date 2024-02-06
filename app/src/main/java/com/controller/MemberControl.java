@@ -1,6 +1,8 @@
 package com.controller;
 
 import com.controller.model.AbstractMemberControl;
+import com.controller.model.DisplayDataBundle;
+import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.actions.MemberActions;
@@ -10,8 +12,9 @@ import com.controller.model.commands.EditMemberCommand;
 import com.model.Member;
 import com.model.MemberServices;
 import com.model.lib.BasicMemberData;
-import com.view.ViewFactory;
+import com.view.model.MenuViewFactory;
 import com.view.model.View;
+import com.view.model.ViewFactory;
 
 /**
  * The Member controller.
@@ -21,6 +24,7 @@ public class MemberControl extends AbstractMemberControl {
   private final InputService inputService;
   private final Language language;
   private Member member;
+  private MenuViewFactory viewFactory;
 
   /**
    * Creates a new instance of the control.
@@ -29,17 +33,12 @@ public class MemberControl extends AbstractMemberControl {
    * @param inputService - the input service to use.
    * @param member - the member to operate on.
    */
-  public MemberControl(Language language, InputService inputService, Member member) {
+  public MemberControl(Language language, InputService inputService, Member member, MenuViewFactory viewFactory) {
     super(inputService, member);
     this.inputService = inputService;
     this.language = language;
     this.member = member;
-  }
-
-  // Target for refactoring into AbstractControl class.
-  private View createView(MemberServices memberServ) {
-    ViewFactory factory = new ViewFactory();
-    return factory.createMemberView(language, BUNDLE_NAME, member);
+    this.viewFactory = viewFactory;
   }
 
   /**
@@ -49,8 +48,9 @@ public class MemberControl extends AbstractMemberControl {
    *         should exit.
    */
   public boolean run(MemberServices memberServ) {
-    View view = createView(memberServ);
-    view.displayMenu(memberServ);
+    View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
+    DisplayDataBundles bundle = new DisplayDataBundle(memberServ.getAllMembers(), null, null, null);
+    view.displayMenu(bundle);
     MemberActions action = getInput(memberServ);
 
     if (action == MemberActions.ADDCREDITS) {
@@ -69,7 +69,7 @@ public class MemberControl extends AbstractMemberControl {
   }
 
   private MemberActions getInput(MemberServices memberServ) {
-    View view = createView(memberServ);
+    View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayPrompt();
 
     String input = inputService.readLine();
@@ -128,7 +128,7 @@ public class MemberControl extends AbstractMemberControl {
   }
 
   private void editMember(MemberServices memberServ) {
-    View dataView = new ViewFactory().createSimplePromptView(language, "BasicMemberData");
+    View dataView = viewFactory.createSimplePromptView(language, "BasicMemberData");
 
     BasicMemberData memberData = getAllMemberData(dataView, memberServ);
     Command editMember = new EditMemberCommand(memberData, member);

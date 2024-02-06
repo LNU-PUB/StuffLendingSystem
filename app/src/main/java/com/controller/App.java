@@ -7,6 +7,8 @@ import com.model.TimeService;
 import com.model.lib.MemberRepositories;
 import com.model.lib.MemberRepository;
 import com.model.lib.MemberService;
+import com.view.model.MenuViewFactory;
+import com.view.model.ViewFactory;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
@@ -18,7 +20,7 @@ import java.io.UnsupportedEncodingException;
 public class App {
   private final MemberServices memberServ;
   private final InputService inputService;
-  // private final MemberRepository memberRepo;
+  private final MenuViewFactory viewFactory;
 
   /**
    * Creates a new instance of the application.
@@ -26,6 +28,7 @@ public class App {
   public App() {
     this.memberServ = createMemberService();
     this.inputService = new InputService();
+    this.viewFactory = new ViewFactory();
   }
 
   private MemberServices createMemberService() {
@@ -34,7 +37,7 @@ public class App {
     return new MemberService(memberRepo);
   }
 
-  Language setLanguage(String[] args) {
+  protected Language setLanguage(String[] args) {
     Language lang = Language.ENG;
     if (args.length > 0) {
       try {
@@ -48,7 +51,7 @@ public class App {
   }
 
   protected void run(Language language) {
-    MainControl ctrl = new MainControl(language, inputService);
+    MainControl ctrl = new MainControl(language, inputService, viewFactory);
 
     while (ctrl.run(this.memberServ)) {
     }

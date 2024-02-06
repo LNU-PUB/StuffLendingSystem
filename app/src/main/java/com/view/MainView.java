@@ -1,8 +1,8 @@
 package com.view;
 
+import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
 import com.controller.model.actions.MainActions;
-import com.model.MemberServices;
 import com.view.model.AbstractView;
 
 /**
@@ -19,7 +19,7 @@ public class MainView extends AbstractView {
   }
 
   @Override
-  public void displayMenu(MemberServices memberServ) {
+  public void displayMenu(DisplayDataBundles bundle) {
     displayGreeting();
 
     System.out.println("- " + texts.getString("title") + " -\n");
@@ -29,22 +29,4 @@ public class MainView extends AbstractView {
       }
     }
   }
-
-  // @Override
-  // public Actions getInput() {
-  //   displayPrompt();
-  //   String input = scanner.readLine().trim();
-
-  //   if (input.length() == 1) {
-  //     char inputChar = input.charAt(0);
-  //     for (MainActions action : MainActions.values()) {
-  //       if (action.getSelector() == inputChar) {
-  //         return action;
-  //       }
-  //     }
-  //   }
-
-  //   displayError("Invalid selection");
-  //   return MainActions.UNKNOWN;
-  // }
 }

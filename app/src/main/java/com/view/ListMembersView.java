@@ -1,8 +1,8 @@
 package com.view;
 
+import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
 import com.model.Member;
-import com.model.MemberServices;
 import com.view.model.AbstractView;
 import java.util.Collection;
 
@@ -25,22 +25,22 @@ public class ListMembersView extends AbstractView {
   }
 
   @Override
-  public void displayMenu(MemberServices memberServ) {
+  public void displayMenu(DisplayDataBundles bundles) {
     cleanScreen();
     displayGreeting();
     // this.memberList = memberServ.getAllMembers();
     if (detailedList) {
-      displayDetailedMenu(memberServ);
+      displayDetailedMenu(bundles.getMembers());
     } else {
-      displaySimpleMenu(memberServ);
+      displaySimpleMenu(bundles.getMembers());
     }
   }
 
-  private void displaySimpleMenu(MemberServices memberServ) {
+  private void displaySimpleMenu(Iterable<Member> memberList) {
     System.out.println("- " + texts.getString("title") + " -\n");
-    System.out.println("Members: " + getSizeOfTheMembersList(memberServ.getAllMembers()));
+    System.out.println("Members: " + getSizeOfTheMembersList(memberList));
     int index = 0;
-    for (Member member : memberServ.getAllMembers()) {
+    for (Member member : memberList) {
       // String outputString = String.format("%d - %s, (email: %s, credits: %d, Items:
       // %d)", i,
       // member.getName(), member.getEmail(), member.getCredits(),
@@ -57,9 +57,9 @@ public class ListMembersView extends AbstractView {
     System.out.println("x - " + texts.getString("exit"));
   }
 
-  private void displayDetailedMenu(MemberServices memberServ) {
+  private void displayDetailedMenu(Iterable<Member> memberList) {
     System.out.println("- " + texts.getString("detailTitle") + " -\n");
-    for (Member member : memberServ.getAllMembers()) {
+    for (Member member : memberList) {
 
       String outputString = String.format("Name: %s, Email: %s", member.getName(), member.getEmail());
       System.out.println(outputString);
@@ -77,12 +77,12 @@ public class ListMembersView extends AbstractView {
     }
   }
 
-  private int getSizeOfTheMembersList(Iterable<Member> members) {
-    if (members instanceof Collection<?>) {
-      return ((Collection<?>) members).size();
+  private int getSizeOfTheMembersList(Iterable<Member> memberList) {
+    if (memberList instanceof Collection<?>) {
+      return ((Collection<?>) memberList).size();
     } else {
       int size = 0;
-      for (Member member : members) {
+      for (Member member : memberList) {
         size++;
       }
       return size;

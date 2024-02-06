@@ -1,15 +1,17 @@
 package com.controller;
 
 import com.controller.model.Control;
+import com.controller.model.DisplayDataBundle;
+import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.actions.MainActions;
 import com.controller.model.commands.AdvanceTimeCommand;
 import com.controller.model.commands.Command;
 import com.model.MemberServices;
-import com.view.ViewFactory;
 import com.view.model.MenuViewFactory;
 import com.view.model.View;
+import com.view.model.ViewFactory;
 import java.util.List;
 
 /**
@@ -18,9 +20,10 @@ import java.util.List;
 public class MainControl implements Control {
 
   private static final String BUNDLE_NAME = "MainView";
-  private View view;
   private InputService inputService;
   private final Language language;
+  private final MenuViewFactory viewFactory;
+  private final View view;
 
   /**
    * Creates a new instance of the controller.
@@ -28,11 +31,11 @@ public class MainControl implements Control {
    * @param language     - the language to use.
    * @param inputService - the input service to use.
    */
-  public MainControl(Language language, InputService inputService) {
+  public MainControl(Language language, InputService inputService, MenuViewFactory viewFactory) {
     this.language = language;
     this.inputService = inputService;
-    MenuViewFactory factory = new ViewFactory();
-    this.view = factory.createMainMenuView(language, BUNDLE_NAME);
+    this.viewFactory = viewFactory;
+    this.view = viewFactory.createMainMenuView(language, BUNDLE_NAME);
   }
 
   /**
@@ -42,7 +45,8 @@ public class MainControl implements Control {
    *         should exit.
    */
   public boolean run(MemberServices memberServ) {
-    view.displayMenu(memberServ);
+    DisplayDataBundles bundle = new DisplayDataBundle(null, null, null, null);
+    view.displayMenu(bundle);
     MainActions action = getInput();
 
     if (action == MainActions.LISTMEMBERS) {
@@ -83,7 +87,7 @@ public class MainControl implements Control {
   }
 
   private void listMembersControl(MemberServices memberServ, boolean detailedList) {
-    ListMemberControl listMemberControl = new ListMemberControl(language, inputService, detailedList);
+    ListMemberControl listMemberControl = new ListMemberControl(language, inputService, detailedList, viewFactory);
     while (listMemberControl.run(memberServ)) {
     }
   }

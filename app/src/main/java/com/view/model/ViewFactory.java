@@ -1,12 +1,16 @@
-package com.view;
+package com.view.model;
 
 import com.controller.model.Language;
 import com.model.Member;
-import com.view.model.MenuViewFactory;
-import com.view.model.View;
+import com.view.EntityCreationView;
+import com.view.ListItemsView;
+import com.view.ListMembersView;
+import com.view.MainView;
+import com.view.MemberView;
+import com.view.SimplePromptView;
 
 /**
- * Responsible for creating views.
+ * The view factory.
  */
 public class ViewFactory implements MenuViewFactory {
 
@@ -16,7 +20,7 @@ public class ViewFactory implements MenuViewFactory {
   }
 
   @Override
-  public ListMembersView createListMembersView(Language language, String bundleName, boolean detailedList) {
+  public View createListMembersView(Language language, String bundleName, boolean detailedList) {
     return new ListMembersView(language, bundleName, detailedList);
   }
 
@@ -34,4 +38,10 @@ public class ViewFactory implements MenuViewFactory {
   public View createEntityCreationView(Language language, String bundleName) {
     return new EntityCreationView(language, bundleName);
   }
+
+  @Override
+  public View createListItemsView(Language language, String bundleName, boolean detailedList) {
+    return new ListItemsView(language, bundleName, detailedList);
+  }
+  
 }

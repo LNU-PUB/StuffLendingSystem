@@ -1,6 +1,8 @@
 package com.controller;
 
 import com.controller.model.AbstractMemberControl;
+import com.controller.model.DisplayDataBundle;
+import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.ListMembersResponse;
@@ -10,8 +12,9 @@ import com.controller.model.commands.Command;
 import com.model.Member;
 import com.model.MemberServices;
 import com.model.lib.BasicMemberData;
-import com.view.ViewFactory;
+import com.view.model.MenuViewFactory;
 import com.view.model.View;
+import com.view.model.ViewFactory;
 
 /**
  * The control for listing members.
@@ -22,7 +25,7 @@ public class ListMemberControl extends AbstractMemberControl {
   private View view;
   private final InputService inputService;
   private final boolean detailedList;
-  ViewFactory viewFactory;
+  private final MenuViewFactory viewFactory;
 
   /**
    * Creates a new instance of the control.
@@ -31,18 +34,20 @@ public class ListMemberControl extends AbstractMemberControl {
    * @param inputService - the input service to use.
    * @param detailedList - true if the list should be detailed, false if not.
    */
-  public ListMemberControl(Language language, InputService inputService, boolean detailedList) {
+  public ListMemberControl(Language language, InputService inputService,
+      boolean detailedList, MenuViewFactory viewFactory) {
     super(inputService);
     this.language = language;
     this.inputService = inputService;
     this.detailedList = detailedList;
-    this.viewFactory = new ViewFactory();
+    this.viewFactory = viewFactory;
     this.view = viewFactory.createListMembersView(language, BUNDLE_NAME, detailedList);
   }
 
   @Override
   public boolean run(MemberServices memberServ) {
-    view.displayMenu(memberServ);
+    DisplayDataBundles bundle = new DisplayDataBundle(memberServ.getAllMembers(), null, null, null);
+    view.displayMenu(bundle);
     ListMembersActions action = ListMembersActions.UNKNOWN;
 
     try {
@@ -113,13 +118,13 @@ public class ListMemberControl extends AbstractMemberControl {
       return;
     }
 
-    MemberControl memberControl = new MemberControl(language, inputService, member);
+    MemberControl memberControl = new MemberControl(language, inputService, member, viewFactory);
     while (memberControl.run(memberServ)) {
     }
   }
 
   private void addMember(MemberServices memberServ) {
-    
+
     ViewFactory factory = new ViewFactory();
     View dataView = factory.createEntityCreationView(language, "BasicMemberData");
 
