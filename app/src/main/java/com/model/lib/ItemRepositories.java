@@ -1,47 +1,89 @@
 package com.model.lib;
 
+import com.model.Contract;
 import com.model.Item;
+import com.model.Member;
+import java.util.List;
 
 /**
  * The item repositories interface.
  */
 public interface ItemRepositories {
   /**
-   * Gets all items.
+   * Get a list of all Items.
    *
-   * @return - the list of items.
+   * @return - list of all Items.
    */
-  public Iterable<Item> getItems();
+  public Iterable<Item> getAllItems();
 
   /**
-   * Gets an item by its id.
+   * Get an Item by id.
    *
-   * @param id - the item id.
-   * @return - the item.
+   * @param id - id for Item
+   * @return - Item
    */
   public Item getItemById(String id);
 
   /**
-   * Adds a new item.
+   * Add a new Item.
    *
-   * @param item - the item to add.
-   * @return - the added item.
+   * @param item - data for new Item
+   * @return - new Item
    */
-  public Item addNewItem(Item item);
+  public Item addItem(Item item);
 
   /**
-   * Updates an item.
+   * Update an Item.
    *
-   * @param item - the item to update.
-   * @return - the updated item.
+   * @param item - item to update.
+   * @return - updated item
    */
   public Item updateItem(Item item);
 
   /**
-   * Deletes an item.
+   * Delete an Item.
    *
-   * @param item - the item to delete.
-   * @return - true if the item was deleted, false otherwise.
+   * @param item - item to delete.
+   * @return - true if deleted, false otherwise.
    */
   public boolean deleteItem(Item item);
+
+  /**
+   * Gets the current day.
+   *
+   * @return - the current day.
+   */
+  public int getDay();
+
+  /**
+   * Get a list of all of a member's items.
+   *
+   * @param member - member to get items for.
+   * @return - list of items for member.
+   */
+  public List<Item> getItemsByMember(Member member);
+
+  /**
+   * Get a list of all items in a category.
+   *
+   * @param category - category to get items for.
+   * @return - list of items in category.
+   */
+  public List<Item> getItemsByCategory(ItemCategory category);
+
+  /**
+   * Get the Item that is rented in this contract.
+   *
+   * @param contract - contract to get the item for.
+   * @return - list of items in contract.
+   */
+  public Item getItemByContract(Contract contract);
+
+  /**
+   * Get a list of all items with a given status.
+   *
+   * @param status - status to get items for.
+   * @return - list of items with status.
+   */
+  public List<Item> getItemsByStatus(ItemStatus status);
 }

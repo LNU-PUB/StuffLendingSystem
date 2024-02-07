@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Data handler for members.
  */
-public class DataHardCodedMember implements DataHandlerMember {
+public class DataHardCodedMember implements DataHandler {
 
   // Members
   Member johnDoe = new Member("123abc", "John Doe", "jon@doe.sss", "12345678", 0);

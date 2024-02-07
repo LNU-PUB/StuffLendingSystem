@@ -2,13 +2,13 @@ package com.controller;
 
 import com.controller.model.InputService;
 import com.controller.model.Language;
-import com.model.MemberServices;
-import com.model.TimeService;
+import com.model.Services;
+import com.model.TimeRepository;
 import com.model.lib.MemberRepositories;
 import com.model.lib.MemberRepository;
-import com.model.lib.MemberService;
-import com.view.model.MenuViewFactory;
+import com.model.lib.Service;
 import com.view.model.ViewFactory;
+import com.view.model.ViewFactoryProvider;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
@@ -18,23 +18,23 @@ import java.io.UnsupportedEncodingException;
  * The application.
  */
 public class App {
-  private final MemberServices memberServ;
+  private final Services service;
   private final InputService inputService;
-  private final MenuViewFactory viewFactory;
+  private final ViewFactoryProvider viewFactory;
 
   /**
    * Creates a new instance of the application.
    */
   public App() {
-    this.memberServ = createMemberService();
+    this.service = createMemberService();
     this.inputService = new InputService();
     this.viewFactory = new ViewFactory();
   }
 
-  private MemberServices createMemberService() {
-    TimeService timeService = new TimeService();
-    MemberRepositories memberRepo = new MemberRepository(timeService);
-    return new MemberService(memberRepo);
+  private Services createMemberService() {
+    TimeRepository timeRepo = new TimeRepository();
+    MemberRepositories memberRepo = new MemberRepository();
+    return new Service(memberRepo, timeRepo);
   }
 
   protected Language setLanguage(String[] args) {
@@ -53,7 +53,7 @@ public class App {
   protected void run(Language language) {
     MainControl ctrl = new MainControl(language, inputService, viewFactory);
 
-    while (ctrl.run(this.memberServ)) {
+    while (ctrl.run(this.service)) {
     }
   }
 

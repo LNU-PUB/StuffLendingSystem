@@ -1,6 +1,6 @@
 package com.controller.model.commands;
 
-import com.model.MemberServices;
+import com.model.Services;
 
 /**
  * A command for advancing the time.
@@ -8,7 +8,7 @@ import com.model.MemberServices;
 public class AdvanceTimeCommand implements Command {
 
   @Override
-  public boolean execute(MemberServices memberServ) {
+  public boolean execute(Services memberServ) {
     int oldDay = memberServ.getDay();
     memberServ.advanceDay();
     int newDay = memberServ.getDay();

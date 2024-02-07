@@ -1,12 +1,12 @@
 package com.controller.model;
 
-import com.model.MemberServices;
+import com.model.Services;
 
 /**
  * The Controllers interface.
  */
 public interface Control {
-  public boolean run(MemberServices memberService);
+  public boolean run(Services memberService);
 
   /**
    * Checks if the string is an integer.

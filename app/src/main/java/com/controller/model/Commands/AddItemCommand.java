@@ -3,7 +3,7 @@ package com.controller.model.commands;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
-import com.model.MemberServices;
+import com.model.Services;
 import com.view.model.View;
 import com.view.model.ViewFactory;
 
@@ -25,7 +25,7 @@ public class AddItemCommand extends AbstractCommand {
   }
 
   @Override
-  public boolean execute(MemberServices memberServ) {
+  public boolean execute(Services memberServ) {
     ViewFactory factory = new ViewFactory();
     View view = factory.createEntityCreationView(language, BUNDLE_NAME);
     DisplayDataBundles bundle = new DisplayDataBundle(memberServ.getAllMembers(), null, null, null);

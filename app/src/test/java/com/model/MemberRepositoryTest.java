@@ -2,7 +2,6 @@ package com.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.model.lib.MemberRepository;
@@ -16,14 +15,11 @@ class MemberRepositoryTest {
 
   private MemberRepository sut;
 
-  @Mock
-  private TimeService mockTimeService;
-
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
     // Initialize MemberRepository with a mocked TimeService
-    sut = new MemberRepository(mockTimeService);
+    sut = new MemberRepository();
   }
 
   // Test for email validation

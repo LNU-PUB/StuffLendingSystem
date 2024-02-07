@@ -1,10 +1,9 @@
 package com.model.lib;
 
 import com.model.Member;
-import com.model.TimeService;
-import com.model.db.DataHandlerMember;
+import com.model.TimeRepository;
+import com.model.db.DataHandler;
 import com.model.db.DataHardCodedMember;
-import java.security.SecureRandom;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,21 +12,17 @@ import java.util.regex.Pattern;
  * The stuff lending system.
  */
 public final class MemberRepository implements MemberRepositories {
-  private final TimeService timeService;
-  private final DataHandlerMember dataHandler;
+  private final DataHandler dataHandler;
   private final LinkedList<Member> members;
-  // private final SecureRandom random;
   private static final int MIN_NAME_LENGTH = 2;
   private final IdGenerator<Member> idGenerator;
 
   /**
    * Creates a new instance of the stuff lending system.
    */
-  public MemberRepository(TimeService timeService) {
+  public MemberRepository() {
     this.dataHandler = new DataHardCodedMember();
     this.members = new LinkedList<Member>(dataHandler.getMembers());
-    // this.random = new SecureRandom();
-    this.timeService = new TimeService(timeService.getDay());
     this.idGenerator = new IdGenerator<Member>();
   }
 
@@ -36,10 +31,8 @@ public final class MemberRepository implements MemberRepositories {
    *
    * @param memberRepo - The member repository to copy.
    */
-  protected MemberRepository(int day, Iterable<Member> members) {
+  protected MemberRepository(Iterable<Member> members) {
     this.members = createMemberList(members);
-    // this.random = new SecureRandom();
-    this.timeService = new TimeService(day);
     this.dataHandler = null;
     this.idGenerator = new IdGenerator<Member>();
   }
@@ -87,7 +80,7 @@ public final class MemberRepository implements MemberRepositories {
     // String id = generateMemberId();
     String id = idGenerator.generateId(members);
 
-    Member newMember = new Member(id, data.getName(), data.getEmail(), data.getMobile(), timeService.getDay());
+    Member newMember = new Member(id, data.getName(), data.getEmail(), data.getMobile(), data.getCreationDay());
 
     synchronized (this) {
       if (!validateEmail(data.getEmail()) || !validateMobile(data.getMobile()) || !validateName(data.getName())) {
@@ -209,24 +202,6 @@ public final class MemberRepository implements MemberRepositories {
     Matcher matcher = namePattern.matcher(name);
 
     return matcher.matches();
-  }
-
-  /**
-   * Gets the current day.
-   *
-   * @return - The current day.
-   */
-  @Override
-  public int getDay() {
-    return this.timeService.getDay();
-  }
-
-  /**
-   * Advances the day.
-   */
-  @Override
-  public void advanceDay() {
-    this.timeService.advanceDay();
   }
 
   // *** Helper functions START ***

@@ -3,8 +3,8 @@ package com.controller;
 import com.controller.model.Control;
 import com.controller.model.InputService;
 import com.controller.model.Language;
-import com.model.MemberServices;
-import com.view.model.MenuViewFactory;
+import com.model.Services;
+import com.view.model.ViewFactoryProvider;
 
 /**
  * The ListItems controller.
@@ -14,7 +14,7 @@ public class ListItemsControl implements Control {
   private final Language language;
   private final InputService inputService;
   private final boolean detailedList;
-  private final MenuViewFactory viewFactory;
+  private final ViewFactoryProvider viewFactory;
 
   /**
    * Creates a new instance of the control.
@@ -24,7 +24,7 @@ public class ListItemsControl implements Control {
    * @param detailedList - true if the list should be detailed, false if not.
    */
   public ListItemsControl(Language language, InputService inputService,
-      boolean detailedList, MenuViewFactory viewFactory) {
+      boolean detailedList, ViewFactoryProvider viewFactory) {
     this.language = language;
     this.inputService = inputService;
     this.detailedList = detailedList;
@@ -32,7 +32,7 @@ public class ListItemsControl implements Control {
   }
 
   @Override
-  public boolean run(MemberServices memberService) {
+  public boolean run(Services service) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'run'");
   }

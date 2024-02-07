@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Handles data access and storage for Member objects.
  */
-public interface DataHandlerMember {
+public interface DataHandler {
   /**
    * Gets the member list.
    *

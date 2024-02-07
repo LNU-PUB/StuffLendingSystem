@@ -1,7 +1,7 @@
 package com.controller.model.commands;
 
 import com.model.Member;
-import com.model.MemberServices;
+import com.model.Services;
 import com.model.lib.BasicMemberData;
 
 /**
@@ -23,7 +23,7 @@ public class EditMemberCommand implements Command {
   }
 
   @Override
-  public boolean execute(MemberServices memberServ) {
+  public boolean execute(Services memberServ) {
     Member newMember = memberServ.updateMember(editedMemberData, member);
 
     return newMember.getId().equals(member.getId());

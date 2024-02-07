@@ -1,7 +1,7 @@
 package com.controller.model.commands;
 
 import com.model.Member;
-import com.model.MemberServices;
+import com.model.Services;
 import com.model.lib.BasicMemberData;
 
 /**
@@ -20,7 +20,7 @@ public class AddMemberCommand extends AbstractCommand {
   }
 
   @Override
-  public boolean execute(MemberServices memberServ) {
+  public boolean execute(Services memberServ) {
     Member newMember = memberServ.addMember(memberData);
     return newMember != null;
   }

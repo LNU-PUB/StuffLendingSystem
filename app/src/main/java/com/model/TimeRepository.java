@@ -3,13 +3,13 @@ package com.model;
 /**
  * The time service.
  */
-public class TimeService {
+public class TimeRepository implements TimeRepositories {
   private volatile Time currentTime;
 
   /**
    * Creates a new instance of the time service.
    */
-  public TimeService() {
+  public TimeRepository() {
     this.currentTime = new Time();
   }
 
@@ -18,7 +18,7 @@ public class TimeService {
    *
    * @param currentTime - The time to copy.
    */
-  public TimeService(int currentTime) {
+  public TimeRepository(int currentTime) {
     this.currentTime = new Time(currentTime);
   }
 

@@ -10,11 +10,11 @@ import com.controller.model.actions.ListMembersActions;
 import com.controller.model.commands.AddMemberCommand;
 import com.controller.model.commands.Command;
 import com.model.Member;
-import com.model.MemberServices;
+import com.model.Services;
 import com.model.lib.BasicMemberData;
-import com.view.model.MenuViewFactory;
 import com.view.model.View;
 import com.view.model.ViewFactory;
+import com.view.model.ViewFactoryProvider;
 
 /**
  * The control for listing members.
@@ -25,7 +25,7 @@ public class ListMemberControl extends AbstractMemberControl {
   private View view;
   private final InputService inputService;
   private final boolean detailedList;
-  private final MenuViewFactory viewFactory;
+  private final ViewFactoryProvider viewFactory;
 
   /**
    * Creates a new instance of the control.
@@ -35,7 +35,7 @@ public class ListMemberControl extends AbstractMemberControl {
    * @param detailedList - true if the list should be detailed, false if not.
    */
   public ListMemberControl(Language language, InputService inputService,
-      boolean detailedList, MenuViewFactory viewFactory) {
+      boolean detailedList, ViewFactoryProvider viewFactory) {
     super(inputService);
     this.language = language;
     this.inputService = inputService;
@@ -45,8 +45,8 @@ public class ListMemberControl extends AbstractMemberControl {
   }
 
   @Override
-  public boolean run(MemberServices memberServ) {
-    DisplayDataBundles bundle = new DisplayDataBundle(memberServ.getAllMembers(), null, null, null);
+  public boolean run(Services service) {
+    DisplayDataBundles bundle = new DisplayDataBundle(service.getAllMembers(), null, null, null);
     view.displayMenu(bundle);
     ListMembersActions action = ListMembersActions.UNKNOWN;
 
@@ -55,10 +55,10 @@ public class ListMemberControl extends AbstractMemberControl {
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
-        Member member = getMemberByIndex(memberServ.getAllMembers(), response.getIndex());
-        memberControl(memberServ, member);
+        Member member = getMemberByIndex(service.getAllMembers(), response.getIndex());
+        memberControl(service, member);
       } else if (action == ListMembersActions.ADDMEMBER) {
-        addMember(memberServ);
+        addMember(service);
       }
     } catch (Exception e) {
       view.displayError(e.getMessage());
@@ -113,23 +113,23 @@ public class ListMemberControl extends AbstractMemberControl {
     }
   }
 
-  private void memberControl(MemberServices memberServ, Member member) {
+  private void memberControl(Services service, Member member) {
     if (member == null) {
       return;
     }
 
     MemberControl memberControl = new MemberControl(language, inputService, member, viewFactory);
-    while (memberControl.run(memberServ)) {
+    while (memberControl.run(service)) {
     }
   }
 
-  private void addMember(MemberServices memberServ) {
+  private void addMember(Services service) {
 
     ViewFactory factory = new ViewFactory();
     View dataView = factory.createEntityCreationView(language, "BasicMemberData");
 
-    BasicMemberData memberData = getAllMemberData(dataView, memberServ);
+    BasicMemberData memberData = getAllMemberData(dataView, service);
     Command addMember = new AddMemberCommand(memberData);
-    addMember.execute(memberServ);
+    addMember.execute(service);
   }
 }

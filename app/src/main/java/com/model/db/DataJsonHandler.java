@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Handles the data.json file.
  */
-public class DataJsonHandler implements DataHandlerMember {
+public class DataJsonHandler implements DataHandler {
 
   /**
    * Gets the data from the Members.json file in resources.

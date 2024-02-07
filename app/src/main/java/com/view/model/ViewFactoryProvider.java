@@ -6,7 +6,7 @@ import com.model.Member;
 /**
  * Interface for the view factory.
  */
-public interface MenuViewFactory {
+public interface ViewFactoryProvider {
   public View createMainMenuView(Language language, String bundleName);
 
   public View createListMembersView(Language language, String bundleName, boolean detailedList);

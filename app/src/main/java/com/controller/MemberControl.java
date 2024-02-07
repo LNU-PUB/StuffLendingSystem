@@ -10,11 +10,10 @@ import com.controller.model.commands.Command;
 import com.controller.model.commands.DeleteMemberCommand;
 import com.controller.model.commands.EditMemberCommand;
 import com.model.Member;
-import com.model.MemberServices;
+import com.model.Services;
 import com.model.lib.BasicMemberData;
-import com.view.model.MenuViewFactory;
 import com.view.model.View;
-import com.view.model.ViewFactory;
+import com.view.model.ViewFactoryProvider;
 
 /**
  * The Member controller.
@@ -24,16 +23,16 @@ public class MemberControl extends AbstractMemberControl {
   private final InputService inputService;
   private final Language language;
   private Member member;
-  private MenuViewFactory viewFactory;
+  private ViewFactoryProvider viewFactory;
 
   /**
    * Creates a new instance of the control.
    *
    * @param language     - the language to use.
    * @param inputService - the input service to use.
-   * @param member - the member to operate on.
+   * @param member       - the member to operate on.
    */
-  public MemberControl(Language language, InputService inputService, Member member, MenuViewFactory viewFactory) {
+  public MemberControl(Language language, InputService inputService, Member member, ViewFactoryProvider viewFactory) {
     super(inputService, member);
     this.inputService = inputService;
     this.language = language;
@@ -47,18 +46,18 @@ public class MemberControl extends AbstractMemberControl {
    * @return true if the application should continue, false if the application
    *         should exit.
    */
-  public boolean run(MemberServices memberServ) {
+  public boolean run(Services service) {
     View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
-    DisplayDataBundles bundle = new DisplayDataBundle(memberServ.getAllMembers(), null, null, null);
+    DisplayDataBundles bundle = new DisplayDataBundle(service.getAllMembers(), null, null, null);
     view.displayMenu(bundle);
-    MemberActions action = getInput(memberServ);
+    MemberActions action = getInput(service);
 
     if (action == MemberActions.ADDCREDITS) {
       addCredits();
     } else if (action == MemberActions.DELETEMEMBER) {
-      deleteMember(memberServ);
+      deleteMember(service);
     } else if (action == MemberActions.EDITMEMBER) {
-      editMember(memberServ);
+      editMember(service);
     } else if (action == MemberActions.LISTITEMS) {
       listItems();
     } else if (action == MemberActions.NEWCONTRACT) {
@@ -68,7 +67,7 @@ public class MemberControl extends AbstractMemberControl {
     return action != MemberActions.EXIT;
   }
 
-  private MemberActions getInput(MemberServices memberServ) {
+  private MemberActions getInput(Services service) {
     View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayPrompt();
 
@@ -117,27 +116,27 @@ public class MemberControl extends AbstractMemberControl {
     throw new UnsupportedOperationException("Unimplemented method 'addCredits'");
   }
 
-  private void deleteMember(MemberServices memberServ) {
+  private void deleteMember(Services service) {
     Command deleteMember = new DeleteMemberCommand(member);
 
-    if (deleteMember.execute(memberServ)) {
+    if (deleteMember.execute(service)) {
       this.member = null;
     }
 
-    refreshMemberData(memberServ);
+    refreshMemberData(service);
   }
 
-  private void editMember(MemberServices memberServ) {
+  private void editMember(Services service) {
     View dataView = viewFactory.createSimplePromptView(language, "BasicMemberData");
 
-    BasicMemberData memberData = getAllMemberData(dataView, memberServ);
+    BasicMemberData memberData = getAllMemberData(dataView, service);
     Command editMember = new EditMemberCommand(memberData, member);
-    if (editMember.execute(memberServ)) {
+    if (editMember.execute(service)) {
       Member newMember = new Member(member.getId(), memberData.getName(), memberData.getEmail(),
           memberData.getMobile(), member.getMemberCreationDay());
       this.member = newMember;
     }
 
-    refreshMemberData(memberServ);
+    refreshMemberData(service);
   }
 }

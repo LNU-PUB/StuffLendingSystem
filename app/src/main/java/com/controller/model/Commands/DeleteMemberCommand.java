@@ -1,7 +1,7 @@
 package com.controller.model.commands;
 
 import com.model.Member;
-import com.model.MemberServices;
+import com.model.Services;
 
 /**
  * The DeleteMember command.
@@ -19,7 +19,7 @@ public class DeleteMemberCommand implements Command {
   }
 
   @Override
-  public boolean execute(MemberServices memberServ) {
+  public boolean execute(Services memberServ) {
     return memberServ.deleteMember(member);
   }
   

@@ -1,7 +1,7 @@
 package com.controller.model;
 
 import com.model.Member;
-import com.model.MemberServices;
+import com.model.Services;
 import com.model.lib.BasicMemberData;
 import com.view.model.View;
 
@@ -22,25 +22,25 @@ public abstract class AbstractMemberControl implements Control {
     this.member = member;
   }
 
-  protected BasicMemberData getAllMemberData(View dataView, MemberServices memberServ) {
+  protected BasicMemberData getAllMemberData(View dataView, Services service) {
     // data: name, email, mobile, item list, credits.
     try {
-      String name = getName(dataView, memberServ);
-      String email = getEmail(dataView, memberServ);
-      String mobile = getMobile(dataView, memberServ);
+      String name = getName(dataView, service);
+      String email = getEmail(dataView, service);
+      String mobile = getMobile(dataView, service);
 
       // BasicMemberData memberData = new BasicMemberData(name, email, mobile);
 
       // return args.getMemberRepo().addNewMember(memberData);
 
-      return new BasicMemberData(name, email, mobile);
+      return new BasicMemberData(name, email, mobile, service.getDay());
     } catch (Exception e) {
       dataView.displayError(e.getMessage());
       return null;
     }
   }
 
-  private String getName(View dataView, MemberServices memberServ) {
+  private String getName(View dataView, Services service) {
     int counter = 0;
 
     while (counter < 3) {
@@ -57,7 +57,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (memberServ.validateName(name)) {
+        if (service.validateName(name)) {
           return name;
         }
       } else {
@@ -65,7 +65,7 @@ public abstract class AbstractMemberControl implements Control {
           if (name.equals(member.getName())) {
             return member.getName();
           } else {
-            if (memberServ.validateName(name)) {
+            if (service.validateName(name)) {
               return name;
             }
           }
@@ -81,7 +81,7 @@ public abstract class AbstractMemberControl implements Control {
     throw new RuntimeException("Failed to get name.");
   }
 
-  private String getEmail(View dataView, MemberServices memberServ) {
+  private String getEmail(View dataView, Services service) {
     int counter = 0;
 
     while (counter < 3) {
@@ -98,7 +98,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (memberServ.validateEmail(email)) {
+        if (service.validateEmail(email)) {
           return email;
         }
       } else {
@@ -106,7 +106,7 @@ public abstract class AbstractMemberControl implements Control {
           if (email.equals(member.getEmail())) {
             return member.getEmail();
           } else {
-            if (memberServ.validateEmail(email)) {
+            if (service.validateEmail(email)) {
               return email;
             }
           }
@@ -122,7 +122,7 @@ public abstract class AbstractMemberControl implements Control {
     throw new RuntimeException("Failed to get email.");
   }
 
-  private String getMobile(View dataView, MemberServices memberServ) {
+  private String getMobile(View dataView, Services service) {
     int counter = 0;
 
     while (counter < 3) {
@@ -139,7 +139,7 @@ public abstract class AbstractMemberControl implements Control {
       }
 
       if (member == null) {
-        if (memberServ.validateMobile(mobile)) {
+        if (service.validateMobile(mobile)) {
           return mobile;
         }
       } else {
@@ -147,7 +147,7 @@ public abstract class AbstractMemberControl implements Control {
           if (mobile.equals(member.getMobile())) {
             return member.getMobile();
           } else {
-            if (memberServ.validateMobile(mobile)) {
+            if (service.validateMobile(mobile)) {
               return mobile;
             }
           }
@@ -163,9 +163,9 @@ public abstract class AbstractMemberControl implements Control {
     throw new RuntimeException("Failed to get mobile.");
   }
 
-  protected void refreshMemberData(MemberServices memberServ) {
+  protected void refreshMemberData(Services service) {
     if (this.member != null) {
-      this.member = memberServ.getMemberById(this.member.getId());
+      this.member = service.getMemberById(this.member.getId());
     }
   }
 }

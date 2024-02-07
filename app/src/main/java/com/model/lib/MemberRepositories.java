@@ -1,7 +1,7 @@
 package com.model.lib;
 
 import com.model.Member;
-import com.model.TimeService;
+import com.model.TimeRepository;
 
 /**
  * The member repositories interface.
@@ -46,18 +46,6 @@ public interface MemberRepositories {
    * @return - true if the member was deleted, false if not.
    */
   public boolean deleteMember(Member member);
-
-  /**
-   * Gets the current day.
-   *
-   * @return - the current day.
-   */
-  public int getDay();
-
-  /**
-   * Advances the day.
-   */
-  public void advanceDay();
 
   /**
    * Validates an email.

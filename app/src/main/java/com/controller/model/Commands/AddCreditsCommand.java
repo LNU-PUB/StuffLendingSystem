@@ -1,6 +1,6 @@
 package com.controller.model.commands;
 
-import com.model.MemberServices;
+import com.model.Services;
 
 /**
  * The AddCredits command.
@@ -8,7 +8,7 @@ import com.model.MemberServices;
 public class AddCreditsCommand implements Command {
 
   @Override
-  public boolean execute(MemberServices memberServ) {
+  public boolean execute(Services memberServ) {
     throw new UnsupportedOperationException("Unimplemented method 'execute'");
   }
   

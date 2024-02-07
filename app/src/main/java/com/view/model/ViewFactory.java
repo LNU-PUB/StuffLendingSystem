@@ -12,7 +12,7 @@ import com.view.SimplePromptView;
 /**
  * The view factory.
  */
-public class ViewFactory implements MenuViewFactory {
+public class ViewFactory implements ViewFactoryProvider {
 
   @Override
   public View createMainMenuView(Language language, String bundleName) {

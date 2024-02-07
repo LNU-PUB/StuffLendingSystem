@@ -1,12 +1,11 @@
 package com.model;
 
 import com.model.lib.BasicMemberData;
-import com.model.lib.MemberRepository;
 
 /**
  * Member Service interface.
  */
-public interface MemberServices {
+public interface Services {
   /**
    * Get a list of all Members.
    *
