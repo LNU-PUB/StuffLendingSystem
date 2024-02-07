@@ -1,5 +1,8 @@
 package com.controller.model.actions;
 
+/**
+ * The actions for the list items control.
+ */
 public enum ListItemsActions {
   ADDITEM("addItem", 'a'),
   SELECTEDITEM("selectedItem", 's'),

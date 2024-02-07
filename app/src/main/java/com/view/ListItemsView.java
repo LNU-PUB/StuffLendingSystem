@@ -22,7 +22,10 @@ public class ListItemsView extends AbstractView {
   public void displayMenu(DisplayDataBundles bundle) {
     cleanScreen();
     displayGreeting();
-    display(bundle.getItems());
+
+    if (detailedList || !detailedList) {
+      display(bundle.getItems());
+    }
   }
 
   private void display(Iterable<Item> itemList) {

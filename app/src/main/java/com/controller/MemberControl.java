@@ -110,7 +110,7 @@ public class MemberControl extends AbstractMemberControl {
 
   private void listItems(Services service) {
     ListItemsControl listItemsControl = new ListItemsControl(language, inputService, true, viewFactory, member);
-    while(listItemsControl.run(service)) {
+    while (listItemsControl.run(service)) {
     }
   }
 
