@@ -4,7 +4,7 @@ import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
 import com.model.db.DataHandler;
-import com.model.db.DataHardCodedMember;
+import com.model.db.HardCodedData;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,29 +12,23 @@ import java.util.List;
  * Item Repository.
  */
 public class ItemRepository implements ItemRepositories {
-  private final TimeRepository timeService;
   private final LinkedList<Item> items;
   private final DataHandler dataHandler;
 
   /**
    * Constructor.
-   *
-   * @param timeService - time service
    */
-  public ItemRepository(TimeRepository timeService) {
-    this.timeService = timeService;
-    this.dataHandler = new DataHardCodedMember();
+  public ItemRepository() {
+    this.dataHandler = new HardCodedData();
     this.items = new LinkedList<Item>(dataHandler.getItems());
   }
 
   /**
    * Constructor.
    *
-   * @param timeService - time service
    * @param allItems    - all items
    */
-  public ItemRepository(TimeRepository timeService, Iterable<Item> allItems) {
-    this.timeService = timeService;
+  public ItemRepository(Iterable<Item> allItems) {
     this.items = createItemList(allItems);
     this.dataHandler = null;
   }
@@ -48,7 +42,7 @@ public class ItemRepository implements ItemRepositories {
   }
 
   @Override
-  public Iterable<Item> getAllItems() {
+  public Iterable<Item> getItems() {
     return new LinkedList<Item>(items);
   }
 
@@ -81,14 +75,15 @@ public class ItemRepository implements ItemRepositories {
   }
 
   @Override
-  public int getDay() {
-    return timeService.getDay();
-  }
+  public Iterable<Item> getItemsByMember(Member member) {
+    LinkedList<Item> memberItems = new LinkedList<Item>();
+    for (Item item : items) {
+      if (item.getOwner().equals(member) || member.getId().equals(item.getOwner().getId())) {
+        memberItems.add(item);
+      }
+    }
 
-  @Override
-  public List<Item> getItemsByMember(Member member) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getItemsByMember'");
+    return memberItems;
   }
 
   @Override

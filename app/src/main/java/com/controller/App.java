@@ -3,6 +3,8 @@ package com.controller;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.Services;
+import com.model.lib.ItemRepositories;
+import com.model.lib.ItemRepository;
 import com.model.lib.MemberRepositories;
 import com.model.lib.MemberRepository;
 import com.model.lib.Service;
@@ -35,7 +37,8 @@ public class App {
   private Services createService() {
     TimeRepositories timeRepo = new TimeRepository();
     MemberRepositories memberRepo = new MemberRepository();
-    return new Service(memberRepo, timeRepo);
+    ItemRepositories itemRepo = new ItemRepository();
+    return new Service(timeRepo, memberRepo, itemRepo);
   }
 
   protected Language setLanguage(String[] args) {

@@ -1,5 +1,6 @@
 package com.model.lib;
 
+import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 
@@ -7,13 +8,24 @@ import com.model.Services;
  * Member Service.
  */
 public final class Service implements Services {
-  private final MemberRepositories memberRepo;
   private final TimeRepositories timeRepo;
-
-  public Service(MemberRepositories memberRepo, TimeRepositories timeRepo) {
-    this.memberRepo = new MemberRepository(memberRepo.getMembers());
+  private final MemberRepositories memberRepo;
+  private final ItemRepositories itemRepo;
+  
+  /**
+   * Constructor.
+   *
+   * @param timeRepo   - time repository
+   * @param memberRepo - member repository
+   * @param itemRepo   - item repository
+   */
+  public Service(TimeRepositories timeRepo, MemberRepositories memberRepo, ItemRepositories itemRepo) {
     this.timeRepo = new TimeRepository(timeRepo.getDay());
+    this.memberRepo = new MemberRepository(memberRepo.getMembers());
+    this.itemRepo = new ItemRepository(itemRepo.getItems());
   }
+
+  // ***** Members *****
 
   @Override
   public Iterable<Member> getAllMembers() {
@@ -66,6 +78,7 @@ public final class Service implements Services {
     return memberRepo.validateMobile(mobile);
   }
 
+  // ***** Time *****
   @Override
   public int getDay() {
     return timeRepo.getDay();
@@ -74,5 +87,17 @@ public final class Service implements Services {
   @Override
   public void advanceDay() {
     timeRepo.advanceDay();
+  }
+
+  // ***** Items *****
+
+  @Override
+  public Iterable<Item> getAllItems() {
+    return itemRepo.getItems();
+  }
+
+  @Override
+  public Iterable<Item> getItemsByMember(Member member) {
+    return itemRepo.getItemsByMember(member);
   }
 }

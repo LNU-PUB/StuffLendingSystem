@@ -2,6 +2,7 @@ package com.view;
 
 import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
+import com.model.Item;
 import com.model.Member;
 import com.view.model.AbstractView;
 import java.util.Collection;
@@ -12,7 +13,7 @@ import java.util.Collection;
 public class ListItemsView extends AbstractView {
   private boolean detailedList;
 
-  public ListItemsView(Language language, String bundleName, boolean detailedList) {
+  public ListItemsView(Language language, String bundleName, boolean detailedList, Member member) {
     super(language, bundleName);
     this.detailedList = detailedList;
   }
@@ -21,46 +22,31 @@ public class ListItemsView extends AbstractView {
   public void displayMenu(DisplayDataBundles bundle) {
     cleanScreen();
     displayGreeting();
-    // this.memberList = memberServ.getAllMembers();
-    if (detailedList) {
-      displayDetailedMenu(bundle.getMembers());
-    } else {
-      displaySimpleMenu(bundle.getMembers());
-    }
+    display(bundle.getItems());
   }
 
-  private void displayDetailedMenu(Iterable<Member> members) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'displayDetailedMenu'");
-  }
-
-  private void displaySimpleMenu(Iterable<Member> memberList) {
+  private void display(Iterable<Item> itemList) {
     System.out.println("- " + texts.getString("title") + " -\n");
-    System.out.println("Members: " + getSizeOfTheMembersList(memberList));
+    System.out.println("Items: " + getSizeOfTheList(itemList));
     int index = 0;
-    for (Member member : memberList) {
-      // String outputString = String.format("%d - %s, (email: %s, credits: %d, Items:
-      // %d)", i,
-      // member.getName(), member.getEmail(), member.getCredits(),
-      // member.getNumberOfItems());
-      String outputString = String.format("%d - %s, (email: %s)", index,
-          member.getName(), member.getEmail());
+    for (Item item : itemList) {
+      String outputString = String.format("%d. %s %s", index, item.getName(), item.getCategory());
 
       System.out.println(outputString);
       index++;
     }
 
     System.out.println();
-    System.out.println("a - " + texts.getString("addMember"));
+    System.out.println("a - " + texts.getString("addItem"));
     System.out.println("x - " + texts.getString("exit"));
   }
-  
-  private int getSizeOfTheMembersList(Iterable<Member> members) {
-    if (members instanceof Collection<?>) {
-      return ((Collection<?>) members).size();
+
+  private int getSizeOfTheList(Iterable<Item> items) {
+    if (items instanceof Collection<?>) {
+      return ((Collection<?>) items).size();
     } else {
       int size = 0;
-      for (Member member : members) {
+      for (Item item : items) {
         size++;
       }
       return size;

@@ -59,7 +59,7 @@ public class MemberControl extends AbstractMemberControl {
     } else if (action == MemberActions.EDITMEMBER) {
       editMember(service);
     } else if (action == MemberActions.LISTITEMS) {
-      listItems();
+      listItems(service);
     } else if (action == MemberActions.NEWCONTRACT) {
       createNewContract();
     }
@@ -108,8 +108,10 @@ public class MemberControl extends AbstractMemberControl {
     throw new UnsupportedOperationException("Unimplemented method 'createNewContractContract'");
   }
 
-  private void listItems() {
-    throw new UnsupportedOperationException("Unimplemented method 'listItems'");
+  private void listItems(Services service) {
+    ListItemsControl listItemsControl = new ListItemsControl(language, inputService, true, viewFactory, member);
+    while(listItemsControl.run(service)) {
+    }
   }
 
   private void addCredits() {

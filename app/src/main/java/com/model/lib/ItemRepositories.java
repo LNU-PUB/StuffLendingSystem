@@ -14,7 +14,7 @@ public interface ItemRepositories {
    *
    * @return - list of all Items.
    */
-  public Iterable<Item> getAllItems();
+  public Iterable<Item> getItems();
 
   /**
    * Get an Item by id.
@@ -49,19 +49,12 @@ public interface ItemRepositories {
   public boolean deleteItem(Item item);
 
   /**
-   * Gets the current day.
-   *
-   * @return - the current day.
-   */
-  public int getDay();
-
-  /**
    * Get a list of all of a member's items.
    *
    * @param member - member to get items for.
    * @return - list of items for member.
    */
-  public List<Item> getItemsByMember(Member member);
+  public Iterable<Item> getItemsByMember(Member member);
 
   /**
    * Get a list of all items in a category.

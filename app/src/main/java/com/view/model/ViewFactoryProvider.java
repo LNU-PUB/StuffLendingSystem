@@ -17,5 +17,5 @@ public interface ViewFactoryProvider {
 
   public View createEntityCreationView(Language language, String bundleName);
 
-  public View createListItemsView(Language language, String bundleName, boolean detailedList);
+  public View createListItemsView(Language language, String bundleName, boolean detailedList, Member member);
 }

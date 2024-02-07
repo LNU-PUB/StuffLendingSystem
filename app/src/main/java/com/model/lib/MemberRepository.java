@@ -2,7 +2,7 @@ package com.model.lib;
 
 import com.model.Member;
 import com.model.db.DataHandler;
-import com.model.db.DataHardCodedMember;
+import com.model.db.HardCodedData;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +20,7 @@ public final class MemberRepository implements MemberRepositories {
    * Creates a new instance of the stuff lending system.
    */
   public MemberRepository() {
-    this.dataHandler = new DataHardCodedMember();
+    this.dataHandler = new HardCodedData();
     this.members = new LinkedList<Member>(dataHandler.getMembers());
     this.idGenerator = new IdGenerator<Member>();
   }

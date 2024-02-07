@@ -2,7 +2,7 @@ package com.model.lib;
 
 import com.model.Contract;
 import com.model.db.DataHandler;
-import com.model.db.DataHardCodedMember;
+import com.model.db.HardCodedData;
 import java.util.LinkedList;
 
 /**
@@ -13,7 +13,7 @@ public class ContractRepository implements ContractRepositories {
   private final DataHandler dataHandler;
 
   public ContractRepository() {
-    this.dataHandler = new DataHardCodedMember();
+    this.dataHandler = new HardCodedData();
     this.contracts = new LinkedList<Contract>(dataHandler.getContracts());
   }
 

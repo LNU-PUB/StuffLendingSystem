@@ -6,6 +6,9 @@ import com.model.lib.BasicMemberData;
  * Member Service interface.
  */
 public interface Services {
+
+  // ***** Members *****
+
   /**
    * Get a list of all Members.
    *
@@ -70,6 +73,8 @@ public interface Services {
    */
   public boolean validateMobile(String mobile);
 
+  //***** Time *****
+
   /**
    * Get the current day.
    *
@@ -81,4 +86,20 @@ public interface Services {
    * Advance the day.
    */
   public void advanceDay();
+
+  // ***** Items *****
+  /**
+   * Get a list of all Items.
+   *
+   * @return - list of all Items.
+   */
+  public Iterable<Item> getAllItems();
+
+  /**
+   * Get an Item by member.
+   *
+   * @param member - member to get items for
+   * @return - list of items
+   */
+  public Iterable<Item> getItemsByMember(Member member);
 }

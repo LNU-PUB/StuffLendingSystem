@@ -40,8 +40,8 @@ public class ViewFactory implements ViewFactoryProvider {
   }
 
   @Override
-  public View createListItemsView(Language language, String bundleName, boolean detailedList) {
-    return new ListItemsView(language, bundleName, detailedList);
+  public View createListItemsView(Language language, String bundleName, boolean detailedList, Member member) {
+    return new ListItemsView(language, bundleName, detailedList, member);
   }
   
 }
