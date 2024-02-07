@@ -11,11 +11,11 @@ import java.util.Collection;
  * A view for listing items.
  */
 public class ListItemsView extends AbstractView {
-  private boolean detailedList;
+  private boolean listAllItems;
 
-  public ListItemsView(Language language, String bundleName, boolean detailedList, Member member) {
+  public ListItemsView(Language language, String bundleName, boolean listAllItems, Member member) {
     super(language, bundleName);
-    this.detailedList = detailedList;
+    this.listAllItems = listAllItems;
   }
 
   @Override
@@ -23,9 +23,7 @@ public class ListItemsView extends AbstractView {
     cleanScreen();
     displayGreeting();
 
-    if (detailedList || !detailedList) {
-      display(bundle.getItems());
-    }
+    display(bundle.getItems());
   }
 
   private void display(Iterable<Item> itemList) {
@@ -33,7 +31,10 @@ public class ListItemsView extends AbstractView {
     System.out.println("Items: " + getSizeOfTheList(itemList));
     int index = 0;
     for (Item item : itemList) {
-      String outputString = String.format("%d. %s %s", index, item.getName(), item.getCategory());
+      String outputString = listAllItems
+          ? String.format("%d. %s %s %s", index, item.getName(), item.getOwner().getName(),
+              item.getCategory().getDisplayName())
+          : String.format("%d. %s %s", index, item.getName(), item.getCategory().getDisplayName());
 
       System.out.println(outputString);
       index++;

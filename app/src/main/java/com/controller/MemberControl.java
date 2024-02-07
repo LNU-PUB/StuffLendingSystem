@@ -60,6 +60,8 @@ public class MemberControl extends AbstractMemberControl {
       editMember(service);
     } else if (action == MemberActions.LISTITEMS) {
       listItems(service);
+    } else if (action == MemberActions.LISTALLITEMS) {
+      listAllItems(service);
     } else if (action == MemberActions.NEWCONTRACT) {
       createNewContract();
     }
@@ -97,6 +99,9 @@ public class MemberControl extends AbstractMemberControl {
     if (inputChar == MemberActions.LISTITEMS.getSelector()) {
       return MemberActions.LISTITEMS;
     }
+    if (inputChar == MemberActions.LISTALLITEMS.getSelector()) {
+      return MemberActions.LISTALLITEMS;
+    }
     if (inputChar == MemberActions.NEWCONTRACT.getSelector()) {
       return MemberActions.NEWCONTRACT;
     }
@@ -109,7 +114,13 @@ public class MemberControl extends AbstractMemberControl {
   }
 
   private void listItems(Services service) {
-    ListItemsControl listItemsControl = new ListItemsControl(language, inputService, true, viewFactory, member);
+    ListItemsControl listItemsControl = new ListItemsControl(language, inputService, false, viewFactory, member);
+    while (listItemsControl.run(service)) {
+    }
+  }
+
+  private void listAllItems(Services service) {
+    ListItemsControl listItemsControl = new ListItemsControl(language, inputService, true, viewFactory, null);
     while (listItemsControl.run(service)) {
     }
   }

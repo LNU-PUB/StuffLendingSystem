@@ -12,6 +12,7 @@ public enum MemberActions implements Actions {
   ADDCREDITS("addCredits", 'c'),
   NEWCONTRACT("newContract", 'n'),
   LISTITEMS("listItems", 'l'),
+  LISTALLITEMS("listAllItems", 'a'),
   UNKNOWN("unknown", 'u'),
   EXIT("exit", 'x');
 

@@ -42,7 +42,9 @@ public class ListItemsControl implements Control {
 
   @Override
   public boolean run(Services service) {
-    DisplayDataBundle bundle = new DisplayDataBundle(null, service.getItemsByMember(member), null, null);
+    DisplayDataBundle bundle = member != null
+        ? new DisplayDataBundle(null, service.getItemsByMember(member), null, null)
+        : new DisplayDataBundle(null, service.getAllItems(), null, null);
     view.displayMenu(bundle);
     ListItemsActions action = ListItemsActions.UNKNOWN;
 
