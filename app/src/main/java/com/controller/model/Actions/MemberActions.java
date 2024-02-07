@@ -7,19 +7,19 @@ import java.util.List;
  * Represents the actions that can be performed on a member.
  */
 public enum MemberActions implements Actions {
-  EDITMEMBER("editMember", 'e'),
-  DELETEMEMBER("deleteMember", 'd'),
-  ADDCREDITS("addCredits", 'c'),
-  NEWCONTRACT("newContract", 'n'),
-  LISTITEMS("listItems", 'l'),
-  LISTALLITEMS("listAllItems", 'a'),
-  UNKNOWN("unknown", 'u'),
-  EXIT("exit", 'x');
+  EDITMEMBER("editMember", "e "),
+  DELETEMEMBER("deleteMember", "d "),
+  ADDCREDITS("addCredits", "ac"),
+  NEWCONTRACT("newContract", "nc"),
+  LISTITEMS("listItems", "l "),
+  LISTALLITEMS("listAllItems", "la"),
+  UNKNOWN("unknown", "u "),
+  EXIT("exit", "x ");
 
   private final String name;
-  private final char selector;
+  private final String selector;
 
-  MemberActions(String name, char selector) {
+  MemberActions(String name, String selector) {
     this.name = name;
     this.selector = selector;
   }
@@ -28,13 +28,13 @@ public enum MemberActions implements Actions {
     return name;
   }
 
-  public char getSelector() {
+  public String getSelector() {
     return selector;
   }
 
   @Override
-  public List<Character> getValidSelectors() {
-    List<Character> selectors = new ArrayList<>();
+  public List<String> getValidSelectors() {
+    List<String> selectors = new ArrayList<>();
     for (MemberActions action : MemberActions.values()) {
       selectors.add(action.getSelector());
     }

@@ -83,24 +83,24 @@ public class ListMemberControl extends AbstractMemberControl {
 
   private ListMembersResponse getInput() {
     view.displayPrompt();
-    String userInput = inputService.readLine();
+    String userInput = inputService.readLine().trim();
+
+    if (userInput == null || userInput.isEmpty()) {
+      return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
+    } 
 
     if (isNumericInteger(userInput)) {
       int index = Integer.parseInt(userInput);
       return new ListMembersResponse(ListMembersActions.SELECTEDMEMBER, index);
-    } else {
-      switch (userInput) {
-        case "a":
-          return new ListMembersResponse(ListMembersActions.ADDMEMBER, -1);
-        case "x":
-        case "X":
-        case "q":
-        case "Q":
-          return new ListMembersResponse(ListMembersActions.EXIT, -1);
-        default:
-          return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
+    }
+
+    for (ListMembersActions action : ListMembersActions.values()) {
+      if (userInput.equalsIgnoreCase(action.getSelector().trim())) {
+        return new ListMembersResponse(action, -1);
       }
     }
+
+    return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
   }
 
   private ListMembersResponse getStaticInput() {

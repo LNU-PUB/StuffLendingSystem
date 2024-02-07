@@ -61,22 +61,17 @@ public class MainControl implements Control {
 
   private MainActions getInput() {
     view.displayPrompt();
-    String userInput = inputService.readLine();
+    String userInput = inputService.readLine().trim();
 
-    if (userInput != null && userInput.length() == 1) {
-      userInput = userInput.trim();
-      char inputChar = userInput.charAt(0);
-      List<Character> validSelectors = MainActions.UNKNOWN.getValidSelectors();
-      if (validSelectors.contains(inputChar)) {
-        for (MainActions action : MainActions.values()) {
-          if (action.getSelector() == inputChar) {
-            return action;
-          }
-        }
+    if (userInput == null || userInput.isEmpty()) {
+      return MainActions.UNKNOWN;
+    }
+    for (MainActions action : MainActions.values()) {
+      if (userInput.equalsIgnoreCase(action.getSelector().trim())) {
+        return action;
       }
     }
-
-    view.displayError("Invalid selection");
+    
     return MainActions.UNKNOWN;
   }
 

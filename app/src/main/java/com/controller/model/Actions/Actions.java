@@ -8,7 +8,7 @@ import java.util.List;
 public interface Actions {
   public String getName();
 
-  public char getSelector();
+  public String getSelector();
 
-  public List<Character> getValidSelectors();
+  public List<String> getValidSelectors();
 }

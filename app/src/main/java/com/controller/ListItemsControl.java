@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.List;
+
 import com.controller.model.Control;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.InputService;
@@ -81,24 +83,25 @@ public class ListItemsControl implements Control {
   }
 
   private ListItemsResponse getInput(Services service) {
-    String input = inputService.readLine();
-    ListItemsActions action = ListItemsActions.UNKNOWN;
+    view.displayPrompt();
+    String input = inputService.readLine().trim();
 
-    if (input.equalsIgnoreCase("a")) {
-      action = ListItemsActions.ADDITEM;
-    } else if (input.equalsIgnoreCase("x")) {
-      action = ListItemsActions.EXIT;
-    } else {
-      try {
-        int index = Integer.parseInt(input);
-        action = ListItemsActions.SELECTEDITEM;
-        return new ListItemsResponse(action, index);
-      } catch (NumberFormatException e) {
-        System.out.println("Invalid input. Please try again.");
+    if (input == null || input.isEmpty()) {
+      return new ListItemsResponse(ListItemsActions.UNKNOWN, -1);
+    }
+
+    if (isNumericInteger(input)) {
+      int index = Integer.parseInt(input);
+      return new ListItemsResponse(ListItemsActions.SELECTEDITEM, index);
+    }
+
+    for (ListItemsActions action : ListItemsActions.values()) {
+      if (input.equalsIgnoreCase(action.getSelector().trim())) {
+        return new ListItemsResponse(action, -1);
       }
     }
 
-    return new ListItemsResponse(action, -1);
+    return new ListItemsResponse(ListItemsActions.UNKNOWN, -1);
   }
 
 }

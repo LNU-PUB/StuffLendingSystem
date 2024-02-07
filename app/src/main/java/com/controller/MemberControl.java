@@ -73,37 +73,15 @@ public class MemberControl extends AbstractMemberControl {
     View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayPrompt();
 
-    String input = inputService.readLine();
+    String input = inputService.readLine().trim();
     if (input == null || input.isEmpty()) {
       return MemberActions.UNKNOWN;
-    } else {
-      input = input.trim();
     }
-    char inputChar = input.length() == 1 ? input.charAt(0) : ' ';
 
-    if (inputChar == ' ') {
-      return MemberActions.UNKNOWN;
-    }
-    if (inputChar == MemberActions.EXIT.getSelector()) {
-      return MemberActions.EXIT;
-    }
-    if (inputChar == MemberActions.ADDCREDITS.getSelector()) {
-      return MemberActions.ADDCREDITS;
-    }
-    if (inputChar == MemberActions.DELETEMEMBER.getSelector()) {
-      return MemberActions.DELETEMEMBER;
-    }
-    if (inputChar == MemberActions.EDITMEMBER.getSelector()) {
-      return MemberActions.EDITMEMBER;
-    }
-    if (inputChar == MemberActions.LISTITEMS.getSelector()) {
-      return MemberActions.LISTITEMS;
-    }
-    if (inputChar == MemberActions.LISTALLITEMS.getSelector()) {
-      return MemberActions.LISTALLITEMS;
-    }
-    if (inputChar == MemberActions.NEWCONTRACT.getSelector()) {
-      return MemberActions.NEWCONTRACT;
+    for (MemberActions action : MemberActions.values()) {
+      if (input.equalsIgnoreCase(action.getSelector().trim())) {
+        return action;
+      }
     }
 
     return MemberActions.UNKNOWN;
