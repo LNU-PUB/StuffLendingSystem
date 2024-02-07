@@ -73,10 +73,12 @@ public class MemberControl extends AbstractMemberControl {
     View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayPrompt();
 
-    String input = inputService.readLine().trim();
+    String input = inputService.readLine();
     if (input == null || input.isEmpty()) {
       return MemberActions.UNKNOWN;
     }
+
+    input = input.trim();
 
     for (MemberActions action : MemberActions.values()) {
       if (input.equalsIgnoreCase(action.getSelector().trim())) {

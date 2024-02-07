@@ -11,7 +11,6 @@ import com.controller.model.commands.Command;
 import com.model.Services;
 import com.view.model.View;
 import com.view.model.ViewFactoryProvider;
-import java.util.List;
 
 /**
  * The controller.
@@ -61,11 +60,14 @@ public class MainControl implements Control {
 
   private MainActions getInput() {
     view.displayPrompt();
-    String userInput = inputService.readLine().trim();
+    String userInput = inputService.readLine();
 
     if (userInput == null || userInput.isEmpty()) {
       return MainActions.UNKNOWN;
     }
+
+    userInput = userInput.trim();
+    
     for (MainActions action : MainActions.values()) {
       if (userInput.equalsIgnoreCase(action.getSelector().trim())) {
         return action;

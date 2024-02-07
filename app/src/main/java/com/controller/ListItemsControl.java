@@ -1,7 +1,5 @@
 package com.controller;
 
-import java.util.List;
-
 import com.controller.model.Control;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.InputService;
@@ -84,11 +82,13 @@ public class ListItemsControl implements Control {
 
   private ListItemsResponse getInput(Services service) {
     view.displayPrompt();
-    String input = inputService.readLine().trim();
+    String input = inputService.readLine();
 
     if (input == null || input.isEmpty()) {
       return new ListItemsResponse(ListItemsActions.UNKNOWN, -1);
     }
+
+    input = input.trim();
 
     if (isNumericInteger(input)) {
       int index = Integer.parseInt(input);

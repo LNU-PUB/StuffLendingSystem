@@ -13,18 +13,20 @@ public class MemberActionsTest {
     assertEquals("addCredits", MemberActions.ADDCREDITS.getName());
     assertEquals("newContract", MemberActions.NEWCONTRACT.getName());
     assertEquals("listItems", MemberActions.LISTITEMS.getName());
+    assertEquals("listAllItems", MemberActions.LISTALLITEMS.getName());
     assertEquals("unknown", MemberActions.UNKNOWN.getName());
     assertEquals("exit", MemberActions.EXIT.getName());
   }
 
   @Test
   public void testGetSelector() {
-    assertEquals('e', MemberActions.EDITMEMBER.getSelector());
-    assertEquals('d', MemberActions.DELETEMEMBER.getSelector());
-    assertEquals('c', MemberActions.ADDCREDITS.getSelector());
-    assertEquals('n', MemberActions.NEWCONTRACT.getSelector());
-    assertEquals('l', MemberActions.LISTITEMS.getSelector());
-    assertEquals('u', MemberActions.UNKNOWN.getSelector());
-    assertEquals('x', MemberActions.EXIT.getSelector());
+    assertEquals("e", MemberActions.EDITMEMBER.getSelector().trim());
+    assertEquals("d", MemberActions.DELETEMEMBER.getSelector().trim());
+    assertEquals("ac", MemberActions.ADDCREDITS.getSelector().trim());
+    assertEquals("nc", MemberActions.NEWCONTRACT.getSelector().trim());
+    assertEquals("l", MemberActions.LISTITEMS.getSelector().trim());
+    assertEquals("la", MemberActions.LISTALLITEMS.getSelector().trim());
+    assertEquals("u", MemberActions.UNKNOWN.getSelector().trim());
+    assertEquals("x", MemberActions.EXIT.getSelector().trim());
   }
 }

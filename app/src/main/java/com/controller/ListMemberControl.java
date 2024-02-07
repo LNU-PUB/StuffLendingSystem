@@ -83,11 +83,13 @@ public class ListMemberControl extends AbstractMemberControl {
 
   private ListMembersResponse getInput() {
     view.displayPrompt();
-    String userInput = inputService.readLine().trim();
+    String userInput = inputService.readLine();
 
     if (userInput == null || userInput.isEmpty()) {
       return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
     } 
+
+    userInput = userInput.trim();
 
     if (isNumericInteger(userInput)) {
       int index = Integer.parseInt(userInput);

@@ -17,10 +17,10 @@ class MainActionsTest {
 
     @Test
     void testGetSelector() {
-        assertEquals('l', MainActions.LISTMEMBERS.getSelector());
-        assertEquals('d', MainActions.LISTMEMBERSDETAIL.getSelector());
-        assertEquals('a', MainActions.ADVANCETIME.getSelector());
-        assertEquals('u', MainActions.UNKNOWN.getSelector());
-        assertEquals('x', MainActions.QUIT.getSelector());
+        assertEquals("l", MainActions.LISTMEMBERS.getSelector().trim());
+        assertEquals("ld", MainActions.LISTMEMBERSDETAIL.getSelector().trim());
+        assertEquals("a", MainActions.ADVANCETIME.getSelector().trim());
+        assertEquals("u", MainActions.UNKNOWN.getSelector().trim());
+        assertEquals("x", MainActions.QUIT.getSelector().trim());
     }
 }
