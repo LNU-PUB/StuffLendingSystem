@@ -6,6 +6,7 @@ import com.model.Services;
 import com.model.lib.MemberRepositories;
 import com.model.lib.MemberRepository;
 import com.model.lib.Service;
+import com.model.lib.TimeRepositories;
 import com.model.lib.TimeRepository;
 import com.view.model.ViewFactory;
 import com.view.model.ViewFactoryProvider;
@@ -26,13 +27,13 @@ public class App {
    * Creates a new instance of the application.
    */
   public App() {
-    this.service = createMemberService();
+    this.service = createService();
     this.inputService = new InputService();
     this.viewFactory = new ViewFactory();
   }
 
-  private Services createMemberService() {
-    TimeRepository timeRepo = new TimeRepository();
+  private Services createService() {
+    TimeRepositories timeRepo = new TimeRepository();
     MemberRepositories memberRepo = new MemberRepository();
     return new Service(memberRepo, timeRepo);
   }

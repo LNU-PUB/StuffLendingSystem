@@ -2,7 +2,6 @@ package com.model.lib;
 
 import com.model.Member;
 import com.model.Services;
-import com.model.TimeRepositories;
 
 /**
  * Member Service.
@@ -11,7 +10,7 @@ public final class Service implements Services {
   private final MemberRepositories memberRepo;
   private final TimeRepositories timeRepo;
 
-  public Service(MemberRepositories memberRepo, TimeRepository timeRepo) {
+  public Service(MemberRepositories memberRepo, TimeRepositories timeRepo) {
     this.memberRepo = new MemberRepository(memberRepo.getMembers());
     this.timeRepo = new TimeRepository(timeRepo.getDay());
   }
