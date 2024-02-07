@@ -2,6 +2,9 @@ package com.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.model.lib.TimeRepository;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TimeRepositoryTest {

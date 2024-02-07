@@ -1,7 +1,6 @@
 package com.model.lib;
 
 import com.model.Member;
-import com.model.TimeRepository;
 
 /**
  * The member repositories interface.
