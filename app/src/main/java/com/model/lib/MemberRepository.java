@@ -36,6 +36,8 @@ public final class MemberRepository implements MemberRepositories {
     this.idGenerator = new IdGenerator<Member>();
   }
 
+  // ***** CRUD operations *****
+
   /**
    * Gets the member list.
    *
@@ -151,6 +153,8 @@ public final class MemberRepository implements MemberRepositories {
     return false;
   }
 
+  // ***** Validation operations *****
+
   /**
    * Validates email address.
    *
@@ -159,6 +163,9 @@ public final class MemberRepository implements MemberRepositories {
    */
   @Override
   public boolean validateEmail(String email) {
+    // Rules: 1. Email cannot be null. 
+    //        2. Email must be unique within members. 
+    //        3. Email must be valid as defined by the regex in isValidEmail.
     if (email == null) {
       return false;
     }
@@ -177,6 +184,8 @@ public final class MemberRepository implements MemberRepositories {
    */
   @Override
   public boolean validateMobile(String mobile) {
+    // Rules: 1. Mobile cannot be null.
+    //        2. Mobile must be unique within members. 
     if (mobile == null || mobile.equals("")) {
       return false;
     }
@@ -192,6 +201,9 @@ public final class MemberRepository implements MemberRepositories {
    */
   @Override
   public boolean validateName(String name) {
+    // Rules: 1. Name cannot be null.
+    //        2. Name must be at least 2 characters long.
+    //        3. Name must contain only letters, spaces, and the following special characters: ,.-'
     if (name == null || name.equals("") || name.length() < MIN_NAME_LENGTH) {
       return false;
     }
@@ -203,7 +215,7 @@ public final class MemberRepository implements MemberRepositories {
     return matcher.matches();
   }
 
-  // *** Helper functions START ***
+  // ***** Helper functions *****
 
   private LinkedList<Member> createMemberList(Iterable<Member> inList) {
     LinkedList<Member> outList = new LinkedList<Member>();
@@ -250,39 +262,40 @@ public final class MemberRepository implements MemberRepositories {
   }
 
   // private String generateMemberId() {
-  //   while (true) {
-  //     String id = generateRandomId();
-  //     if (isUniqueMemberId(id)) {
-  //       return id;
-  //     }
-  //   }
+  // while (true) {
+  // String id = generateRandomId();
+  // if (isUniqueMemberId(id)) {
+  // return id;
+  // }
+  // }
   // }
 
   // private String generateRandomId() {
-  //   // 6 alpha-numeric characters
-  //   String alphaNumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  //   StringBuilder result = new StringBuilder(6);
+  // // 6 alpha-numeric characters
+  // String alphaNumericCharacters =
+  // "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  // StringBuilder result = new StringBuilder(6);
 
-  //   for (int i = 0; i < 6; i++) {
-  //     int index = this.random.nextInt(alphaNumericCharacters.length());
-  //     result.append(alphaNumericCharacters.charAt(index));
-  //   }
+  // for (int i = 0; i < 6; i++) {
+  // int index = this.random.nextInt(alphaNumericCharacters.length());
+  // result.append(alphaNumericCharacters.charAt(index));
+  // }
 
-  //   return result.toString();
+  // return result.toString();
   // }
 
   // private boolean isUniqueMemberId(String id) {
-  //   if (id == null || id.length() != 6) {
-  //     return false;
-  //   }
+  // if (id == null || id.length() != 6) {
+  // return false;
+  // }
 
-  //   for (Member member : members) {
-  //     if (member.getId().equals(id)) {
-  //       return false;
-  //     }
-  //   }
+  // for (Member member : members) {
+  // if (member.getId().equals(id)) {
+  // return false;
+  // }
+  // }
 
-  //   return true;
+  // return true;
   // }
 
   private void replaceMemberInList(Member oldMember, Member newMember) {

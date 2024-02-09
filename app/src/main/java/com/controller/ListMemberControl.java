@@ -126,7 +126,6 @@ public class ListMemberControl extends AbstractMemberControl {
   }
 
   private void addMember(Services service) {
-
     ViewFactory factory = new ViewFactory();
     View dataView = factory.createEntityCreationView(language, "BasicMemberData");
 

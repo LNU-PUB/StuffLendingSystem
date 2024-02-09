@@ -6,6 +6,8 @@ import com.model.Member;
  * The member repositories interface.
  */
 public interface MemberRepositories {
+  // ***** CRUD operations *****
+
   /**
    * Gets a list of all members.
    *
@@ -45,6 +47,8 @@ public interface MemberRepositories {
    * @return - true if the member was deleted, false if not.
    */
   public boolean deleteMember(Member member);
+
+  // ***** Validation operations *****
 
   /**
    * Validates an email.

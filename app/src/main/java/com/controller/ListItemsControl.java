@@ -1,22 +1,26 @@
 package com.controller;
 
-import com.controller.model.Control;
+import com.controller.model.AbstractMemberControl;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.ListItemsResponse;
 import com.controller.model.actions.ListItemsActions;
+import com.controller.model.commands.AddItemCommand;
+import com.controller.model.commands.Command;
 import com.model.Member;
 import com.model.Services;
+import com.model.lib.BasicItemData;
 import com.view.model.View;
+import com.view.model.ViewFactory;
 import com.view.model.ViewFactoryProvider;
 
 /**
  * The ListItems controller.
  */
-public class ListItemsControl implements Control {
+public class ListItemsControl extends AbstractMemberControl {
   private static final String BUNDLE_NAME = "ListItemsView";
-  // private final Language language;
+  private final Language language;
   private final InputService inputService;
   private final boolean detailedList;
   // private final ViewFactoryProvider viewFactory;
@@ -32,10 +36,10 @@ public class ListItemsControl implements Control {
    */
   public ListItemsControl(Language language, InputService inputService,
       boolean detailedList, ViewFactoryProvider viewFactory, Member member) {
-    // this.language = language;
+    super(inputService);
+    this.language = language;
     this.inputService = inputService;
     this.detailedList = detailedList;
-    // this.viewFactory = viewFactory;
     this.member = member;
     this.view = viewFactory.createListItemsView(language, BUNDLE_NAME, detailedList, member);
   }
@@ -76,8 +80,12 @@ public class ListItemsControl implements Control {
   }
 
   private void addItem(Services service) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'addItem'");
+    ViewFactory factory = new ViewFactory();
+    View dataView = factory.createEntityCreationView(language, "BasicItemData");
+
+    BasicItemData itemData = getAllItemData(dataView, service, this.member);
+    Command addItem = new AddItemCommand(itemData);
+    addItem.execute(service);
   }
 
   private ListItemsResponse getInput(Services service) {

@@ -9,6 +9,8 @@ import java.util.List;
  * The item repositories interface.
  */
 public interface ItemRepositories {
+  // ***** CRUD operations *****
+
   /**
    * Get a list of all Items.
    *
@@ -30,7 +32,7 @@ public interface ItemRepositories {
    * @param item - data for new Item
    * @return - new Item
    */
-  public Item addItem(Item item);
+  public Item addItem(BasicItemData itemData);
 
   /**
    * Update an Item.
@@ -79,4 +81,30 @@ public interface ItemRepositories {
    * @return - list of items with status.
    */
   public List<Item> getItemsByStatus(ItemStatus status);
+
+  // ***** Validation operations *****
+
+  /**
+   * Validate item name.
+   *
+   * @param name - name to validate
+   * @return - true if valid, false otherwise
+   */
+  public boolean validateName(String name);
+
+  /**
+   * Validate item description.
+   *
+   * @param description - description to validate
+   * @return - true if valid, false otherwise
+   */
+  public boolean validateDescription(String description);
+
+  /**
+   * Validate cost per day.
+   *
+   * @param costPerDay - cost per day to validate
+   * @return - true if valid, false otherwise
+   */
+  public boolean validateCostPerDay(double costPerDay);
 }

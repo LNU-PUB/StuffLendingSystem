@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.lib.BasicItemData;
 import com.model.lib.BasicMemberData;
 
 /**
@@ -50,12 +51,12 @@ public interface Services {
   public boolean deleteMember(Member member);
 
   /**
-   * Validate name.
+   * Validate member name.
    *
    * @param name - name to validate
    * @return - true if valid, false otherwise
    */
-  public boolean validateName(String name);
+  public boolean validateMemberName(String name);
 
   /**
    * Validate email.
@@ -88,6 +89,7 @@ public interface Services {
   public void advanceDay();
 
   // ***** Items *****
+
   /**
    * Get a list of all Items.
    *
@@ -102,4 +104,37 @@ public interface Services {
    * @return - list of items
    */
   public Iterable<Item> getItemsByMember(Member member);
+
+  /**
+   * Add a new Item.
+   *
+   * @param basicItemData - data for new Item
+   * @return - new Item
+   */
+  public Item addItem(BasicItemData basicItemData);
+
+  /**
+   * Validate item name.
+   *
+   * @param name - name to validate
+   * @return - true if valid, false otherwise
+   */
+  public boolean validateItemName(String name);
+
+  /**
+   * Validate item description.
+   *
+   * @param description - description to validate
+   * @return - true if valid, false otherwise
+   */
+  public boolean validateItemDescription(String description);
+
+  /**
+   * Validate item cost per day.
+   *
+   * @param costPerDay - cost per day to validate
+   * @return - true if valid, false otherwise
+   */
+  public boolean validateItemCostPerDay(double costPerDay);
+  
 }

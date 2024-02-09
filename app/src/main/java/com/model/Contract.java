@@ -1,11 +1,13 @@
 package com.model;
 
 import com.model.lib.Identifiable;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A contract between a member and the stuff lending system.
  */
-public class Contract implements Identifiable {
+public final class Contract implements Identifiable {
   private final Member owner;
   private final Member borrower;
   private final Item item;
@@ -93,6 +95,30 @@ public class Contract implements Identifiable {
    */
   public int getEndDay() {
     return endDay;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Contract contract = (Contract) o;
+
+    return startDay == contract.startDay
+        && endDay == contract.endDay
+        && Objects.equals(id, contract.id)
+        && Objects.equals(owner, contract.owner) && Objects.equals(borrower, contract.borrower)
+        && Objects.equals(item, contract.item);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, owner, borrower, item, startDay, endDay);
   }
 
 }

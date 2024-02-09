@@ -7,7 +7,7 @@ import com.model.lib.BasicMemberData;
 /**
  * The command for adding a member.
  */
-public class AddMemberCommand extends AbstractCommand {
+public class AddMemberCommand implements Command {
   private final BasicMemberData memberData;
 
   /**
@@ -20,8 +20,8 @@ public class AddMemberCommand extends AbstractCommand {
   }
 
   @Override
-  public boolean execute(Services memberServ) {
-    Member newMember = memberServ.addMember(memberData);
+  public boolean execute(Services service) {
+    Member newMember = service.addMember(memberData);
     return newMember != null;
   }
 }

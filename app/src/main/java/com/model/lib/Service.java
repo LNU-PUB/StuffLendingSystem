@@ -64,7 +64,7 @@ public final class Service implements Services {
   }
 
   @Override
-  public boolean validateName(String name) {
+  public boolean validateMemberName(String name) {
     return memberRepo.validateName(name);
   }
 
@@ -89,7 +89,7 @@ public final class Service implements Services {
     timeRepo.advanceDay();
   }
 
-  // ***** Items *****
+  // ***** Item *****
 
   @Override
   public Iterable<Item> getAllItems() {
@@ -99,5 +99,25 @@ public final class Service implements Services {
   @Override
   public Iterable<Item> getItemsByMember(Member member) {
     return itemRepo.getItemsByMember(member);
+  }
+
+  @Override
+  public Item addItem(BasicItemData basicItemData) {
+    return itemRepo.addItem(basicItemData);
+  }
+
+  @Override
+  public boolean validateItemName(String name) {
+    return itemRepo.validateName(name);
+  }
+
+  @Override
+  public boolean validateItemDescription(String description) {
+    return itemRepo.validateDescription(description);
+  }
+
+  @Override
+  public boolean validateItemCostPerDay(double costPerDay) {
+    return itemRepo.validateCostPerDay(costPerDay);
   }
 }

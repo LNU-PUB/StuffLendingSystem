@@ -2,6 +2,8 @@ package com.model;
 
 import com.model.lib.Identifiable;
 import com.model.lib.ItemCategory;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Item class.
@@ -92,6 +94,37 @@ public final class Item implements Identifiable {
    * @return - The current contract.
    */
   public Contract getCurrentContract() {
+    if (currentContract == null) {
+      return null;
+    }
     return new Contract(currentContract);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Item item = (Item) o;
+
+    return Objects.equals(id, item.id)
+        && Objects.equals(owner, item.owner)
+        && Objects.equals(name, item.name)
+        && category == item.category
+        && Objects.equals(description, item.description)
+        && Double.compare(item.costPerDay, costPerDay) == 0
+        && creationDay == item.creationDay
+        && Objects.equals(currentContract, item.currentContract);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, owner, name, category, description, costPerDay, creationDay,
+        currentContract);
   }
 }

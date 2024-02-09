@@ -1,6 +1,8 @@
 package com.model;
 
 import com.model.lib.Identifiable;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents a member.
@@ -15,10 +17,10 @@ public final class Member implements Identifiable {
   /**
    * Constructor.
    *
-   * @param id - unique id.
-   * @param name - name of the member.
-   * @param email - email of the member.
-   * @param mobile - mobile number of the member.
+   * @param id          - unique id.
+   * @param name        - name of the member.
+   * @param email       - email of the member.
+   * @param mobile      - mobile number of the member.
    * @param creationDay - day the member was created.
    */
   public Member(String id, String name, String email, String mobile, int creationDay) {
@@ -48,5 +50,29 @@ public final class Member implements Identifiable {
 
   public String getMobile() {
     return this.mobile;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Member member = (Member) o;
+
+    return Objects.equals(id, member.id)
+        && Objects.equals(name, member.name)
+        && Objects.equals(email, member.email)
+        && Objects.equals(mobile, member.mobile)
+        && memberCreationDay == member.memberCreationDay;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, email, mobile, memberCreationDay);
   }
 }
