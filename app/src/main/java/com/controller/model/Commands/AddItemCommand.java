@@ -13,7 +13,7 @@ public class AddItemCommand implements Command {
   /**
    * Creates a new instance of the command.
    *
-   * @param language - the language to use.
+   * @param itemData - the item data.
    */
   public AddItemCommand(BasicItemData itemData) {
     this.itemData = itemData;

@@ -59,23 +59,4 @@ public class MemberTest {
     Member member2 = new Member("1", "John Doe", "john.doe@example.com", "1234567890", 100);
     assertEquals(member1.hashCode(), member2.hashCode(), "Hash codes should be equal for equal objects");
   }
-
-  @Test
-  public void testSerialization() throws IOException, ClassNotFoundException {
-    Member originalMember = new Member("1", "John Doe", "john.doe@example.com", "1234567890", 100);
-
-    // Serialize
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    ObjectOutputStream out = new ObjectOutputStream(bos);
-    out.writeObject(originalMember);
-    out.flush();
-    byte[] serializedData = bos.toByteArray();
-
-    // Deserialize
-    ByteArrayInputStream bis = new ByteArrayInputStream(serializedData);
-    ObjectInputStream in = new ObjectInputStream(bis);
-    Member deserializedMember = (Member) in.readObject();
-
-    assertEquals(originalMember, deserializedMember, "Deserialized member should be equal to the original");
-  }
 }

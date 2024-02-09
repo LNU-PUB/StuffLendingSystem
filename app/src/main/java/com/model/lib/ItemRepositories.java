@@ -29,8 +29,8 @@ public interface ItemRepositories {
   /**
    * Add a new Item.
    *
-   * @param item - data for new Item
-   * @return - new Item
+   * @param itemData - data for new item.
+   * @return - new item
    */
   public Item addItem(BasicItemData itemData);
 
