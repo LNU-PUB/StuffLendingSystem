@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.controller.model.AbstractMemberControl;
+import com.controller.model.AbstractControl;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
@@ -19,7 +19,7 @@ import com.view.model.ViewFactoryProvider;
 /**
  * The control for listing members.
  */
-public class ListMemberControl extends AbstractMemberControl {
+public class ListMemberControl extends AbstractControl {
   private static final String BUNDLE_NAME = "ListMembersView";
   private final Language language;
   private View view;
@@ -56,7 +56,7 @@ public class ListMemberControl extends AbstractMemberControl {
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
         Member member = getMemberByIndex(service.getAllMembers(), response.getIndex());
-        memberControl(service, member);
+        viewMember(service, member);
       } else if (action == ListMembersActions.ADDMEMBER) {
         addMember(service);
       }
@@ -115,7 +115,7 @@ public class ListMemberControl extends AbstractMemberControl {
     }
   }
 
-  private void memberControl(Services service, Member member) {
+  private void viewMember(Services service, Member member) {
     if (member == null) {
       return;
     }

@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.controller.model.AbstractMemberControl;
+import com.controller.model.AbstractControl;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.InputService;
 import com.controller.model.Language;
@@ -8,6 +8,7 @@ import com.controller.model.ListItemsResponse;
 import com.controller.model.actions.ListItemsActions;
 import com.controller.model.commands.AddItemCommand;
 import com.controller.model.commands.Command;
+import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicItemData;
@@ -18,12 +19,12 @@ import com.view.model.ViewFactoryProvider;
 /**
  * The ListItems controller.
  */
-public class ListItemsControl extends AbstractMemberControl {
+public class ListItemsControl extends AbstractControl {
   private static final String BUNDLE_NAME = "ListItemsView";
   private final Language language;
   private final InputService inputService;
   private final boolean detailedList;
-  // private final ViewFactoryProvider viewFactory;
+  private final ViewFactoryProvider viewFactory;
   private final Member member;
   private final View view;
 
@@ -40,6 +41,7 @@ public class ListItemsControl extends AbstractMemberControl {
     this.language = language;
     this.inputService = inputService;
     this.detailedList = detailedList;
+    this.viewFactory = viewFactory;
     this.member = member;
     this.view = viewFactory.createListItemsView(language, BUNDLE_NAME, detailedList, member);
   }
@@ -60,7 +62,8 @@ public class ListItemsControl extends AbstractMemberControl {
         if (action == ListItemsActions.ADDITEM) {
           addItem(service);
         } else if (action == ListItemsActions.SELECTEDITEM) {
-          viewItem(service, response.getIndex());
+          Item item = getItemByIndex(service.getItemsByMember(member), response.getIndex());
+          viewItem(service, item);
           // Item item = getItemByIndex(service.getItemsByMember(member),
           // response.getIndex());
           // itemControl(service, item);
@@ -73,10 +76,28 @@ public class ListItemsControl extends AbstractMemberControl {
     return action != ListItemsActions.EXIT;
   }
 
-  private void viewItem(Services service, int index) {
-    // Item item = getItemByIndex(service.getItemsByMember(member), index);
-    // itemControl(service, item);
-    throw new UnsupportedOperationException("Unimplemented method 'viewItem'");
+  private Item getItemByIndex(Iterable<Item> itemsByMember, int index) {
+    int currentIndex = 0;
+
+    for (Item item : itemsByMember) {
+      if (currentIndex == index) {
+        return item;
+      }
+
+      currentIndex++;
+    }
+    view.displayError("Invalid index: " + index);
+    return null;
+  }
+
+  private void viewItem(Services service, Item item) {
+    if (item == null) {
+      return;
+    }
+
+    ItemControl itemControl = new ItemControl(language, inputService, item, viewFactory);
+    while (itemControl.run(service)) {
+    }
   }
 
   private void addItem(Services service) {

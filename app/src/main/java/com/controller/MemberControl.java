@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.controller.model.AbstractMemberControl;
+import com.controller.model.AbstractControl;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
@@ -18,7 +18,7 @@ import com.view.model.ViewFactoryProvider;
 /**
  * The Member controller.
  */
-public class MemberControl extends AbstractMemberControl {
+public class MemberControl extends AbstractControl {
   private static final String BUNDLE_NAME = "MemberView";
   private final InputService inputService;
   private final Language language;

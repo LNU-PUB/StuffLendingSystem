@@ -1,8 +1,10 @@
 package com.view.model;
 
 import com.controller.model.Language;
+import com.model.Item;
 import com.model.Member;
 import com.view.EntityCreationView;
+import com.view.ItemView;
 import com.view.ListItemsView;
 import com.view.ListMembersView;
 import com.view.MainView;
@@ -42,6 +44,11 @@ public class ViewFactory implements ViewFactoryProvider {
   @Override
   public View createListItemsView(Language language, String bundleName, boolean detailedList, Member member) {
     return new ListItemsView(language, bundleName, detailedList, member);
+  }
+
+  @Override
+  public View createItemView(Language language, String bundleName, Item item) {
+    return new ItemView(language, bundleName, item);
   }
   
 }

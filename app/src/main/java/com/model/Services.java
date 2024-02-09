@@ -136,5 +136,13 @@ public interface Services {
    * @return - true if valid, false otherwise
    */
   public boolean validateItemCostPerDay(double costPerDay);
+
+  /**
+   * Get an Item by id.
+   *
+   * @param id - id for Item
+   * @return - Item
+   */
+  public Item getItemById(String id);
   
 }

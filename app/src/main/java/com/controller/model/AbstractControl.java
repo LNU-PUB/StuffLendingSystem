@@ -11,25 +11,25 @@ import com.view.model.View;
 /**
  * Abstract class for Member Controls.
  */
-public abstract class AbstractMemberControl implements Control {
+public abstract class AbstractControl implements Control {
   private Member member;
   private Item item;
   private InputService inputService;
   private static final int MAX_ATTEMPTS = 3;
 
-  protected AbstractMemberControl(InputService inputService) {
+  protected AbstractControl(InputService inputService) {
     this.inputService = inputService;
     this.member = null;
     this.item = null;
   }
 
-  protected AbstractMemberControl(InputService inputService, Member member) {
+  protected AbstractControl(InputService inputService, Member member) {
     this.inputService = inputService;
     this.member = member;
     this.item = null;
   }
 
-  protected AbstractMemberControl(InputService inputService, Member member, Item item) {
+  protected AbstractControl(InputService inputService, Member member, Item item) {
     this.inputService = inputService;
     this.member = member;
     this.item = item;
@@ -207,7 +207,7 @@ public abstract class AbstractMemberControl implements Control {
     }
   }
 
-  // ***** Item Data *****
+  // ***** Item Specific Data *****
 
   private ItemCategory getItemCategory(View dataView, Services service) {
     int counter = 0;
@@ -300,5 +300,11 @@ public abstract class AbstractMemberControl implements Control {
     }
 
     throw new RuntimeException("Failed to get cost per day.");
+  }
+
+  protected void refreshItemData(Services service) {
+    if (this.item != null) {
+      this.item = service.getItemById(this.item.getId());
+    }
   }
 }

@@ -120,4 +120,9 @@ public final class Service implements Services {
   public boolean validateItemCostPerDay(double costPerDay) {
     return itemRepo.validateCostPerDay(costPerDay);
   }
+
+  @Override
+  public Item getItemById(String id) {
+    return itemRepo.getItemById(id);
+  }
 }
