@@ -98,6 +98,14 @@ public interface Services {
   public Iterable<Item> getAllItems();
 
   /**
+   * Get an Item by id.
+   *
+   * @param id - id for Item
+   * @return - Item
+   */
+  public Item getItemById(String id);
+
+  /**
    * Get an Item by member.
    *
    * @param member - member to get items for
@@ -112,6 +120,15 @@ public interface Services {
    * @return - new Item
    */
   public Item addItem(BasicItemData basicItemData);
+
+  /**
+   * Update an item.
+   *
+   * @param newItem - new item data
+   * @param oldItem - old item object
+   * @return - updated item
+   */
+  public Item updateItem(BasicItemData newItem, Item oldItem);
 
   /**
    * Validate item name.
@@ -136,13 +153,4 @@ public interface Services {
    * @return - true if valid, false otherwise
    */
   public boolean validateItemCostPerDay(double costPerDay);
-
-  /**
-   * Get an Item by id.
-   *
-   * @param id - id for Item
-   * @return - Item
-   */
-  public Item getItemById(String id);
-  
 }

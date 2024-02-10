@@ -26,6 +26,10 @@ public class EditMemberCommand implements Command {
   public boolean execute(Services memberServ) {
     Member newMember = memberServ.updateMember(editedMemberData, member);
 
+    if (newMember == null) {
+      return false;
+    }
+    
     return newMember.getId().equals(member.getId());
   }
 

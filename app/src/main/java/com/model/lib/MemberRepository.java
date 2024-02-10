@@ -104,11 +104,9 @@ public final class MemberRepository implements MemberRepositories {
    */
   @Override
   public Member updateMember(BasicMemberData newMember, Member member) {
-    final String id = member.getId();
     final String name = newMember.getName();
     final String email = newMember.getEmail();
     final String mobile = newMember.getMobile();
-    final int creationDay = member.getMemberCreationDay();
 
     if (!name.equals(member.getName())) {
       if (!validateName(name)) {
@@ -128,11 +126,16 @@ public final class MemberRepository implements MemberRepositories {
       }
     }
 
-    Member updatedMember = new Member(id, name, email, mobile, creationDay);
+    synchronized (this) {
+      final String id = member.getId();
+      final int creationDay = member.getMemberCreationDay();
 
-    replaceMemberInList(member, updatedMember);
-    return new Member(updatedMember.getId(), updatedMember.getName(), updatedMember.getEmail(),
-        updatedMember.getMobile(), updatedMember.getMemberCreationDay());
+      Member updatedMember = new Member(id, name, email, mobile, creationDay);
+
+      replaceMemberInList(member, updatedMember);
+      return new Member(updatedMember.getId(), updatedMember.getName(), updatedMember.getEmail(),
+          updatedMember.getMobile(), updatedMember.getMemberCreationDay());
+    }
   }
 
   /**
@@ -163,9 +166,9 @@ public final class MemberRepository implements MemberRepositories {
    */
   @Override
   public boolean validateEmail(String email) {
-    // Rules: 1. Email cannot be null. 
-    //        2. Email must be unique within members. 
-    //        3. Email must be valid as defined by the regex in isValidEmail.
+    // Rules: 1. Email cannot be null.
+    // 2. Email must be unique within members.
+    // 3. Email must be valid as defined by the regex in isValidEmail.
     if (email == null) {
       return false;
     }
@@ -185,7 +188,7 @@ public final class MemberRepository implements MemberRepositories {
   @Override
   public boolean validateMobile(String mobile) {
     // Rules: 1. Mobile cannot be null.
-    //        2. Mobile must be unique within members. 
+    // 2. Mobile must be unique within members.
     if (mobile == null || mobile.equals("")) {
       return false;
     }
@@ -202,8 +205,9 @@ public final class MemberRepository implements MemberRepositories {
   @Override
   public boolean validateName(String name) {
     // Rules: 1. Name cannot be null.
-    //        2. Name must be at least 2 characters long.
-    //        3. Name must contain only letters, spaces, and the following special characters: ,.-'
+    // 2. Name must be at least 2 characters long.
+    // 3. Name must contain only letters, spaces, and the following special
+    // characters: ,.-'
     if (name == null || name.equals("") || name.length() < MIN_NAME_LENGTH) {
       return false;
     }

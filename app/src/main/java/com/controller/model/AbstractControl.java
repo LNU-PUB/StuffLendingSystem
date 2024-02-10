@@ -226,14 +226,13 @@ public abstract class AbstractControl implements Control {
         dataView.displayResourcePrompt("category");
       }
 
-      String categoryId = inputService.readLine();
+      String categoryIndx = inputService.readLine();
 
-      if (categoryId == null || categoryId.isEmpty()) {
-        categoryId = "";
+      if (categoryIndx == null || categoryIndx.isEmpty()) {
+        return item.getCategory();
       } else {
-        categoryId = categoryId.trim();
-        if (isNumericInteger(categoryId)) {
-          int categoryIndex = Integer.parseInt(categoryId);
+        if (isNumericInteger(categoryIndx)) {
+          int categoryIndex = Integer.parseInt(categoryIndx);
           if (categoryIndex >= 0 && categoryIndex < ItemCategory.values().length) {
             return ItemCategory.values()[categoryIndex];
           }
@@ -242,35 +241,25 @@ public abstract class AbstractControl implements Control {
       counter++;
     }
 
-    dataView.displayError("Invalid Category. Category has to be valid.");
-    return ItemCategory.OTHER;
-
+    dataView.displayError("Invalid Category.");
+    return item.getCategory(); // Warn that it's an invalid category and return the current category.
   }
 
   private String getDescription(View dataView, Services service) {
-    int counter = 0;
 
-    while (counter < MAX_ATTEMPTS) {
-      if (item == null) {
-        dataView.displayResourcePrompt("description");
-      } else {
-        dataView.displayPromptWithDefaultValue("description", item.getDescription());
-      }
-      String description = inputService.readLine();
-      if (description == null || description.isEmpty()) {
-        description = "";
-      } else {
-        description = description.trim();
-      }
-
-      if (service.validateItemDescription(description)) {
-        return description;
-      }
-
-      counter++;
+    if (item == null) {
+      dataView.displayResourcePrompt("description");
+    } else {
+      dataView.displayPromptWithDefaultValue("description", item.getDescription());
     }
+    String description = inputService.readLine();
 
-    throw new RuntimeException("Failed to get description.");
+    if (description == null || description.isEmpty()) {
+      return item.getDescription();
+    } else {
+      description = description.trim();
+      return description;
+    }
   }
 
   private double getCostPerDay(View dataView, Services service) {
@@ -282,17 +271,19 @@ public abstract class AbstractControl implements Control {
       } else {
         dataView.displayPromptWithDefaultValue("costPerDay", String.valueOf(item.getCostPerDay()));
       }
+
       String costPerDay = inputService.readLine();
+
       if (costPerDay == null || costPerDay.isEmpty()) {
-        costPerDay = "0";
+        return item.getCostPerDay();
       } else {
         costPerDay = costPerDay.trim();
-      }
 
-      if (isNumericDouble(costPerDay)) {
-        double cost = Double.parseDouble(costPerDay);
-        if (service.validateItemCostPerDay(cost)) {
-          return cost;
+        if (isNumericDouble(costPerDay)) {
+          double cost = Double.parseDouble(costPerDay);
+          if (service.validateItemCostPerDay(cost)) {
+            return cost;
+          }
         }
       }
 

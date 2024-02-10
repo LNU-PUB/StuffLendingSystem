@@ -81,7 +81,7 @@ public class ItemControl extends AbstractControl {
     View dataView = viewFactory.createSimplePromptView(language, "BasicItemData");
 
     BasicItemData itemData = getAllItemData(dataView, service, null);
-    Command editItem = new EditItemCommand(itemData);
+    Command editItem = new EditItemCommand(itemData, item);
     if (editItem.execute(service)) {
       String id = item.getId();
       Member owner = item.getOwner();

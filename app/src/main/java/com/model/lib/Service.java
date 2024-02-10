@@ -97,6 +97,11 @@ public final class Service implements Services {
   }
 
   @Override
+  public Item getItemById(String id) {
+    return itemRepo.getItemById(id);
+  }
+
+  @Override
   public Iterable<Item> getItemsByMember(Member member) {
     return itemRepo.getItemsByMember(member);
   }
@@ -104,6 +109,15 @@ public final class Service implements Services {
   @Override
   public Item addItem(BasicItemData basicItemData) {
     return itemRepo.addItem(basicItemData);
+  }
+
+  @Override
+  public Item updateItem(BasicItemData newItem, Item oldItem) {
+    if (newItem == null || oldItem == null) {
+      return null;
+    }
+    
+    return itemRepo.updateItem(newItem, oldItem);
   }
 
   @Override
@@ -119,10 +133,5 @@ public final class Service implements Services {
   @Override
   public boolean validateItemCostPerDay(double costPerDay) {
     return itemRepo.validateCostPerDay(costPerDay);
-  }
-
-  @Override
-  public Item getItemById(String id) {
-    return itemRepo.getItemById(id);
   }
 }

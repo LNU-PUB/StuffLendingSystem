@@ -1,7 +1,6 @@
 package com.model;
 
 import com.model.lib.Identifiable;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**

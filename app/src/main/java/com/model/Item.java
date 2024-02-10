@@ -2,7 +2,6 @@ package com.model;
 
 import com.model.lib.Identifiable;
 import com.model.lib.ItemCategory;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**

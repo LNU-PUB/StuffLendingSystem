@@ -40,7 +40,7 @@ public interface ItemRepositories {
    * @param item - item to update.
    * @return - updated item
    */
-  public Item updateItem(Item item);
+  public Item updateItem(BasicItemData newItem, Item item);
 
   /**
    * Delete an Item.
