@@ -88,12 +88,32 @@ class ItemRepositoryTest {
   }
 
   @Test
-  void testDeleteItemUnsupported() {
-    // Note: Delete item no yet implemented.
-    assertThrows(UnsupportedOperationException.class, () -> {
-      Item deleteItem = sut.addItem(validItemData);
-      sut.deleteItem(deleteItem);
-    });
+  void testDeleteExistingItem() {
+    Item addedItem = sut.addItem(validItemData);
+    assertNotNull(addedItem, "The item should be added successfully");
+
+    boolean deleteResult = sut.deleteItem(addedItem);
+    assertTrue(deleteResult, "Deleting an existing item should return true");
+
+    // Verify the item is no longer in the repository.
+    Item shouldBeNull = sut.getItemById(addedItem.getId());
+    assertNull(shouldBeNull, "The deleted item should no longer exist in the repository");
+  }
+
+  @Test
+  void testDeleteNonExistentItem() {
+    // Create an item that is not in the repository.
+    Item nonExistentItem = new Item("non-existent-id", member, "Non-Existent Item", ItemCategory.TOOL,
+        "Does not exist", 0.0, 0, null);
+
+    boolean deleteResult = sut.deleteItem(nonExistentItem);
+    assertFalse(deleteResult, "Attempting to delete a non-existent item should return false");
+  }
+
+  @Test
+  void testDeleteNullItem() {
+    boolean deleteResult = sut.deleteItem(null);
+    assertFalse(deleteResult, "Attempting to delete a null item should return false");
   }
 
 }

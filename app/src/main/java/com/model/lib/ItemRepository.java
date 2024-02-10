@@ -134,9 +134,20 @@ public class ItemRepository implements ItemRepositories {
   }
 
   @Override
-  public boolean deleteItem(Item item) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteItem'");
+  public boolean deleteItem(Item itemToDelete) {
+    if (itemToDelete == null) {
+      return false;
+    }
+    
+    synchronized (this) {
+      for (Item item : items) {
+        if (item == itemToDelete || item.getId().equals(itemToDelete.getId())) {
+          items.remove(item);
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   @Override
