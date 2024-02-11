@@ -20,5 +20,4 @@ public class SimplePromptView extends AbstractView {
   public void displayMenu(DisplayDataBundles bundle) {
     throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
   }
-
 }

@@ -7,6 +7,7 @@ import com.model.Services;
  * Command to delete an item.
  */
 public class DeleteItemCommand implements Command {
+  private final Item item;
 
   /**
    * Creates a new instance of the command.
@@ -14,13 +15,12 @@ public class DeleteItemCommand implements Command {
    * @param item - the item to delete.
    */
   public DeleteItemCommand(Item item) {
-    //TODO Auto-generated constructor stub
+    this.item = item;
   }
 
   @Override
-  public boolean execute(Services memberServ) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'execute'");
+  public boolean execute(Services service) {
+    return service.deleteItem(item);
   }
   
 }

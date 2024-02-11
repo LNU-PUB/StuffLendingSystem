@@ -131,6 +131,14 @@ public interface Services {
   public Item updateItem(BasicItemData newItem, Item oldItem);
 
   /**
+   * Delete an Item.
+   *
+   * @param itemToDelete - item to delete.
+   * @return - true if deleted, false otherwise.
+   */
+  public boolean deleteItem(Item itemToDelete);
+
+  /**
    * Validate item name.
    *
    * @param name - name to validate

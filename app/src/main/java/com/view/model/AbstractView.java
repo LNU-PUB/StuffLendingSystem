@@ -1,6 +1,7 @@
 package com.view.model;
 
 import com.controller.model.Language;
+import com.util.DataFormatter;
 import java.util.Locale;
 import java.util.Locale.Builder;
 import java.util.ResourceBundle;
@@ -10,6 +11,7 @@ import java.util.ResourceBundle;
  */
 public abstract class AbstractView implements View {
   protected ResourceBundle texts;
+  protected DataFormatter dataFormatter;
   private Locale locale;
 
   /**
@@ -19,6 +21,7 @@ public abstract class AbstractView implements View {
    * @param bundleName - the bundle name
    */
   protected AbstractView(Language language, String bundleName) {
+    this.dataFormatter = new DataFormatter();
     try {
       this.locale = new Builder().setLanguage(language.getLanguage()).setRegion(language.getCountry()).build();
       this.texts = ResourceBundle.getBundle("com.view." + bundleName, locale);
@@ -68,22 +71,8 @@ public abstract class AbstractView implements View {
     System.out.print(texts.getString(prompt));
   }
 
-  // protected boolean isNumericInteger(String str) {
-  //   return str.matches("\\d+");
-  // }
-
-  // protected String getInput(String text) {
-  //   System.out.print(text + ": ");
-  //   StringBuilder inputBuilder = new StringBuilder();
-  //   try {
-  //     int c = System.in.read();
-  //     while (c != '\n' && c != -1) {
-  //       inputBuilder.append((char) c);
-  //       c = System.in.read();
-  //     }
-  //   } catch (Exception e) {
-  //     System.out.println("Error: " + e.getMessage());
-  //   }
-  //   return inputBuilder.toString();
+  // protected void setResourceBundle(Language language) {
+  //   this.locale = new Builder().setLanguage(language.getLanguage()).setRegion(language.getCountry()).build();
+  //   this.texts = ResourceBundle.getBundle("com.view." + bundleName, locale);
   // }
 }

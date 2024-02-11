@@ -6,6 +6,7 @@ import com.model.Services;
 import com.model.lib.BasicItemData;
 import com.model.lib.BasicMemberData;
 import com.model.lib.ItemCategory;
+import com.util.DataFormatter;
 import com.view.model.View;
 
 /**
@@ -16,6 +17,7 @@ public abstract class AbstractControl implements Control {
   private Item item;
   private InputService inputService;
   private static final int MAX_ATTEMPTS = 3;
+  protected DataFormatter dataFormatter = new DataFormatter();
 
   protected AbstractControl(InputService inputService) {
     this.inputService = inputService;

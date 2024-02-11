@@ -11,7 +11,7 @@ public final class Service implements Services {
   private final TimeRepositories timeRepo;
   private final MemberRepositories memberRepo;
   private final ItemRepositories itemRepo;
-  
+
   /**
    * Constructor.
    *
@@ -116,8 +116,17 @@ public final class Service implements Services {
     if (newItem == null || oldItem == null) {
       return null;
     }
-    
+
     return itemRepo.updateItem(newItem, oldItem);
+  }
+
+  @Override
+  public boolean deleteItem(Item itemToDelete) {
+    if (itemToDelete == null) {
+      return false;
+    }
+
+    return itemRepo.deleteItem(itemToDelete);
   }
 
   @Override

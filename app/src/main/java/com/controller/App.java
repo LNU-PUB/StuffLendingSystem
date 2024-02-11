@@ -52,6 +52,7 @@ public class App {
       }
     }
     return lang;
+    // return Language.SWE; // for testing only
   }
 
   protected void run(Language language) {

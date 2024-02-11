@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.controller.model.Control;
+import com.controller.model.AbstractControl;
 import com.controller.model.DisplayDataBundle;
 import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
@@ -15,7 +15,7 @@ import com.view.model.ViewFactoryProvider;
 /**
  * The controller.
  */
-public class MainControl implements Control {
+public class MainControl extends AbstractControl {
 
   private static final String BUNDLE_NAME = "MainView";
   private InputService inputService;
@@ -30,6 +30,7 @@ public class MainControl implements Control {
    * @param inputService - the input service to use.
    */
   public MainControl(Language language, InputService inputService, ViewFactoryProvider viewFactory) {
+    super(inputService);
     this.language = language;
     this.inputService = inputService;
     this.viewFactory = viewFactory;
@@ -67,13 +68,22 @@ public class MainControl implements Control {
     }
 
     userInput = userInput.trim();
-    
-    for (MainActions action : MainActions.values()) {
-      if (userInput.equalsIgnoreCase(action.getSelector().trim())) {
-        return action;
+
+    try {
+      if (language != Language.ENG) {
+        userInput = dataFormatter.selectorDecoder(userInput);
       }
+      
+      for (MainActions action : MainActions.values()) {
+        if (userInput.equalsIgnoreCase(action.getSelector().trim())) {
+          return action;
+        }
+      }
+
+    } catch (IllegalArgumentException e) {
+      view.displayError(e.getMessage());
     }
-    
+
     return MainActions.UNKNOWN;
   }
 
