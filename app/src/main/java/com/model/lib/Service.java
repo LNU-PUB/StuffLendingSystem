@@ -33,6 +33,11 @@ public final class Service implements Services {
   }
 
   @Override
+  public Iterable<Member> getMembersSortedBy(boolean asName, boolean ascending) {
+    return memberRepo.getMembersSortedBy(asName, ascending);
+  }
+
+  @Override
   public Member getMemberById(String id) {
     if (id.isEmpty()) {
       return null;

@@ -18,6 +18,15 @@ public interface Services {
   public Iterable<Member> getAllMembers();
 
   /**
+   * Gets a list of members sorted by name or id.
+   *
+   * @param asName - true if the list should be sorted by name, false if sorted by id.
+   * @param ascending - true if the list should be sorted in ascending order, false if not.
+   * @return - a list of members sorted by name or id.
+   */
+  public Iterable<Member> getMembersSortedBy(boolean asName, boolean ascending);
+
+  /**
    * Get an Member by id.
    *
    * @param id - id for Member

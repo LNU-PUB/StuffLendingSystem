@@ -49,6 +49,33 @@ public final class MemberRepository implements MemberRepositories {
   }
 
   /**
+   * Gets a list of members sorted by name or id.
+   *
+   * @param asName    - True if the list should be sorted by name, false if sorted by id.
+   * @param ascending - True if the list should be sorted in ascending order, false if not.
+   * @return - A list of members sorted by name or id.
+   */
+  @Override
+  public Iterable<Member> getMembersSortedBy(boolean asName, boolean ascending) {
+    LinkedList<Member> sortedMembers = new LinkedList<Member>(members);
+    if (asName) {
+      if (ascending) {
+        sortedMembers.sort((m1, m2) -> m1.getName().compareTo(m2.getName()));
+      } else {
+        sortedMembers.sort((m1, m2) -> m2.getName().compareTo(m1.getName()));
+      }
+    } else {
+      if (ascending) {
+        sortedMembers.sort((m1, m2) -> m1.getId().compareTo(m2.getId()));
+      } else {
+        sortedMembers.sort((m1, m2) -> m2.getId().compareTo(m1.getId()));
+      }
+    }
+
+    return sortedMembers;
+  }
+
+  /**
    * Gets a member by id.
    *
    * @param id - The id of the member to get.
