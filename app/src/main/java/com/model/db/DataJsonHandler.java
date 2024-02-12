@@ -3,6 +3,8 @@ package com.model.db;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
+import com.model.Transaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +56,11 @@ public class DataJsonHandler implements DataHandler {
   public boolean storeContracts(List<Contract> contracts) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'storeContracts'");
+  }
+
+  @Override
+  public List<Transaction> getTransactions() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getTransactions'");
   }
 }

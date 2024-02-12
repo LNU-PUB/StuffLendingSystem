@@ -3,6 +3,8 @@ package com.model.db;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
+import com.model.Transaction;
+
 import java.util.List;
 
 /**
@@ -29,6 +31,13 @@ public interface DataHandler {
    * @return - The contract list.
    */
   public List<Contract> getContracts();
+
+  /**
+   * Gets the transaction list.
+   *
+   * @return - The transaction list.
+   */
+  public List<Transaction> getTransactions();
   
   /**
    * Stores a list of items.
