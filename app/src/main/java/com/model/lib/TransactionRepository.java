@@ -14,12 +14,20 @@ public class TransactionRepository implements TransactionRepositories {
   private final List<Transaction> transactions;
   private final DataHandler dataHandler;
 
+  /**
+   * Constructor.
+   */
   public TransactionRepository() {
     this.dataHandler = new HardCodedData();
     this.transactions = new ArrayList<>(this.dataHandler.getTransactions());
-    
+
   }
 
+  /**
+   * Constructor.
+   *
+   * @param transactions - the transactions.
+   */
   public TransactionRepository(Iterable<Transaction> transactions) {
     this.transactions = createTransactionList(transactions);
     this.dataHandler = null;
@@ -59,7 +67,8 @@ public class TransactionRepository implements TransactionRepositories {
     IdGenerator<Transaction> generator = new IdGenerator<>();
     String id = generator.generateId(transactions);
 
-    Transaction newTransaction = new Transaction(id, basicTransactionData.getMember(), basicTransactionData.getAmount(), basicTransactionData.getTransactionDay());
+    Transaction newTransaction = new Transaction(id, basicTransactionData.getMember(),
+        basicTransactionData.getAmount(), basicTransactionData.getTransactionDay());
 
     transactions.add(newTransaction);
 
@@ -77,20 +86,20 @@ public class TransactionRepository implements TransactionRepositories {
       Transaction newTransaction = new Transaction(id, member, amount, transactionDay);
 
       replaceContractInList(newTransaction, oldTransaction);
-      
+
       return new Transaction(newTransaction);
     }
   }
 
   @Override
   public boolean deleteTransaction(Transaction transaction) {
-    
+
     for (Transaction t : transactions) {
       if (t.equals(transaction)) {
         transactions.remove(t);
         return true;
       }
-    } 
+    }
 
     return false;
   }
@@ -120,7 +129,7 @@ public class TransactionRepository implements TransactionRepositories {
   }
 
   private void replaceContractInList(Transaction newTransaction, Transaction oldTransaction) {
-    
+
     for (int i = 0; i < transactions.size(); i++) {
       if (transactions.get(i).equals(oldTransaction)) {
         transactions.set(i, newTransaction);

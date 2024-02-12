@@ -33,8 +33,7 @@ public interface TransactionRepositories {
   /**
    * Adds a new transaction.
    *
-   * @param member - the member.
-   * @param amount - the amount.
+   * @param basicTransactionData - the basic transaction data.
    * @return - the new transaction.
    */
   Transaction addNewTransaction(BasicTransactionData basicTransactionData);
