@@ -29,7 +29,7 @@ public class ContractRepository implements ContractRepositories {
    *
    * @param allContracts - all contracts.
    */
-  public ContractRepository(LinkedList<Contract> allContracts) {
+  public ContractRepository(Iterable<Contract> allContracts) {
     this.contracts = createContractList(allContracts);
     this.dataHandler = null;
   }
@@ -126,7 +126,7 @@ public class ContractRepository implements ContractRepositories {
 
   // ***** Helper functions *****
 
-  private LinkedList<Contract> createContractList(LinkedList<Contract> allContracts) {
+  private LinkedList<Contract> createContractList(Iterable<Contract> allContracts) {
     LinkedList<Contract> outContractList = new LinkedList<Contract>();
     for (Contract contract : allContracts) {
       outContractList.add(new Contract(contract));

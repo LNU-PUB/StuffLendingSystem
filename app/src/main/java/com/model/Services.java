@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.lib.BasicContractData;
 import com.model.lib.BasicItemData;
 import com.model.lib.BasicMemberData;
 
@@ -20,8 +21,10 @@ public interface Services {
   /**
    * Gets a list of members sorted by name or id.
    *
-   * @param asName - true if the list should be sorted by name, false if sorted by id.
-   * @param ascending - true if the list should be sorted in ascending order, false if not.
+   * @param asName    - true if the list should be sorted by name, false if sorted
+   *                  by id.
+   * @param ascending - true if the list should be sorted in ascending order,
+   *                  false if not.
    * @return - a list of members sorted by name or id.
    */
   public Iterable<Member> getMembersSortedBy(boolean asName, boolean ascending);
@@ -83,7 +86,7 @@ public interface Services {
    */
   public boolean validateMobile(String mobile);
 
-  //***** Time *****
+  // ***** Time *****
 
   /**
    * Get the current day.
@@ -170,4 +173,62 @@ public interface Services {
    * @return - true if valid, false otherwise
    */
   public boolean validateItemCostPerDay(double costPerDay);
+
+  // ***** Contracts *****
+
+  /**
+   * Gets all contracts.
+   *
+   * @return - all contracts.
+   */
+  Iterable<Contract> getContracts();
+
+  /**
+   * Gets all contracts by owner.
+   *
+   * @param owner - the owner.
+   * @return - all contracts by owner.
+   */
+  Iterable<Contract> getContractsByOwner(Member owner);
+
+  /**
+   * Gets all contracts by borrower.
+   *
+   * @param borrower - the borrower.
+   * @return - all contracts by borrower.
+   */
+  Iterable<Contract> getContractsByBorrower(Member borrower);
+
+  /**
+   * Gets all contracts by item.
+   *
+   * @param item - the item.
+   * @return - all contracts by item.
+   */
+  Iterable<Contract> getContractsByItem(Item item);
+
+  /**
+   * Adds a new contract.
+   *
+   * @param contractData - the contract data.
+   * @return - the new contract.
+   */
+  Contract addNewContract(BasicContractData contractData);
+
+  /**
+   * Updates a contract.
+   *
+   * @param newContractData - the new contract data.
+   * @param oldContract     - the old contract.
+   * @return - the updated contract.
+   */
+  Contract updateContract(BasicContractData newContractData, Contract oldContract);
+
+  /**
+   * Deletes a contract.
+   *
+   * @param contractToDelete - the contract to delete.
+   * @return - true if the contract was deleted, false otherwise.
+   */
+  boolean deleteContract(Contract contractToDelete);
 }

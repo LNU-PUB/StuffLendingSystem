@@ -2,7 +2,10 @@ package com.controller;
 
 import com.controller.model.InputService;
 import com.controller.model.Language;
+import com.model.Contract;
 import com.model.Services;
+import com.model.lib.ContractRepositories;
+import com.model.lib.ContractRepository;
 import com.model.lib.ItemRepositories;
 import com.model.lib.ItemRepository;
 import com.model.lib.MemberRepositories;
@@ -38,7 +41,8 @@ public class App {
     TimeRepositories timeRepo = new TimeRepository();
     MemberRepositories memberRepo = new MemberRepository();
     ItemRepositories itemRepo = new ItemRepository();
-    return new Service(timeRepo, memberRepo, itemRepo);
+    ContractRepositories contractRepo = new ContractRepository();
+    return new Service(timeRepo, memberRepo, itemRepo, contractRepo);
   }
 
   protected Language setLanguage(String[] args) {

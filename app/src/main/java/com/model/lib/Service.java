@@ -1,5 +1,6 @@
 package com.model.lib;
 
+import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
 import com.model.Services;
@@ -11,6 +12,7 @@ public final class Service implements Services {
   private final TimeRepositories timeRepo;
   private final MemberRepositories memberRepo;
   private final ItemRepositories itemRepo;
+  ContractRepositories contractRepo;
 
   /**
    * Constructor.
@@ -19,10 +21,12 @@ public final class Service implements Services {
    * @param memberRepo - member repository
    * @param itemRepo   - item repository
    */
-  public Service(TimeRepositories timeRepo, MemberRepositories memberRepo, ItemRepositories itemRepo) {
+  public Service(TimeRepositories timeRepo, MemberRepositories memberRepo, ItemRepositories itemRepo,
+      ContractRepositories contractRepo) {
     this.timeRepo = new TimeRepository(timeRepo.getDay());
     this.memberRepo = new MemberRepository(memberRepo.getMembers());
     this.itemRepo = new ItemRepository(itemRepo.getItems());
+    this.contractRepo = new ContractRepository(contractRepo.getContracts());
   }
 
   // ***** Members *****
@@ -147,5 +151,42 @@ public final class Service implements Services {
   @Override
   public boolean validateItemCostPerDay(double costPerDay) {
     return itemRepo.validateCostPerDay(costPerDay);
+  }
+
+  // ***** Contract *****
+
+  @Override
+  public Iterable<Contract> getContracts() {
+    return contractRepo.getContracts();
+  }
+
+  @Override
+  public Iterable<Contract> getContractsByOwner(Member owner) {
+    return contractRepo.getContractsByOwner(owner);
+  }
+
+  @Override
+  public Iterable<Contract> getContractsByBorrower(Member borrower) {
+    return contractRepo.getContractsByBorrower(borrower);
+  }
+
+  @Override
+  public Iterable<Contract> getContractsByItem(Item item) {
+    return contractRepo.getContractsByItem(item);
+  }
+
+  @Override
+  public Contract addNewContract(BasicContractData contractData) {
+    return contractRepo.addNewContract(contractData);
+  }
+
+  @Override
+  public Contract updateContract(BasicContractData newContractData, Contract oldContract) {
+    return contractRepo.updateContract(newContractData, oldContract);
+  }
+
+  @Override
+  public boolean deleteContract(Contract contractToDelete) {
+    return contractRepo.deleteContract(contractToDelete);
   }
 }
