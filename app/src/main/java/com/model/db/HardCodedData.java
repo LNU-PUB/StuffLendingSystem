@@ -49,11 +49,9 @@ public class HardCodedData implements DataHandler {
 
   @Override
   public List<Contract> getContracts() {
-    // Contract (assuming start and end day are integers representing some time
-    // unit)
-    Contract contract = new Contract("aaa111", johnDoe, hammer, janeDoe, 1, 4);
-    Contract contract2 = new Contract("aaa222", janeDoe, drill, johnDoe, 2, 5);
-    Contract contract3 = new Contract("aaa333", janeDoe, saw, alexSmith, 3, 6);
+    Contract contract = new Contract("aaa111", johnDoe, janeDoe, hammer, 1, 4);
+    Contract contract2 = new Contract("aaa222", janeDoe, johnDoe, drill, 2, 5);
+    Contract contract3 = new Contract("aaa333", janeDoe, alexSmith, saw, 3, 6);
 
     // List of contracts
     List<Contract> contracts = new ArrayList<>();

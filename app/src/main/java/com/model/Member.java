@@ -30,6 +30,19 @@ public final class Member implements Identifiable {
     this.memberCreationDay = creationDay;
   }
 
+  /**
+   * Creates a new instance of the member.
+   *
+   * @param member - the member to create a deep copy of.
+   */
+  public Member(Member member) {
+    this.id = member.getId();
+    this.name = member.getName();
+    this.email = member.getEmail();
+    this.mobile = member.getMobile();
+    this.memberCreationDay = member.getMemberCreationDay();
+  }
+
   @Override
   public String getId() {
     return id;

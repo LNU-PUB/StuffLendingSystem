@@ -115,7 +115,6 @@ public final class MemberRepository implements MemberRepositories {
         return null;
       }
       members.add(newMember);
-      // updateMemberList(members);
     }
 
     return new Member(newMember.getId(), newMember.getName(), newMember.getEmail(),

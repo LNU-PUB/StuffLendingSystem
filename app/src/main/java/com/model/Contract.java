@@ -15,15 +15,16 @@ public final class Contract implements Identifiable {
   private final String id;
 
   /**
-   * Creates a new instance of the contract.
+   * Creates a new Contract object.
    *
-   * @param owner    - the owner of the item.
-   * @param item     - the item.
-   * @param borrower - the borrower of the item.
-   * @param startDay - the start day of the contract.
-   * @param endDay   - the end day of the contract.
+   * @param id       - contract id.
+   * @param owner    - the member who owns the item.
+   * @param item     - the item that is lent.
+   * @param borrower - the member borrowing the item.
+   * @param startDay - contract starting day.
+   * @param endDay   - contract ending day.
    */
-  public Contract(String id, Member owner, Item item, Member borrower, int startDay, int endDay) {
+  public Contract(String id, Member owner, Member borrower, Item item, int startDay, int endDay) {
     this.owner = owner;
     this.item = item;
     this.borrower = borrower;
@@ -38,26 +39,17 @@ public final class Contract implements Identifiable {
    * @param contract - the contract to create a deep copy of.
    */
   public Contract(Contract contract) {
+    this.id = contract.getId();
     this.owner = contract.getOwner();
     this.item = contract.getItem();
     this.borrower = contract.getBorrower();
     this.startDay = contract.getStartDay();
     this.endDay = contract.getEndDay();
-    this.id = contract.getId();
   }
 
   @Override
   public String getId() {
     return id;
-  }
-
-  /**
-   * Gets the borrower.
-   *
-   * @return - the borrower.
-   */
-  public Member getBorrower() {
-    return borrower;
   }
 
   /**
@@ -67,6 +59,15 @@ public final class Contract implements Identifiable {
    */
   public Member getOwner() {
     return owner;
+  }
+
+  /**
+   * Gets the borrower.
+   *
+   * @return - the borrower.
+   */
+  public Member getBorrower() {
+    return borrower;
   }
 
   /**
@@ -111,7 +112,8 @@ public final class Contract implements Identifiable {
     return startDay == contract.startDay
         && endDay == contract.endDay
         && Objects.equals(id, contract.id)
-        && Objects.equals(owner, contract.owner) && Objects.equals(borrower, contract.borrower)
+        && Objects.equals(owner, contract.owner)
+        && Objects.equals(borrower, contract.borrower)
         && Objects.equals(item, contract.item);
   }
 
