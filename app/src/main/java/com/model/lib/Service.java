@@ -12,7 +12,9 @@ public final class Service implements Services {
   private final TimeRepositories timeRepo;
   private final MemberRepositories memberRepo;
   private final ItemRepositories itemRepo;
-  ContractRepositories contractRepo;
+  private final ContractRepositories contractRepo;
+  private final TransactionRepositories transactionRepo;
+  private final static int NEW_ITEM_CREDIT = 100;
 
   /**
    * Constructor.
@@ -22,11 +24,12 @@ public final class Service implements Services {
    * @param itemRepo   - item repository
    */
   public Service(TimeRepositories timeRepo, MemberRepositories memberRepo, ItemRepositories itemRepo,
-      ContractRepositories contractRepo) {
+      ContractRepositories contractRepo, TransactionRepositories transactionRepo) {
     this.timeRepo = new TimeRepository(timeRepo.getDay());
     this.memberRepo = new MemberRepository(memberRepo.getMembers());
     this.itemRepo = new ItemRepository(itemRepo.getItems());
     this.contractRepo = new ContractRepository(contractRepo.getContracts());
+    this.transactionRepo = new TransactionRepository(transactionRepo.getAllTransactions());
   }
 
   // ***** Members *****
@@ -117,6 +120,22 @@ public final class Service implements Services {
 
   @Override
   public Item addItem(BasicItemData basicItemData) {
+    if (basicItemData == null) {
+      return null;
+    }
+
+    // Member's credit for adding an item.
+    BasicTransactionData basicTransactionData = new BasicTransactionData(basicItemData.getOwner(),
+        NEW_ITEM_CREDIT, timeRepo.getDay());
+    transactionRepo.addNewTransaction(basicTransactionData);
+    // *** ONLY for testing ***
+    // for (Transaction transaction : transactionRepo.getTransactionsByMember(basicItemData.getOwner())) {
+    //   System.out.println(transaction.getMember().getName() + " credits: " + transaction.getAmount() + " on day: "
+    //       + transaction.getTransactionDay());
+    // }
+    // System.out.println(basicItemData.getOwner().getName() + " has a credit of: "
+    //     + transactionRepo.getMemberBalance(basicItemData.getOwner()));
+
     return itemRepo.addItem(basicItemData);
   }
 

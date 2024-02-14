@@ -2,7 +2,6 @@ package com.controller;
 
 import com.controller.model.InputService;
 import com.controller.model.Language;
-import com.model.Contract;
 import com.model.Services;
 import com.model.lib.ContractRepositories;
 import com.model.lib.ContractRepository;
@@ -13,6 +12,8 @@ import com.model.lib.MemberRepository;
 import com.model.lib.Service;
 import com.model.lib.TimeRepositories;
 import com.model.lib.TimeRepository;
+import com.model.lib.TransactionRepositories;
+import com.model.lib.TransactionRepository;
 import com.view.model.ViewFactory;
 import com.view.model.ViewFactoryProvider;
 import java.io.PrintStream;
@@ -42,7 +43,8 @@ public class App {
     MemberRepositories memberRepo = new MemberRepository();
     ItemRepositories itemRepo = new ItemRepository();
     ContractRepositories contractRepo = new ContractRepository();
-    return new Service(timeRepo, memberRepo, itemRepo, contractRepo);
+    TransactionRepositories transactionRepo = new TransactionRepository();
+    return new Service(timeRepo, memberRepo, itemRepo, contractRepo, transactionRepo);
   }
 
   protected Language setLanguage(String[] args) {
