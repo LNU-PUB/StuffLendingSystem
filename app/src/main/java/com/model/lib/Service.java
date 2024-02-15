@@ -132,7 +132,7 @@ public final class Service implements Services {
       }
 
       // Check if suggested end day is within this contract's rental period.
-      if(endDay >= contract.getStartDay() && endDay <= contract.getEndDay()) {
+      if (endDay >= contract.getStartDay() && endDay <= contract.getEndDay()) {
         return false;
       }
     }
@@ -151,12 +151,14 @@ public final class Service implements Services {
         NEW_ITEM_CREDIT, timeRepo.getDay());
     transactionRepo.addNewTransaction(basicTransactionData);
     // *** ONLY for testing ***
-    // for (Transaction transaction : transactionRepo.getTransactionsByMember(basicItemData.getOwner())) {
-    //   System.out.println(transaction.getMember().getName() + " credits: " + transaction.getAmount() + " on day: "
-    //       + transaction.getTransactionDay());
+    // for (Transaction transaction :
+    // transactionRepo.getTransactionsByMember(basicItemData.getOwner())) {
+    // System.out.println(transaction.getMember().getName() + " credits: " +
+    // transaction.getAmount() + " on day: "
+    // + transaction.getTransactionDay());
     // }
     // System.out.println(basicItemData.getOwner().getName() + " has a credit of: "
-    //     + transactionRepo.getMemberBalance(basicItemData.getOwner()));
+    // + transactionRepo.getMemberBalance(basicItemData.getOwner()));
 
     return itemRepo.addItem(basicItemData);
   }
@@ -230,7 +232,7 @@ public final class Service implements Services {
       if (contract.getStartDay() >= startDay && contract.getStartDay() <= endDay) {
         // Checks if suggested start day is within this contract's rental period.
         list.add(contract);
-      } else if(endDay >= contract.getStartDay() && endDay <= contract.getEndDay()) {
+      } else if (endDay >= contract.getStartDay() && endDay <= contract.getEndDay()) {
         // Checks if suggested end day is within this contract's rental period.
         list.add(contract);
       }

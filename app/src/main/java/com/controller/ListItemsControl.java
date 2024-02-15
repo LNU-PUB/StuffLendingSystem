@@ -49,8 +49,8 @@ public class ListItemsControl extends AbstractControl {
   @Override
   public boolean run(Services service) {
     // DisplayDataBundle bundle = member != null
-    //     ? new DisplayDataBundle(null, service.getItemsByMember(member), null, null)
-    //     : new DisplayDataBundle(null, service.getAllItems(), null, null);
+    // ? new DisplayDataBundle(null, service.getItemsByMember(member), null, null)
+    // : new DisplayDataBundle(null, service.getAllItems(), null, null);
     // view.displayMenu(bundle);
     view.displayMenu(service);
     ListItemsActions action = ListItemsActions.UNKNOWN;
@@ -63,7 +63,8 @@ public class ListItemsControl extends AbstractControl {
         if (action == ListItemsActions.ADDITEM) {
           addItem(service);
         } else if (action == ListItemsActions.SELECTEDITEM) {
-          Item item = getItemByIndex(service.getItemsByMember(member), response.getIndex());
+          Item item = getItemByIndex(service.getItemsByMember(member),
+              response.getIndex());
           viewItem(service, item);
           // Item item = getItemByIndex(service.getItemsByMember(member),
           // response.getIndex());

@@ -39,9 +39,6 @@ public class ItemView extends AbstractView {
   }
 
   private void displayItemDetails(Services service) {
-    // Contract contract = item.getCurrentContract();
-    Iterable<Contract> contracts = service.getContractsByItem(item);
-
     System.out.println(texts.getString("name") + ": " + item.getName());
     System.out.println(texts.getString("id") + ": " + item.getId());
     System.out.println(texts.getString("description") + ": " + item.getDescription());
@@ -49,6 +46,8 @@ public class ItemView extends AbstractView {
     System.out.println(texts.getString("costPerDay") + ": " + item.getCostPerDay());
     System.out.println(texts.getString("creationDay") + ": " + item.getCreationDay());
     System.out.println(texts.getString("contracts") + ": ");
+
+    Iterable<Contract> contracts = service.getContractsByItem(item);
     for (Contract contract : contracts) {
       System.out.println("Contract id: " + contract.getId()
           + " - Start Day: " + contract.getStartDay()

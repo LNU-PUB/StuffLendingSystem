@@ -49,9 +49,11 @@ public class ListMemberControl extends AbstractControl {
     // DisplayDataBundles bundle;
 
     // if (language == Language.ENG) {
-    //   bundle = new DisplayDataBundle(service.getMembersSortedBy(true, true), null, null, null);
+    // bundle = new DisplayDataBundle(service.getMembersSortedBy(true, true), null,
+    // null, null);
     // } else {
-    //   bundle = new DisplayDataBundle(service.getMembersSortedBy(false, true), null, null, null);
+    // bundle = new DisplayDataBundle(service.getMembersSortedBy(false, true), null,
+    // null, null);
     // }
 
     // view.displayMenu(bundle);
@@ -63,7 +65,9 @@ public class ListMemberControl extends AbstractControl {
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
-        Iterable<Member> memberList = language == Language.ENG ? service.getMembersSortedBy(true, true) : service.getMembersSortedBy(false, true);
+        Iterable<Member> memberList = language == Language.ENG
+            ? service.getMembersSortedBy(true, true)
+            : service.getMembersSortedBy(false, true);
         Member member = getMemberByIndex(memberList, response.getIndex());
         viewMember(service, member);
       } else if (action == ListMembersActions.ADDMEMBER) {
