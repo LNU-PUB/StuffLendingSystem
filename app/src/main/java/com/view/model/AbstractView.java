@@ -1,9 +1,7 @@
 package com.view.model;
 
 import com.controller.model.Language;
-import com.model.Member;
 import com.util.DataFormatter;
-
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Locale.Builder;

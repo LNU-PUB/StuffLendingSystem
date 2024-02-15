@@ -6,7 +6,6 @@ import com.model.Member;
 import com.model.Services;
 import com.view.model.AbstractView;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Responsible for displaying information to the user.
@@ -32,7 +31,7 @@ public class ListMembersView extends AbstractView {
   public void displayMenu(Services service) {
     cleanScreen();
     displayGreeting();
-    Iterable<Member> memberList = new ArrayList<>();
+    Iterable<Member> memberList;
 
     if (language == Language.ENG) {
       memberList = service.getMembersSortedBy(true, true);
@@ -72,15 +71,15 @@ public class ListMembersView extends AbstractView {
     System.out.println("- " + texts.getString("detailTitle") + " -\n");
     for (Member member : memberList) {
       System.out.println("Member:");
-      String outputString = String.format("Name: %s, \nEmail: %s, \nMobile: %s, \nMember since: %d",
+      String outputString = String.format("Name: %s, %nEmail: %s, %nMobile: %s, %nMember since: %d",
           member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay());
       System.out.println(outputString);
 
       System.out.println("\nItems: " + getSizeOfList(service.getItemsByMember(member)));
 
       for (Item item : service.getItemsByMember(member)) {
-        String itemString = String.format(
-            "  Item: %s, \n  Category: %s, \n  Description: %s, \n  Rental cost per day: %.2f, \n  Creation day: %d \n  ---",
+        String itemString = String.format("  Item: %s, %n  Category: %s," 
+            + "%n  Description: %s, %n  Rental cost per day: %.2f, %n  Creation day: %d %n  ---",
             item.getName(), item.getCategory().getDisplayName(), item.getDescription(), item.getCostPerDay(),
             item.getCreationDay());
         System.out.println(itemString);
