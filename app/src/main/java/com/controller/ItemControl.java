@@ -45,7 +45,7 @@ public class ItemControl extends AbstractControl {
   @Override
   public boolean run(Services service) {
     View view = viewFactory.createItemView(language, BUNDLE_NAME, item);
-    view.displayMenu(null);
+    view.displayMenu(service);
     ItemActions action = getInput(service);
 
     if (action == ItemActions.EDITITEM) {

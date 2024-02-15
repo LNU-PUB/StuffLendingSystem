@@ -52,19 +52,21 @@ public class HardCodedData implements DataHandler {
   public List<Contract> getContracts() {
     Contract contract = new Contract("aaa111", johnDoe, janeDoe, hammer, 1, 4);
     Contract contract2 = new Contract("aaa222", janeDoe, johnDoe, drill, 2, 5);
-    Contract contract3 = new Contract("aaa333", janeDoe, alexSmith, saw, 3, 6);
+    Contract contract3 = new Contract("aaa333", johnDoe, alexSmith, saw, 3, 6);
+    Contract contract4 = new Contract("aaa123", johnDoe, alexSmith, hammer, 6, 7);
 
     // List of contracts
     List<Contract> contracts = new ArrayList<>();
     contracts.add(contract);
     contracts.add(contract2);
     contracts.add(contract3);
+    contracts.add(contract4);
     return contracts;
   }
 
   @Override
   public List<Transaction> getTransactions() {
-    // Create  an initial amount of crdits for each member of 200.
+    // Create  an initial amount of credits for each member of 200.
     Transaction transaction = new Transaction("ccc123", johnDoe, 200, johnDoe.getMemberCreationDay());
     Transaction transaction2 = new Transaction("ccc124", janeDoe, 200, janeDoe.getMemberCreationDay());
     Transaction transaction3 = new Transaction("ccc125", alexSmith, 200, alexSmith.getMemberCreationDay());

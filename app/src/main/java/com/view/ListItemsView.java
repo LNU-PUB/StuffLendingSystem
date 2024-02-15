@@ -42,7 +42,7 @@ public class ListItemsView extends AbstractView {
 
   private void display(Iterable<Item> itemList) {
     System.out.println("- " + texts.getString("title") + " -\n");
-    System.out.println("Items: " + getSizeOfTheList(itemList));
+    System.out.println("Items: " + getSizeOfList(itemList));
     int index = 0;
     for (Item item : itemList) {
       String outputString = listAllItems
@@ -57,17 +57,5 @@ public class ListItemsView extends AbstractView {
     System.out.println();
     System.out.println("a - " + texts.getString("addItem"));
     System.out.println("x - " + texts.getString("exit"));
-  }
-
-  private int getSizeOfTheList(Iterable<Item> items) {
-    if (items instanceof Collection<?>) {
-      return ((Collection<?>) items).size();
-    } else {
-      int size = 0;
-      for (Item item : items) {
-        size++;
-      }
-      return size;
-    }
   }
 }

@@ -1,11 +1,14 @@
 package com.view;
 
 import com.controller.model.Language;
+import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 import com.view.model.AbstractView;
-import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Locale.Builder;
+import java.util.ResourceBundle;
 
 /**
  * Responsible for displaying information to the user.
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 public class ListMembersView extends AbstractView {
   private final boolean detailedList;
   private final Language language;
+  private final ResourceBundle memberTexts;
 
   /**
    * Creates a new instance of the view.
@@ -23,6 +27,8 @@ public class ListMembersView extends AbstractView {
    */
   public ListMembersView(Language language, String bundleName, boolean detailedList) {
     super(language, bundleName);
+    Locale locale = new Builder().setLanguage(language.getLanguage()).setRegion(language.getCountry()).build();
+    memberTexts = ResourceBundle.getBundle("com.view.BasicMemberData", locale);
     this.language = language;
     this.detailedList = detailedList;
   }
@@ -49,14 +55,15 @@ public class ListMembersView extends AbstractView {
   private void displaySimpleMenu(Iterable<Member> memberList, Services service) {
     // List Name, Email, Credits, Number of Items
     System.out.println("- " + texts.getString("title") + " -\n");
-    System.out.println("Members: " + getSizeOfList(memberList));
+    System.out.println(memberTexts.getString("members") + ": " + getSizeOfList(memberList));
     int index = 0;
     for (Member member : memberList) {
-      String outputString = String.format("%d - %s, (Email: %s, Credits: %.2f, Items: %d)", index,
+      String outputString = String.format("%d - %s, ("
+          + memberTexts.getString("email") + ": %s, "
+          + memberTexts.getString("credits") + ": %.2f, "
+          + memberTexts.getString("items") + ": %d)", index,
           member.getName(), member.getEmail(), service.getMemberBalance(member),
           getSizeOfList(service.getItemsByMember(member)));
-      // String outputString = String.format("%d - %s, (email: %s)", index,
-      // member.getName(), member.getEmail());
 
       System.out.println(outputString);
       index++;
@@ -70,19 +77,33 @@ public class ListMembersView extends AbstractView {
   private void displayDetailedMenu(Iterable<Member> memberList, Services service) {
     System.out.println("- " + texts.getString("detailTitle") + " -\n");
     for (Member member : memberList) {
-      System.out.println("Member:");
-      String outputString = String.format("Name: %s, %nEmail: %s, %nMobile: %s, %nMember since: %d",
+      System.out.println(memberTexts.getString("member") + ":");
+      String outputString = String.format(memberTexts.getString("name") + ": %s, %n"
+          + memberTexts.getString("email") + ": %s, %n"
+          + memberTexts.getString("mobile") + ": %s, %n"
+          + memberTexts.getString("member_since") + ": %d",
           member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay());
       System.out.println(outputString);
 
       System.out.println("\nItems: " + getSizeOfList(service.getItemsByMember(member)));
 
       for (Item item : service.getItemsByMember(member)) {
-        String itemString = String.format("  Item: %s, %n  Category: %s," 
-            + "%n  Description: %s, %n  Rental cost per day: %.2f, %n  Creation day: %d %n  ---",
+        String itemString = String.format("  Item: %s, %n  Category: %s,"
+            + "%n  Description: %s, %n  Rental cost per day: %.2f, %n  Creation day: %d ",
             item.getName(), item.getCategory().getDisplayName(), item.getDescription(), item.getCostPerDay(),
             item.getCreationDay());
         System.out.println(itemString);
+        System.out.print("\n    --\n    Current Contract: ");
+        if (service.isItemAvailable(item, service.getDay(), service.getDay())) {
+          System.out.println(memberTexts.getString("no_contracts"));
+        } else {
+          // List open contracts at the present time.
+          for (Contract contract : service.getItemSpecificContractsForRange(item, service.getDay(), service.getDay())) {
+            System.out.println("  " + contract.getBorrower().getName() + " has rented this item from day "
+                + contract.getStartDay() + " to day " + contract.getEndDay());
+          }
+        }
+        System.out.println("  ---\n");
       }
       System.out.println("\n-----");
     }

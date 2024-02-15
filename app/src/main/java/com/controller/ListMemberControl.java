@@ -63,8 +63,8 @@ public class ListMemberControl extends AbstractControl {
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
-        // Member member = getMemberByIndex(bundle.getMembers(), response.getIndex());
-        Member member = getMemberByIndex(service.getAllMembers(), response.getIndex());
+        Iterable<Member> memberList = language == Language.ENG ? service.getMembersSortedBy(true, true) : service.getMembersSortedBy(false, true);
+        Member member = getMemberByIndex(memberList, response.getIndex());
         viewMember(service, member);
       } else if (action == ListMembersActions.ADDMEMBER) {
         addMember(service);

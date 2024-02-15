@@ -29,7 +29,7 @@ public class ItemView extends AbstractView {
   public void displayMenu(Services service) {
     displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
-    displayItemDetails();
+    displayItemDetails(service);
 
     for (ItemActions actions : ItemActions.values()) {
       if (actions != ItemActions.UNKNOWN) {
@@ -38,15 +38,9 @@ public class ItemView extends AbstractView {
     }
   }
 
-  private void displayItemDetails() {
-    Contract contract = item.getCurrentContract();
-    String ccString = "None";
-
-    if (contract != null) {
-      String ccId = contract.getId();
-      ccString = ccId + ", Start Day: "
-          + contract.getStartDay() + ", End Day: " + contract.getEndDay();
-    }
+  private void displayItemDetails(Services service) {
+    // Contract contract = item.getCurrentContract();
+    Iterable<Contract> contracts = service.getContractsByItem(item);
 
     System.out.println(texts.getString("name") + ": " + item.getName());
     System.out.println(texts.getString("id") + ": " + item.getId());
@@ -54,7 +48,12 @@ public class ItemView extends AbstractView {
     System.out.println(texts.getString("category") + ": " + item.getCategory().getDisplayName());
     System.out.println(texts.getString("costPerDay") + ": " + item.getCostPerDay());
     System.out.println(texts.getString("creationDay") + ": " + item.getCreationDay());
-    System.out.println(texts.getString("currentContract") + ": " + ccString);
+    System.out.println(texts.getString("contracts") + ": ");
+    for (Contract contract : contracts) {
+      System.out.println("Contract id: " + contract.getId()
+          + " - Start Day: " + contract.getStartDay()
+          + ", End Day: " + contract.getEndDay());
+    }
     System.out.println("\n---\n");
   }
 }

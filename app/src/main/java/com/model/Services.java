@@ -127,6 +127,16 @@ public interface Services {
   public Iterable<Item> getItemsByMember(Member member);
 
   /**
+   * Checks if an item is available for rent for the given time period.
+   *
+   * @param item    - item to check
+   * @param startDay - start day
+   * @param endDay  - end day
+   * @return - true if available, false otherwise
+   */
+  public boolean isItemAvailable(Item item, int startDay, int endDay);
+
+  /**
    * Add a new Item.
    *
    * @param basicItemData - data for new Item
@@ -215,6 +225,16 @@ public interface Services {
    * @return - all contracts by item.
    */
   Iterable<Contract> getContractsByItem(Item item);
+
+  /**
+   * Gets all contracts for a specific item for a specific range of days.
+   *
+   * @param item     - the item.
+   * @param startDay - the start day.
+   * @param endDay   - the end day.
+   * @return - all contracts for a specific item for a specific range of days.
+   */
+  Iterable<Contract> getItemSpecificContractsForRange(Item item, int startDay, int endDay);
 
   /**
    * Adds a new contract.

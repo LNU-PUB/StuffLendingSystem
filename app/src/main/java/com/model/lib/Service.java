@@ -5,6 +5,8 @@ import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 import com.model.Transaction;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Member Service.
@@ -120,6 +122,25 @@ public final class Service implements Services {
   }
 
   @Override
+  public boolean isItemAvailable(Item item, int startDay, int endDay) {
+    Iterable<Contract> contracts = contractRepo.getContractsByItem(item);
+
+    for (Contract contract : contracts) {
+      // Check if suggested start day is within this contract's rental period.
+      if (contract.getStartDay() >= startDay && contract.getStartDay() <= endDay) {
+        return false;
+      }
+
+      // Check if suggested end day is within this contract's rental period.
+      if(endDay >= contract.getStartDay() && endDay <= contract.getEndDay()) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  @Override
   public Item addItem(BasicItemData basicItemData) {
     if (basicItemData == null) {
       return null;
@@ -198,6 +219,24 @@ public final class Service implements Services {
   @Override
   public Iterable<Contract> getContractsByItem(Item item) {
     return contractRepo.getContractsByItem(item);
+  }
+
+  @Override
+  public Iterable<Contract> getItemSpecificContractsForRange(Item item, int startDay, int endDay) {
+    List<Contract> list = new ArrayList<>();
+    Iterable<Contract> contracts = contractRepo.getContractsByItem(item);
+
+    for (Contract contract : contracts) {
+      if (contract.getStartDay() >= startDay && contract.getStartDay() <= endDay) {
+        // Checks if suggested start day is within this contract's rental period.
+        list.add(contract);
+      } else if(endDay >= contract.getStartDay() && endDay <= contract.getEndDay()) {
+        // Checks if suggested end day is within this contract's rental period.
+        list.add(contract);
+      }
+    }
+
+    return list;
   }
 
   @Override
