@@ -1,9 +1,11 @@
 package com.view;
 
-import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
+import com.model.Item;
 import com.model.Member;
+import com.model.Services;
 import com.view.model.AbstractView;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -11,6 +13,7 @@ import java.util.Collection;
  */
 public class ListMembersView extends AbstractView {
   private final boolean detailedList;
+  private final Language language;
 
   /**
    * Creates a new instance of the view.
@@ -21,32 +24,40 @@ public class ListMembersView extends AbstractView {
    */
   public ListMembersView(Language language, String bundleName, boolean detailedList) {
     super(language, bundleName);
+    this.language = language;
     this.detailedList = detailedList;
   }
 
   @Override
-  public void displayMenu(DisplayDataBundles bundles) {
+  public void displayMenu(Services service) {
     cleanScreen();
     displayGreeting();
-    // this.memberList = memberServ.getAllMembers();
-    if (detailedList) {
-      displayDetailedMenu(bundles.getMembers());
+    Iterable<Member> memberList = new ArrayList<>();
+
+    if (language == Language.ENG) {
+      memberList = service.getMembersSortedBy(true, true);
     } else {
-      displaySimpleMenu(bundles.getMembers());
+      memberList = service.getMembersSortedBy(false, true);
+    }
+
+    if (detailedList) {
+      displayDetailedMenu(memberList, service);
+    } else {
+      displaySimpleMenu(memberList, service);
     }
   }
 
-  private void displaySimpleMenu(Iterable<Member> memberList) {
+  private void displaySimpleMenu(Iterable<Member> memberList, Services service) {
+    // List Name, Email, Credits, Number of Items
     System.out.println("- " + texts.getString("title") + " -\n");
-    System.out.println("Members: " + getSizeOfTheMembersList(memberList));
+    System.out.println("Members: " + getSizeOfList(memberList));
     int index = 0;
     for (Member member : memberList) {
-      // String outputString = String.format("%d - %s, (email: %s, credits: %d, Items:
-      // %d)", i,
-      // member.getName(), member.getEmail(), member.getCredits(),
-      // member.getNumberOfItems());
-      String outputString = String.format("%d - %s, (email: %s)", index,
-          member.getName(), member.getEmail());
+      String outputString = String.format("%d - %s, (Email: %s, Credits: %.2f, Items: %d)", index,
+          member.getName(), member.getEmail(), service.getMemberBalance(member),
+          getSizeOfList(service.getItemsByMember(member)));
+      // String outputString = String.format("%d - %s, (email: %s)", index,
+      // member.getName(), member.getEmail());
 
       System.out.println(outputString);
       index++;
@@ -57,35 +68,24 @@ public class ListMembersView extends AbstractView {
     System.out.println("x - " + texts.getString("exit"));
   }
 
-  private void displayDetailedMenu(Iterable<Member> memberList) {
+  private void displayDetailedMenu(Iterable<Member> memberList, Services service) {
     System.out.println("- " + texts.getString("detailTitle") + " -\n");
     for (Member member : memberList) {
-
-      String outputString = String.format("Name: %s, Email: %s", member.getName(), member.getEmail());
+      System.out.println("Member:");
+      String outputString = String.format("Name: %s, \nEmail: %s, \nMobile: %s, \nMember since: %d",
+          member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay());
       System.out.println(outputString);
-      // for (Item item : member.getItems()) {
-      // System.out.println(" Item: " + item.getName() + ", Description: " +
-      // item.getDescription());
-      // Contract contract = item.getCurrentContract();
-      // if (contract != null) {
-      // System.out.println(" Lent to: " + contract.getBorrower().getName()
-      // + ", Period: Day " + contract.getStartDay() + " to Day " +
-      // contract.getEndDay());
-      // }
-      // }
-      System.out.println("---");
-    }
-  }
 
-  private int getSizeOfTheMembersList(Iterable<Member> memberList) {
-    if (memberList instanceof Collection<?>) {
-      return ((Collection<?>) memberList).size();
-    } else {
-      int size = 0;
-      for (Member member : memberList) {
-        size++;
+      System.out.println("\nItems: " + getSizeOfList(service.getItemsByMember(member)));
+
+      for (Item item : service.getItemsByMember(member)) {
+        String itemString = String.format(
+            "  Item: %s, \n  Category: %s, \n  Description: %s, \n  Rental cost per day: %.2f, \n  Creation day: %d \n  ---",
+            item.getName(), item.getCategory().getDisplayName(), item.getDescription(), item.getCostPerDay(),
+            item.getCreationDay());
+        System.out.println(itemString);
       }
-      return size;
+      System.out.println("\n-----");
     }
   }
 }

@@ -1,7 +1,10 @@
 package com.view.model;
 
 import com.controller.model.Language;
+import com.model.Member;
 import com.util.DataFormatter;
+
+import java.util.Collection;
 import java.util.Locale;
 import java.util.Locale.Builder;
 import java.util.ResourceBundle;
@@ -49,6 +52,18 @@ public abstract class AbstractView implements View {
 
   public void displayError(String error) {
     System.out.println("\n*** " + texts.getString("error") + ": " + error + "\n");
+  }
+
+  protected int getSizeOfList(Iterable<?> list) {
+    if (list instanceof Collection<?>) {
+      return ((Collection<?>) list).size();
+    } else {
+      int size = 0;
+      for (Object element : list) {
+        size++;
+      }
+      return size;
+    }
   }
 
   @Override

@@ -16,6 +16,14 @@ public interface ContractRepositories {
   Iterable<Contract> getContracts();
 
   /**
+   * Gets all contracts by member both as owner and borrower.
+   *
+   * @param member - the member.
+   * @return - all contracts by member.
+   */
+  Iterable<Contract> getContractsByMember(Member member);
+
+  /**
    * Gets all contracts by owner.
    *
    * @param owner - the owner.

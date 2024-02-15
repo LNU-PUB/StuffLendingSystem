@@ -1,9 +1,9 @@
 package com.view;
 
-import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
 import com.model.Item;
 import com.model.Member;
+import com.model.Services;
 import com.view.model.AbstractView;
 import java.util.Collection;
 
@@ -12,18 +12,32 @@ import java.util.Collection;
  */
 public class ListItemsView extends AbstractView {
   private boolean listAllItems;
+  private Member member;
 
+  /**
+   * Creates a new instance of the view.
+   *
+   * @param language     - the language to use.
+   * @param bundleName   - the bundle name to use.
+   * @param listAllItems - true if all items should be listed, false if not.
+   * @param member       - the member to list items for.
+   */
   public ListItemsView(Language language, String bundleName, boolean listAllItems, Member member) {
     super(language, bundleName);
     this.listAllItems = listAllItems;
+    this.member = member;
   }
 
   @Override
-  public void displayMenu(DisplayDataBundles bundle) {
+  public void displayMenu(Services service) {
     cleanScreen();
     displayGreeting();
 
-    display(bundle.getItems());
+    if (listAllItems) {
+      display(service.getAllItems());
+    } else {
+      display(service.getItemsByMember(this.member));
+    }
   }
 
   private void display(Iterable<Item> itemList) {

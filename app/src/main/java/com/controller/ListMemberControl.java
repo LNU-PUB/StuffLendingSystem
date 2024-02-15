@@ -46,15 +46,16 @@ public class ListMemberControl extends AbstractControl {
 
   @Override
   public boolean run(Services service) {
-    DisplayDataBundles bundle;
+    // DisplayDataBundles bundle;
 
-    if (language == Language.ENG) {
-      bundle = new DisplayDataBundle(service.getMembersSortedBy(true, true), null, null, null);
-    } else {
-      bundle = new DisplayDataBundle(service.getMembersSortedBy(false, true), null, null, null);
-    }
+    // if (language == Language.ENG) {
+    //   bundle = new DisplayDataBundle(service.getMembersSortedBy(true, true), null, null, null);
+    // } else {
+    //   bundle = new DisplayDataBundle(service.getMembersSortedBy(false, true), null, null, null);
+    // }
 
-    view.displayMenu(bundle);
+    // view.displayMenu(bundle);
+    view.displayMenu(service);
     ListMembersActions action = ListMembersActions.UNKNOWN;
 
     try {
@@ -62,7 +63,8 @@ public class ListMemberControl extends AbstractControl {
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
-        Member member = getMemberByIndex(bundle.getMembers(), response.getIndex());
+        // Member member = getMemberByIndex(bundle.getMembers(), response.getIndex());
+        Member member = getMemberByIndex(service.getAllMembers(), response.getIndex());
         viewMember(service, member);
       } else if (action == ListMembersActions.ADDMEMBER) {
         addMember(service);

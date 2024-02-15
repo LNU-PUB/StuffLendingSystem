@@ -1,7 +1,7 @@
 package com.view;
 
-import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
+import com.model.Services;
 import com.view.model.AbstractView;
 import com.view.model.AddDataView;
 
@@ -23,7 +23,7 @@ public class EntityCreationView extends AbstractView implements AddDataView {
   }
 
   @Override
-  public void displayMenu(DisplayDataBundles bundle) {
+  public void displayMenu(Services service) {
     displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
   }

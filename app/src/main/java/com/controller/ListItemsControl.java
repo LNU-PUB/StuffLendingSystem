@@ -48,10 +48,11 @@ public class ListItemsControl extends AbstractControl {
 
   @Override
   public boolean run(Services service) {
-    DisplayDataBundle bundle = member != null
-        ? new DisplayDataBundle(null, service.getItemsByMember(member), null, null)
-        : new DisplayDataBundle(null, service.getAllItems(), null, null);
-    view.displayMenu(bundle);
+    // DisplayDataBundle bundle = member != null
+    //     ? new DisplayDataBundle(null, service.getItemsByMember(member), null, null)
+    //     : new DisplayDataBundle(null, service.getAllItems(), null, null);
+    // view.displayMenu(bundle);
+    view.displayMenu(service);
     ListItemsActions action = ListItemsActions.UNKNOWN;
 
     if (detailedList || !detailedList) {

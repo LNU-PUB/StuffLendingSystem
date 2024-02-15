@@ -1,8 +1,6 @@
 package com.controller;
 
 import com.controller.model.AbstractControl;
-import com.controller.model.DisplayDataBundle;
-import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.actions.MemberActions;
@@ -48,8 +46,7 @@ public class MemberControl extends AbstractControl {
    */
   public boolean run(Services service) {
     View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
-    DisplayDataBundles bundle = new DisplayDataBundle(service.getAllMembers(), null, null, null);
-    view.displayMenu(bundle);
+    view.displayMenu(service);
     MemberActions action = getInput(service);
 
     if (action == MemberActions.ADDCREDITS) {

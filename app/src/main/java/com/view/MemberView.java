@@ -1,9 +1,9 @@
 package com.view;
 
-import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
 import com.controller.model.actions.MemberActions;
 import com.model.Member;
+import com.model.Services;
 import com.view.model.AbstractView;
 
 /**
@@ -26,7 +26,7 @@ public class MemberView extends AbstractView {
   }
 
   @Override
-  public void displayMenu(DisplayDataBundles bundle) {
+  public void displayMenu(Services service) {
     displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
     displayMemberDetails();

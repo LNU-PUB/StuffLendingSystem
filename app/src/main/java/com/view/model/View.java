@@ -1,6 +1,6 @@
 package com.view.model;
 
-import com.controller.model.DisplayDataBundles;
+import com.model.Services;
 
 /**
  * The view interface.
@@ -9,9 +9,10 @@ public interface View {
   /**
    * Displays the menu.
    *
-   * @param displayDataBundle - the data to display.
+   * @param service - the service to use.
    */
-  void displayMenu(DisplayDataBundles displayDataBundle);
+  // void displayMenu(DisplayDataBundles displayDataBundle);
+  void displayMenu(Services service);
 
   /**
    * Displays the prompt.

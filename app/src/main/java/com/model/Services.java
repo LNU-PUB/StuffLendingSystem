@@ -3,6 +3,7 @@ package com.model;
 import com.model.lib.BasicContractData;
 import com.model.lib.BasicItemData;
 import com.model.lib.BasicMemberData;
+import com.model.lib.BasicTransactionData;
 
 /**
  * Member Service interface.
@@ -200,6 +201,14 @@ public interface Services {
   Iterable<Contract> getContractsByBorrower(Member borrower);
 
   /**
+   * Gets all contracts by member both as owner and borrower.
+   *
+   * @param member - the member.
+   * @return - all contracts by member.
+   */
+  Iterable<Contract> getContractsByMember(Member member);
+
+  /**
    * Gets all contracts by item.
    *
    * @param item - the item.
@@ -231,4 +240,62 @@ public interface Services {
    * @return - true if the contract was deleted, false otherwise.
    */
   boolean deleteContract(Contract contractToDelete);
+
+  // ***** Transactions *****
+
+  /**
+   * Gets all transactions.
+   *
+   * @return - all transactions.
+   */
+  Iterable<Transaction> getAllTransactions();
+
+  /**
+   * Gets a transaction by id.
+   *
+   * @param id - the id.
+   * @return - the transaction.
+   */
+  Transaction getTransactionById(String id);
+
+  /**
+   * Gets all transactions by member.
+   *
+   * @param member - the member.
+   * @return - all transactions by member.
+   */
+  Iterable<Transaction> getTransactionsByMember(Member member);
+
+  /**
+   * Adds a new transaction.
+   *
+   * @param basicTransactionData - the basic transaction data.
+   * @return - the new transaction.
+   */
+  Transaction addNewTransaction(BasicTransactionData basicTransactionData);
+
+  /**
+   * Updates a transaction.
+   *
+   * @param updatedTransaction - the updated transaction.
+   * @param oldTransaction     - the old transaction.
+   * @return - the updated transaction.
+   */
+  Transaction updateTransaction(Transaction updatedTransaction, Transaction oldTransaction);
+
+  /**
+   * Deletes a transaction.
+   *
+   * @param transaction - the transaction.
+   * @return - true if the transaction was deleted, false otherwise.
+   */
+  boolean deleteTransaction(Transaction transaction);
+
+  /**
+   * Gets the balance of a member.
+   *
+   * @param member - the member.
+   * @return - the balance of the member.
+   */
+  double getMemberBalance(Member member);
 }

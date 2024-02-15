@@ -4,17 +4,18 @@ import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
 import com.model.Services;
+import com.model.Transaction;
 
 /**
  * Member Service.
  */
 public final class Service implements Services {
+  private static final int NEW_ITEM_CREDIT = 100;
   private final TimeRepositories timeRepo;
   private final MemberRepositories memberRepo;
   private final ItemRepositories itemRepo;
   private final ContractRepositories contractRepo;
   private final TransactionRepositories transactionRepo;
-  private final static int NEW_ITEM_CREDIT = 100;
 
   /**
    * Constructor.
@@ -180,6 +181,11 @@ public final class Service implements Services {
   }
 
   @Override
+  public Iterable<Contract> getContractsByMember(Member member) {
+    return contractRepo.getContractsByMember(member);
+  }
+
+  @Override
   public Iterable<Contract> getContractsByOwner(Member owner) {
     return contractRepo.getContractsByOwner(owner);
   }
@@ -207,5 +213,42 @@ public final class Service implements Services {
   @Override
   public boolean deleteContract(Contract contractToDelete) {
     return contractRepo.deleteContract(contractToDelete);
+  }
+
+  // ***** Transactions *****
+
+  @Override
+  public Iterable<Transaction> getAllTransactions() {
+    return transactionRepo.getAllTransactions();
+  }
+
+  @Override
+  public Transaction getTransactionById(String id) {
+    return transactionRepo.getTransactionById(id);
+  }
+
+  @Override
+  public Iterable<Transaction> getTransactionsByMember(Member member) {
+    return transactionRepo.getTransactionsByMember(member);
+  }
+
+  @Override
+  public Transaction addNewTransaction(BasicTransactionData basicTransactionData) {
+    return transactionRepo.addNewTransaction(basicTransactionData);
+  }
+
+  @Override
+  public Transaction updateTransaction(Transaction updatedTransaction, Transaction oldTransaction) {
+    return transactionRepo.updateTransaction(updatedTransaction, oldTransaction);
+  }
+
+  @Override
+  public boolean deleteTransaction(Transaction transaction) {
+    return transactionRepo.deleteTransaction(transaction);
+  }
+
+  @Override
+  public double getMemberBalance(Member member) {
+    return transactionRepo.getMemberBalance(member);
   }
 }

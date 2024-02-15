@@ -51,8 +51,10 @@ public final class MemberRepository implements MemberRepositories {
   /**
    * Gets a list of members sorted by name or id.
    *
-   * @param asName    - True if the list should be sorted by name, false if sorted by id.
-   * @param ascending - True if the list should be sorted in ascending order, false if not.
+   * @param asName    - True if the list should be sorted by name, false if sorted
+   *                  by id.
+   * @param ascending - True if the list should be sorted in ascending order,
+   *                  false if not.
    * @return - A list of members sorted by name or id.
    */
   @Override
@@ -290,43 +292,6 @@ public final class MemberRepository implements MemberRepositories {
         && data.getEmail() != null && !data.getEmail().trim().isEmpty() && validateEmail(data.getEmail())
         && data.getMobile() != null && !data.getMobile().trim().isEmpty() && validateMobile(data.getMobile());
   }
-
-  // private String generateMemberId() {
-  // while (true) {
-  // String id = generateRandomId();
-  // if (isUniqueMemberId(id)) {
-  // return id;
-  // }
-  // }
-  // }
-
-  // private String generateRandomId() {
-  // // 6 alpha-numeric characters
-  // String alphaNumericCharacters =
-  // "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  // StringBuilder result = new StringBuilder(6);
-
-  // for (int i = 0; i < 6; i++) {
-  // int index = this.random.nextInt(alphaNumericCharacters.length());
-  // result.append(alphaNumericCharacters.charAt(index));
-  // }
-
-  // return result.toString();
-  // }
-
-  // private boolean isUniqueMemberId(String id) {
-  // if (id == null || id.length() != 6) {
-  // return false;
-  // }
-
-  // for (Member member : members) {
-  // if (member.getId().equals(id)) {
-  // return false;
-  // }
-  // }
-
-  // return true;
-  // }
 
   private void replaceMemberInList(Member oldMember, Member newMember) {
     for (int i = 0; i < members.size(); i++) {

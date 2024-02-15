@@ -40,6 +40,19 @@ public class ContractRepository implements ContractRepositories {
   }
 
   @Override
+  public Iterable<Contract> getContractsByMember(Member member) {
+    List<Contract> outList = new ArrayList<>();
+
+    for (Contract contract : contracts) {
+      if (contract.getOwner().equals(member) || contract.getBorrower().equals(member)) {
+        outList.add(contract);
+      }
+    }
+
+    return outList;
+  }
+
+  @Override
   public Iterable<Contract> getContractsByOwner(Member owner) {
     List<Contract> outList = new ArrayList<>();
 

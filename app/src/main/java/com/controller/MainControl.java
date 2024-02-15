@@ -44,8 +44,9 @@ public class MainControl extends AbstractControl {
    *         should exit.
    */
   public boolean run(Services service) {
-    DisplayDataBundles bundle = new DisplayDataBundle(null, null, null, null);
-    view.displayMenu(bundle);
+    // DisplayDataBundles bundle = new DisplayDataBundle(null, null, null, null);
+    // view.displayMenu(bundle);
+    view.displayMenu(service);
     MainActions action = getInput();
 
     if (action == MainActions.LISTMEMBERS) {
