@@ -69,6 +69,16 @@ public class Transaction implements Identifiable {
   }
 
   @Override
+  public String toString() {
+    return "Transaction{"
+        + "id='" + id + '\''
+        + ", member=" + getMember().getName()
+        + ", amount=" + getAmount()
+        + ", transactionDay=" + getTransactionDay()
+        + '}';
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;

@@ -10,7 +10,7 @@ import com.controller.model.commands.EditMemberCommand;
 import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicMemberData;
-import com.view.model.View;
+import com.view.model.ViewProvider;
 import com.view.model.ViewFactoryProvider;
 
 /**
@@ -45,13 +45,11 @@ public class MemberControl extends AbstractControl {
    *         should exit.
    */
   public boolean run(Services service) {
-    View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
+    ViewProvider view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayMenu(service);
     MemberActions action = getInput(service);
 
-    if (action == MemberActions.ADDCREDITS) {
-      addCredits();
-    } else if (action == MemberActions.DELETEMEMBER) {
+    if (action == MemberActions.DELETEMEMBER) {
       deleteMember(service);
     } else if (action == MemberActions.EDITMEMBER) {
       editMember(service);
@@ -59,15 +57,15 @@ public class MemberControl extends AbstractControl {
       listItems(service);
     } else if (action == MemberActions.LISTALLITEMS) {
       listAllItems(service);
-    } else if (action == MemberActions.NEWCONTRACT) {
-      createNewContract();
+    } else if (action == MemberActions.LENDITEM) {
+      lendNewItem(service);
     }
 
     return action != MemberActions.EXIT;
   }
 
   private MemberActions getInput(Services service) {
-    View view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
+    ViewProvider view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayPrompt();
 
     String input = inputService.readLine();
@@ -86,8 +84,10 @@ public class MemberControl extends AbstractControl {
     return MemberActions.UNKNOWN;
   }
 
-  private void createNewContract() {
-    throw new UnsupportedOperationException("Unimplemented method 'createNewContractContract'");
+  private void lendNewItem(Services service) {
+    LendItemControl lendItemControl = new LendItemControl(language, inputService, member, viewFactory);
+    while (lendItemControl.run(service)) {
+    }
   }
 
   private void listItems(Services service) {
@@ -102,10 +102,6 @@ public class MemberControl extends AbstractControl {
     }
   }
 
-  private void addCredits() {
-    throw new UnsupportedOperationException("Unimplemented method 'addCredits'");
-  }
-
   private void deleteMember(Services service) {
     Command deleteMember = new DeleteMemberCommand(member);
 
@@ -117,7 +113,7 @@ public class MemberControl extends AbstractControl {
   }
 
   private void editMember(Services service) {
-    View dataView = viewFactory.createSimplePromptView(language, "BasicMemberData");
+    ViewProvider dataView = viewFactory.createSimplePromptView(language, "BasicMemberData");
 
     BasicMemberData memberData = getAllMemberData(dataView, service);
     Command editMember = new EditMemberCommand(memberData, member);

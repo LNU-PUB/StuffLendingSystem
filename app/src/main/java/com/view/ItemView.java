@@ -6,11 +6,12 @@ import com.model.Contract;
 import com.model.Item;
 import com.model.Services;
 import com.view.model.AbstractView;
+import com.view.model.ViewProvider;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class ItemView extends AbstractView {
+public class ItemView extends AbstractView implements ViewProvider {
   private final Item item;
 
   /**

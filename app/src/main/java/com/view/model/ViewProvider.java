@@ -5,7 +5,7 @@ import com.model.Services;
 /**
  * The view interface.
  */
-public interface View {
+public interface ViewProvider {
   /**
    * Displays the menu.
    *

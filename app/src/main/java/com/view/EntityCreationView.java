@@ -4,11 +4,12 @@ import com.controller.model.Language;
 import com.model.Services;
 import com.view.model.AbstractView;
 import com.view.model.AddDataView;
+import com.view.model.ViewProvider;
 
 /**
  * View for adding Members.
  */
-public class EntityCreationView extends AbstractView implements AddDataView {
+public class EntityCreationView extends AbstractView implements ViewProvider, AddDataView {
   // private final ViewArguments args;
 
   /**

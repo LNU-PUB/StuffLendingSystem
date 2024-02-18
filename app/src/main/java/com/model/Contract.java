@@ -98,6 +98,18 @@ public final class Contract implements Identifiable {
   }
 
   @Override
+  public String toString() {
+    return "Contract{"
+        + "id='" + getId() + '\''
+        + ", owner=" + getOwner().getName()
+        + ", borrower=" + getBorrower().getName()
+        + ", item=" + getItem().getName()
+        + ", startDay=" + getStartDay()
+        + ", endDay=" + getEndDay()
+        + '}';
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

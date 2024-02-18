@@ -5,12 +5,13 @@ import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 import com.view.model.AbstractView;
+import com.view.model.ViewProvider;
 import java.util.Collection;
 
 /**
  * A view for listing items.
  */
-public class ListItemsView extends AbstractView {
+public class ListItemsView extends AbstractView implements ViewProvider {
   private boolean listAllItems;
   private Member member;
 

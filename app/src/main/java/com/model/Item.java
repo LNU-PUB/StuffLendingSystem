@@ -100,6 +100,20 @@ public final class Item implements Identifiable {
   }
 
   @Override
+  public String toString() {
+    return "Item{"
+        + "id='" + getId() + '\''
+        + ", owner=" + getOwner().getName()
+        + ", name='" + getName() + '\''
+        + ", category=" + getCategory().getDisplayName()
+        + ", description='" + getDescription() + '\''
+        + ", costPerDay=" + getCostPerDay()
+        + ", creationDay=" + getCreationDay()
+        // + ", currentContract=" + getCurrentContract() == null ? "No contract" : getCurrentContract().getId()
+        + '}';
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

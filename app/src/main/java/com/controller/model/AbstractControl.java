@@ -7,7 +7,7 @@ import com.model.lib.BasicItemData;
 import com.model.lib.BasicMemberData;
 import com.model.lib.ItemCategory;
 import com.util.DataFormatter;
-import com.view.model.View;
+import com.view.model.ViewProvider;
 
 /**
  * Abstract class for Member Controls.
@@ -37,7 +37,7 @@ public abstract class AbstractControl implements Control {
     this.item = item;
   }
 
-  protected BasicMemberData getAllMemberData(View dataView, Services service) {
+  protected BasicMemberData getAllMemberData(ViewProvider dataView, Services service) {
     // data: name, email, mobile, item list, credits.
     String name = null;
     try {
@@ -68,7 +68,7 @@ public abstract class AbstractControl implements Control {
     }
   }
 
-  protected BasicItemData getAllItemData(View dataView, Services service, Member member) {
+  protected BasicItemData getAllItemData(ViewProvider dataView, Services service, Member member) {
     // data: name, category, description, cost_per_day.
     String name = null;
     try {
@@ -107,7 +107,7 @@ public abstract class AbstractControl implements Control {
 
   // ***** Common Data *****
 
-  private String getName(View dataView, Services service) {
+  private String getName(ViewProvider dataView, Services service) {
 
     String name = inputService.readLine();
     if (name == null || name.isEmpty()) {
@@ -121,7 +121,7 @@ public abstract class AbstractControl implements Control {
 
   // ***** Member Specific Data *****
 
-  private String getEmail(View dataView, Services service) {
+  private String getEmail(ViewProvider dataView, Services service) {
     int counter = 0;
 
     while (counter < MAX_ATTEMPTS) {
@@ -162,7 +162,7 @@ public abstract class AbstractControl implements Control {
     throw new RuntimeException("Failed to get email.");
   }
 
-  private String getMobile(View dataView, Services service) {
+  private String getMobile(ViewProvider dataView, Services service) {
     int counter = 0;
 
     while (counter < MAX_ATTEMPTS) {
@@ -211,7 +211,7 @@ public abstract class AbstractControl implements Control {
 
   // ***** Item Specific Data *****
 
-  private ItemCategory getItemCategory(View dataView, Services service) {
+  private ItemCategory getItemCategory(ViewProvider dataView, Services service) {
     int counter = 0;
 
     while (counter < MAX_ATTEMPTS) {
@@ -247,7 +247,7 @@ public abstract class AbstractControl implements Control {
     return item.getCategory(); // Warn that it's an invalid category and return the current category.
   }
 
-  private String getDescription(View dataView, Services service) {
+  private String getDescription(ViewProvider dataView, Services service) {
 
     if (item == null) {
       dataView.displayResourcePrompt("description");
@@ -264,7 +264,7 @@ public abstract class AbstractControl implements Control {
     }
   }
 
-  private double getCostPerDay(View dataView, Services service) {
+  private double getCostPerDay(ViewProvider dataView, Services service) {
     int counter = 0;
 
     while (counter < MAX_ATTEMPTS) {

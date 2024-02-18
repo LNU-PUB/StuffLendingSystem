@@ -13,7 +13,7 @@ import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicItemData;
 import com.model.lib.ItemCategory;
-import com.view.model.View;
+import com.view.model.ViewProvider;
 import com.view.model.ViewFactoryProvider;
 
 /**
@@ -44,7 +44,7 @@ public class ItemControl extends AbstractControl {
 
   @Override
   public boolean run(Services service) {
-    View view = viewFactory.createItemView(language, BUNDLE_NAME, item);
+    ViewProvider view = viewFactory.createItemView(language, BUNDLE_NAME, item);
     view.displayMenu(service);
     ItemActions action = getInput(service);
 
@@ -58,7 +58,7 @@ public class ItemControl extends AbstractControl {
   }
 
   private ItemActions getInput(Services service) {
-    View view = viewFactory.createSimplePromptView(language, BUNDLE_NAME);
+    ViewProvider view = viewFactory.createSimplePromptView(language, BUNDLE_NAME);
     view.displayPrompt();
 
     String input = inputService.readLine();
@@ -78,7 +78,7 @@ public class ItemControl extends AbstractControl {
   }
 
   private void editItem(Services service) {
-    View dataView = viewFactory.createSimplePromptView(language, "BasicItemData");
+    ViewProvider dataView = viewFactory.createSimplePromptView(language, "BasicItemData");
 
     BasicItemData itemData = getAllItemData(dataView, service, null);
     Command editItem = new EditItemCommand(itemData, item);

@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 /**
  * Input interface.
  */
-public abstract class AbstractView implements View {
+public abstract class AbstractView implements ViewProvider {
   protected ResourceBundle texts;
   protected DataFormatter dataFormatter;
   private Locale locale;

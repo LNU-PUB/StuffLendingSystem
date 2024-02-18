@@ -9,7 +9,7 @@ import com.controller.model.actions.MainActions;
 import com.controller.model.commands.AdvanceTimeCommand;
 import com.controller.model.commands.Command;
 import com.model.Services;
-import com.view.model.View;
+import com.view.model.ViewProvider;
 import com.view.model.ViewFactoryProvider;
 
 /**
@@ -21,7 +21,7 @@ public class MainControl extends AbstractControl {
   private InputService inputService;
   private final Language language;
   private final ViewFactoryProvider viewFactory;
-  private final View view;
+  private final ViewProvider view;
 
   /**
    * Creates a new instance of the controller.

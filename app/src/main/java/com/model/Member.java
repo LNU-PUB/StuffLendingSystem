@@ -65,6 +65,17 @@ public final class Member implements Identifiable {
   }
 
   @Override
+  public String toString() {
+    return "Member{"
+        + "id='" + getId() + '\''
+        + ", name='" + getName() + '\''
+        + ", email='" + getEmail() + '\''
+        + ", mobile='" + getMobile() + '\''
+        + ", memberCreationDay=" + getMemberCreationDay()
+        + '}';
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

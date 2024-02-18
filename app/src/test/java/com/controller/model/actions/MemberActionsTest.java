@@ -10,8 +10,7 @@ public class MemberActionsTest {
   public void testGetName() {
     assertEquals("editMember", MemberActions.EDITMEMBER.getName());
     assertEquals("deleteMember", MemberActions.DELETEMEMBER.getName());
-    assertEquals("addCredits", MemberActions.ADDCREDITS.getName());
-    assertEquals("newContract", MemberActions.NEWCONTRACT.getName());
+    assertEquals("lendItem", MemberActions.LENDITEM.getName());
     assertEquals("listItems", MemberActions.LISTITEMS.getName());
     assertEquals("listAllItems", MemberActions.LISTALLITEMS.getName());
     assertEquals("unknown", MemberActions.UNKNOWN.getName());
@@ -22,8 +21,7 @@ public class MemberActionsTest {
   public void testGetSelector() {
     assertEquals("e", MemberActions.EDITMEMBER.getSelector().trim());
     assertEquals("d", MemberActions.DELETEMEMBER.getSelector().trim());
-    assertEquals("ac", MemberActions.ADDCREDITS.getSelector().trim());
-    assertEquals("nc", MemberActions.NEWCONTRACT.getSelector().trim());
+    assertEquals("lend", MemberActions.LENDITEM.getSelector().trim());
     assertEquals("l", MemberActions.LISTITEMS.getSelector().trim());
     assertEquals("la", MemberActions.LISTALLITEMS.getSelector().trim());
     assertEquals("u", MemberActions.UNKNOWN.getSelector().trim());

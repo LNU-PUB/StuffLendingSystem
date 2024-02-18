@@ -4,12 +4,13 @@ import com.controller.model.Language;
 import com.controller.model.actions.MainActions;
 import com.model.Services;
 import com.view.model.AbstractView;
+import com.view.model.ViewProvider;
 import java.util.List;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class MainView extends AbstractView {
+public class MainView extends AbstractView implements ViewProvider {
   Language language;
 
   /**

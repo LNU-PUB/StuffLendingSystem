@@ -3,6 +3,7 @@ package com.view.model;
 import com.controller.model.Language;
 import com.model.Item;
 import com.model.Member;
+import com.view.ListViewProvider;
 
 /**
  * Interface for the view factory.
@@ -15,7 +16,7 @@ public interface ViewFactoryProvider {
    * @param bundleName - the bundle name to use.
    * @return - the view.
    */
-  public View createMainMenuView(Language language, String bundleName);
+  public ViewProvider createMainMenuView(Language language, String bundleName);
 
   /**
    * Creates the member list view.
@@ -25,7 +26,7 @@ public interface ViewFactoryProvider {
    * @param detailedList - true if the list should be detailed, false if not.
    * @return - the view.
    */
-  public View createListMembersView(Language language, String bundleName, boolean detailedList);
+  public ViewProvider createListMembersView(Language language, String bundleName, boolean detailedList);
 
   /**
    * Creates the member view.
@@ -35,7 +36,7 @@ public interface ViewFactoryProvider {
    * @param member     - the member to display.
    * @return - the view.
    */
-  public View createMemberView(Language language, String bundleName, Member member);
+  public ViewProvider createMemberView(Language language, String bundleName, Member member);
 
   /**
    * Creates the item view.
@@ -44,7 +45,7 @@ public interface ViewFactoryProvider {
    * @param bundleName - the bundle name to use.
    * @return - the view.
    */
-  public View createSimplePromptView(Language language, String bundleName);
+  public ViewProvider createSimplePromptView(Language language, String bundleName);
 
   /**
    * Creates the entity creation view.
@@ -53,7 +54,7 @@ public interface ViewFactoryProvider {
    * @param bundleName - the bundle name to use.
    * @return - the view.
    */
-  public View createEntityCreationView(Language language, String bundleName);
+  public ViewProvider createEntityCreationView(Language language, String bundleName);
 
   /**
    * Creates the list items view.
@@ -64,7 +65,7 @@ public interface ViewFactoryProvider {
    * @param member      - the member to display items for.
    * @return - the view.
    */
-  public View createListItemsView(Language language, String bundleName, boolean detailedList, Member member);
+  public ViewProvider createListItemsView(Language language, String bundleName, boolean detailedList, Member member);
 
   /**
    * Creates the item view.
@@ -74,5 +75,7 @@ public interface ViewFactoryProvider {
    * @param item       - the item to display.
    * @return - the view.
    */
-  public View createItemView(Language language, String bundleName, Item item);
+  public ViewProvider createItemView(Language language, String bundleName, Item item);
+
+  public ListViewProvider createListView(Language language, String bundleName, boolean isIndexed);
 }

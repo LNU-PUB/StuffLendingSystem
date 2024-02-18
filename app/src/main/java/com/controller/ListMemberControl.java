@@ -12,7 +12,7 @@ import com.controller.model.commands.Command;
 import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicMemberData;
-import com.view.model.View;
+import com.view.model.ViewProvider;
 import com.view.model.ViewFactory;
 import com.view.model.ViewFactoryProvider;
 
@@ -22,7 +22,7 @@ import com.view.model.ViewFactoryProvider;
 public class ListMemberControl extends AbstractControl {
   private static final String BUNDLE_NAME = "ListMembersView";
   private final Language language;
-  private View view;
+  private ViewProvider view;
   private final InputService inputService;
   private final boolean detailedList;
   private final ViewFactoryProvider viewFactory;
@@ -140,7 +140,7 @@ public class ListMemberControl extends AbstractControl {
 
   private void addMember(Services service) {
     ViewFactory factory = new ViewFactory();
-    View dataView = factory.createEntityCreationView(language, "BasicMemberData");
+    ViewProvider dataView = factory.createEntityCreationView(language, "BasicMemberData");
 
     BasicMemberData memberData = getAllMemberData(dataView, service);
     Command addMember = new AddMemberCommand(memberData);

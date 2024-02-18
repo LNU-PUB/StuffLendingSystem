@@ -12,7 +12,7 @@ import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicItemData;
-import com.view.model.View;
+import com.view.model.ViewProvider;
 import com.view.model.ViewFactory;
 import com.view.model.ViewFactoryProvider;
 
@@ -26,7 +26,7 @@ public class ListItemsControl extends AbstractControl {
   private final boolean detailedList;
   private final ViewFactoryProvider viewFactory;
   private final Member member;
-  private final View view;
+  private final ViewProvider view;
 
   /**
    * Creates a new instance of the control.
@@ -104,7 +104,7 @@ public class ListItemsControl extends AbstractControl {
 
   private void addItem(Services service) {
     ViewFactory factory = new ViewFactory();
-    View dataView = factory.createEntityCreationView(language, "BasicItemData");
+    ViewProvider dataView = factory.createEntityCreationView(language, "BasicItemData");
 
     BasicItemData itemData = getAllItemData(dataView, service, this.member);
     Command addItem = new AddItemCommand(itemData);

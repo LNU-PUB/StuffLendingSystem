@@ -5,11 +5,12 @@ import com.controller.model.actions.MemberActions;
 import com.model.Member;
 import com.model.Services;
 import com.view.model.AbstractView;
+import com.view.model.ViewProvider;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class MemberView extends AbstractView {
+public class MemberView extends AbstractView implements ViewProvider {
   private final Member member;
 
   /**
