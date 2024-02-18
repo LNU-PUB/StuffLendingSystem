@@ -7,7 +7,7 @@ import com.model.lib.BasicItemData;
 import com.model.lib.BasicMemberData;
 import com.model.lib.ItemCategory;
 import com.util.DataFormatter;
-import com.view.model.ViewProvider;
+import com.view.ViewProvider;
 
 /**
  * Abstract class for Member Controls.

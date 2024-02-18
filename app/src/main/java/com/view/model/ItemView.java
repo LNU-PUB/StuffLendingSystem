@@ -1,17 +1,15 @@
-package com.view;
+package com.view.model;
 
 import com.controller.model.Language;
 import com.controller.model.actions.ItemActions;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Services;
-import com.view.model.AbstractView;
-import com.view.model.ViewProvider;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class ItemView extends AbstractView implements ViewProvider {
+public class ItemView extends AbstractView {
   private final Item item;
 
   /**

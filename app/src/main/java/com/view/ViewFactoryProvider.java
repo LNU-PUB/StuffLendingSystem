@@ -1,9 +1,8 @@
-package com.view.model;
+package com.view;
 
 import com.controller.model.Language;
 import com.model.Item;
 import com.model.Member;
-import com.view.ListViewProvider;
 
 /**
  * Interface for the view factory.
@@ -68,7 +67,7 @@ public interface ViewFactoryProvider {
   public ViewProvider createListItemsView(Language language, String bundleName, boolean detailedList, Member member);
 
   /**
-   * Creates the item view.
+   * Creates an item view.
    *
    * @param language   - the language to use.
    * @param bundleName - the bundle name to use.
@@ -77,5 +76,13 @@ public interface ViewFactoryProvider {
    */
   public ViewProvider createItemView(Language language, String bundleName, Item item);
 
+  /**
+   * Creates a list view.
+   *
+   * @param language - the language to use.
+   * @param bundleName - the bundle name to use.
+   * @param isIndexed - true if the list should be indexed, false if not.
+   * @return - the view.
+   */
   public ListViewProvider createListView(Language language, String bundleName, boolean isIndexed);
 }

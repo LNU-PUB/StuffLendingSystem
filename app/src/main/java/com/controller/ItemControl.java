@@ -13,8 +13,8 @@ import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicItemData;
 import com.model.lib.ItemCategory;
-import com.view.model.ViewProvider;
-import com.view.model.ViewFactoryProvider;
+import com.view.ViewFactoryProvider;
+import com.view.ViewProvider;
 
 /**
  * The Item controller.
@@ -59,7 +59,7 @@ public class ItemControl extends AbstractControl {
 
   private ItemActions getInput(Services service) {
     ViewProvider view = viewFactory.createSimplePromptView(language, BUNDLE_NAME);
-    view.displayPrompt();
+    view.displayEnterPrompt();
 
     String input = inputService.readLine();
     if (input == null || input.isEmpty()) {

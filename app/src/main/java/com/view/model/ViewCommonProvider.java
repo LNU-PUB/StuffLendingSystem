@@ -1,23 +1,33 @@
 package com.view.model;
 
-import com.model.Services;
-
 /**
- * The view interface.
+ * The view common provider interface.
+ * Defines all the common functionalities for views.
  */
-public interface ViewProvider {
-  /**
-   * Displays the menu.
-   *
-   * @param service - the service to use.
-   */
-  // void displayMenu(DisplayDataBundles displayDataBundle);
-  void displayMenu(Services service);
+public interface ViewCommonProvider {
 
   /**
-   * Displays the prompt.
+   * Displays a greeting to the user.
    */
-  public void displayPrompt();
+  public void displayGreeting();
+
+  /**
+   * Creates a 50 line break.
+   */
+  public void cleanScreen();
+
+  /**
+   * Gets the size of a list.
+   *
+   * @param list - the list to get the size of.
+   * @return - the size of the list.
+   */
+  public int getSizeOfList(Iterable<?> list);
+
+  /**
+   * Displays the enter prompt.
+   */
+  public void displayEnterPrompt();
 
   /**
    * Displays the prompt.

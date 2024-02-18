@@ -1,15 +1,12 @@
-package com.view;
+package com.view.model;
 
 import com.controller.model.Language;
 import com.model.Services;
-import com.view.model.AbstractView;
-import com.view.model.AddDataView;
-import com.view.model.ViewProvider;
 
 /**
  * View for adding Members.
  */
-public class EntityCreationView extends AbstractView implements ViewProvider, AddDataView {
+public class EntityCreationView extends AbstractView implements AddDataView {
   // private final ViewArguments args;
 
   /**

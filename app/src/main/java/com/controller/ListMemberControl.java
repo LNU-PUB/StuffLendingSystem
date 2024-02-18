@@ -1,8 +1,6 @@
 package com.controller;
 
 import com.controller.model.AbstractControl;
-import com.controller.model.DisplayDataBundle;
-import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.ListMembersResponse;
@@ -12,9 +10,9 @@ import com.controller.model.commands.Command;
 import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicMemberData;
-import com.view.model.ViewProvider;
+import com.view.ViewFactoryProvider;
+import com.view.ViewProvider;
 import com.view.model.ViewFactory;
-import com.view.model.ViewFactoryProvider;
 
 /**
  * The control for listing members.
@@ -95,7 +93,7 @@ public class ListMemberControl extends AbstractControl {
   }
 
   private ListMembersResponse getInput() {
-    view.displayPrompt();
+    view.displayEnterPrompt();
     String userInput = inputService.readLine();
 
     if (userInput == null || userInput.isEmpty()) {

@@ -1,10 +1,9 @@
-package com.view;
+package com.view.model;
 
 import com.controller.model.DisplayDataBundles;
 import com.controller.model.Language;
 import com.model.Services;
-import com.view.model.AbstractView;
-import com.view.model.ViewProvider;
+import com.view.ViewProvider;
 
 /**
  * Responsible for displaying information to the user.

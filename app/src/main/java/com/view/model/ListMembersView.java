@@ -1,12 +1,10 @@
-package com.view;
+package com.view.model;
 
 import com.controller.model.Language;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
 import com.model.Services;
-import com.view.model.AbstractView;
-import com.view.model.ViewProvider;
 import java.util.Locale;
 import java.util.Locale.Builder;
 import java.util.ResourceBundle;
@@ -14,7 +12,7 @@ import java.util.ResourceBundle;
 /**
  * Responsible for displaying information to the user.
  */
-public class ListMembersView extends AbstractView implements ViewProvider {
+public class ListMembersView extends AbstractView {
   private final boolean detailedList;
   private final Language language;
   private final ResourceBundle memberTexts;

@@ -10,8 +10,8 @@ import com.controller.model.commands.EditMemberCommand;
 import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicMemberData;
-import com.view.model.ViewProvider;
-import com.view.model.ViewFactoryProvider;
+import com.view.ViewFactoryProvider;
+import com.view.ViewProvider;
 
 /**
  * The Member controller.
@@ -66,7 +66,7 @@ public class MemberControl extends AbstractControl {
 
   private MemberActions getInput(Services service) {
     ViewProvider view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
-    view.displayPrompt();
+    view.displayEnterPrompt();
 
     String input = inputService.readLine();
     if (input == null || input.isEmpty()) {

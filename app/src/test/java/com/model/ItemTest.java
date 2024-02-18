@@ -47,8 +47,7 @@ public class ItemTest {
   @Test
   public void testEquals() {
     Member owner = new Member("ownerId", "Owner Name", "owner@example.com", "1234567890", 100);
-    Contract contract = new Contract("contract1", owner, borrower, noContractItem, 200, 201); // Initialize
-                                                                                              // appropriately
+    Contract contract = new Contract("contract1", owner, borrower, noContractItem, 200, 201); 
     Item item1 = new Item("1", owner, "Item Name", ItemCategory.SPORT, "Description", 10.0, 200, contract);
     Item item2 = new Item("1", owner, "Item Name", ItemCategory.SPORT, "Description", 10.0, 200, contract);
     Item item3 = new Item("2", owner, "Another Item", ItemCategory.TOOL, "Another Description", 15.0, 201, contract);
@@ -60,8 +59,7 @@ public class ItemTest {
   @Test
   public void testHashCode() {
     Member owner = new Member("ownerId", "Owner Name", "owner@example.com", "1234567890", 100);
-    Contract contract = new Contract("contract1", owner, borrower, noContractItem, 200, 201); // Initialize
-                                                                                              // appropriately
+    Contract contract = new Contract("contract1", owner, borrower, noContractItem, 200, 201); 
     Item item1 = new Item("1", owner, "Item Name", ItemCategory.SPORT, "Description", 10.0, 200, contract);
     Item item2 = new Item("1", owner, "Item Name", ItemCategory.SPORT, "Description", 10.0, 200, contract);
 
@@ -97,13 +95,5 @@ public class ItemTest {
     assertEquals("Description", item.getDescription(), "Item description should remain unchanged.");
     assertEquals(10.0, item.getCostPerDay(), "Item cost per day should remain unchanged.");
     assertEquals(300, item.getCreationDay(), "Item creation day should remain unchanged.");
-
-    // Additional checks could include testing the immutability of the Member and
-    // Contract classes themselves,
-    // as their immutability directly affects the immutability of the Item class.
-    // For example, attempting to modify the 'owner' after fetching it from 'item'
-    // should not be possible
-    // if Member is truly immutable. Similar checks would apply to Contract if it
-    // contained mutable references.
   }
 }

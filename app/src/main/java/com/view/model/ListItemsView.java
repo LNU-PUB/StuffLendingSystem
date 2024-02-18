@@ -1,17 +1,14 @@
-package com.view;
+package com.view.model;
 
 import com.controller.model.Language;
 import com.model.Item;
 import com.model.Member;
 import com.model.Services;
-import com.view.model.AbstractView;
-import com.view.model.ViewProvider;
-import java.util.Collection;
 
 /**
  * A view for listing items.
  */
-public class ListItemsView extends AbstractView implements ViewProvider {
+public class ListItemsView extends AbstractView {
   private boolean listAllItems;
   private Member member;
 

@@ -14,8 +14,8 @@ import com.model.lib.TimeRepositories;
 import com.model.lib.TimeRepository;
 import com.model.lib.TransactionRepositories;
 import com.model.lib.TransactionRepository;
+import com.view.ViewFactoryProvider;
 import com.view.model.ViewFactory;
-import com.view.model.ViewFactoryProvider;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 

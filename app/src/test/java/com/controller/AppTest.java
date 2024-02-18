@@ -5,7 +5,8 @@ import static org.mockito.Mockito.*;
 
 import com.controller.model.Language;
 import com.model.lib.MemberRepository;
-import com.view.MainView;
+import com.view.model.MainView;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

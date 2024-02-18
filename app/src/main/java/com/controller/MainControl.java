@@ -1,16 +1,14 @@
 package com.controller;
 
 import com.controller.model.AbstractControl;
-import com.controller.model.DisplayDataBundle;
-import com.controller.model.DisplayDataBundles;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.actions.MainActions;
 import com.controller.model.commands.AdvanceTimeCommand;
 import com.controller.model.commands.Command;
 import com.model.Services;
-import com.view.model.ViewProvider;
-import com.view.model.ViewFactoryProvider;
+import com.view.ViewFactoryProvider;
+import com.view.ViewProvider;
 
 /**
  * The controller.
@@ -61,7 +59,7 @@ public class MainControl extends AbstractControl {
   }
 
   private MainActions getInput() {
-    view.displayPrompt();
+    view.displayEnterPrompt();
     String userInput = inputService.readLine();
 
     if (userInput == null || userInput.isEmpty()) {

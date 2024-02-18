@@ -3,14 +3,15 @@ package com.view.model;
 import com.controller.model.Language;
 import com.model.Item;
 import com.model.Member;
-import com.view.EntityCreationView;
-import com.view.ItemView;
-import com.view.ListItemsView;
-import com.view.ListMembersView;
 import com.view.ListViewProvider;
-import com.view.MainView;
-import com.view.MemberView;
-import com.view.SimplePromptView;
+import com.view.ViewFactoryProvider;
+import com.view.ViewProvider;
+
+// Note: Consider refactoring the entire view package to utilize the two 
+// interfaces ViewProvider and ListViewProvider. This will allow for a more
+// consistent and maintainable codebase.
+// Now I have to try and get this together first before I can start refactoring.
+// It's very limited time left.
 
 /**
  * The view factory.
@@ -56,5 +57,4 @@ public class ViewFactory implements ViewFactoryProvider {
   public ListViewProvider createListView(Language language, String bundleName, boolean isIndexed) {
     return new ListView(language, bundleName, isIndexed);
   }
-  
 }

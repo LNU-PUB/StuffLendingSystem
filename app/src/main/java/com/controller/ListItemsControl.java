@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.controller.model.AbstractControl;
-import com.controller.model.DisplayDataBundle;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.controller.model.ListItemsResponse;
@@ -12,9 +11,9 @@ import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 import com.model.lib.BasicItemData;
-import com.view.model.ViewProvider;
+import com.view.ViewFactoryProvider;
+import com.view.ViewProvider;
 import com.view.model.ViewFactory;
-import com.view.model.ViewFactoryProvider;
 
 /**
  * The ListItems controller.
@@ -112,7 +111,7 @@ public class ListItemsControl extends AbstractControl {
   }
 
   private ListItemsResponse getInput(Services service) {
-    view.displayPrompt();
+    view.displayEnterPrompt();
     String input = inputService.readLine();
 
     if (input == null || input.isEmpty()) {

@@ -7,8 +7,8 @@ import com.model.Item;
 import com.model.Member;
 import com.model.Services;
 import com.view.ListViewProvider;
-import com.view.model.ViewProvider;
-import com.view.model.ViewFactoryProvider;
+import com.view.ViewFactoryProvider;
+import com.view.ViewProvider;
 
 /**
  * The LendItemControl class.
@@ -18,7 +18,7 @@ public class LendItemControl implements Control {
   private final InputService inputService;
   private final Language language;
   private Member member;
-  private ListViewProvider listView;
+  private ListViewProvider view;
 
   /**
    * Creates a new instance of the control.
@@ -38,7 +38,7 @@ public class LendItemControl implements Control {
   public boolean run(Services service) {
     return createNewLendingContract(service);
   }
-  
+
   private boolean createNewLendingContract(Services service) {
     // 1) List all items
     // 2) Select item
@@ -67,22 +67,20 @@ public class LendItemControl implements Control {
   }
 
   private void listAllItems(Services service) {
-    ListViewProvider listView = 
 
-    listView.displayList(service, service.getAllItems());
+    view.displayList(service, service.getAllItems());
   }
 
   private int getInput(String prompt) {
-    ViewProvider view = viewFactory.createSimplePromptView(language, BUNDLE_NAME);
     view.displayPrompt(prompt);
     String input = inputService.readLine();
     input = input.trim();
 
-    if(input.equals("x")) {
+    if (input.equals("x")) {
       return -1;
     }
 
-    if(isNumericInteger(input)) {
+    if (isNumericInteger(input)) {
       return Integer.parseInt(input);
     } else {
       view.displayError("Invalid Input");
