@@ -27,9 +27,9 @@ public class EntityCreationView extends AbstractView implements AddDataView {
   }
 
   @Override
-  public void displayResourcePrompt(String prompt) {
-    String viewPrompt = texts.getString(prompt);
+  public void displayResourcePrompt(String prompt, String prepend, String append) {
+    String viewPrompt = prepend + texts.getString(prompt) + append;
 
-    System.out.print(viewPrompt + ": ");
+    System.out.print(viewPrompt);
   }
 }

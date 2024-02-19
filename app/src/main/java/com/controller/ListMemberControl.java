@@ -117,7 +117,7 @@ public class ListMemberControl extends AbstractControl {
   }
 
   private ListMembersResponse getStaticInput() {
-    view.displayPrompt("Exit menu press enter: ");
+    view.displayString("Exit menu press enter: ");
 
     if (inputService.readLine() != null) {
       return new ListMembersResponse(ListMembersActions.EXIT, -1);

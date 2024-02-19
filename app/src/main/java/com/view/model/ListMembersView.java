@@ -54,7 +54,7 @@ public class ListMembersView extends AbstractView {
   private void displaySimpleMenu(Iterable<Member> memberList, Services service) {
     // List Name, Email, Credits, Number of Items
     System.out.println("- " + texts.getString("title") + " -\n");
-    System.out.println(memberTexts.getString("members") + ": " + getSizeOfList(memberList));
+    System.out.println(memberTexts.getString("members") + ": " + service.getSizeOfList(memberList));
     int index = 0;
     for (Member member : memberList) {
       String outputString = String.format("%d - %s, ("
@@ -62,7 +62,7 @@ public class ListMembersView extends AbstractView {
           + memberTexts.getString("credits") + ": %.2f, "
           + memberTexts.getString("items") + ": %d)", index,
           member.getName(), member.getEmail(), service.getMemberBalance(member),
-          getSizeOfList(service.getItemsByMember(member)));
+          service.getSizeOfList(service.getItemsByMember(member)));
 
       System.out.println(outputString);
       index++;
@@ -84,7 +84,7 @@ public class ListMembersView extends AbstractView {
           member.getName(), member.getEmail(), member.getMobile(), member.getMemberCreationDay());
       System.out.println(outputString);
 
-      System.out.println("\nItems: " + getSizeOfList(service.getItemsByMember(member)));
+      System.out.println("\nItems: " + service.getSizeOfList(service.getItemsByMember(member)));
 
       for (Item item : service.getItemsByMember(member)) {
         String itemString = String.format("  Item: %s, %n  Category: %s,"

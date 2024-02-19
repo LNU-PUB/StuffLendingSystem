@@ -32,15 +32,15 @@ public class ListItemsView extends AbstractView {
     displayGreeting();
 
     if (listAllItems) {
-      display(service.getAllItems());
+      display(service, service.getAllItems());
     } else {
-      display(service.getItemsByMember(this.member));
+      display(service, service.getItemsByMember(this.member));
     }
   }
 
-  private void display(Iterable<Item> itemList) {
+  private void display(Services service, Iterable<Item> itemList) {
     System.out.println("- " + texts.getString("title") + " -\n");
-    System.out.println("Items: " + getSizeOfList(itemList));
+    System.out.println("Items: " + service.getSizeOfList(itemList));
     int index = 0;
     for (Item item : itemList) {
       String outputString = listAllItems

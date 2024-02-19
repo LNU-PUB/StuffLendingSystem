@@ -10,6 +10,10 @@ import com.model.lib.BasicTransactionData;
  */
 public interface Services {
 
+  // ***** Common *****
+  
+  public int getSizeOfList(Iterable<?> list);
+
   // ***** Members *****
 
   /**

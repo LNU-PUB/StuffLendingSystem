@@ -2,7 +2,6 @@ package com.view.model;
 
 import com.controller.model.Language;
 import com.util.DataFormatter;
-import java.util.Collection;
 import java.util.Locale;
 import java.util.Locale.Builder;
 import java.util.ResourceBundle;
@@ -32,21 +31,31 @@ public class AbstractCommonView implements ViewCommonProvider {
   }
 
   /**
-   * Displays a greeting to the user.
-   */
-  @Override
-  public void displayGreeting() {
-    cleanScreen();
-    System.out.println("*** Stuff Lending System ***\n");
-  }
-
-  /**
    * Creates a 50 line break.
    */
+  @Override
   public void cleanScreen() {
     for (int i = 0; i < 50; i++) {
       System.out.println("");
     }
+  }
+
+  /**
+   * Displays a greeting to the user.
+   */
+  @Override
+  public void displayGreeting() {
+    System.out.println("*** Stuff Lending System ***\n");
+  }
+
+  /**
+   * Displays the title.
+   *
+   * @param prompt - the prompt for the title in the resources.
+   */
+  @Override
+  public void displayTitle(String prompt) {
+    System.out.println("--- " + texts.getString(prompt) + " ---");
   }
 
   @Override
@@ -55,26 +64,13 @@ public class AbstractCommonView implements ViewCommonProvider {
   }
 
   @Override
-  public int getSizeOfList(Iterable<?> list) {
-    if (list instanceof Collection<?>) {
-      return ((Collection<?>) list).size();
-    } else {
-      int size = 0;
-      for (Object element : list) {
-        size++;
-      }
-      return size;
-    }
-  }
-
-  @Override
   public void displayEnterPrompt() {
     System.out.print(texts.getString("enter") + ": ");
   }
 
   @Override
-  public void displayPrompt(String prompt) {
-    System.out.print(prompt);
+  public void displayString(String string) {
+    System.out.print(string);
   }
 
   @Override
@@ -83,7 +79,7 @@ public class AbstractCommonView implements ViewCommonProvider {
   }
 
   @Override
-  public void displayResourcePrompt(String prompt) {
-    System.out.print(texts.getString(prompt));
+  public void displayResourcePrompt(String prompt, String prepend, String append) {
+    System.out.print(prepend + texts.getString(prompt) + append);
   }
 }

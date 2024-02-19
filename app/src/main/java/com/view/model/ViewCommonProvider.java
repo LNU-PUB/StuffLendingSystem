@@ -7,22 +7,21 @@ package com.view.model;
 public interface ViewCommonProvider {
 
   /**
-   * Displays a greeting to the user.
-   */
-  public void displayGreeting();
-
-  /**
    * Creates a 50 line break.
    */
   public void cleanScreen();
 
   /**
-   * Gets the size of a list.
-   *
-   * @param list - the list to get the size of.
-   * @return - the size of the list.
+   * Displays a greeting to the user.
    */
-  public int getSizeOfList(Iterable<?> list);
+  public void displayGreeting();
+
+  /**
+   * Displays the title.
+   *
+   * @param prompt - the prompt for the title in the resources.
+   */
+  public void displayTitle(String prompt);
 
   /**
    * Displays the enter prompt.
@@ -30,11 +29,11 @@ public interface ViewCommonProvider {
   public void displayEnterPrompt();
 
   /**
-   * Displays the prompt.
+   * Displays the provided string.
    *
-   * @param prompt - the prompt to display.
+   * @param string - the string to display.
    */
-  public void displayPrompt(String prompt);
+  public void displayString(String string);
 
   /**
    * Displays the prompt with a default value.
@@ -49,7 +48,7 @@ public interface ViewCommonProvider {
    *
    * @param prompt - the prompt to display.
    */
-  public void displayResourcePrompt(String prompt);
+  public void displayResourcePrompt(String prompt, String prepend, String append);
 
   /**
    * Displays the resource prompt with a default value.

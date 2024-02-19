@@ -6,10 +6,11 @@ import com.model.Member;
 import com.model.Services;
 import com.model.Transaction;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * Member Service.
+ * Service.
  */
 public final class Service implements Services {
   private static final int NEW_ITEM_CREDIT = 100;
@@ -35,6 +36,20 @@ public final class Service implements Services {
     this.transactionRepo = new TransactionRepository(transactionRepo.getAllTransactions());
   }
 
+  // ***** Common *****
+  @Override
+  public int getSizeOfList(Iterable<?> list) {
+    if (list instanceof Collection<?>) {
+      return ((Collection<?>) list).size();
+    } else {
+      int size = 0;
+      for (Object o : list) {
+        size++;
+      }
+      return size;
+    }
+  }
+  
   // ***** Members *****
 
   @Override

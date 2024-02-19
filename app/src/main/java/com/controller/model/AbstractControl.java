@@ -44,7 +44,7 @@ public abstract class AbstractControl implements Control {
       int counter = 0;
       while (counter < MAX_ATTEMPTS && name == null) {
         if (member == null) {
-          dataView.displayResourcePrompt("name");
+          dataView.displayResourcePrompt("name", "", "");
         } else {
           dataView.displayPromptWithDefaultValue("name", member.getName());
         }
@@ -75,7 +75,7 @@ public abstract class AbstractControl implements Control {
       int counter = 0;
       while (name == null && counter < MAX_ATTEMPTS) {
         if (item == null) {
-          dataView.displayResourcePrompt("name");
+          dataView.displayResourcePrompt("name", "", "");
         } else {
           dataView.displayPromptWithDefaultValue("name", item.getName());
         }
@@ -126,7 +126,7 @@ public abstract class AbstractControl implements Control {
 
     while (counter < MAX_ATTEMPTS) {
       if (member == null) {
-        dataView.displayResourcePrompt("email");
+        dataView.displayResourcePrompt("email", "", "");
       } else {
         dataView.displayPromptWithDefaultValue("email", member.getEmail());
       }
@@ -167,7 +167,7 @@ public abstract class AbstractControl implements Control {
 
     while (counter < MAX_ATTEMPTS) {
       if (member == null) {
-        dataView.displayResourcePrompt("mobile");
+        dataView.displayResourcePrompt("mobile", "", "");
       } else {
         dataView.displayPromptWithDefaultValue("mobile", member.getMobile());
       }
@@ -216,16 +216,16 @@ public abstract class AbstractControl implements Control {
 
     while (counter < MAX_ATTEMPTS) {
       int index = 0;
-      dataView.displayPrompt("\n");
+      dataView.displayString("\n");
       for (ItemCategory category : ItemCategory.values()) {
-        dataView.displayPrompt(index + ". " + category.getDisplayName() + "\n");
+        dataView.displayString(index + ". " + category.getDisplayName() + "\n");
         index++;
       }
 
       if (item != null) {
         dataView.displayPromptWithDefaultValue("category", item.getCategory().getDisplayName());
       } else {
-        dataView.displayResourcePrompt("category");
+        dataView.displayResourcePrompt("category", "", "");
       }
 
       String categoryIndx = inputService.readLine();
@@ -250,7 +250,7 @@ public abstract class AbstractControl implements Control {
   private String getDescription(ViewProvider dataView, Services service) {
 
     if (item == null) {
-      dataView.displayResourcePrompt("description");
+      dataView.displayResourcePrompt("description", "", "");
     } else {
       dataView.displayPromptWithDefaultValue("description", item.getDescription());
     }
@@ -269,7 +269,7 @@ public abstract class AbstractControl implements Control {
 
     while (counter < MAX_ATTEMPTS) {
       if (item == null) {
-        dataView.displayResourcePrompt("costPerDay");
+        dataView.displayResourcePrompt("costPerDay", "", "");
       } else {
         dataView.displayPromptWithDefaultValue("costPerDay", String.valueOf(item.getCostPerDay()));
       }
