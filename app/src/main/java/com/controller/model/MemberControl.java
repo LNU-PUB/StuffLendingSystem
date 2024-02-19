@@ -1,8 +1,6 @@
-package com.controller;
+package com.controller.model;
 
-import com.controller.model.AbstractControl;
-import com.controller.model.InputService;
-import com.controller.model.Language;
+import com.controller.ControllerFactoryProvider;
 import com.controller.model.actions.MemberActions;
 import com.controller.model.commands.Command;
 import com.controller.model.commands.DeleteMemberCommand;
@@ -21,7 +19,7 @@ public class MemberControl extends AbstractControl {
   private final InputService inputService;
   private final Language language;
   private Member member;
-  private ViewFactoryProvider viewFactory;
+  private ViewProvider view;
 
   /**
    * Creates a new instance of the control.
@@ -30,12 +28,13 @@ public class MemberControl extends AbstractControl {
    * @param inputService - the input service to use.
    * @param member       - the member to operate on.
    */
-  public MemberControl(Language language, InputService inputService, Member member, ViewFactoryProvider viewFactory) {
-    super(inputService, member);
+  public MemberControl(Language language, InputService inputService, Member member,
+      ViewFactoryProvider viewFactory, ControllerFactoryProvider controllerFactory) {
+    super(inputService, member, viewFactory, controllerFactory);
     this.inputService = inputService;
     this.language = language;
     this.member = member;
-    this.viewFactory = viewFactory;
+    this.view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
   }
 
   /**
@@ -45,7 +44,6 @@ public class MemberControl extends AbstractControl {
    *         should exit.
    */
   public boolean run(Services service) {
-    ViewProvider view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayMenu(service);
     MemberActions action = getInput(service);
 
@@ -65,7 +63,6 @@ public class MemberControl extends AbstractControl {
   }
 
   private MemberActions getInput(Services service) {
-    ViewProvider view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
     view.displayEnterPrompt();
 
     String input = inputService.readLine();
@@ -85,20 +82,23 @@ public class MemberControl extends AbstractControl {
   }
 
   private void lendNewItem(Services service) {
-    LendItemControl lendItemControl = new LendItemControl(language, inputService, member, viewFactory);
-    while (lendItemControl.run(service)) {
+    ControllerFactoryProvider factory = getControllerFactory();
+    Control ctr = factory.createLendItemControl(language, inputService, member, getViewFactory(), factory);
+    while (ctr.run(service)) {
     }
   }
 
   private void listItems(Services service) {
-    ListItemsControl listItemsControl = new ListItemsControl(language, inputService, false, viewFactory, member);
-    while (listItemsControl.run(service)) {
+    ControllerFactoryProvider factory = getControllerFactory();
+    Control ctr = factory.createListItemsControl(language, inputService, false, member, getViewFactory(), factory);
+    while (ctr.run(service)) {
     }
   }
 
   private void listAllItems(Services service) {
-    ListItemsControl listItemsControl = new ListItemsControl(language, inputService, true, viewFactory, null);
-    while (listItemsControl.run(service)) {
+    ControllerFactoryProvider factory = getControllerFactory();
+    Control ctr = factory.createListItemsControl(language, inputService, true, null, getViewFactory(), factory);
+    while (ctr.run(service)) {
     }
   }
 
@@ -113,7 +113,8 @@ public class MemberControl extends AbstractControl {
   }
 
   private void editMember(Services service) {
-    ViewProvider dataView = viewFactory.createSimplePromptView(language, "BasicMemberData");
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider dataView = factory.createSimplePromptView(language, "BasicMemberData");
 
     BasicMemberData memberData = getAllMemberData(dataView, service);
     Command editMember = new EditMemberCommand(memberData, member);

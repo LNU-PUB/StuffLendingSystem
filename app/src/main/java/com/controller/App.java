@@ -1,5 +1,7 @@
 package com.controller;
 
+import com.controller.model.Control;
+import com.controller.model.ControllerFactory;
 import com.controller.model.InputService;
 import com.controller.model.Language;
 import com.model.Services;
@@ -28,6 +30,7 @@ public class App {
   private final Services service;
   private final InputService inputService;
   private final ViewFactoryProvider viewFactory;
+  private final ControllerFactoryProvider controllerFactory;
 
   /**
    * Creates a new instance of the application.
@@ -36,6 +39,7 @@ public class App {
     this.service = createService();
     this.inputService = new InputService();
     this.viewFactory = new ViewFactory();
+    this.controllerFactory = new ControllerFactory();
   }
 
   private Services createService() {
@@ -62,7 +66,7 @@ public class App {
   }
 
   protected void run(Language language) {
-    MainControl ctrl = new MainControl(language, inputService, viewFactory);
+    Control ctrl = controllerFactory.createMainControl(language, inputService, viewFactory, controllerFactory);
 
     while (ctrl.run(this.service)) {
     }

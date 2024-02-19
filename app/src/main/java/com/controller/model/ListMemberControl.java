@@ -1,9 +1,6 @@
-package com.controller;
+package com.controller.model;
 
-import com.controller.model.AbstractControl;
-import com.controller.model.InputService;
-import com.controller.model.Language;
-import com.controller.model.ListMembersResponse;
+import com.controller.ControllerFactoryProvider;
 import com.controller.model.actions.ListMembersActions;
 import com.controller.model.commands.AddMemberCommand;
 import com.controller.model.commands.Command;
@@ -23,7 +20,6 @@ public class ListMemberControl extends AbstractControl {
   private ViewProvider view;
   private final InputService inputService;
   private final boolean detailedList;
-  private final ViewFactoryProvider viewFactory;
 
   /**
    * Creates a new instance of the control.
@@ -31,30 +27,20 @@ public class ListMemberControl extends AbstractControl {
    * @param language     - the language to use.
    * @param inputService - the input service to use.
    * @param detailedList - true if the list should be detailed, false if not.
+   * @param viewFactory  - the view factory to use.
+   * @param controllerFactory - the controller factory to use.
    */
   public ListMemberControl(Language language, InputService inputService,
-      boolean detailedList, ViewFactoryProvider viewFactory) {
-    super(inputService);
+      boolean detailedList, ViewFactoryProvider viewFactory, ControllerFactoryProvider controllerFactory) {
+    super(inputService, viewFactory, controllerFactory);
     this.language = language;
     this.inputService = inputService;
     this.detailedList = detailedList;
-    this.viewFactory = viewFactory;
     this.view = viewFactory.createListMembersView(language, BUNDLE_NAME, detailedList);
   }
 
   @Override
   public boolean run(Services service) {
-    // DisplayDataBundles bundle;
-
-    // if (language == Language.ENG) {
-    // bundle = new DisplayDataBundle(service.getMembersSortedBy(true, true), null,
-    // null, null);
-    // } else {
-    // bundle = new DisplayDataBundle(service.getMembersSortedBy(false, true), null,
-    // null, null);
-    // }
-
-    // view.displayMenu(bundle);
     view.displayMenu(service);
     ListMembersActions action = ListMembersActions.UNKNOWN;
 
@@ -131,8 +117,9 @@ public class ListMemberControl extends AbstractControl {
       return;
     }
 
-    MemberControl memberControl = new MemberControl(language, inputService, member, viewFactory);
-    while (memberControl.run(service)) {
+    ControllerFactoryProvider factory = getControllerFactory();
+    Control ctr = factory.createMemberControl(language, inputService, member, getViewFactory(), getControllerFactory());
+    while (ctr.run(service)) {
     }
   }
 

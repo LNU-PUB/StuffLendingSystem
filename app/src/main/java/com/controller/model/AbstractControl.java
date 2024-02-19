@@ -1,5 +1,6 @@
 package com.controller.model;
 
+import com.controller.ControllerFactoryProvider;
 import com.model.Item;
 import com.model.Member;
 import com.model.Services;
@@ -7,6 +8,7 @@ import com.model.lib.BasicItemData;
 import com.model.lib.BasicMemberData;
 import com.model.lib.ItemCategory;
 import com.util.DataFormatter;
+import com.view.ViewFactoryProvider;
 import com.view.ViewProvider;
 
 /**
@@ -18,23 +20,42 @@ public abstract class AbstractControl implements Control {
   private InputService inputService;
   private static final int MAX_ATTEMPTS = 3;
   protected DataFormatter dataFormatter = new DataFormatter();
+  private ViewFactoryProvider viewFactory;
+  private ControllerFactoryProvider controllerFactory;
 
-  protected AbstractControl(InputService inputService) {
+  protected AbstractControl(InputService inputService, ViewFactoryProvider viewFactory,
+      ControllerFactoryProvider controllerFactory) {
     this.inputService = inputService;
     this.member = null;
     this.item = null;
+    this.viewFactory = viewFactory;
+    this.controllerFactory = controllerFactory;
   }
 
-  protected AbstractControl(InputService inputService, Member member) {
+  protected AbstractControl(InputService inputService, Member member,
+      ViewFactoryProvider viewFactory, ControllerFactoryProvider controllerFactory) {
     this.inputService = inputService;
     this.member = member;
     this.item = null;
+    this.viewFactory = viewFactory;
+    this.controllerFactory = controllerFactory;
   }
 
-  protected AbstractControl(InputService inputService, Member member, Item item) {
+  protected AbstractControl(InputService inputService, Member member, Item item,
+      ViewFactoryProvider viewFactory, ControllerFactoryProvider controllerFactory) {
     this.inputService = inputService;
     this.member = member;
     this.item = item;
+    this.viewFactory = viewFactory;
+    this.controllerFactory = controllerFactory;
+  }
+
+  protected ViewFactoryProvider getViewFactory() {
+    return viewFactory;
+  }
+
+  protected ControllerFactoryProvider getControllerFactory() {
+    return controllerFactory;
   }
 
   protected BasicMemberData getAllMemberData(ViewProvider dataView, Services service) {

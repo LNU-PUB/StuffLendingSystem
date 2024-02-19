@@ -1,8 +1,6 @@
-package com.controller;
+package com.controller.model;
 
-import com.controller.model.Control;
-import com.controller.model.InputService;
-import com.controller.model.Language;
+import com.controller.ControllerFactoryProvider;
 import com.model.Item;
 import com.model.Member;
 import com.model.Services;
@@ -14,7 +12,7 @@ import com.view.ViewFactoryProvider;
 /**
  * The LendItemControl class.
  */
-public class LendItemControl implements Control {
+public class LendItemControl extends AbstractControl {
   private static final String BUNDLE_NAME = "NewContractView";
   private final InputService inputService;
   private Member member;
@@ -28,7 +26,9 @@ public class LendItemControl implements Control {
    * @param inputService - the input service to use.
    * @param member       - the member to operate on.
    */
-  public LendItemControl(Language language, InputService inputService, Member member, ViewFactoryProvider viewFactory) {
+  public LendItemControl(Language language, InputService inputService, Member member,
+      ViewFactoryProvider viewFactory, ControllerFactoryProvider controllerFactoryProvider) {
+    super(inputService, member, viewFactory, controllerFactoryProvider);
     this.inputService = inputService;
     this.member = member;
     this.view = viewFactory.createListView(language, BUNDLE_NAME, true);
@@ -80,7 +80,6 @@ public class LendItemControl implements Control {
             createTransactions(service, selectedItem, cost);
             createContract(service, selectedItem, startTime, endTime);
           }
-          // createTransaction(service, cost);
         }
       }
       counter++;
@@ -159,9 +158,9 @@ public class LendItemControl implements Control {
 
   private void createTransactions(Services service, Item selectedItem, double cost) {
 
-    BasicTransactionData lenderTransaction = new BasicTransactionData(member, cost, service.getDay());
+    BasicTransactionData lenderTransaction = new BasicTransactionData(selectedItem.getOwner(), cost, service.getDay());
     service.addNewTransaction(lenderTransaction);
-    BasicTransactionData borrowerTransaction = new BasicTransactionData(selectedItem.getOwner(), -cost,
+    BasicTransactionData borrowerTransaction = new BasicTransactionData(member, -cost,
         service.getDay());
     service.addNewTransaction(borrowerTransaction);
   }

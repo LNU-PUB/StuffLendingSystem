@@ -1,9 +1,6 @@
-package com.controller;
+package com.controller.model;
 
-import com.controller.model.AbstractControl;
-import com.controller.model.InputService;
-import com.controller.model.Language;
-import com.controller.model.ListItemsResponse;
+import com.controller.ControllerFactoryProvider;
 import com.controller.model.actions.ListItemsActions;
 import com.controller.model.commands.AddItemCommand;
 import com.controller.model.commands.Command;
@@ -22,8 +19,6 @@ public class ListItemsControl extends AbstractControl {
   private static final String BUNDLE_NAME = "ListItemsView";
   private final Language language;
   private final InputService inputService;
-  private final boolean detailedList;
-  private final ViewFactoryProvider viewFactory;
   private final Member member;
   private final ViewProvider view;
 
@@ -32,46 +27,38 @@ public class ListItemsControl extends AbstractControl {
    *
    * @param language     - the language to use.
    * @param inputService - the input service to use.
-   * @param detailedList - true if the list should be detailed, false if not.
+   * @param listAllItems - true if the list should list all items, false if not.
+   * @param member       - the member to operate on.
+   * @param viewFactory  - the view factory to use.
+   * @param controllerFactory - the controller factory to use.
    */
-  public ListItemsControl(Language language, InputService inputService,
-      boolean detailedList, ViewFactoryProvider viewFactory, Member member) {
-    super(inputService);
+  public ListItemsControl(Language language, InputService inputService, boolean listAllItems, Member member,
+      ViewFactoryProvider viewFactory, ControllerFactoryProvider controllerFactory) {
+    super(inputService, member, viewFactory, controllerFactory);
     this.language = language;
     this.inputService = inputService;
-    this.detailedList = detailedList;
-    this.viewFactory = viewFactory;
     this.member = member;
-    this.view = viewFactory.createListItemsView(language, BUNDLE_NAME, detailedList, member);
+    this.view = viewFactory.createListItemsView(language, BUNDLE_NAME, listAllItems, member);
   }
 
   @Override
   public boolean run(Services service) {
-    // DisplayDataBundle bundle = member != null
-    // ? new DisplayDataBundle(null, service.getItemsByMember(member), null, null)
-    // : new DisplayDataBundle(null, service.getAllItems(), null, null);
-    // view.displayMenu(bundle);
     view.displayMenu(service);
     ListItemsActions action = ListItemsActions.UNKNOWN;
 
-    if (detailedList || !detailedList) {
-      try {
-        ListItemsResponse response = getInput(service);
-        action = response.getAction();
+    try {
+      ListItemsResponse response = getInput(service);
+      action = response.getAction();
 
-        if (action == ListItemsActions.ADDITEM) {
-          addItem(service);
-        } else if (action == ListItemsActions.SELECTEDITEM) {
-          Item item = getItemByIndex(service.getItemsByMember(member),
-              response.getIndex());
-          viewItem(service, item);
-          // Item item = getItemByIndex(service.getItemsByMember(member),
-          // response.getIndex());
-          // itemControl(service, item);
-        }
-      } catch (Exception e) {
-        view.displayError(e.getMessage());
+      if (action == ListItemsActions.ADDITEM) {
+        addItem(service);
+      } else if (action == ListItemsActions.SELECTEDITEM) {
+        Item item = getItemByIndex(service.getItemsByMember(member),
+            response.getIndex());
+        viewItem(service, item);
       }
+    } catch (Exception e) {
+      view.displayError(e.getMessage());
     }
 
     return action != ListItemsActions.EXIT;
@@ -96,8 +83,9 @@ public class ListItemsControl extends AbstractControl {
       return;
     }
 
-    ItemControl itemControl = new ItemControl(language, inputService, item, viewFactory);
-    while (itemControl.run(service)) {
+    ControllerFactoryProvider factory = getControllerFactory();
+    Control ctr = factory.createItemControl(language, inputService, item, getViewFactory(), factory);
+    while (ctr.run(service)) {
     }
   }
 

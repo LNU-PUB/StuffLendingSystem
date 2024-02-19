@@ -1,8 +1,6 @@
-package com.controller;
+package com.controller.model;
 
-import com.controller.model.AbstractControl;
-import com.controller.model.InputService;
-import com.controller.model.Language;
+import com.controller.ControllerFactoryProvider;
 import com.controller.model.actions.ItemActions;
 import com.controller.model.commands.Command;
 import com.controller.model.commands.DeleteItemCommand;
@@ -24,7 +22,6 @@ public class ItemControl extends AbstractControl {
   private final Language language;
   private final InputService inputService;
   private Item item;
-  private final ViewFactoryProvider viewFactory;
 
   /**
    * Creates a new instance of the control.
@@ -34,17 +31,18 @@ public class ItemControl extends AbstractControl {
    * @param item         - the item to operate on.
    * @param viewFactory  - the view factory to use.
    */
-  public ItemControl(Language language, InputService inputService, Item item, ViewFactoryProvider viewFactory) {
-    super(inputService, null, item);
+  public ItemControl(Language language, InputService inputService, Item item,
+      ViewFactoryProvider viewFactory, ControllerFactoryProvider controllerFactory) {
+    super(inputService, null, item, viewFactory, controllerFactory);
     this.language = language;
     this.inputService = inputService;
     this.item = item;
-    this.viewFactory = viewFactory;
   }
 
   @Override
   public boolean run(Services service) {
-    ViewProvider view = viewFactory.createItemView(language, BUNDLE_NAME, item);
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider view = factory.createItemView(language, BUNDLE_NAME, item);
     view.displayMenu(service);
     ItemActions action = getInput(service);
 
@@ -58,7 +56,8 @@ public class ItemControl extends AbstractControl {
   }
 
   private ItemActions getInput(Services service) {
-    ViewProvider view = viewFactory.createSimplePromptView(language, BUNDLE_NAME);
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider view = factory.createSimplePromptView(language, BUNDLE_NAME);
     view.displayEnterPrompt();
 
     String input = inputService.readLine();
@@ -78,7 +77,8 @@ public class ItemControl extends AbstractControl {
   }
 
   private void editItem(Services service) {
-    ViewProvider dataView = viewFactory.createSimplePromptView(language, "BasicItemData");
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider dataView = factory.createSimplePromptView(language, "BasicItemData");
 
     BasicItemData itemData = getAllItemData(dataView, service, null);
     Command editItem = new EditItemCommand(itemData, item);

@@ -60,11 +60,11 @@ public interface ViewFactoryProvider {
    *
    * @param language    - the language to use.
    * @param bundleName  - the bundle name to use.
-   * @param detailedList - true if the list should be detailed, false if not.
+   * @param listAllItems - true if the list should list all items, false if not.
    * @param member      - the member to display items for.
    * @return - the view.
    */
-  public ViewProvider createListItemsView(Language language, String bundleName, boolean detailedList, Member member);
+  public ViewProvider createListItemsView(Language language, String bundleName, boolean listAllItems, Member member);
 
   /**
    * Creates an item view.

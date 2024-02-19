@@ -1,8 +1,6 @@
-package com.controller;
+package com.controller.model;
 
-import com.controller.model.AbstractControl;
-import com.controller.model.InputService;
-import com.controller.model.Language;
+import com.controller.ControllerFactoryProvider;
 import com.controller.model.actions.MainActions;
 import com.controller.model.commands.AdvanceTimeCommand;
 import com.controller.model.commands.Command;
@@ -18,20 +16,21 @@ public class MainControl extends AbstractControl {
   private static final String BUNDLE_NAME = "MainView";
   private InputService inputService;
   private final Language language;
-  private final ViewFactoryProvider viewFactory;
   private final ViewProvider view;
 
   /**
    * Creates a new instance of the controller.
    *
-   * @param language     - the language to use.
-   * @param inputService - the input service to use.
+   * @param language          - the language to use.
+   * @param inputService      - the input service to use.
+   * @param viewFactory       - the view factory to use.
+   * @param controllerFactory - the controller factory to use.
    */
-  public MainControl(Language language, InputService inputService, ViewFactoryProvider viewFactory) {
-    super(inputService);
+  public MainControl(Language language, InputService inputService, ViewFactoryProvider viewFactory,
+      ControllerFactoryProvider controllerFactory) {
+    super(inputService, viewFactory, controllerFactory);
     this.language = language;
     this.inputService = inputService;
-    this.viewFactory = viewFactory;
     this.view = viewFactory.createMainMenuView(language, BUNDLE_NAME);
   }
 
@@ -72,7 +71,7 @@ public class MainControl extends AbstractControl {
       if (language != Language.ENG) {
         userInput = dataFormatter.selectorDecoder(userInput);
       }
-      
+
       for (MainActions action : MainActions.values()) {
         if (userInput.equalsIgnoreCase(action.getSelector().trim())) {
           return action;
@@ -92,8 +91,10 @@ public class MainControl extends AbstractControl {
   }
 
   private void listMembersControl(Services service, boolean detailedList) {
-    ListMemberControl listMemberControl = new ListMemberControl(language, inputService, detailedList, viewFactory);
-    while (listMemberControl.run(service)) {
+    ControllerFactoryProvider factory = getControllerFactory();
+    Control ctr = factory.createListMemberControl(language, inputService, detailedList,
+        getViewFactory(), getControllerFactory());
+    while (ctr.run(service)) {
     }
   }
 }
