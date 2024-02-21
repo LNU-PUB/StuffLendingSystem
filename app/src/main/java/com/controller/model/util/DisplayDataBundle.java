@@ -1,5 +1,6 @@
-package com.controller.model;
+package com.controller.model.util;
 
+import com.controller.model.DisplayDataBundleProvider;
 import com.model.Contract;
 import com.model.Item;
 import com.model.Member;
@@ -8,7 +9,7 @@ import com.model.Transaction;
 /**
  * Class for displaying data bundles.
  */
-public class DisplayDataBundle implements DisplayDataBundles {
+public class DisplayDataBundle implements DisplayDataBundleProvider {
   private final Iterable<Member> members;
   private final Iterable<Item> items;
   private final Iterable<Contract> contracts;

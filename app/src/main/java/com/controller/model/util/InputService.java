@@ -1,4 +1,4 @@
-package com.controller.model;
+package com.controller.model.util;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

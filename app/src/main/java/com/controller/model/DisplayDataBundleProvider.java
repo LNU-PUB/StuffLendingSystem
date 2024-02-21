@@ -8,7 +8,7 @@ import com.model.Transaction;
 /**
  * Interface for displaying data bundles.
  */
-public interface DisplayDataBundles {
+public interface DisplayDataBundleProvider {
   /**
    * Get the members.
    *

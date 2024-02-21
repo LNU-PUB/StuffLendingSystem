@@ -1,6 +1,14 @@
 package com.controller.model;
 
 import com.controller.ControllerFactoryProvider;
+import com.controller.model.controllers.Control;
+import com.controller.model.controllers.ItemControl;
+import com.controller.model.controllers.LendItemControl;
+import com.controller.model.controllers.ListItemsControl;
+import com.controller.model.controllers.ListMemberControl;
+import com.controller.model.controllers.MainControl;
+import com.controller.model.controllers.MemberControl;
+import com.controller.model.util.InputService;
 import com.model.Item;
 import com.model.Member;
 import com.view.ViewFactoryProvider;

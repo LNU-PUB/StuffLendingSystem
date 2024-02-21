@@ -1,8 +1,8 @@
 package com.controller;
 
-import com.controller.model.Control;
-import com.controller.model.InputService;
 import com.controller.model.Language;
+import com.controller.model.controllers.Control;
+import com.controller.model.util.InputService;
 import com.model.Item;
 import com.model.Member;
 import com.view.ViewFactoryProvider;

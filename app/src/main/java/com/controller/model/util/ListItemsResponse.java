@@ -1,4 +1,4 @@
-package com.controller.model;
+package com.controller.model.util;
 
 import com.controller.model.actions.ListItemsActions;
 

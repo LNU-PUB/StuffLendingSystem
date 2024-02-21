@@ -1,9 +1,9 @@
 package com.controller;
 
-import com.controller.model.Control;
 import com.controller.model.ControllerFactory;
-import com.controller.model.InputService;
 import com.controller.model.Language;
+import com.controller.model.controllers.Control;
+import com.controller.model.util.InputService;
 import com.model.Services;
 import com.model.lib.ContractRepositories;
 import com.model.lib.ContractRepository;

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.controller.model.Language;
-import com.controller.model.MainControl;
+import com.controller.model.controllers.MainControl;
 import com.model.lib.MemberRepository;
 import com.view.model.MainView;
 

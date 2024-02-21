@@ -53,7 +53,9 @@ public class ListItemsView extends AbstractView {
     }
 
     System.out.println();
-    System.out.println("a - " + texts.getString("addItem"));
+    if (member != null) {
+      System.out.println("a - " + texts.getString("addItem"));
+    }
     System.out.println("x - " + texts.getString("exit"));
   }
 }
