@@ -3,8 +3,8 @@ package com.controller.model.controllers;
 import com.controller.ControllerFactoryProvider;
 import com.controller.model.Language;
 import com.controller.model.actions.ListItemsActions;
-import com.controller.model.commands.AddItemCommand;
 import com.controller.model.commands.Command;
+import com.controller.model.commands.CommandFactory;
 import com.controller.model.util.InputService;
 import com.controller.model.util.ListItemsResponse;
 import com.model.Item;
@@ -97,7 +97,8 @@ public class ListItemsControl extends AbstractControl {
     ViewProvider dataView = factory.createEntityCreationView(language, "BasicItemData");
 
     BasicItemData itemData = getAllItemData(dataView, service, this.member);
-    Command addItem = new AddItemCommand(itemData);
+    CommandFactory cmdFactory = new CommandFactory();
+    Command addItem = cmdFactory.createAddItemCommand(itemData); //new AddItemCommand(itemData);
     addItem.execute(service);
   }
 

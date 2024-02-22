@@ -174,12 +174,6 @@ public class ItemRepository implements ItemRepositories {
     throw new UnsupportedOperationException("Unimplemented method 'getItemByContract'");
   }
 
-  @Override
-  public List<Item> getItemsByStatus(ItemStatus status) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getItemsByStatus'");
-  }
-
   // ***** Validation operations *****
 
   /**

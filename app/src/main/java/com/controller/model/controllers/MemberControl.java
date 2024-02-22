@@ -1,11 +1,12 @@
 package com.controller.model.controllers;
 
+import javax.swing.text.View;
+
 import com.controller.ControllerFactoryProvider;
 import com.controller.model.Language;
 import com.controller.model.actions.MemberActions;
 import com.controller.model.commands.Command;
-import com.controller.model.commands.DeleteMemberCommand;
-import com.controller.model.commands.EditMemberCommand;
+import com.controller.model.commands.CommandFactory;
 import com.controller.model.util.InputService;
 import com.model.Member;
 import com.model.Services;
@@ -21,7 +22,7 @@ public class MemberControl extends AbstractControl {
   private final InputService inputService;
   private final Language language;
   private Member member;
-  private ViewProvider view;
+  private ViewFactoryProvider factory;
 
   /**
    * Creates a new instance of the control.
@@ -36,7 +37,7 @@ public class MemberControl extends AbstractControl {
     this.inputService = inputService;
     this.language = language;
     this.member = member;
-    this.view = viewFactory.createMemberView(language, BUNDLE_NAME, member);
+    this.factory = viewFactory;
   }
 
   /**
@@ -46,6 +47,7 @@ public class MemberControl extends AbstractControl {
    *         should exit.
    */
   public boolean run(Services service) {
+    ViewProvider view = factory.createMemberView(language, BUNDLE_NAME, member);
     view.displayMenu(service);
     MemberActions action = getInput(service);
 
@@ -65,6 +67,7 @@ public class MemberControl extends AbstractControl {
   }
 
   private MemberActions getInput(Services service) {
+    ViewProvider view = factory.createMemberView(language, BUNDLE_NAME, member);
     view.displayEnterPrompt();
 
     String input = inputService.readLine();
@@ -105,7 +108,8 @@ public class MemberControl extends AbstractControl {
   }
 
   private void deleteMember(Services service) {
-    Command deleteMember = new DeleteMemberCommand(member);
+    CommandFactory cmdFactory = new CommandFactory();
+    Command deleteMember = cmdFactory.createDeleteMemberCommand(member);
 
     if (deleteMember.execute(service)) {
       this.member = null;
@@ -115,11 +119,11 @@ public class MemberControl extends AbstractControl {
   }
 
   private void editMember(Services service) {
-    ViewFactoryProvider factory = getViewFactory();
     ViewProvider dataView = factory.createSimplePromptView(language, "BasicMemberData");
 
     BasicMemberData memberData = getAllMemberData(dataView, service);
-    Command editMember = new EditMemberCommand(memberData, member);
+    CommandFactory cmdFactory = new CommandFactory();
+    Command editMember = cmdFactory.createEditMemberCommand(memberData, member);
     if (editMember.execute(service)) {
       Member newMember = new Member(member.getId(), memberData.getName(), memberData.getEmail(),
           memberData.getMobile(), member.getMemberCreationDay());

@@ -74,14 +74,6 @@ public interface ItemRepositories {
    */
   public Item getItemByContract(Contract contract);
 
-  /**
-   * Get a list of all items with a given status.
-   *
-   * @param status - status to get items for.
-   * @return - list of items with status.
-   */
-  public List<Item> getItemsByStatus(ItemStatus status);
-
   // ***** Validation operations *****
 
   /**

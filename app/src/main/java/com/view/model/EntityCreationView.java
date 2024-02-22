@@ -6,7 +6,7 @@ import com.model.Services;
 /**
  * View for adding Members.
  */
-public class EntityCreationView extends AbstractView implements AddDataView {
+public class EntityCreationView extends AbstractView {
   // private final ViewArguments args;
 
   /**

@@ -30,7 +30,7 @@ public class EditMemberCommand implements Command {
       return false;
     }
     
-    return newMember.getId().equals(member.getId());
+    return newMember.equals(member);
   }
 
 }

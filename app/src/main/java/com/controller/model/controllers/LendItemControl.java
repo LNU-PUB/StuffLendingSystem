@@ -81,13 +81,14 @@ public class LendItemControl extends AbstractControl {
           if (checkBorrowerCredits(service, cost)) {
             createTransactions(service, selectedItem, cost);
             createContract(service, selectedItem, startTime, endTime);
+            collectData = false;
           }
         }
       }
       counter++;
     }
 
-    return false; // for development only change to true for production
+    return false;
   }
 
   private Item getItem(Services service, int itemIndex) {

@@ -3,8 +3,8 @@ package com.controller.model.controllers;
 import com.controller.ControllerFactoryProvider;
 import com.controller.model.Language;
 import com.controller.model.actions.MainActions;
-import com.controller.model.commands.AdvanceTimeCommand;
 import com.controller.model.commands.Command;
+import com.controller.model.commands.CommandFactory;
 import com.controller.model.util.InputService;
 import com.model.Services;
 import com.view.ViewFactoryProvider;
@@ -88,7 +88,8 @@ public class MainControl extends AbstractControl {
   }
 
   private void advanceTime(Services service) {
-    Command advTimeCommand = new AdvanceTimeCommand();
+    CommandFactory cmdFactory = new CommandFactory();
+    Command advTimeCommand = cmdFactory.createAdvanceTimeCommand(); // new AdvanceTimeCommand();
     advTimeCommand.execute(service);
   }
 

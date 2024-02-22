@@ -4,12 +4,11 @@ import com.controller.model.Language;
 import com.controller.model.actions.MemberActions;
 import com.model.Member;
 import com.model.Services;
-import com.view.ViewProvider;
 
 /**
  * Responsible for displaying information to the user.
  */
-public class MemberView extends AbstractView implements ViewProvider {
+public class MemberView extends AbstractView {
   private final Member member;
 
   /**
@@ -43,9 +42,6 @@ public class MemberView extends AbstractView implements ViewProvider {
     System.out.println(texts.getString("id") + ": " + member.getId());
     System.out.println(texts.getString("email") + ": " + member.getEmail());
     System.out.println(texts.getString("mobile") + ": " + member.getMobile());
-    // System.out.println(texts.getString("itemsNo") + ": " +
-    // member.getNumberOfItems());
-    // System.out.println(texts.getString("credits") + ": " + member.getCredits());
     System.out.println(texts.getString("memberSince") + ": " + member.getMemberCreationDay());
     System.out.println("\n---\n");
   }

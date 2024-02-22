@@ -2,12 +2,11 @@ package com.view.model;
 
 import com.controller.model.Language;
 import com.model.Services;
-import com.view.ListViewProvider;
 
 /**
  * The ListView class.
  */
-public class ListView extends AbstractView implements ListViewProvider {
+public class ListView extends AbstractListView {
   private boolean isIndexed;
 
   /**
@@ -44,10 +43,5 @@ public class ListView extends AbstractView implements ListViewProvider {
       System.out.println(index + " - " + item.toString());
       index++;
     }
-  }
-
-  @Override
-  public void displayMenu(Services service) {
-    throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
   }
 }

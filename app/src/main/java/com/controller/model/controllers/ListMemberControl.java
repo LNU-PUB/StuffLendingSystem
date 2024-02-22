@@ -3,8 +3,8 @@ package com.controller.model.controllers;
 import com.controller.ControllerFactoryProvider;
 import com.controller.model.Language;
 import com.controller.model.actions.ListMembersActions;
-import com.controller.model.commands.AddMemberCommand;
 import com.controller.model.commands.Command;
+import com.controller.model.commands.CommandFactory;
 import com.controller.model.util.InputService;
 import com.controller.model.util.ListMembersResponse;
 import com.model.Member;
@@ -131,7 +131,8 @@ public class ListMemberControl extends AbstractControl {
     ViewProvider dataView = factory.createEntityCreationView(language, "BasicMemberData");
 
     BasicMemberData memberData = getAllMemberData(dataView, service);
-    Command addMember = new AddMemberCommand(memberData);
+    CommandFactory cmdFactory = new CommandFactory();
+    Command addMember = cmdFactory.createAddMemberCommand(memberData); // new AddMemberCommand(memberData);
     addMember.execute(service);
   }
 }

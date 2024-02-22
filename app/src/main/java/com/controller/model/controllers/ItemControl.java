@@ -4,8 +4,7 @@ import com.controller.ControllerFactoryProvider;
 import com.controller.model.Language;
 import com.controller.model.actions.ItemActions;
 import com.controller.model.commands.Command;
-import com.controller.model.commands.DeleteItemCommand;
-import com.controller.model.commands.EditItemCommand;
+import com.controller.model.commands.CommandFactory;
 import com.controller.model.util.InputService;
 import com.model.Contract;
 import com.model.Item;
@@ -83,7 +82,8 @@ public class ItemControl extends AbstractControl {
     ViewProvider dataView = factory.createSimplePromptView(language, "BasicItemData");
 
     BasicItemData itemData = getAllItemData(dataView, service, null);
-    Command editItem = new EditItemCommand(itemData, item);
+    CommandFactory cmdFactory = new CommandFactory();
+    Command editItem = cmdFactory.createEditItemCommand(itemData, item); // new EditItemCommand(itemData, item);
     if (editItem.execute(service)) {
       String id = item.getId();
       Member owner = item.getOwner();
@@ -100,7 +100,8 @@ public class ItemControl extends AbstractControl {
   }
 
   private void deleteItem(Services service) {
-    Command deleteItem = new DeleteItemCommand(item);
+    CommandFactory cmdFactory = new CommandFactory();
+    Command deleteItem = cmdFactory.createDeleteItemCommand(item); // new DeleteItemCommand(item);
 
     if (deleteItem.execute(service)) {
       this.item = null;

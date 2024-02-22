@@ -295,7 +295,7 @@ public final class MemberRepository implements MemberRepositories {
 
   private void replaceMemberInList(Member oldMember, Member newMember) {
     for (int i = 0; i < members.size(); i++) {
-      if (members.get(i).getId().equals(oldMember.getId())) {
+      if (members.get(i).equals(oldMember)) {
         members.set(i, newMember);
         return;
       }
