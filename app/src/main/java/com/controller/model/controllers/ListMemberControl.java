@@ -20,17 +20,16 @@ import com.view.model.ViewFactory;
 public class ListMemberControl extends AbstractControl {
   private static final String BUNDLE_NAME = "ListMembersView";
   private final Language language;
-  private ViewProvider view;
   private final InputService inputService;
   private final boolean detailedList;
 
   /**
    * Creates a new instance of the control.
    *
-   * @param language     - the language to use.
-   * @param inputService - the input service to use.
-   * @param detailedList - true if the list should be detailed, false if not.
-   * @param viewFactory  - the view factory to use.
+   * @param language          - the language to use.
+   * @param inputService      - the input service to use.
+   * @param detailedList      - true if the list should be detailed, false if not.
+   * @param viewFactory       - the view factory to use.
    * @param controllerFactory - the controller factory to use.
    */
   public ListMemberControl(Language language, InputService inputService,
@@ -39,23 +38,24 @@ public class ListMemberControl extends AbstractControl {
     this.language = language;
     this.inputService = inputService;
     this.detailedList = detailedList;
-    this.view = viewFactory.createListMembersView(language, BUNDLE_NAME, detailedList);
   }
 
   @Override
   public boolean run(Services service) {
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider view = factory.createListMembersView(language, BUNDLE_NAME, detailedList);
     view.displayMenu(service);
     ListMembersActions action = ListMembersActions.UNKNOWN;
 
     try {
-      ListMembersResponse response = detailedList ? getStaticInput() : getInput();
+      ListMembersResponse response = detailedList ? getStaticInput(view) : getInput(view);
       action = response.getAction();
 
       if (action == ListMembersActions.SELECTEDMEMBER) {
         Iterable<Member> memberList = language == Language.ENG
             ? service.getMembersSortedBy(true, true)
             : service.getMembersSortedBy(false, true);
-        Member member = getMemberByIndex(memberList, response.getIndex());
+        Member member = getMemberByIndex(memberList, response.getIndex(), view);
         viewMember(service, member);
       } else if (action == ListMembersActions.ADDMEMBER) {
         addMember(service);
@@ -67,7 +67,7 @@ public class ListMemberControl extends AbstractControl {
     return action != ListMembersActions.EXIT;
   }
 
-  private Member getMemberByIndex(Iterable<Member> memberList, int index) {
+  private Member getMemberByIndex(Iterable<Member> memberList, int index, ViewProvider view) {
     int currentIndex = 0;
 
     for (Member member : memberList) {
@@ -81,7 +81,7 @@ public class ListMemberControl extends AbstractControl {
     return null;
   }
 
-  private ListMembersResponse getInput() {
+  private ListMembersResponse getInput(ViewProvider view) {
     view.displayEnterPrompt();
     String userInput = inputService.readLine();
 
@@ -105,7 +105,7 @@ public class ListMemberControl extends AbstractControl {
     return new ListMembersResponse(ListMembersActions.UNKNOWN, -1);
   }
 
-  private ListMembersResponse getStaticInput() {
+  private ListMembersResponse getStaticInput(ViewProvider view) {
     view.displayString("Exit menu press enter: ");
 
     if (inputService.readLine() != null) {

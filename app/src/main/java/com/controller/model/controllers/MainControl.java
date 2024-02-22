@@ -18,7 +18,6 @@ public class MainControl extends AbstractControl {
   private static final String BUNDLE_NAME = "MainView";
   private InputService inputService;
   private final Language language;
-  private final ViewProvider view;
 
   /**
    * Creates a new instance of the controller.
@@ -33,7 +32,6 @@ public class MainControl extends AbstractControl {
     super(inputService, viewFactory, controllerFactory);
     this.language = language;
     this.inputService = inputService;
-    this.view = viewFactory.createMainMenuView(language, BUNDLE_NAME);
   }
 
   /**
@@ -43,10 +41,10 @@ public class MainControl extends AbstractControl {
    *         should exit.
    */
   public boolean run(Services service) {
-    // DisplayDataBundles bundle = new DisplayDataBundle(null, null, null, null);
-    // view.displayMenu(bundle);
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider view = factory.createMainMenuView(language, BUNDLE_NAME);
     view.displayMenu(service);
-    MainActions action = getInput();
+    MainActions action = getInput(view);
 
     if (action == MainActions.LISTMEMBERS) {
       listMembersControl(service, false);
@@ -59,7 +57,7 @@ public class MainControl extends AbstractControl {
     return action != MainActions.QUIT;
   }
 
-  private MainActions getInput() {
+  private MainActions getInput(ViewProvider view) {
     view.displayEnterPrompt();
     String userInput = inputService.readLine();
 

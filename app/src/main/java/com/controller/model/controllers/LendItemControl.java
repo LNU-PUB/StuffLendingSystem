@@ -18,7 +18,7 @@ public class LendItemControl extends AbstractControl {
   private static final String BUNDLE_NAME = "NewContractView";
   private final InputService inputService;
   private Member member;
-  private ListViewProvider view;
+  private Language language;
   private static final int MAX_COUNT = 3;
 
   /**
@@ -33,7 +33,6 @@ public class LendItemControl extends AbstractControl {
     super(inputService, member, viewFactory, controllerFactoryProvider);
     this.inputService = inputService;
     this.member = member;
-    this.view = viewFactory.createListView(language, BUNDLE_NAME, true);
   }
 
   @Override
@@ -44,6 +43,8 @@ public class LendItemControl extends AbstractControl {
   private boolean createNewLendingContract(Services service) {
     boolean collectData = true;
     int counter = 0;
+    ViewFactoryProvider factory = getViewFactory();
+    ListViewProvider view = factory.createListView(language, BUNDLE_NAME, true);
     // 1) List all items
     // 2) Select item
     // 3) Select time period
@@ -61,24 +62,25 @@ public class LendItemControl extends AbstractControl {
     int itemIndex = -2;
     while (collectData && counter < MAX_COUNT) {
       if (itemIndex < 0) {
-        listAllItems(service);
-        itemIndex = getInput("get_item"); // Select item
+        listAllItems(service, view);
+        itemIndex = getInput("get_item", view); // Select item
       }
 
       if (itemIndex == -1) {
         return false;
       } else if (itemIndex >= 0) {
         Item selectedItem = getItem(service, itemIndex);
+
         view.displayResourcePrompt("period", "", "\n");
-        int startTime = getInput("start_time"); // Select start time
-        int endTime = getInput("end_time"); // Select end time
-        if (checkItemAvailability(service, selectedItem, startTime, endTime)) {
+        int startTime = getInput("start_time", view); // Select start time
+        int endTime = getInput("end_time", view); // Select end time
+        if (checkItemAvailability(service, selectedItem, startTime, endTime, view)) {
           double cost = calculateCost(service, selectedItem, startTime, endTime);
           if (cost < 0) {
             view.displayError("Invalid cost");
             counter = 3;
           }
-          if (checkBorrowerCredits(service, cost)) {
+          if (checkBorrowerCredits(service, cost, view)) {
             createTransactions(service, selectedItem, cost);
             createContract(service, selectedItem, startTime, endTime);
             collectData = false;
@@ -106,14 +108,14 @@ public class LendItemControl extends AbstractControl {
     return selectedItem;
   }
 
-  private void listAllItems(Services service) {
+  private void listAllItems(Services service, ListViewProvider view) {
     view.cleanScreen();
     view.displayGreeting();
     view.displayTitle("title");
     view.displayList(service, service.getAllItems());
   }
 
-  private int getInput(String prompt) {
+  private int getInput(String prompt, ListViewProvider view) {
     view.displayResourcePrompt(prompt, "", ": ");
     String input = inputService.readLine();
     input = input.trim();
@@ -126,11 +128,11 @@ public class LendItemControl extends AbstractControl {
       return Integer.parseInt(input);
     } else {
       view.displayError("Invalid Input");
-      return getInput(prompt);
+      return getInput(prompt, view);
     }
   }
 
-  private boolean checkItemAvailability(Services service, Item selectedItem, int startTime, int endTime) {
+  private boolean checkItemAvailability(Services service, Item selectedItem, int startTime, int endTime, ListViewProvider view) {
     if (selectedItem != null && service.isItemAvailable(selectedItem, startTime, endTime)) {
       return true;
     } else {
@@ -149,7 +151,7 @@ public class LendItemControl extends AbstractControl {
     return -1;
   }
 
-  private boolean checkBorrowerCredits(Services service, double cost) {
+  private boolean checkBorrowerCredits(Services service, double cost, ListViewProvider view) {
 
     if (service.getMemberBalance(member) >= cost) {
       return true;

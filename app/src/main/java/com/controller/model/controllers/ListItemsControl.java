@@ -23,16 +23,17 @@ public class ListItemsControl extends AbstractControl {
   private final Language language;
   private final InputService inputService;
   private final Member member;
-  private final ViewProvider view;
+  private final boolean listAllItems;
 
   /**
    * Creates a new instance of the control.
    *
-   * @param language     - the language to use.
-   * @param inputService - the input service to use.
-   * @param listAllItems - true if the list should list all items, false if not.
-   * @param member       - the member to operate on.
-   * @param viewFactory  - the view factory to use.
+   * @param language          - the language to use.
+   * @param inputService      - the input service to use.
+   * @param listAllItems      - true if the list should list all items, false if
+   *                          not.
+   * @param member            - the member to operate on.
+   * @param viewFactory       - the view factory to use.
    * @param controllerFactory - the controller factory to use.
    */
   public ListItemsControl(Language language, InputService inputService, boolean listAllItems, Member member,
@@ -41,23 +42,25 @@ public class ListItemsControl extends AbstractControl {
     this.language = language;
     this.inputService = inputService;
     this.member = member;
-    this.view = viewFactory.createListItemsView(language, BUNDLE_NAME, listAllItems, member);
+    this.listAllItems = listAllItems;
   }
 
   @Override
   public boolean run(Services service) {
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider view = factory.createListItemsView(language, BUNDLE_NAME, listAllItems, member);
     view.displayMenu(service);
     ListItemsActions action = ListItemsActions.UNKNOWN;
 
     try {
-      ListItemsResponse response = getInput(service);
+      ListItemsResponse response = getInput(service, view);
       action = response.getAction();
 
       if (action == ListItemsActions.ADDITEM) {
         addItem(service);
       } else if (action == ListItemsActions.SELECTEDITEM) {
         Item item = getItemByIndex(service.getItemsByMember(member),
-            response.getIndex());
+            response.getIndex(), view);
         viewItem(service, item);
       }
     } catch (Exception e) {
@@ -67,7 +70,7 @@ public class ListItemsControl extends AbstractControl {
     return action != ListItemsActions.EXIT;
   }
 
-  private Item getItemByIndex(Iterable<Item> itemsByMember, int index) {
+  private Item getItemByIndex(Iterable<Item> itemsByMember, int index, ViewProvider view) {
     int currentIndex = 0;
 
     for (Item item : itemsByMember) {
@@ -98,11 +101,11 @@ public class ListItemsControl extends AbstractControl {
 
     BasicItemData itemData = getAllItemData(dataView, service, this.member);
     CommandFactory cmdFactory = new CommandFactory();
-    Command addItem = cmdFactory.createAddItemCommand(itemData); //new AddItemCommand(itemData);
+    Command addItem = cmdFactory.createAddItemCommand(itemData); // new AddItemCommand(itemData);
     addItem.execute(service);
   }
 
-  private ListItemsResponse getInput(Services service) {
+  private ListItemsResponse getInput(Services service, ViewProvider view) {
     view.displayEnterPrompt();
     String input = inputService.readLine();
 
@@ -125,5 +128,4 @@ public class ListItemsControl extends AbstractControl {
 
     return new ListItemsResponse(ListItemsActions.UNKNOWN, -1);
   }
-
 }

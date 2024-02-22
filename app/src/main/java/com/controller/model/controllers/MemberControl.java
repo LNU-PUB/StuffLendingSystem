@@ -22,7 +22,6 @@ public class MemberControl extends AbstractControl {
   private final InputService inputService;
   private final Language language;
   private Member member;
-  private ViewFactoryProvider factory;
 
   /**
    * Creates a new instance of the control.
@@ -37,7 +36,6 @@ public class MemberControl extends AbstractControl {
     this.inputService = inputService;
     this.language = language;
     this.member = member;
-    this.factory = viewFactory;
   }
 
   /**
@@ -47,14 +45,15 @@ public class MemberControl extends AbstractControl {
    *         should exit.
    */
   public boolean run(Services service) {
+    ViewFactoryProvider factory = getViewFactory();
     ViewProvider view = factory.createMemberView(language, BUNDLE_NAME, member);
     view.displayMenu(service);
-    MemberActions action = getInput(service);
+    MemberActions action = getInput(service, view);
 
     if (action == MemberActions.DELETEMEMBER) {
       deleteMember(service);
     } else if (action == MemberActions.EDITMEMBER) {
-      editMember(service);
+      editMember(service, view);
     } else if (action == MemberActions.LISTITEMS) {
       listItems(service);
     } else if (action == MemberActions.LISTALLITEMS) {
@@ -66,8 +65,7 @@ public class MemberControl extends AbstractControl {
     return action != MemberActions.EXIT;
   }
 
-  private MemberActions getInput(Services service) {
-    ViewProvider view = factory.createMemberView(language, BUNDLE_NAME, member);
+  private MemberActions getInput(Services service, ViewProvider view) {
     view.displayEnterPrompt();
 
     String input = inputService.readLine();
@@ -118,10 +116,8 @@ public class MemberControl extends AbstractControl {
     refreshMemberData(service);
   }
 
-  private void editMember(Services service) {
-    ViewProvider dataView = factory.createSimplePromptView(language, "BasicMemberData");
-
-    BasicMemberData memberData = getAllMemberData(dataView, service);
+  private void editMember(Services service, ViewProvider view) {
+    BasicMemberData memberData = getAllMemberData(view, service);
     CommandFactory cmdFactory = new CommandFactory();
     Command editMember = cmdFactory.createEditMemberCommand(memberData, member);
     if (editMember.execute(service)) {
