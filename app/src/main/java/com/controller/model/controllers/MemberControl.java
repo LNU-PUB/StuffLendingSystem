@@ -1,7 +1,5 @@
 package com.controller.model.controllers;
 
-import javax.swing.text.View;
-
 import com.controller.ControllerFactoryProvider;
 import com.controller.model.Language;
 import com.controller.model.actions.MemberActions;

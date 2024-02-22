@@ -33,6 +33,7 @@ public class LendItemControl extends AbstractControl {
     super(inputService, member, viewFactory, controllerFactoryProvider);
     this.inputService = inputService;
     this.member = member;
+    this.language = language;
   }
 
   @Override
@@ -132,7 +133,8 @@ public class LendItemControl extends AbstractControl {
     }
   }
 
-  private boolean checkItemAvailability(Services service, Item selectedItem, int startTime, int endTime, ListViewProvider view) {
+  private boolean checkItemAvailability(Services service, Item selectedItem,
+      int startTime, int endTime, ListViewProvider view) {
     if (selectedItem != null && service.isItemAvailable(selectedItem, startTime, endTime)) {
       return true;
     } else {
