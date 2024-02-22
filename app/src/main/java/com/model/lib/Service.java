@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+// NOTE:
+// If done properly there should have been a roll-back mechanism 
+// in case of failure for each operation that updates or deletes data to ensure
+// that the data is consistent. This is not implemented here.
+
 /**
  * Service.
  */
@@ -191,6 +196,12 @@ public final class Service implements Services {
   public boolean deleteItem(Item itemToDelete) {
     if (itemToDelete == null) {
       return false;
+    }
+
+    // delete all contracts associated with this item
+    Iterable<Contract> contracts = contractRepo.getContractsByItem(itemToDelete);
+    for (Contract contract : contracts) {
+      contractRepo.deleteContract(contract);
     }
 
     return itemRepo.deleteItem(itemToDelete);

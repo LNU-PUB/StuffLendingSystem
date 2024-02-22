@@ -14,7 +14,7 @@ import java.util.List;
 public class HardCodedData implements DataHandler {
 
   // Members
-  Member johnDoe = new Member("123abc", "John Doe", "jon@doe.sss", "12345678", 0);
+  Member johnDoe = new Member("123abc", "John Doe", "john@doe.sss", "12345678", 0);
   Member janeDoe = new Member("456def", "Jane Doe", "jane@doe.sss", "87654321", 1);
   Member alexSmith = new Member("789ghi", "Alex Smith", "alex@smith.sss", "11223344", 0);
 

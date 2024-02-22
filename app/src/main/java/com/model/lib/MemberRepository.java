@@ -175,7 +175,7 @@ public final class MemberRepository implements MemberRepositories {
   @Override
   public boolean deleteMember(Member member) {
     for (Member m : members) {
-      if (m == member || m.getId().equals(member.getId())) {
+      if (m == member || m.equals(member)) {
         members.remove(m);
         return true;
       }
