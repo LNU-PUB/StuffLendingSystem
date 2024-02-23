@@ -26,9 +26,9 @@ public class MemberView extends AbstractView {
 
   @Override
   public void displayMenu(Services service) {
-    displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
     displayMemberDetails();
+    System.out.println("\n---\n");
 
     for (MemberActions actions : MemberActions.values()) {
       if (actions != MemberActions.UNKNOWN) {
@@ -43,6 +43,5 @@ public class MemberView extends AbstractView {
     System.out.println(texts.getString("email") + ": " + member.getEmail());
     System.out.println(texts.getString("mobile") + ": " + member.getMobile());
     System.out.println(texts.getString("memberSince") + ": " + member.getMemberCreationDay());
-    System.out.println("\n---\n");
   }
 }

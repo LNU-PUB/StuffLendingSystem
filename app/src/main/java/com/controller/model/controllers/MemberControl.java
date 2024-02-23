@@ -43,6 +43,8 @@ public class MemberControl extends AbstractControl {
   public boolean run(Services service) {
     ViewFactoryProvider factory = getViewFactory();
     ViewProvider view = factory.createMemberView(language, BUNDLE_NAME, getMember());
+    view.cleanScreen();
+    view.displayGreeting();
     view.displayMenu(service);
     MemberActions action = getInput(service, view);
 

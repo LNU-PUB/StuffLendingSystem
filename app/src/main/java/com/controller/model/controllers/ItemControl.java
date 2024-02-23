@@ -44,6 +44,8 @@ public class ItemControl extends AbstractControl {
   public boolean run(Services service) {
     ViewFactoryProvider factory = getViewFactory();
     ViewProvider view = factory.createItemView(language, BUNDLE_NAME, item);
+    view.cleanScreen();
+    view.displayGreeting();
     view.displayMenu(service);
     ItemActions action = getInput(service);
 

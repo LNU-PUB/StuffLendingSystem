@@ -26,7 +26,6 @@ public class ItemView extends AbstractView {
 
   @Override
   public void displayMenu(Services service) {
-    displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
     displayItemDetails(service);
 

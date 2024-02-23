@@ -43,6 +43,8 @@ public class MainControl extends AbstractControl {
   public boolean run(Services service) {
     ViewFactoryProvider factory = getViewFactory();
     ViewProvider view = factory.createMainMenuView(language, BUNDLE_NAME);
+    view.cleanScreen();
+    view.displayGreeting();
     view.displayMenu(service);
     MainActions action = getInput(view);
 

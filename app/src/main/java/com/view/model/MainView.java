@@ -23,7 +23,6 @@ public class MainView extends AbstractView {
 
   @Override
   public void displayMenu(Services service) {
-    displayGreeting();
     System.out.println("- " + texts.getString("title") + " -\n");
 
     if (language == Language.ENG) {
