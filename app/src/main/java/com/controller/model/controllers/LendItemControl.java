@@ -2,6 +2,7 @@ package com.controller.model.controllers;
 
 import com.controller.ControllerFactoryProvider;
 import com.controller.model.Language;
+import com.controller.model.util.FailedToCreateLendingContractException;
 import com.controller.model.util.InputService;
 import com.model.Item;
 import com.model.Member;
@@ -38,12 +39,18 @@ public class LendItemControl extends AbstractControl {
 
   @Override
   public boolean run(Services service) {
-    return createNewLendingContract(service);
+    try {
+      return createNewLendingContract(service);
+    } catch (IllegalArgumentException e) {
+      getViewFactory().createListView(language, BUNDLE_NAME, true).displayError(e.getMessage());
+      return false;
+    } catch (FailedToCreateLendingContractException e) {
+      getViewFactory().createListView(language, BUNDLE_NAME, true).displayError(e.getMessage());
+      return false;
+    }
   }
 
-  private boolean createNewLendingContract(Services service) {
-    boolean collectData = true;
-    int counter = 0;
+  private boolean createNewLendingContract(Services service) throws FailedToCreateLendingContractException {
     ViewFactoryProvider factory = getViewFactory();
     ListViewProvider view = factory.createListView(language, BUNDLE_NAME, true);
     // 1) List all items
@@ -60,39 +67,100 @@ public class LendItemControl extends AbstractControl {
     // 12) Add the LendingContract to the list in ContractRepository
     // 13) Return true if contract creation is successful else false
 
+    view.cleanScreen();
+    view.displayGreeting();
+    view.displayTitle("title");
+    
+    // Select Item
+    boolean collectData = true;
     int itemIndex = -2;
+    int counter = 0;
+    Item selectedItem = null;
     while (collectData && counter < MAX_COUNT) {
-      if (itemIndex < 0) {
-        listAllItems(service, view);
-        itemIndex = getInput("get_item", view); // Select item
-      }
-
-      if (itemIndex == -1) {
-        return false;
-      } else if (itemIndex >= 0) {
-        Item selectedItem = getItem(service, itemIndex);
-
-        view.displayResourcePrompt("period", "", "\n");
-        int startTime = getInput("start_time", view); // Select start time
-        int endTime = getInput("end_time", view); // Select end time
-        if (checkItemAvailability(service, selectedItem, startTime, endTime, view)) {
-          double cost = calculateCost(service, selectedItem, startTime, endTime);
-          if (cost < 0) {
-            view.displayError("Invalid cost");
-            counter = 3;
-          }
-          if (checkBorrowerCredits(service, cost, view)) {
-            createTransactions(service, selectedItem, cost);
-            createContract(service, selectedItem, startTime, endTime);
+      try {
+        if (itemIndex < 0) {
+          listAllItems(service, view);
+          itemIndex = getInput("get_item", view);
+          if (itemIndex == -1) {
+            return false;
+          } else if (itemIndex >= 0) {
+            selectedItem = getItem(service, itemIndex);
             collectData = false;
           }
         }
+      } catch (IllegalArgumentException e) {
+        view.displayError(e.getMessage());
       }
       counter++;
     }
 
+    if (counter > MAX_COUNT) {
+      return false;
+    }
+
+    // Select time period
+    view.displayResourcePrompt("period", "", "\n");
+
+    // Select start time
+    counter = 0;
+    int startTime = -1;
+    collectData = true;
+    while (collectData && counter < MAX_COUNT) {
+      try {
+        startTime = getInput("start_time", view);
+        if (startTime < service.getDay()) {
+          throw new IllegalArgumentException(
+              "Invalid start time: " + startTime + " - must be greater than or equal to " + service.getDay() + "\n");
+        }
+        collectData = false;
+      } catch (IllegalArgumentException e) {
+        view.displayError(e.getMessage());
+      }
+      counter++;
+    }
+
+    if (counter > MAX_COUNT) {
+      return false;
+    }
+
+    // Select end time
+    counter = 0;
+    int endTime = -1;
+    collectData = true;
+    while (collectData && counter < MAX_COUNT) {
+      try {
+        endTime = getInput("end_time", view);
+        if (endTime <= startTime) {
+          throw new IllegalArgumentException(
+              "Invalid end time: " + endTime + " - must be greater than " + startTime + "\n");
+        }
+        collectData = false;
+      } catch (IllegalArgumentException e) {
+        view.displayError(e.getMessage());
+      }
+      counter++;
+    }
+
+    if (counter > MAX_COUNT) {
+      return false;
+    }
+
+    if (checkItemAvailability(service, selectedItem, startTime, endTime, view)) {
+      double cost = calculateCost(service, selectedItem, startTime, endTime);
+
+      if (checkBorrowerCredits(service, cost, view)) {
+        createTransactions(service, selectedItem, cost);
+        createContract(service, selectedItem, startTime, endTime);
+      } else {
+        throw new FailedToCreateLendingContractException(
+            "Insufficient funds contract value: " + cost + " member balance: " + service.getMemberBalance(member));
+      }
+    }
+
     return false;
   }
+
+  //
 
   private Item getItem(Services service, int itemIndex) {
     Item selectedItem = null;
@@ -109,16 +177,18 @@ public class LendItemControl extends AbstractControl {
     return selectedItem;
   }
 
-  private void listAllItems(Services service, ListViewProvider view) {
-    view.cleanScreen();
-    view.displayGreeting();
-    view.displayTitle("title");
+  private void listAllItems(Services service, ListViewProvider view) throws IllegalArgumentException {
     view.displayList(service, service.getAllItems());
   }
 
   private int getInput(String prompt, ListViewProvider view) {
     view.displayResourcePrompt(prompt, "", ": ");
     String input = inputService.readLine();
+
+    if (input == null || input.isEmpty()) {
+      throw new IllegalArgumentException("Invalid Input");
+    }
+
     input = input.trim();
 
     if (input.equals("x")) {
@@ -126,10 +196,13 @@ public class LendItemControl extends AbstractControl {
     }
 
     if (isNumericInteger(input)) {
-      return Integer.parseInt(input);
+      int numInput = Integer.parseInt(input);
+      if (numInput < 0) {
+        throw new IllegalArgumentException("Invalid Input");
+      }
+      return numInput;
     } else {
-      view.displayError("Invalid Input");
-      return getInput(prompt, view);
+      throw new IllegalArgumentException("Invalid Input");
     }
   }
 

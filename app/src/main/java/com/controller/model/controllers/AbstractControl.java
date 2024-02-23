@@ -67,6 +67,14 @@ public abstract class AbstractControl implements Control {
     return item;
   }
 
+  protected void resetMember() {
+    this.member = null;
+  }
+
+  protected void setMember(Member member) {
+    this.member = member;
+  }
+
   protected BasicMemberData getAllMemberData(ViewProvider dataView, Services service) {
     // data: name, email, mobile, item list, credits.
     String name = null;

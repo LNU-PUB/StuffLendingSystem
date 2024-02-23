@@ -19,7 +19,6 @@ public class MemberControl extends AbstractControl {
   private static final String BUNDLE_NAME = "MemberView";
   private final InputService inputService;
   private final Language language;
-  private Member member;
 
   /**
    * Creates a new instance of the control.
@@ -33,7 +32,6 @@ public class MemberControl extends AbstractControl {
     super(inputService, member, viewFactory, controllerFactory);
     this.inputService = inputService;
     this.language = language;
-    this.member = member;
   }
 
   /**
@@ -44,7 +42,7 @@ public class MemberControl extends AbstractControl {
    */
   public boolean run(Services service) {
     ViewFactoryProvider factory = getViewFactory();
-    ViewProvider view = factory.createMemberView(language, BUNDLE_NAME, member);
+    ViewProvider view = factory.createMemberView(language, BUNDLE_NAME, getMember());
     view.displayMenu(service);
     MemberActions action = getInput(service, view);
 
@@ -84,14 +82,15 @@ public class MemberControl extends AbstractControl {
 
   private void lendNewItem(Services service) {
     ControllerFactoryProvider factory = getControllerFactory();
-    Control ctr = factory.createLendItemControl(language, inputService, member, getViewFactory(), factory);
+    Control ctr = factory.createLendItemControl(language, inputService, getMember(), getViewFactory(), factory);
+
     while (ctr.run(service)) {
     }
   }
 
   private void listItems(Services service) {
     ControllerFactoryProvider factory = getControllerFactory();
-    Control ctr = factory.createListItemsControl(language, inputService, false, member, getViewFactory(), factory);
+    Control ctr = factory.createListItemsControl(language, inputService, false, getMember(), getViewFactory(), factory);
     while (ctr.run(service)) {
     }
   }
@@ -105,23 +104,24 @@ public class MemberControl extends AbstractControl {
 
   private void deleteMember(Services service) {
     CommandFactory cmdFactory = new CommandFactory();
-    Command deleteMember = cmdFactory.createDeleteMemberCommand(member);
+    Command deleteMember = cmdFactory.createDeleteMemberCommand(getMember());
 
     if (deleteMember.execute(service)) {
-      this.member = null;
+      resetMember();
     }
 
     refreshMemberData(service);
   }
 
   private void editMember(Services service, ViewProvider view) {
+    Member member = getMember();
     BasicMemberData memberData = getAllMemberData(view, service);
     CommandFactory cmdFactory = new CommandFactory();
-    Command editMember = cmdFactory.createEditMemberCommand(memberData, member);
+    Command editMember = cmdFactory.createEditMemberCommand(memberData, getMember());
     if (editMember.execute(service)) {
       Member newMember = new Member(member.getId(), memberData.getName(), memberData.getEmail(),
           memberData.getMobile(), member.getMemberCreationDay());
-      this.member = newMember;
+      setMember(newMember);
     }
 
     refreshMemberData(service);

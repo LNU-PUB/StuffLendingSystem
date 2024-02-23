@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
  */
 public class AbstractCommonView implements ViewCommonProvider {
   protected ResourceBundle texts;
+  protected ResourceBundle baseTexts;
   protected DataFormatter dataFormatter;
   private Locale locale;
 
@@ -25,6 +26,7 @@ public class AbstractCommonView implements ViewCommonProvider {
     try {
       this.locale = new Builder().setLanguage(language.getLanguage()).setRegion(language.getCountry()).build();
       this.texts = ResourceBundle.getBundle("com.view." + bundleName, locale);
+      this.baseTexts = ResourceBundle.getBundle("com.view.BaseView", locale);
     } catch (Exception e) {
       System.out.println("Error: " + e.getMessage());
     }
@@ -60,12 +62,12 @@ public class AbstractCommonView implements ViewCommonProvider {
 
   @Override
   public void displayError(String error) {
-    System.out.println("\n*** " + texts.getString("error") + ": " + error + "\n");
+    System.out.println("\n*** " + baseTexts.getString("error") + ": " + error + "\n");
   }
 
   @Override
   public void displayEnterPrompt() {
-    System.out.print(texts.getString("enter") + ": ");
+    System.out.print(baseTexts.getString("enter") + ": ");
   }
 
   @Override
