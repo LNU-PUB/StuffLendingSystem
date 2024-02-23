@@ -95,6 +95,12 @@ public final class Service implements Services {
 
   @Override
   public boolean deleteMember(Member member) {
+    Iterable<Item> items = itemRepo.getItemsByMember(member);
+    
+    for (Item item : items) {
+      itemRepo.deleteItem(item);
+    }
+    
     return member != null && memberRepo.deleteMember(member);
   }
 

@@ -11,16 +11,16 @@ public class FailedToCreateLendingContractException extends Exception {
    * @param message - the message.
    */
   public FailedToCreateLendingContractException(String message) {
-      super(message);
+    super(message);
   }
 
   /**
    * Constructor.
    *
    * @param message - the message.
-   * @param cause  - the cause.
+   * @param cause   - the cause.
    */
   public FailedToCreateLendingContractException(String message, Throwable cause) {
-      super(message, cause);
+    super(message, cause);
   }
 }
