@@ -75,7 +75,7 @@ public abstract class AbstractControl implements Control {
     this.member = member;
   }
 
-  protected BasicMemberData getAllMemberData(ViewProvider dataView, Services service) {
+  protected BasicMemberData getAllMemberData(ViewProvider view, Services service) {
     // data: name, email, mobile, item list, credits.
     String name = null;
     try {
@@ -83,12 +83,12 @@ public abstract class AbstractControl implements Control {
       while (counter < MAX_ATTEMPTS && name == null) {
         if (member == null) {
           // add new member
-          dataView.displayResourcePrompt("name", "", ": ");
+          view.displayResourcePrompt("name", "", ": ");
         } else {
           // edit member
-          dataView.displayPromptWithDefaultValue("name", member.getName());
+          view.displayPromptWithDefaultValue("name", member.getName());
         }
-        name = getName(dataView, service);
+        name = getName(view, service);
 
         if (member != null && (name.isEmpty() || name.equals(member.getName()))) {
           name = member.getName();
@@ -98,17 +98,17 @@ public abstract class AbstractControl implements Control {
 
         counter++;
       }
-      String email = getEmail(dataView, service);
-      String mobile = getMobile(dataView, service);
+      String email = getEmail(view, service);
+      String mobile = getMobile(view, service);
 
       return new BasicMemberData(name, email, mobile, service.getDay());
     } catch (Exception e) {
-      dataView.displayError(e.getMessage());
+      view.displayError(e.getMessage());
       return null;
     }
   }
 
-  protected BasicItemData getAllItemData(ViewProvider dataView, Services service, Member member) {
+  protected BasicItemData getAllItemData(ViewProvider view, Services service, Member member) {
     // data: name, category, description, cost_per_day.
     String name = null;
     try {
@@ -116,12 +116,12 @@ public abstract class AbstractControl implements Control {
       while (name == null && counter < MAX_ATTEMPTS) {
         if (item == null) {
           // add new item
-          dataView.displayResourcePrompt("name", "", ": ");
+          view.displayResourcePrompt("name", "", ": ");
         } else {
           // edit item
-          dataView.displayPromptWithDefaultValue("name", item.getName());
+          view.displayPromptWithDefaultValue("name", item.getName());
         }
-        name = getName(dataView, service);
+        name = getName(view, service);
 
         if (item != null && (name.isEmpty() || name.equals(item.getName()))) {
           name = item.getName();
@@ -136,13 +136,13 @@ public abstract class AbstractControl implements Control {
         throw new RuntimeException("Failed to get a valid name.");
       }
 
-      ItemCategory category = getItemCategory(dataView, service);
-      String description = getDescription(dataView, service);
-      double costPerDay = getCostPerDay(dataView, service);
+      ItemCategory category = getItemCategory(view, service);
+      String description = getDescription(view, service);
+      double costPerDay = getCostPerDay(view, service);
 
       return new BasicItemData(member, name, category, description, costPerDay, service.getDay());
     } catch (Exception e) {
-      dataView.displayError(e.getMessage());
+      view.displayError(e.getMessage());
       return null;
     }
   }
@@ -163,14 +163,14 @@ public abstract class AbstractControl implements Control {
 
   // ***** Member Specific Data *****
 
-  private String getEmail(ViewProvider dataView, Services service) {
+  private String getEmail(ViewProvider view, Services service) {
     int counter = 0;
 
     while (counter < MAX_ATTEMPTS) {
       if (member == null) {
-        dataView.displayResourcePrompt("email", "", ": ");
+        view.displayResourcePrompt("email", "", ": ");
       } else {
-        dataView.displayPromptWithDefaultValue("email", member.getEmail());
+        view.displayPromptWithDefaultValue("email", member.getEmail());
       }
       String email = inputService.readLine();
       if (email == null || email.isEmpty()) {
@@ -186,7 +186,7 @@ public abstract class AbstractControl implements Control {
       } else {
         if (email.length() > 0) {
           if (email.equals(member.getEmail())) {
-            return member.getEmail();
+            return email;
           } else {
             if (service.validateEmail(email)) {
               return email;
@@ -197,7 +197,7 @@ public abstract class AbstractControl implements Control {
         }
       }
 
-      dataView.displayError("Invalid Email. Email has to be unique and valid.");
+      view.displayError("Invalid Email. Email has to be unique and valid.");
       counter++;
     }
 

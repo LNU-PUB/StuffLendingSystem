@@ -87,10 +87,10 @@ public class ListMembersView extends AbstractView {
       System.out.println("\nItems: " + service.getSizeOfList(service.getItemsByMember(member)));
 
       for (Item item : service.getItemsByMember(member)) {
-        String itemString = String.format("  " + texts.getString("item") + ": %s, %n  " +
-            texts.getString("category") + ": %s," + "%n  " + texts.getString("description") +
-            ": %s, %n  " + texts.getString("rental_cost") + ": %.2f, %n  " +
-            texts.getString("creation_day") + ": %d ", item.getName(), item.getCategory().getDisplayName(),
+        String itemString = String.format("  " + texts.getString("item") + ": %s, %n  "
+            + texts.getString("category") + ": %s," + "%n  " + texts.getString("description")
+            + ": %s, %n  " + texts.getString("rental_cost") + ": %.2f, %n  "
+            + texts.getString("creation_day") + ": %d ", item.getName(), item.getCategory().getDisplayName(),
             item.getDescription(), item.getCostPerDay(), item.getCreationDay());
 
         System.out.println(itemString);

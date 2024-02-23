@@ -12,7 +12,6 @@ import com.model.Services;
 import com.model.lib.BasicMemberData;
 import com.view.ViewFactoryProvider;
 import com.view.ViewProvider;
-import com.view.model.ViewFactory;
 
 /**
  * The control for listing members.
@@ -127,10 +126,10 @@ public class ListMemberControl extends AbstractControl {
   }
 
   private void addMember(Services service) {
-    ViewFactory factory = new ViewFactory();
-    ViewProvider dataView = factory.createEntityCreationView(language, "BasicMemberData");
+    ViewFactoryProvider factory = getViewFactory();
+    ViewProvider view = factory.createEntityCreationView(language, "BasicMemberData");
 
-    BasicMemberData memberData = getAllMemberData(dataView, service);
+    BasicMemberData memberData = getAllMemberData(view, service);
     CommandFactory cmdFactory = new CommandFactory();
     Command addMember = cmdFactory.createAddMemberCommand(memberData); // new AddMemberCommand(memberData);
     addMember.execute(service);
