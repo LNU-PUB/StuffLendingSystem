@@ -87,19 +87,21 @@ public class ListMembersView extends AbstractView {
       System.out.println("\nItems: " + service.getSizeOfList(service.getItemsByMember(member)));
 
       for (Item item : service.getItemsByMember(member)) {
-        String itemString = String.format("  Item: %s, %n  Category: %s,"
-            + "%n  Description: %s, %n  Rental cost per day: %.2f, %n  Creation day: %d ",
-            item.getName(), item.getCategory().getDisplayName(), item.getDescription(), item.getCostPerDay(),
-            item.getCreationDay());
+        String itemString = String.format("  " + texts.getString("item") + ": %s, %n  " +
+            texts.getString("category") + ": %s," + "%n  " + texts.getString("description") +
+            ": %s, %n  " + texts.getString("rental_cost") + ": %.2f, %n  " +
+            texts.getString("creation_day") + ": %d ", item.getName(), item.getCategory().getDisplayName(),
+            item.getDescription(), item.getCostPerDay(), item.getCreationDay());
+
         System.out.println(itemString);
-        System.out.print("\n    --\n    Current Contract: ");
+        System.out.print("\n    --\n    " + texts.getString("current_contract") + ": ");
         if (service.isItemAvailable(item, service.getDay(), service.getDay())) {
           System.out.println(memberTexts.getString("no_contracts"));
         } else {
           // List open contracts at the present time.
           for (Contract contract : service.getItemSpecificContractsForRange(item, service.getDay(), service.getDay())) {
-            System.out.println("  " + contract.getBorrower().getName() + " has rented this item from day "
-                + contract.getStartDay() + " to day " + contract.getEndDay());
+            System.out.println("  " + contract.getBorrower().getName() + " " + texts.getString("has_rented") + " "
+                + contract.getStartDay() + " " + texts.getString("to_day") + " " + contract.getEndDay());
           }
         }
         System.out.println("  ---\n");
