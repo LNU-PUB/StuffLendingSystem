@@ -54,7 +54,7 @@ public final class Service implements Services {
       return size;
     }
   }
-  
+
   // ***** Members *****
 
   @Override
@@ -96,11 +96,11 @@ public final class Service implements Services {
   @Override
   public boolean deleteMember(Member member) {
     Iterable<Item> items = itemRepo.getItemsByMember(member);
-    
+
     for (Item item : items) {
       itemRepo.deleteItem(item);
     }
-    
+
     return member != null && memberRepo.deleteMember(member);
   }
 
@@ -202,9 +202,8 @@ public final class Service implements Services {
   public boolean deleteItem(Item itemToDelete) {
     // for testing only.
     Iterable<Contract> contracts3 = contractRepo.getContracts();
-    
-      System.out.println("Number of contracts b4 delete: " + getSizeOfList(contracts3));
 
+    System.out.println("Number of contracts b4 delete: " + getSizeOfList(contracts3));
 
     if (itemToDelete == null) {
       return false;
