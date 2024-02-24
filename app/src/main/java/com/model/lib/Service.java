@@ -200,6 +200,12 @@ public final class Service implements Services {
 
   @Override
   public boolean deleteItem(Item itemToDelete) {
+    // for testing only.
+    Iterable<Contract> contracts3 = contractRepo.getContracts();
+    
+      System.out.println("Number of contracts b4 delete: " + getSizeOfList(contracts3));
+
+
     if (itemToDelete == null) {
       return false;
     }
@@ -208,6 +214,13 @@ public final class Service implements Services {
     Iterable<Contract> contracts = contractRepo.getContractsByItem(itemToDelete);
     for (Contract contract : contracts) {
       contractRepo.deleteContract(contract);
+    }
+
+    // for testing only. s.3
+    Iterable<Contract> contracts2 = contractRepo.getContracts();
+    System.out.println("Number of contracts: " + getSizeOfList(contracts2));
+    for (Contract contract : contracts2) {
+      System.out.println(contract.getId());
     }
 
     return itemRepo.deleteItem(itemToDelete);
