@@ -2,7 +2,7 @@
 
 ## Test Cases
 
-For tst results see the [Test Results](/testreport.md).
+For test results see the [Test Results](/testreport.md).
 
 <pre>
   <code>
@@ -22,7 +22,7 @@ Requirement: 1.1, 1.1.1, 1.1.2, 1.4
     Check that the member is created correctly with an id according to the requirement by checking the members full information.
     Create a member with name: "Turing", email: "allan@enigma.com", phone: "123"
     Check that the member is not created (duplicate email)
-    Create a membner with name: "Turing", email: "turing@enigma.com", phone: "123456"
+    Create a member with name: "Turing", email: "turing@enigma.com", phone: "123456"
     Check that the member is not created (duplicate phone)
     Create a member with name "Turing" , email: "turing@enigma.com", phone: "123"
     Check that the member is created correctly with an id according to the requirement by checking the members full information.

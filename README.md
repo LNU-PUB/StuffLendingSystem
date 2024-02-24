@@ -7,41 +7,21 @@ Project for Assignment 2
 
 A project template based on gradle and a gitlab pipeline. You should always build and run the application using gradle regularely.
 
-[design.md](design.md) contains the prescribed architectural design of the application.
+[design.md](design.md) contains the architectural design of the application.
 
-## Building
-The build must pass by running console command:  
-`./gradlew build`  
-Note that you should get a report over the quality like:
-```
-CodeQualityTests > codeQuality() STANDARD_OUT
-    0 CheckStyle Issues in controller/App.java
-    0 CheckStyle Issues in controller/Simple.java
-    0 CheckStyle Issues in model/Simple.java
-    0 CheckStyle Issues in view/Simple.java
-    0 FindBugs Issues in controller/App.java
-    0 FindBugs Issues in model/Simple.java
-    0 FindBugs Issues in view/Simple.java
-    0 FindBugs Issues in controller/Simple.java
-```
+## Note:
+I realize that I will not have the time to finish all the requirements of this project before the deadline today. 
+- What I have is a working application that does everything it should.
+- Unit tests and a coverage that looks like ![coverage](img/coverage.JPG)
+- The class diagram
+- The sequence diagram i.e., the [Design document](design.md)
 
-Removing or manipulating the code quality checks results in an immediate assignment **Fail**. 
+The parts that are missing are:
+- Object diagram
+- At this writing the tests, which I might have time to do some of before deadline. In that case they will be in the [test report](testreport.md)
+- 
+I don't have any excuses or explanations. I just haven't planned my time nor project well enough to be able to finnish in time and that is all on me.
 
-## Running
-The application should start by running console command:  
-`./gradlew run -q --console=plain`
+I still wanted to submit what I have done and I expect I will get some feedback on that and hopefully another possibility to re-submit it with all corrections and the parts that are missing at this point.
 
-## Adding Your Own Code
-The `Simple` classes project should likely be removed do not forget to also remove the test case associated to `model.Simple`.  
-
-Add your own code to the packages respectively and feel free to add automatic test cases for your own code. A good process is to design a little - code a little - test a little one feature at a time and then iterate.
-
-## Versioning
-
-Adhere to the git versioning instructions according to the assignment.
-
-## System test
-Adhere to the instructions according to the assignment.
-
-## Handing In
-Adhere to the instructions according to the assignment.
+I don't think I have been ashamed of handing in anything before, but there's a first time for everything but I don't like the feeling.
